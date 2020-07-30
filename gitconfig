@@ -1,0 +1,13 @@
+[user]
+  email = madisetti@jhu.edu
+  name = madisetti
+[core]
+  editor = /usr/bin/nvim
+[diff]
+  tool = nvim -d
+[difftool "vimdiff3"]
+  path = nvim
+[merge]
+  tool = nvim
+[alias]
+  l = log --graph --pretty=format:\"%C(auto)%h%<(3)%d %s %C(bold blue)(%cr, %an)%Creset\" --abbrev-commit --all
