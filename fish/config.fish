@@ -6,5 +6,5 @@ export TEXINPUTS=".:~/.tex/lib:"
 alias vim=nvim
 alias vi=nvim
 
-alias tmux="tmux -2"
+export EDITOR=vim
 export CC=clang-10
