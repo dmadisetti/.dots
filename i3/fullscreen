@@ -1,0 +1,16 @@
+#!/bin/bash
+function main(){
+  local FOCUSED=$(xprop -root _NET_ACTIVE_WINDOW | awk -F' ' '{print $NF}')
+  local BRIGHTNESS=/sys/class/leds/input3::capslock/brightness
+  if xprop -id ${FOCUSED} _NET_WM_STATE | grep -q _NET_WM_STATE_FULLSCREEN; then
+    if [ `cat $BRIGHTNESS` -eq 0 ]; then
+      echo 1 > $BRIGHTNESS
+    fi;
+  else
+    [ `cat $BRIGHTNESS` -eq 1 ] && {
+      echo 0 > $BRIGHTNESS
+    }
+  fi;
+}
+
+main

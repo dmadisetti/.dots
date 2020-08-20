@@ -4,7 +4,7 @@ setup() {
   local scriptpath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.vim/ulties ~/.vim/config \
-        ~/.config/fish ~/.gitconfig
+        ~/.config/fish ~/.config/i3 ~/.gitconfig
 
   mkdir -p ~/.config
   mkdir -p ~/.vim
@@ -17,6 +17,9 @@ setup() {
 
   # fish
   ln -s $scriptpath/fish ~/.config
+
+  # i3
+  ln -s $scriptpath/i3 ~/.config
 
   # git
   ln -s $scriptpath/gitconfig ~/.gitconfig
