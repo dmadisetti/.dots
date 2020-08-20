@@ -2,6 +2,7 @@
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
 augroup END
+autocmd FileType cuda let b:codefmt_formatter = 'clang-format'
 
 " Spell checking
 function! SpellToggle()
