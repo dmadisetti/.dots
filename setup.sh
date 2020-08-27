@@ -7,7 +7,7 @@ setup() {
   )"
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.vim/ulties ~/.vim/config \
-    ~/.config/fish ~/.config/i3 ~/.gitconfig
+    ~/.config/fish ~/.config/i3 ~/.gitconfig ~/.tmux.conf
 
   mkdir -p ~/.config
   mkdir -p ~/.vim
@@ -28,7 +28,7 @@ setup() {
   ln -s $scriptpath/gitconfig ~/.gitconfig
 
   # tmux
-  ln -s $scriptpath/tmux/tmux.config ~/.tmux.config
+  ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
 }
 
 setup
