@@ -1,5 +1,5 @@
+set PHD /opt/phd/notes
 function review
-  PHD=/opt/phd/notes
   cd $PHD/reviews;
   if test (count $argv) -eq 0
     return;
@@ -18,12 +18,7 @@ function review
   if test ! -f $review
     cp review.template $review
   end
-
   vim $review
-  cd -
-  jhu
-  ./generate.py >> /dev/null
-  cd -
 end
 
 complete -f -c review -a '(__fish_complete_path "$PHD/literature/")'
