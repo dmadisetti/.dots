@@ -1,10 +1,13 @@
 #!/bin/bash
 
 setup() {
-  local scriptpath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+  local scriptpath="$(
+    cd "$(dirname "$0")" > /dev/null 2>&1
+    pwd -P
+  )"
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.vim/ulties ~/.vim/config \
-        ~/.config/fish ~/.config/i3 ~/.gitconfig
+    ~/.config/fish ~/.config/i3 ~/.gitconfig ~/.tmux.conf
 
   mkdir -p ~/.config
   mkdir -p ~/.vim
@@ -23,6 +26,9 @@ setup() {
 
   # git
   ln -s $scriptpath/gitconfig ~/.gitconfig
+
+  # tmux
+  ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
 }
 
 setup
