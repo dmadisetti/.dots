@@ -46,6 +46,9 @@ Plug 'dense-analysis/ale', { 'for' : 'cpp' }
 " Git!
 Plug 'tpope/vim-fugitive'
 
+" Nix'ed
+Plug 'LnL7/vim-nix'
+
 " Maktaba + Glaive for code formatting
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
