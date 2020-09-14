@@ -9,7 +9,7 @@ setup() {
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.vim/ulties ~/.vim/config \
     ~/.config/fish ~/.config/i3 ~/.gitconfig ~/.tmux.conf
 
-  mkdir -p ~/.config
+  mkdir -p ~/.config/nvim
   mkdir -p ~/.vim
 
   # nvim
