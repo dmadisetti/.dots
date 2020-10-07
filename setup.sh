@@ -29,6 +29,9 @@ setup() {
 
   # tmux
   ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
+
+  # bashrc as backup
+  echo "[ -f ~/.dotfiles/bashrc ] && . ~/.dotfiles/bashrc" >> ~/.bashrc
 }
 
 setup
