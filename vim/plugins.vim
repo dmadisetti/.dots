@@ -23,7 +23,7 @@ Plug 'skywind3000/asyncrun.vim'
 
 " Bad habits
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Productivity
 Plug 'terryma/vim-multiple-cursors'
@@ -42,6 +42,9 @@ Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
 " Cpp
 Plug 'gilligan/vim-lldb', { 'on': 'Lattach' }
 Plug 'dense-analysis/ale', { 'for' : 'cpp' }
+
+" Rhai
+Plug 'https://git.goyman.com/kuon/rhai.vim.git', { 'for': 'rhai', 'branch': 'main'}
 
 " Git!
 Plug 'tpope/vim-fugitive'
