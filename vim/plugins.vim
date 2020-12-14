@@ -39,6 +39,10 @@ Plug 'rhysd/vim-grammarous'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
 
+" I think I might be in love with @junegunn
+" View registers before usage
+Plug 'junegunn/vim-peekaboo'
+
 " Cpp
 Plug 'gilligan/vim-lldb', { 'on': 'Lattach' }
 Plug 'dense-analysis/ale', { 'for' : 'cpp' }

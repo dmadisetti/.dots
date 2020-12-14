@@ -1,5 +1,6 @@
 " File type overrides
 function! Math()
+    set wrap lbr
     let g:MarkDowned = 1
     " syntax include @tex syntax/tex.vim
     "" Define certain regions
