@@ -6,8 +6,8 @@ setup() {
     pwd -P
   )"
 
-  rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.vim/ulties ~/.vim/config \
-    ~/.config/fish ~/.config/i3 ~/.gitconfig ~/.tmux.conf
+  rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.config/nvim/ulties ~/.vim/ulties \
+    ~/.vim/config ~/.config/fish ~/.config/i3 ~/.gitconfig ~/.tmux.conf
 
   mkdir -p ~/.config/nvim
   mkdir -p ~/.vim
@@ -16,6 +16,7 @@ setup() {
   ln -s $scriptpath/vimrc ~/.vimrc
   ln -s $scriptpath/vimrc ~/.config/nvim/init.vim
   ln -s $scriptpath/ulties ~/.vim/ulties
+  ln -s $scriptpath/ulties ~/.config/nvim/ulties
   ln -s $scriptpath/vim ~/.vim/config
 
   # fish

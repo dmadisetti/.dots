@@ -2,7 +2,7 @@
   email = madisetti@jhu.edu
   name = madisetti
 [core]
-  editor = /usr/bin/nvim
+  editor = nvim
 [diff]
   tool = nvim -d
 [difftool "vimdiff3"]
