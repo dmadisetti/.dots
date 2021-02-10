@@ -148,8 +148,8 @@ bindsym Ctrl+Mod1+Ctrl_R workspace next
 bindsym Shift+Mod1+Left move container to workspace prev
 bindsym Shift+Mod1+Right move container to workspace next
 
-bindsym Ctrl+Mod1+Shift+Left exec --no-startup-id /home/dylan/bin/ws prev
-bindsym Ctrl+Mod1+Shift+Right exec --no-startup-id /home/dylan/bin/ws next
+bindsym Ctrl+Mod1+Shift+Left exec --no-startup-id /home/$USER/bin/ws prev
+bindsym Ctrl+Mod1+Shift+Right exec --no-startup-id /home/$USER/bin/ws next
 
 bindsym Ctrl+Mod1+Shift+Alt_R move container to workspace prev
 bindsym Ctrl+Mod1+Shift+Ctrl_R move container to workspace next
@@ -263,9 +263,9 @@ gaps outer 3
 # hide_edge_borders smart
 hide_edge_borders yes
 
-bindsym $mod+Shift+s exec --no-startup-id /home/dylan/bin/hdmi
+bindsym $mod+Shift+s exec --no-startup-id /home/$USER/bin/hdmi
 
 # reload the configuration file
 bindsym $mod+c exec "/usr/bin/chrome"
 
-bindsym Ctrl+$mod+l exec --no-startup-id  "/home/dylan/bin/i3lock-fancy -- scrot -z"
+bindsym Ctrl+$mod+l exec --no-startup-id  "/home/$USER/bin/i3lock-fancy -- scrot -z"
