@@ -1,6 +1,6 @@
 set -U fish_greeting ""
 
-mkdir -p bin
+mkdir -p ~/bin
 set PATH /home/$USER/bin $PATH
 
 export TEXINPUTS=".:~/.tex/lib:"
