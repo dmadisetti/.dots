@@ -7,7 +7,7 @@ setup() {
   )"
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.config/nvim/ulties ~/.vim/ulties \
-    ~/.vim/config ~/.config/fish ~/.config/i3 ~/.gitconfig ~/.tmux.conf
+    ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.gitconfig ~/.tmux.conf
 
   mkdir -p ~/.config/nvim
   mkdir -p ~/.vim
@@ -25,6 +25,9 @@ setup() {
   # i3
   ln -s $scriptpath/i3 ~/.config
 
+  # kitty
+  ln -s $scriptpath/kitty ~/.config
+
   # git
   ln -s $scriptpath/gitconfig ~/.gitconfig
 
@@ -32,7 +35,10 @@ setup() {
   ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
 
   # bashrc as backup
-  echo "[ -f ~/.dotfiles/bashrc ] && . ~/.dotfiles/bashrc" >> ~/.bashrc
+  test -n ${BASH} && test -z ${DOT_FILES_LOADED+x} && {
+    echo woop
+    echo "[ -f ~/.dotfiles/bashrc ] && . ~/.dotfiles/bashrc" >> ~/.bashrc
+  }
 }
 
 setup
