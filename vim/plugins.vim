@@ -56,6 +56,9 @@ Plug 'tpope/vim-fugitive'
 " Nix'ed
 Plug 'LnL7/vim-nix'
 
+" Elixir
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+
 " Maktaba + Glaive for code formatting
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'

@@ -35,8 +35,7 @@ setup() {
   ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
 
   # bashrc as backup
-  test -n ${BASH} && test -z ${DOT_FILES_LOADED+x} && {
-    echo woop
+  test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
     echo "[ -f ~/.dotfiles/bashrc ] && . ~/.dotfiles/bashrc" >> ~/.bashrc
   }
 }

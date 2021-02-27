@@ -12,7 +12,7 @@
 #                       ~~~
 # For when I can't easily use fish :'(
 
-export DOT_FILES_LOADED=1
+export DOTFILES_LOADED=1
 
 # get current branch in git repo
 function parse_git_branch() {
