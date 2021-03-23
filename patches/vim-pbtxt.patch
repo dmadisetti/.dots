@@ -1,0 +1,16 @@
+diff --git syntax/pbtxt.vim syntax/pbtxt.vim
+index e4569c5..bea4961 100644
+--- a/syntax/pbtxt.vim
++++ b/syntax/pbtxt.vim
+@@ -26,9 +26,9 @@ hi def link pbtxtInt     Number
+ hi def link pbtxtFloat   Float
+ hi def link pbtxtMsgName Structure
+ hi def link pbtxtComment Comment
+-hi def link pbtxtField   Identifier
++hi def link pbtxtField   Define
+ hi def link pbtxtBool    Boolean
+-hi def link pbtxtEnum    Define
++hi def link pbtxtEnum    Identifier
+ hi def link pbtxtString  String
+ 
+ let b:current_syntax = "pbtxt"
