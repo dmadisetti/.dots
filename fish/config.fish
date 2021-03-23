@@ -1,6 +1,7 @@
 set -U fish_greeting ""
 
-set PATH /home/dylan/bin $PATH
+mkdir -p ~/bin
+set PATH /home/$USER/bin $PATH
 
 export TEXINPUTS=".:~/.tex/lib:"
 alias vim=nvim

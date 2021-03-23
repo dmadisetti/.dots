@@ -62,6 +62,13 @@ Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 " Jupyter
 Plug 'szymonmaszke/vimpyter'
 
+" Edit binary data in hex
+Plug 'fidian/hexmode'
+
+" Protobuf
+Plug 'wfxr/protobuf.vim'
+Plug 'cybrown-zoox/vim-pbtxt'
+
 " Maktaba + Glaive for code formatting
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
