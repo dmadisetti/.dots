@@ -59,6 +59,9 @@ Plug 'LnL7/vim-nix'
 " Elixir
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 
+" Jupyter
+Plug 'szymonmaszke/vimpyter'
+
 " Maktaba + Glaive for code formatting
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
