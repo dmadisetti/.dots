@@ -32,6 +32,7 @@ let g:tex_flavor = 'lualatex'
 " Conceal
 set conceallevel=2
 let g:tex_conceal="abdgm"
+let g:pencil#conceallevel = 0
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-u>"
@@ -40,6 +41,12 @@ let g:UltiSnipsListSnippets = '<c-e>'
 let g:UltiSnipsSnippetsDir = "~/.vim/ulties"
 let g:UltiSnipsSnippetDirectories = ["ulties"]
 
+" Citation for PhD work
+let g:citation_vim_bibtex_file="/home/dylan/phd/notes/bibtex.bib"
+let g:citation_vim_mode="bibtex"
+let g:citation_vim_cache_path="~/.vim/citation.cache"
+
+" Linters
 let g:ale_sign_column_always = 1
 let g:ale_linters = {'cpp': ['clang'], 'python': ['flake8', 'pylint']}
 

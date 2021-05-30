@@ -8,4 +8,4 @@ alias vim=nvim
 alias vi=nvim
 
 export EDITOR=vim
-export CC=clang-10
+export CC=clang-11

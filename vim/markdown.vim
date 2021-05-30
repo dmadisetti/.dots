@@ -37,4 +37,5 @@ function! Math()
 endfunction
 
 " Call everytime we open a Markdown file
-autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call Math()
+autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown,*.tex call Math()
+source ~/.dotfiles/vim/denite.vim

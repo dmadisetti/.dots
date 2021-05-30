@@ -32,6 +32,9 @@ endfun
 function! Zen()
   :Goyo
   :Limelight
+  if g:MarkDowned
+    :SoftPencil
+  endif
 endfunction
 
 command Zen :call Zen()

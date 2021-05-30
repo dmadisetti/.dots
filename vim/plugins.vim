@@ -31,9 +31,11 @@ Plug 'SirVer/ultisnips', { 'for': 'markdown' }
 
 " Markdown
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
-Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
-Plug 'KeitaNakamura/tex-conceal.vim', { 'for': 'markdown' }
-Plug 'rhysd/vim-grammarous'
+Plug 'lervag/vimtex', { 'for': ['tex'] }
+Plug 'preservim/vim-pencil', { 'for': ['tex', 'markdown'] }
+Plug 'rhysd/vim-grammarous', { 'for': ['tex', 'markdown'] }
+Plug 'AnotherGroupChat/citation.vim', { 'for': ['markdown', 'tex'], 'branch': 'denite'}
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins',  'for': ['markdown', 'tex'] }
 
 " Zen
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
