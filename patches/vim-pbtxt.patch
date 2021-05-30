@@ -1,4 +1,4 @@
-diff --git a/syntax/pbtxt.vim b/syntax/pbtxt.vim
+diff --git syntax/pbtxt.vim syntax/pbtxt.vim
 index e4569c5..bea4961 100644
 --- a/syntax/pbtxt.vim
 +++ b/syntax/pbtxt.vim

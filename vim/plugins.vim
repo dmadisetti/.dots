@@ -61,6 +61,9 @@ Plug 'LnL7/vim-nix'
 " Elixir
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 
+" Jupyter
+Plug 'szymonmaszke/vimpyter'
+
 " Edit binary data in hex
 Plug 'fidian/hexmode'
 
