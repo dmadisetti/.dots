@@ -62,7 +62,7 @@ Plug 'LnL7/vim-nix'
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 
 " Jupyter
-Plug 'szymonmaszke/vimpyter'
+Plug 'szymonmaszke/vimpyter', { 'for': 'ipynb' }
 
 " Edit binary data in hex
 Plug 'fidian/hexmode'
