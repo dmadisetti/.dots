@@ -7,6 +7,9 @@
 "  PlugDiff  Examine changes from the previous update and the pending changes
 "  PlugSnapshot[!] [output path] Generate script for restoring the current snapshot of the plugins"
 
+" Set filetypes for vimplug
+autocmd BufNewFile,BufRead *.ipynb setf ipynb
+
 call plug#begin('~/.vim/plugged')
 
 "" Some plugins for workflow.
