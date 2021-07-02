@@ -1,0 +1,7 @@
+[style]
+indent_width: 2
+based_on_style = google
+indent_dictionary_value = true
+split_arguments_when_comma_terminated = true
+join_multiple_lines = false
+split_before_first_argument = true
