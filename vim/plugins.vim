@@ -27,7 +27,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Productivity
 Plug 'terryma/vim-multiple-cursors'
-Plug 'SirVer/ultisnips', { 'for': 'markdown' }
+Plug 'SirVer/ultisnips', { 'for': ['markdown', 'snippets'] }
 
 " Markdown
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }

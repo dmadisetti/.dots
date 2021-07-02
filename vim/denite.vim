@@ -10,4 +10,5 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr>  <Esc>    denite#do_map('quit')
 endfunction
 
-nnoremap <C-q> :Denite -buffer-name=citation-start-insert  -vertical-preview citation_collection
+nnoremap <C-q> :Denite -buffer-name=citation-start-insert  -vertical-preview citation_collection<cr>
+inoremap <C-q> <C-c>:Denite -buffer-name=citation-start-insert  -vertical-preview citation_collection<cr>

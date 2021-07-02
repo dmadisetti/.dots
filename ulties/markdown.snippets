@@ -1,3 +1,17 @@
+snippet '===([^ ]+) ' "equation label" wrA
+`!p snip.rv = """\\begin{equation}
+\label{eqn:""" + match.group(1) + """}
+\end{equation}"""`
+endsnippet
+
+snippet '==([^ ]+) ' "equation label" wrA
+`!p snip.rv = "\label{eqn:" + match.group(1) + "} "`
+endsnippet
+
+snippet 'eq:([^ ]+) ' "equation ref" wrA
+`!p snip.rv = "\eqref{eqn:" + match.group(1) + "} "`
+endsnippet
+
 snippet '((?:^|\s)\$.*)  ' "auto math end" wrA
 `!p snip.rv = match.group(1) + "$ "`
 endsnippet
@@ -10,9 +24,9 @@ snippet '([dD](\d)?)?([\d]+|(?:[\\A-Za-z0-9]*[A-Za-z]))(\d*),([\d]+|(?:[\\A-Za-z
 `!p
 partial = ""
 if match.group(1):
-	partial="d "
-	if "D" in match.group(1):
-		partial="\partial "
+  partial="d "
+  if "D" in match.group(1):
+    partial="\partial "
 
 power = ""
 if partial and match.group(2):
@@ -42,8 +56,8 @@ check = set(["cite", "qed", "above", "abovewithdelims", "acute", "aleph", "alpha
 
 snip.rv = match.group(0)
 if match.group(1) not in check:
-	snip.rv = "\\text{{{}}}{}".format(
-		match.group(1),
-		match.group(2))
+  snip.rv = "\\text{{{}}}{}".format(
+    match.group(1),
+    match.group(2))
 `
 endsnippet
