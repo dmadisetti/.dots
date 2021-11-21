@@ -28,6 +28,7 @@
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
+        config.system.build.toplevel = system;
         specialArgs = { inherit system inputs; };
         modules = (
           [
