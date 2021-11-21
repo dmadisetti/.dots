@@ -29,8 +29,8 @@
         modules = (
           [
             # System configuration for this host
-            ./nix/common.nix
             configurationNix
+            ./nix/common.nix
 
             # home-manager configuration
             home-manager.nixosModules.home-manager

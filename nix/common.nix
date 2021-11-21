@@ -4,6 +4,15 @@
 {
   imports = [ ];
 
+  # Flakes need to be bootstrapped
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    trustedUsers = [ "root" "dylan" ];
+  };
+
   networking.wireless = {
     enable = true;
     userControlled.enable = true;
