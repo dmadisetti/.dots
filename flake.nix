@@ -37,7 +37,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.dylan = import ./nix/dylan.nix
+              home-manager.users.dylan = homeManagerConfFor ./nix/dylan.nix
                 {
                   inherit inputs system pkgs;
                 };
