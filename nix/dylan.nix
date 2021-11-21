@@ -19,5 +19,5 @@
       extraConfig = builtins.readFile ../vimrc;
     };
   };
+  home.stateVersion = "21.05";
 }
-

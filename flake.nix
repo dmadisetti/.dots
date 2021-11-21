@@ -22,6 +22,9 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      homeConfig = config: { ... }: {
+         imports = [ config ];
+      };
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
@@ -37,7 +40,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.dylan = homeManagerConfFor ./nix/dylan.nix
+              home-manager.users.dylan = homeConfig ./nix/dylan.nix
                 {
                   inherit inputs system pkgs;
                 };

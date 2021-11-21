@@ -32,6 +32,7 @@
   };
 
   # Programs
+  programs.home-manager.enable = true;
   programs.fish.enable = true;
 
   # Enable sound.
@@ -61,4 +62,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.05";
+  config.system.build.toplevel = system;
 }
