@@ -24,5 +24,6 @@ source ~/.vim/config/custom.vim
 source ~/.vim/config/keybindings.vim
 
 " File specific
-autocmd FileType markdown source ~/.vim/config/markdown.vim
-autocmd FileType svg source ~/.vim/config/svg.vim
+autocmd FileType markdown source ~/.vim/config/languages/markdown.vim
+autocmd FileType tex source ~/.vim/config/languages/tex.vim
+autocmd FileType svg source ~/.vim/config/languages/svg.vim

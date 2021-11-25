@@ -30,14 +30,15 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Productivity
 Plug 'terryma/vim-multiple-cursors'
-Plug 'SirVer/ultisnips', { 'for': ['markdown', 'snippets'] }
+Plug 'SirVer/ultisnips', { 'for': ['tex', 'markdown', 'snippets'] }
 
 " Markdown
-Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+Plug 'gabrielelana/vim-markdown', { 'for': ['tex', 'markdown'] }
 Plug 'lervag/vimtex', { 'for': ['tex'] }
+Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'markdown'] }
 Plug 'preservim/vim-pencil', { 'for': ['tex', 'markdown'] }
 Plug 'rhysd/vim-grammarous', { 'for': ['tex', 'markdown'] }
-Plug 'AnotherGroupChat/citation.vim', { 'for': ['markdown', 'tex'], 'branch': 'denite'}
+Plug 'AnotherGroupChat/citation.vim', { 'for': ['tex', 'markdown'], 'branch': 'denite'}
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins',  'for': ['markdown', 'tex'] }
 
 " Zen
@@ -56,7 +57,7 @@ Plug 'dense-analysis/ale', { 'for' : 'cpp' }
 Plug 'https://git.goyman.com/kuon/rhai.vim.git', { 'for': 'rhai', 'branch': 'main'}
 
 " Git!
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " Nix'ed
 Plug 'LnL7/vim-nix'
@@ -73,6 +74,9 @@ Plug 'fidian/hexmode'
 " Protobuf
 Plug 'wfxr/protobuf.vim'
 Plug 'cybrown-zoox/vim-pbtxt'
+
+" All hail our AI overlord
+Plug 'github/copilot.vim', {'branch': 'main'}
 
 " Maktaba + Glaive for code formatting
 Plug 'google/vim-maktaba'
