@@ -25,9 +25,9 @@
         inherit system;
       };
       homeConfig = config: { ... }: {
-         imports = [ config ];
+         imports = config;
       };
-      mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
+      mkComputer = configurationNix: extraModules: extraConfig: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
         # config.system.build.toplevel = system;
@@ -43,7 +43,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.dylan = homeConfig ./nix/dylan.nix
+              home-manager.users.dylan = homeConfig ([./nix/dylan.nix] ++ extraConfig)
                 {
                   inherit inputs system pkgs;
                 };
@@ -58,8 +58,10 @@
       nixosConfigurations = {
         exalt = mkComputer
           ./nix/machines/exalt.nix
+          [ ]
           [
-            ./nix/sway.nix
+            # ./nix/sway.nix
+            ./nix/i3.nix
           ];
       };
    };

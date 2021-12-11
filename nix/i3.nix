@@ -5,15 +5,12 @@
 {
   imports = [ ];
 
-  wayland.windowManager.sway = {
+  xsession.windowManager.i3 = {
     enable = true;
     wrapperFeatures.gtk = true;
   };
 
   home.packages = with pkgs; [
-    swaylock
-    swayidle
-    wl-clipboard
     kitty
   ];
 }
