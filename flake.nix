@@ -1,10 +1,12 @@
+# Nixx
+# git clone https://github.com/srid/nixos-config
 {
   description = "dmadisetti meets NixOS";
 
   inputs = {
     # To update nixpkgs (and thus NixOS), pick the nixos-unstable rev from
     # https://status.nixos.org/
-    # 
+    #
     # This ensures that we always use the official nix cache.
     nixpkgs.url = "github:nixos/nixpkgs/715f63411952c86c8f57ab9e3e3cb866a015b5f2";
 
@@ -28,7 +30,7 @@
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
-        config.system.build.toplevel = system;
+        # config.system.build.toplevel = system;
         specialArgs = { inherit system inputs; };
         modules = (
           [
@@ -52,11 +54,13 @@
     in
     {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
-      # 
+      #
       nixosConfigurations = {
-        exhalt = mkComputer
+        exalt = mkComputer
           ./nix/machines/exalt.nix
-          [ ];
+          [
+            ./nix/sway.nix
+          ];
       };
    };
 }

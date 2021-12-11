@@ -32,7 +32,6 @@
   };
 
   # Programs
-  programs.home-manager.enable = true;
   programs.fish.enable = true;
 
   # Enable sound.
@@ -48,7 +47,7 @@
     extraGroups = [ "wheel" "docker" ];
   };
 
-  # List packages installed in system profile. 
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     git
     fish
