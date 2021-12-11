@@ -48,8 +48,8 @@ bindsym $mod+d exec dmenu_run
 
 # change focus
 bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
+#bindsym $mod+j focus down
+#bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 
@@ -269,7 +269,10 @@ hide_edge_borders yes
 
 bindsym $mod+Shift+s exec --no-startup-id /home/$USER/bin/hdmi
 
-# reload the configuration file
+# Load browser
 bindsym $mod+c exec "firefox"
+
+# Load Zotero
+bindsym $mod+z exec "zotero"
 
 bindsym Ctrl+$mod+l exec --no-startup-id  "/home/$USER/bin/i3lock-fancy -- scrot -z"
