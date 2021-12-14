@@ -7,7 +7,6 @@
 
   home.packages = with pkgs; [
     keybase
-    ncurses
     neofetch
     python38Packages.pynvim
     tmux

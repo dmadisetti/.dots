@@ -2,7 +2,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ];
+  imports = [
+  # Basic network hardening
+  ./common/harden.nix
+  ];
 
   # Flakes need to be bootstrapped
   nix = {
@@ -31,11 +34,9 @@
     };
   };
 
-  # Basic network hardening
-  ./harden.nix;
-
   # Programs
   programs.fish.enable = true;
+  programs.gnupg.agent.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -47,7 +48,7 @@
     isNormalUser = true;
     uid = 1337;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "tty" "video" ];
   };
 
   # List packages installed in system profile.
@@ -56,6 +57,8 @@
     fish
     neovim
     nixpkgs-fmt
+
+    # Basic utils
     killall
   ];
 

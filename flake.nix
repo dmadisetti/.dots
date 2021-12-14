@@ -24,7 +24,7 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      wms = { i3 = "x"; sway = "wayland"; };
+      wms = { i3 = "x"; sway = "wayland"; fb = "none"; };
       homeConfig = config: userConfigs: wm: { ... }: {
         imports = [ config ] ++ userConfigs ++ (if wms ? "${wm}" then [
           ./nix/home/display.nix
@@ -61,7 +61,7 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
-        exalt = mkComputer ./nix/machines/exalt.nix "sway" [ ] [ ];
+        exalt = mkComputer ./nix/machines/exalt.nix "" [ ] [ ];
       };
     };
 }
