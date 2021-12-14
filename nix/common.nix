@@ -5,6 +5,7 @@
   imports = [
   # Basic network hardening
   ./common/harden.nix
+  ./sensitive/network.nix
   ];
 
   # Flakes need to be bootstrapped
@@ -14,24 +15,6 @@
       experimental-features = nix-command flakes
     '';
     trustedUsers = [ "root" "dylan" ];
-  };
-
-  networking.wireless = {
-    enable = true;
-    userControlled.enable = true;
-    interfaces = [ "wlp2s0" ];
-    # Come on through and use my wifi internet. That's absolutely chill. This is
-    # an approach I'd like to call security through configuring wpa_supplicant
-    # with unicode characters (effective, but maybe less so now that this is
-    # public). Alternatively, security through friendliness (lol, I have coffee
-    # and biscuits, and while you're trying to connect to my network, you want
-    # some?). Finally, security through emoji (would you really hack someone
-    # with an emoji for an SSID? It's so silly and fun).
-    networks = {
-      "\"🙃\"" = {
-        "psk" = "derpderp";
-      };
-    };
   };
 
   # Programs
