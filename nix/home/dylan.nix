@@ -6,7 +6,9 @@
   imports = [ ];
 
   home.packages = with pkgs; [
+    keybase
     ncurses
+    neofetch
     python38Packages.pynvim
     tmux
   ];
@@ -16,8 +18,17 @@
       enable = true;
       viAlias = true;
       vimAlias = true;
-      extraConfig = builtins.readFile ../vimrc;
+      extraConfig = builtins.readFile ../../vimrc;
     };
   };
+
+  services = {
+    keybase.enable = true;
+    kbfs = {
+      enable = true;
+      mountPoint = ".local/keybase";
+    };
+  };
+
   home.stateVersion = "21.05";
 }

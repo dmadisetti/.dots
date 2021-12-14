@@ -7,13 +7,19 @@
 
   wayland.windowManager.sway = {
     enable = true;
+    # extraConfig = builtins.readFile ../../i3/config;
+    # Zero out default config because nix is annoyingly paternalistic.
+    config = rec {
+      bars = [ ];
+      keybindings = { };
+    };
     wrapperFeatures.gtk = true;
   };
 
   home.packages = with pkgs; [
     swaylock
     swayidle
+    waybar
     wl-clipboard
-    kitty
   ];
 }

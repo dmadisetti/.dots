@@ -25,9 +25,9 @@
     # some?). Finally, security through emoji (would you really hack someone
     # with an emoji for an SSID? It's so silly and fun).
     networks = {
-       "\"🙃\"" = {
-           "psk" = "derpderp";
-       };
+      "\"🙃\"" = {
+        "psk" = "derpderp";
+      };
     };
   };
 
@@ -52,6 +52,8 @@
     git
     fish
     neovim
+    nixpkgs-fmt
+    killall
   ];
 
   # This value determines the NixOS release from which the default

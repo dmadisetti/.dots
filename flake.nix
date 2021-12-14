@@ -24,13 +24,16 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      homeConfig = config: { ... }: {
-         imports = config;
+      wms = { i3 = "x"; sway = "wayland"; };
+      homeConfig = config: userConfigs: wm: { ... }: {
+        imports = [ config ] ++ userConfigs ++ (if wms ? "${wm}" then [
+          ./nix/home/display.nix
+          (./nix + "/home/${wm}.nix")
+        ] else [ ]);
       };
-      mkComputer = configurationNix: extraModules: extraConfig: nixpkgs.lib.nixosSystem {
+      mkComputer = configurationNix: wm: extraModules: userConfigs: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
-        # config.system.build.toplevel = system;
         specialArgs = { inherit system inputs; };
         modules = (
           [
@@ -43,12 +46,14 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.dylan = homeConfig ([./nix/dylan.nix] ++ extraConfig)
+              home-manager.users.dylan = homeConfig ./nix/home/dylan.nix userConfigs wm
                 {
                   inherit inputs system pkgs;
                 };
             }
-          ] ++ extraModules
+          ] ++ extraModules ++ (if wms ? "${wm}" then [
+            (./nix + ("/display/" + wms."${wm}") + ".nix")
+          ] else [ ])
         );
       };
     in
@@ -56,13 +61,7 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
-        exalt = mkComputer
-          ./nix/machines/exalt.nix
-          [ ]
-          [
-            # ./nix/sway.nix
-            ./nix/i3.nix
-          ];
+        exalt = mkComputer ./nix/machines/exalt.nix "sway" [ ] [ ];
       };
-   };
+    };
 }
