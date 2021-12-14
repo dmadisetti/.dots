@@ -44,8 +44,7 @@ bindsym $mod+d exec dmenu_run
 # start a terminal
 
 # Games!
-bindsym $mod+k exec /home/dylan/KSP
-
+# bindsym $mod+k exec /home/dylan/KSP
 
 # change focus
 bindsym $mod+h focus left
@@ -150,8 +149,8 @@ bindsym Ctrl+Mod1+K workspace next
 bindsym Ctrl+Mod1+Alt_R workspace prev
 bindsym Ctrl+Mod1+Ctrl_R workspace next
 
-bindsym Shift+Mod1+Left move container to workspace prev
-bindsym Shift+Mod1+Right move container to workspace next
+# bindsym Shift+Mod1+Left move container to workspace prev
+# bindsym Shift+Mod1+Right move container to workspace next
 
 bindsym Ctrl+Mod1+Shift+Left exec --no-startup-id /home/$USER/bin/ws prev
 bindsym Ctrl+Mod1+Shift+Right exec --no-startup-id /home/$USER/bin/ws next
@@ -167,7 +166,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
+mode "resized" {
         # These bindings trigger as soon as you enter the resize mode
 
         # Pressing left will shrink the window’s width.
@@ -191,7 +190,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode "resized"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

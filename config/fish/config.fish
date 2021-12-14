@@ -11,3 +11,6 @@ alias vi=nvim
 
 export EDITOR=vim
 export CC=clang-12
+
+
+

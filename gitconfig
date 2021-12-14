@@ -1,8 +1,11 @@
 [user]
   email = madisetti@jhu.edu
   name = madisetti
+  signingkey = 9080F46A6E933A9D
 [core]
   editor = nvim
+[commit]
+  gpgsign = true
 [diff]
   tool = nvim -d
 [difftool "vimdiff3"]
