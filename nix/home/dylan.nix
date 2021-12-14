@@ -26,7 +26,7 @@
     keybase.enable = true;
     kbfs = {
       enable = true;
-      mountPoint = ".local/keybase";
+      mountPoint = "keybase";
     };
   };
 

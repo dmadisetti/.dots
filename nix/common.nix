@@ -31,6 +31,9 @@
     };
   };
 
+  # Basic network hardening
+  ./harden.nix;
+
   # Programs
   programs.fish.enable = true;
 

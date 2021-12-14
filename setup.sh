@@ -5,6 +5,7 @@ setup() {
     cd "$(dirname "$0")" > /dev/null 2>&1
     pwd -P
   )"
+  local configpath="$scriptpath/configs"
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
@@ -16,18 +17,18 @@ setup() {
   # nvim
   ln -s $scriptpath/vimrc ~/.vimrc
   ln -s $scriptpath/vimrc ~/.config/nvim/init.vim
-  ln -s $scriptpath/ulties ~/.config/nvim/ulties
-  ln -s $scriptpath/ulties ~/.vim/ulties
+  ln -s $scriptpath/vim/ulties ~/.config/nvim/ulties
+  ln -s $scriptpath/vim/ulties ~/.vim/ulties
   ln -s $scriptpath/vim ~/.vim/config
 
   # fish
-  ln -s $scriptpath/fish ~/.config
+  ln -s $configpath/fish ~/.config
 
   # i3
-  ln -s $scriptpath/i3 ~/.config
+  ln -s $configpath/i3 ~/.config
 
   # kitty
-  ln -s $scriptpath/kitty ~/.config
+  ln -s $configpath/kitty ~/.config
 
   # git
   ln -s $scriptpath/gitconfig ~/.gitconfig
@@ -36,7 +37,7 @@ setup() {
   ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
 
   # yapf
-  ln -s $scriptpath/yapf ~/.config/yapf
+  ln -s $configpath/yapf ~/.config/yapf
 
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
