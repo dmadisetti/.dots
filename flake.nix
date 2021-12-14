@@ -8,16 +8,17 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    nixpkgs.url = "github:nixos/nixpkgs/715f63411952c86c8f57ab9e3e3cb866a015b5f2";
-
+    nixpkgs.url = github:nixos/nixpkgs/a7ecde854aee5c4c7cd6177f54a99d2c1ff28a31;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
-    home-manager.url = "github:nix-community/home-manager";
+
+    home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    sensitive.url = "/home/dylan/.dotfiles/nix/sensitive";
+
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, ... }:
+  outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
     let
       system = "x86_64-linux";
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
@@ -34,7 +35,7 @@
       mkComputer = configurationNix: wm: extraModules: userConfigs: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
-        specialArgs = { inherit system inputs; };
+        specialArgs = { inherit system inputs sensitive; };
         modules = (
           [
             # System configuration for this host
