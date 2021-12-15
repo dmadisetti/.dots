@@ -5,7 +5,7 @@ setup() {
     cd "$(dirname "$0")" > /dev/null 2>&1
     pwd -P
   )"
-  local configpath="$scriptpath/configs"
+  local configpath="$scriptpath/config"
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \

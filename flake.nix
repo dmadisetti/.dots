@@ -1,5 +1,29 @@
-# Nixx
-# git clone https://github.com/srid/nixos-config
+#           ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖
+#           ▜███▙       ▜███▙  ▟███▛
+#            ▜███▙       ▜███▙▟███▛
+#             ▜███▙       ▜██████▛
+#      ▟█████████████████▙ ▜████▛     ▟▙
+#     ▟███████████████████▙ ▜███▙    ▟██▙
+#            ▄▄▄▄▖           ▜███▙  ▟███▛
+#           ▟███▛             ▜██▛ ▟███▛
+#          ▟███▛               ▜▛ ▟███▛
+# ▟███████████▛                  ▟██████████▙
+# ▜██████████▛                  ▟███████████▛
+#       ▟███▛ ▟▙               ▟███▛
+#      ▟███▛ ▟██▙             ▟███▛
+#     ▟███▛  ▜███▙           ▝▀▀▀▀
+#     ▜██▛    ▜███▙ ▜██████████████████▛
+#      ▜▛     ▟████▙ ▜████████████████▛
+#            ▟██████▙       ▜███▙
+#           ▟███▛▜███▙       ▜███▙
+#          ▟███▛  ▜███▙       ▜███▙
+#          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
+#
+# Implemented machines:
+#   • exalt - Craptop converted for Nix hacking
+#
+# A fair bit of inspiraton from github:srid/nixos-config
+
 {
   description = "dmadisetti meets NixOS";
 
@@ -14,8 +38,9 @@
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # TODO: Use "${builtins.getEnv "PWD" ""}/nix/sensitive" once allowed,
+    # see: NixOS/nix#/3966
     sensitive.url = "/home/dylan/.dotfiles/nix/sensitive";
-
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -29,7 +54,7 @@
       homeConfig = config: userConfigs: wm: { ... }: {
         imports = [ config ] ++ userConfigs ++ (if wms ? "${wm}" then [
           ./nix/home/display.nix
-          (./nix + "/home/${wm}.nix")
+          (./nix/home + "/${wm}.nix")
         ] else [ ]);
       };
       mkComputer = configurationNix: wm: extraModules: userConfigs: nixpkgs.lib.nixosSystem {
@@ -62,7 +87,7 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
-        exalt = mkComputer ./nix/machines/exalt.nix "" [ ] [ ];
+        exalt = mkComputer ./nix/machines/exalt.nix "i3" [ ] [ ];
       };
     };
 }

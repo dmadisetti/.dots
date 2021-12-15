@@ -6,6 +6,6 @@
   imports = [ ];
   home.packages = with pkgs; [
     kitty
-    # ncurses
+    firefox
   ];
 }

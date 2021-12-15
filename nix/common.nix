@@ -47,7 +47,10 @@
   ];
 
   fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    noto-fonts
+    noto-fonts-emoji
+    fira-code
+    fira-code-symbols
   ];
 
   # This value determines the NixOS release from which the default
