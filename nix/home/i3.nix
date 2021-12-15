@@ -8,7 +8,7 @@
   xsession.windowManager.i3.package = pkgs.i3-gaps;
   xsession.windowManager.i3 = {
     enable = true;
-    extraConfig = builtins.readFile ../../config/i3/config.i3;
+    extraConfig = builtins.readFile ../../config/i3/i3.config;
     # Zero out default config because nix is annoyingly paternalistic.
     config = rec {
       bars = [ ];
