@@ -16,7 +16,7 @@
     trustedUsers = [ "root" "dylan" ];
   };
 
-  networking = sensitive.lib.networking;
+  networking = sensitive.lib.networking {};
 
   # Programs
   programs.fish.enable = true;

@@ -62,17 +62,13 @@
     },
     "sensitive": {
       "locked": {
-        "lastModified": 1639519350,
-        "narHash": "sha256-vGfF7UOizDqnOBjdi3rY5yvzHxmgV89hZG3S/g2noIE=",
-        "ref": "master",
-        "rev": "4b5f0cca66277b681f2761490584f14e2b40cbde",
-        "revCount": 5,
-        "type": "git",
-        "url": "file:///home/dylan/.dotfiles/nix/sensitive"
+        "narHash": "sha256-oEb77Jm7qBvgGF73ZDJrPwpw0DEruf7InJ76qwWxtMc=",
+        "path": "/home/dylan/.dotfiles/nix/sensitive",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/dylan/.dotfiles/nix/sensitive"
+        "path": "/home/dylan/.dotfiles/nix/sensitive",
+        "type": "path"
       }
     }
   },

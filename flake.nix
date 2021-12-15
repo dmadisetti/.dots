@@ -57,14 +57,14 @@
           (./nix/home + "/${wm}.nix")
         ] else [ ]);
       };
-      mkComputer = configurationNix: wm: extraModules: userConfigs: nixpkgs.lib.nixosSystem {
+      mkComputer = {machineConfig, wm ? "", extraModules ? [], userConfigs ? []}: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         # Arguments to pass to all modules.
         specialArgs = { inherit system inputs sensitive; };
         modules = (
           [
             # System configuration for this host
-            configurationNix
+            machineConfig
             ./nix/common.nix
 
             # home-manager configuration
@@ -78,6 +78,7 @@
                 };
             }
           ] ++ extraModules ++ (if wms ? "${wm}" then [
+            ./nix/common/fonts.nix
             (./nix + ("/display/" + wms."${wm}") + ".nix")
           ] else [ ])
         );
@@ -87,7 +88,11 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
-        exalt = mkComputer ./nix/machines/exalt.nix "i3" [ ] [ ];
+        exalt = mkComputer {
+		machineConfig = ./nix/machines/exalt.nix;
+		wm = "i3";};
+        slug = mkComputer {
+		machineConfig = ./nix/machines/slug.nix;};
       };
     };
 }
