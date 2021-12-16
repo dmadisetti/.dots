@@ -20,5 +20,6 @@ jobs:
         ls -R
         mv spoof sensitive
         git add --all
+        git status
         popd
         nix flake check .
