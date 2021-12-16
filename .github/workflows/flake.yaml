@@ -14,12 +14,6 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
     - run: |
-        pushd nix
-        rm -rf sensitive
-        git rm sensitive
-        mv spoof sensitive
-        rm ../.gitmodules
-        git add --all
-        git status
-        popd
+        sudo mkdir -p /home/dylan/.dotfiles/nix
+        sudo mv nix/spoof /home/dylan/.dotfiles/nix/sensitive
         nix flake check .
