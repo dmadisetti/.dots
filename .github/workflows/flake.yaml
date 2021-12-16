@@ -16,6 +16,7 @@ jobs:
     - run: |
         pushd nix
         rm -rf sensitive
-        ln -s spoof sensitive
+        mv spoof sensitive
+        git add --all
         popd
         nix flake check .
