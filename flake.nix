@@ -51,48 +51,59 @@
         inherit system;
       };
       wms = { i3 = "x"; sway = "wayland"; fb = "none"; };
-      homeConfig = config: userConfigs: wm: { ... }: {
-        imports = [ config ] ++ userConfigs ++ (if wms ? "${wm}" then [
+      homeConfig = user: userConfigs: wm: { ... }: {
+        imports = [ (./nix/home + "/${user}.nix") ]
+          ++ userConfigs
+          ++ (if wms ? "${wm}" then [
           ./nix/home/display.nix
           (./nix/home + "/${wm}.nix")
         ] else [ ]);
       };
-      mkComputer = {machineConfig, wm ? "", extraModules ? [], userConfigs ? []}: nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-        # Arguments to pass to all modules.
-        specialArgs = { inherit system inputs sensitive; };
-        modules = (
-          [
-            # System configuration for this host
-            machineConfig
-            ./nix/common.nix
+      mkComputer =
+        { machineConfig
+        , user ? "dylan"
+        , wm ? ""
+        , extraModules ? [ ]
+        , userConfigs ? [ ]
+        }: nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          # Arguments to pass to all modules.
+          specialArgs = { inherit system inputs sensitive user; };
+          modules = (
+            [
+              # System configuration for this host
+              machineConfig
+              ./nix/common.nix
 
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.dylan = homeConfig ./nix/home/dylan.nix userConfigs wm
-                {
-                  inherit inputs system pkgs;
-                };
-            }
-          ] ++ extraModules ++ (if wms ? "${wm}" then [
-            ./nix/common/fonts.nix
-            (./nix + ("/display/" + wms."${wm}") + ".nix")
-          ] else [ ])
-        );
-      };
+              # home-manager configuration
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users."${user}" = homeConfig user userConfigs wm
+                  {
+                    inherit inputs system pkgs;
+                  };
+              }
+            ] ++ extraModules ++ (if wms ? "${wm}" then [
+              ./nix/common/fonts.nix
+              ./nix/common/head.nix
+              (./nix + ("/display/" + wms."${wm}") + ".nix")
+            ] else [ ])
+          );
+        };
     in
     {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
         exalt = mkComputer {
-		machineConfig = ./nix/machines/exalt.nix;
-		wm = "i3";};
+          machineConfig = ./nix/machines/exalt.nix;
+          wm = "i3";
+        };
         slug = mkComputer {
-		machineConfig = ./nix/machines/slug.nix;};
+          machineConfig = ./nix/machines/slug.nix;
+        };
       };
     };
 }

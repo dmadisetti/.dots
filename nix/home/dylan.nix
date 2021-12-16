@@ -3,9 +3,12 @@
 { pkgs, inputs, system, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    ./gpg.nix
+  ];
 
   home.packages = with pkgs; [
+    gnupg
     keybase
     neofetch
     python38Packages.pynvim
@@ -29,5 +32,5 @@
     };
   };
 
-  home.stateVersion = "21.05";
+  home.stateVersion = "21.11";
 }

@@ -1,10 +1,12 @@
 # Common Nix
-{ config, pkgs, inputs, sensitive, ... }:
+{ config, pkgs, inputs, user, sensitive, ... }:
 
 {
   imports = [
     # Basic network hardening
     ./common/harden.nix
+    # Very minimal packages
+    ./common/pkgs.nix
   ];
 
   # Flakes need to be bootstrapped
@@ -13,45 +15,22 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [ "root" "dylan" ];
+    trustedUsers = [ "root" "${user}" ];
   };
 
   networking = sensitive.lib.networking {};
 
-  # Programs
-  programs.fish.enable = true;
+  # PGP set up
   programs.gnupg.agent.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.mutableUsers = false;
-  users.users.dylan = {
+  users.users."${user}" = {
     isNormalUser = true;
     uid = 1337;
     shell = pkgs.fish;
     extraGroups = [ "wheel" "docker" "tty" "video" ];
   };
-
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    git
-    fish
-    neovim
-    nixpkgs-fmt
-
-    # Basic utils
-    killall
-  ];
-
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-emoji
-    fira-code
-    fira-code-symbols
-  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
