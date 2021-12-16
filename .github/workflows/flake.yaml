@@ -15,10 +15,9 @@ jobs:
           experimental-features = nix-command flakes
     - run: |
         pushd nix
-        ls -R
         rm -rf sensitive
-        ls -R
         mv spoof sensitive
+        rm ../.gitmodules
         git add --all
         git status
         popd
