@@ -18,6 +18,8 @@
     trustedUsers = [ "root" "${user}" ];
   };
 
+  time.timeZone = "America/New_York";
+
   networking = sensitive.lib.networking {};
 
   # PGP set up
