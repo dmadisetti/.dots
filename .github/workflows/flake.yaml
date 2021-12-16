@@ -16,6 +16,7 @@ jobs:
     - run: |
         pushd nix
         rm -rf sensitive
+        git rm sensitive
         mv spoof sensitive
         rm ../.gitmodules
         git add --all
