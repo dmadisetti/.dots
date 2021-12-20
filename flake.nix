@@ -103,7 +103,6 @@
         };
         slug = mkComputer {
           machineConfig = ./nix/machines/slug.nix;
-          wm = "sway";
         };
       };
     };
