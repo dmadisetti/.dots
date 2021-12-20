@@ -50,7 +50,7 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      wms = { i3 = "x"; sway = "wayland"; fb = "none"; };
+      wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
       homeConfig = user: userConfigs: wm: { ... }: {
         imports = [ (./nix/home + "/${user}.nix") ]
           ++ userConfigs
@@ -99,7 +99,7 @@
       nixosConfigurations = {
         exalt = mkComputer {
           machineConfig = ./nix/machines/exalt.nix;
-          wm = "i3";
+          wm = "xmonad";
         };
         slug = mkComputer {
           machineConfig = ./nix/machines/slug.nix;
