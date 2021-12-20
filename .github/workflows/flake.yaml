@@ -1,4 +1,4 @@
-name: "Configuration testing"
+name: "tests are"
 on:
   pull_request:
   push:
