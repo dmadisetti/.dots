@@ -51,8 +51,7 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- certain contrib modules.
 --
 myTerminal = "kitty"
-
-background = "~/.dotfiles/backgrounds/kitty.jpg"
+background = "~/.dots/backgrounds/kitty.jpg"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
