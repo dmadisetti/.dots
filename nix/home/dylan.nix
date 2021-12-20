@@ -20,7 +20,7 @@
       enable = true;
       viAlias = true;
       vimAlias = true;
-      extraConfig = builtins.readFile ../../vimrc;
+      extraConfig = builtins.readFile ../../dot/vimrc;
     };
   };
 
