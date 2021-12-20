@@ -17,7 +17,7 @@
   };
 
   home.packages = with pkgs; [
-    compton
+    picom
     feh
     i3blocks
     i3status

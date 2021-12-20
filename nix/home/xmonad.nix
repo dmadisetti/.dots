@@ -12,17 +12,23 @@
       haskellPackages.containers
     ];
     enableContribAndExtras = true;
+    config = ../../config/xmonad/Main.hs;
   };
 
   home.packages = with pkgs; [
     acpi
-    jq
     dunst
     eww
     feh
+    jq
     maim
     picom
     rofi
+    steam-tui
+    steamcmd
+
+    # isn't tweag the best
+    ormolu
   ];
 
   home.file.".xinitrc".source = ../../config/xmonad/xinitrc;

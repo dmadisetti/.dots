@@ -49,6 +49,8 @@
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
+        overlays = import ./nix/overlays.nix;
+        config.allowUnfree = true;
       };
       wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
       homeConfig = user: userConfigs: wm: { ... }: {
