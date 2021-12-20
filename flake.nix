@@ -40,7 +40,7 @@
 
     # TODO: Use "${builtins.getEnv "PWD" ""}/nix/sensitive" once allowed,
     # see: NixOS/nix#/3966
-    sensitive.url = "/home/dylan/.dotfiles/nix/sensitive";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -103,6 +103,7 @@
         };
         slug = mkComputer {
           machineConfig = ./nix/machines/slug.nix;
+          wm = "sway";
         };
       };
     };

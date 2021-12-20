@@ -1,4 +1,5 @@
 OMy vim game isn't the strongest.`<C-O>`gg
-# .dotfiles
+# ⚫⚫⚫
+## (.dots)
 
-[![this is currently](https://github.com/dmadisetti/.dotfiles/actions/workflows/flake.yaml/badge.svg)](https://github.com/dmadisetti/.dotfiles/actions/workflows/flake.yaml)
+[![this is currently](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml/badge.svg)](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml)

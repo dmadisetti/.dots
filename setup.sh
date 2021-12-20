@@ -15,11 +15,11 @@ setup() {
   mkdir -p ~/.vim
 
   # nvim
-  ln -s $scriptpath/vimrc ~/.vimrc
-  ln -s $scriptpath/vimrc ~/.config/nvim/init.vim
-  ln -s $scriptpath/vim/ulties ~/.config/nvim/ulties
-  ln -s $scriptpath/vim/ulties ~/.vim/ulties
-  ln -s $scriptpath/vim ~/.vim/config
+  ln -s $scriptpath/dot/vimrc ~/.vimrc
+  ln -s $scriptpath/dot/vimrc ~/.config/nvim/init.vim
+  ln -s $scriptpath/dot/vim/ulties ~/.config/nvim/ulties
+  ln -s $scriptpath/dot/vim/ulties ~/.vim/ulties
+  ln -s $scriptpath/dot/vim ~/.vim/config
 
   # fish
   ln -s $configpath/fish ~/.config
@@ -31,17 +31,17 @@ setup() {
   ln -s $configpath/kitty ~/.config
 
   # git
-  ln -s $scriptpath/gitconfig ~/.gitconfig
+  ln -s $scriptpath/dot/gitconfig ~/.gitconfig
 
   # tmux
-  ln -s $scriptpath/tmux/tmux.conf ~/.tmux.conf
+  ln -s $scriptpath/dot/tmux/tmux.conf ~/.tmux.conf
 
   # yapf
-  ln -s $configpath/yapf ~/.config/yapf
+  ln -s $configpath/dot/yapf ~/.config/yapf
 
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
-    echo "[ -f ~/.dotfiles/bashrc ] && . ~/.dotfiles/bashrc" >> ~/.bashrc
+    echo "[ -f ~/.dots/dot/bashrc ] && . ~/.dots/dot/bashrc" >> ~/.bashrc
   }
 }
 

@@ -1,5 +1,5 @@
 # Under imports in /etc/nixos/configuration.nix
-# /home/nixos/.dotfiles/nix/bootstrap/boostrap.nix
+# /home/nixos/.dots/nix/bootstrap/boostrap.nix
 { lib, pkgs, config, modulesPath, ... }:
 
 {

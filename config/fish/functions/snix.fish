@@ -1,4 +1,4 @@
-set DOTFILES /home/dylan/.dotfiles
+set DOTFILES /home/dylan/.dots
 function snix
   pushd $DOTFILES;
   if test (count $argv) -eq 0
