@@ -16,14 +16,23 @@
   };
 
   home.packages = with pkgs; [
-    acpi
-    dunst
-    eww
-    feh
-    jq
-    maim
-    picom
-    rofi
+    acpi # hardware states
+    brightnessctl
+    playerctl
+    betterlockscreen
+    dunst # notifications
+    eww # bars and widgets
+    feh # background
+    jq # parse json
+    maim # Screenshot
+    picom # Compositor
+    imagemagick # TODO: remove
+    libnotify
+    rofi # quick start
+
+    zathura # pdfs
+
+    # Games for fun
     steam-tui
     steamcmd
 

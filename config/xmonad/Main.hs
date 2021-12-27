@@ -30,8 +30,12 @@ import XMonad.Hooks.ManageDocks
     manageDocks,
   )
 import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
+import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.Fullscreen
-  ( fullscreenEventHook,
+  (
+    FullscreenMessage (AddFullscreen, RemoveFullscreen),
+    fullscreenFloat,
+    fullscreenEventHook,
     fullscreenFull,
     fullscreenManageHook,
     fullscreenSupport,
@@ -43,7 +47,7 @@ import XMonad.Layout.Gaps
     setGaps,
   )
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spacing (Border (Border), spacingRaw)
+import XMonad.Layout.Spacing (Border (Border), spacingRaw, toggleScreenSpacingEnabled)
 import qualified XMonad.StackSet as W
 import XMonad.Util.SpawnOnce (spawnOnce)
 
@@ -51,7 +55,8 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- certain contrib modules.
 --
 myTerminal = "kitty"
-background = "~/.dots/backgrounds/kitty.jpg"
+background = "~/.dots/backgrounds/snow.png"
+picom = "~/.dots/config/compton.cfg"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -87,7 +92,6 @@ myWorkspaces = map show [1 .. 9]
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor = "#3b4252"
-
 myFocusedBorderColor = "#bc96da"
 
 addNETSupported :: Atom -> X ()
@@ -116,16 +120,13 @@ infixr 0 ~>
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-clipboardy :: MonadIO m => m () -- Don't question it
-clipboardy = spawn "rofi -modi \"\63053 :greenclip print\" -show \"\63053 \" -run-command '{cmd}' -theme ~/.config/rofi/launcher/style.rasi"
 
 centerlaunch =
   spawn $
     unwords
       [ "exec eww open-many",
         "blur_full weather profile",
-        "quote search_full incognito-icon",
-        "vpn-icon home_dir screenshot power_full",
+        "incognito-icon vpn-icon screenshot power_full",
         "reboot_full lock_full logout_full suspend_full"
       ]
 
@@ -138,17 +139,14 @@ sidebarlaunch =
       ]
 
 ewwclose = spawn "exec eww close-all"
-
-maimcopy = spawn "maim -s | xclip -selection clipboard -t image/png && notify-send \"Screenshot\" \"Copied to Clipboard\" -i flameshot"
-
-maimsave = spawn "maim -s ~/Desktop/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send \"Screenshot\" \"Saved to Desktop\" -i flameshot"
-
-rofi_launcher = spawn "rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/launcher/style -drun-icon-theme \"candy-icons\" "
+maimcopy = spawn "maim -s | xclip -selection clipboard -t image/png"
+maimsave = spawn "maim ~/$(date +%Y-%m-%d_%H-%M-%S).png"
+rofi_launcher = spawn "rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/launcher/style"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) =
   M.fromList $
     -- launch a terminal
-    [ ((modm, xK_Return), spawn $ XMonad.terminal conf),
+    [ (modm, xK_Return) ~> spawn $ XMonad.terminal conf,
       -- (modm, xK_Return) ~> spawn $ XMonad.terminal conf,
       -- lock screen
       (modm, xK_F1) ~> spawn "betterlockscreen -l",
@@ -185,6 +183,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       (modm .|. controlMask, xK_i) ~> sendMessage $ IncGap 10 R, -- increment the right-hand gap
       (modm .|. shiftMask, xK_i) ~> sendMessage $ DecGap 10 R, -- decrement the right-hand gap
 
+      -- Toggle Full Screen
+      (modm, xK_f) ~> sequence_ [ewwclose, sendMessage (Toggle "Full")],
+
       -- Rotate through the available layout algorithms
       (modm, xK_space) ~> sendMessage NextLayout,
       --  Reset the layouts on the current workspace to default
@@ -200,7 +201,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- Move focus to the master window
       (modm, xK_m) ~> windows W.focusMaster,
       -- Swap the focused window and the master window
-      (modm, xK_Return) ~> windows W.swapMaster,
+      (modm .|. shiftMask, xK_Return) ~> windows W.swapMaster,
       -- Swap the focused window with the next window
       (modm .|. shiftMask, xK_j) ~> windows W.swapDown,
       -- Swap the focused window with the previous window
@@ -217,8 +218,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       (modm, xK_period) ~> sendMessage (IncMasterN (-1)),
       -- Restart xmonad
       (modm, xK_q) ~> spawn "xmonad --recompile; xmonad --restart",
-      -- Run xmessage with a summary of the default keybindings (useful for beginners)
-      (modm .|. shiftMask, xK_slash) ~> spawn ("echo \"" ++ help ++ "\" | xmessage -file -")
+      -- Run rofi with a summary of the default keybindings (useful for beginners)
+      (modm .|. shiftMask, xK_slash) ~> spawn ("rofi -modi run,drun,window -theme $HOME/.config/rofi/launcher/style -e \"$(echo -e \"" ++ help ++ "\")\"")
     ]
       ++
       --
@@ -274,7 +275,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) =
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+myLayout = avoidStruts (tiled ||| Mirror tiled)
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled = Tall nmaster delta ratio
@@ -303,10 +304,7 @@ myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
 myManageHook =
   fullscreenManageHook <+> manageDocks
     <+> composeAll
-      [ className =? "MPlayer" --> doFloat,
-        className =? "Gimp" --> doFloat,
-        resource =? "desktop_window" --> doIgnore,
-        resource =? "kdesktop" --> doIgnore,
+      [ resource =? "desktop_window" --> doIgnore,
         isFullscreen --> doFullFloat
       ]
 
@@ -339,12 +337,10 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
-  -- spawnOnce "exec ~/bin/bartoggle"
   spawnOnce "exec eww daemon"
   spawn "xsetroot -cursor_name left_ptr"
-  -- spawn "exec ~/bin/lock.sh"
   spawnOnce $ "feh --bg-scale " ++ background
-  spawnOnce "picom --experimental-backends"
+  spawnOnce $ "picom --experimental-backends --config " ++ picom
   spawnOnce "dunst"
 
 ------------------------------------------------------------------------
@@ -376,7 +372,7 @@ defaults =
       mouseBindings = myMouseBindings,
       -- hooks, layouts
       manageHook = myManageHook,
-      layoutHook = gaps [(L, 30), (R, 30), (U, 40), (D, 60)] $ spacingRaw True (Border 10 10 10 10) True (Border 10 10 10 10) True $ smartBorders $ myLayout,
+      layoutHook = toggleLayouts (smartBorders Full) $ gaps [(L, 30), (R, 30), (U, 40), (D, 60)] $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True $ smartBorders $ myLayout,
       handleEventHook = myEventHook,
       logHook = myLogHook,
       startupHook = myStartupHook >> addEWMHFullscreen

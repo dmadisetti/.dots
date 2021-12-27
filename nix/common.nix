@@ -4,7 +4,7 @@
 {
   imports = [
     # Basic network hardening
-    ./common/harden.nix
+    # ./common/harden.nix
     # Very minimal packages
     ./common/pkgs.nix
   ];
@@ -19,8 +19,14 @@
   };
 
   time.timeZone = "America/New_York";
+  services = {
+    openssh = {
+      enable = true;
+      passwordAuthentication = true;
+    };
+  };
 
-  networking = sensitive.lib.networking {};
+  networking = sensitive.lib.networking;
 
   # PGP set up
   programs.gnupg.agent.enable = true;
@@ -31,7 +37,7 @@
     isNormalUser = true;
     uid = 1337;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "docker" "tty" "video" ];
+    extraGroups = [ "wheel" "docker" "tty" "audio" "video" ];
   };
 
   # This value determines the NixOS release from which the default

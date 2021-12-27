@@ -7,6 +7,8 @@
     noto-fonts-emoji
     fira-code
     fira-code-symbols
+
+    material-design-icons
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
   ];
 }

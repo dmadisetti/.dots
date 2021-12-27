@@ -37,7 +37,7 @@ setup() {
   ln -s $scriptpath/dot/tmux/tmux.conf ~/.tmux.conf
 
   # yapf
-  ln -s $configpath/dot/yapf ~/.config/yapf
+  ln -s $configpath/yapf ~/.config/yapf
 
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {

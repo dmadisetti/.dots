@@ -99,6 +99,10 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
+        mamba = mkComputer {
+          machineConfig = ./nix/machines/mamba.nix;
+          wm = "xmonad";
+        };
         exalt = mkComputer {
           machineConfig = ./nix/machines/exalt.nix;
           wm = "xmonad";
