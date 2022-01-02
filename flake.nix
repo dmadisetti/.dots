@@ -20,6 +20,8 @@
 #          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
 #
 # Implemented machines:
+#   • mamba - Dualboot Thinkpad daily driver
+#   • slug - WSL on the daily driver.
 #   • exalt - Craptop converted for Nix hacking
 #
 # A fair bit of inspiraton from github:srid/nixos-config

@@ -12,5 +12,14 @@
     # Basic utils
     killall
   ];
+
+  # Override defaults
+  environment.defaultPackages = with pkgs; [
+    # Removes nano by omission
+    perl
+    rsync
+    strace
+  ];
+  environment.variables.EDITOR = "nvim";
 }
 

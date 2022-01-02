@@ -9,7 +9,9 @@
      driSupport = true;
      driSupport32Bit = true;
    };
+
   services.xserver.enable = true;
   services.xserver.libinput.enable = true;
   services.xserver.displayManager.startx.enable = true;
+  services.xserver.desktopManager.xterm.enable = false;
 }
