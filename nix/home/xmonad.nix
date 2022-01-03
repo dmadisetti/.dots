@@ -12,7 +12,7 @@
       haskellPackages.containers
     ];
     enableContribAndExtras = true;
-    config = ../../config/xmonad/Main.hs;
+    config = ../../dot/xmonad/Main.hs;
   };
 
   home.packages = with pkgs; [
@@ -40,5 +40,5 @@
     ormolu
   ];
 
-  home.file.".xinitrc".source = ../../config/xmonad/xinitrc;
+  home.file.".xinitrc".source = ../../dot/xmonad/xinitrc;
 }

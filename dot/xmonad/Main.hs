@@ -121,15 +121,6 @@ infixr 0 ~>
 -- Key bindings. Add, modify or remove key bindings here.
 --
 
-centerlaunch =
-  spawn $
-    unwords
-      [ "exec eww open-many",
-        "blur_full weather profile",
-        "incognito-icon vpn-icon screenshot power_full",
-        "reboot_full lock_full logout_full suspend_full"
-      ]
-
 sidebarlaunch =
   spawn $
     unwords

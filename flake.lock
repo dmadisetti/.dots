@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1637481586,
-        "narHash": "sha256-cvgegmCRfNFuA/vPseMcSptmlNqD2nC0lLI9BQWU46A=",
+        "lastModified": 1641121012,
+        "narHash": "sha256-svaOMxNMQgFHjcxdmLojOxTxfqSENtnO+S3kb+npIwY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1abd311eef125e7b64dff723f198d15e5aca2dd4",
+        "rev": "8e7a10602d1eb1d242c9d3f9b822203d5751a8c6",
         "type": "github"
       },
       "original": {
@@ -22,11 +22,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1637242070,
-        "narHash": "sha256-/XCFGOriSpAgo0lPxVK12vFBpta567kwfHZr5tNNHyE=",
+        "lastModified": 1640686209,
+        "narHash": "sha256-6glXUlKRDhEhNuYx6r3fXU6KH2/Vq9mJZjB9oUpwrmc=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "5a7e613703ea349fd46b3fa2f3dfe3bd5444d591",
+        "rev": "46df95ca81e7e4cf3458cdb4b7d1714b5fce9da5",
         "type": "github"
       },
       "original": {
@@ -62,8 +62,11 @@
     },
     "sensitive": {
       "locked": {
-        "lastModified": 1639957985,
-        "narHash": "sha256-Lum3vsG4CAiIjLLlOQR983YUcsBOrD6YO6Qc9cXvq98=",
+        "lastModified": 1641126981,
+        "narHash": "sha256-opnQKT56zKupT6Tf0yoDcWPuyBBVsz9GQndZLJg7/iQ=",
+        "ref": "master",
+        "rev": "98840c09704cb73404c8942420135d0ce7b7545b",
+        "revCount": 11,
         "type": "git",
         "url": "file:///home/dylan/.dots/nix/sensitive"
       },
