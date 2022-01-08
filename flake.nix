@@ -74,7 +74,7 @@
         }: nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           # Arguments to pass to all modules.
-          specialArgs = { inherit system inputs sensitive user; };
+          specialArgs = { inherit system inputs sensitive user self; };
           modules = (
             [
               # System configuration for this host
