@@ -88,7 +88,7 @@
                 home-manager.useUserPackages = true;
                 home-manager.users."${user}" = homeConfig user userConfigs wm
                   {
-                    inherit inputs system pkgs;
+                    inherit inputs system pkgs self;
                   };
               }
             ] ++ extraModules ++ (if wms ? "${wm}" then [
