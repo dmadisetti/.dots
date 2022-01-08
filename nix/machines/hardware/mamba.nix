@@ -25,4 +25,10 @@
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  # Bluetooth
+  # https://nixos.wiki/wiki/Bluetooth
+  hardware.bluetooth.enable = false;
+  # Don't power up the default Bluetooth controller on boot
+  hardware.bluetooth.powerOnBoot = false;
 }

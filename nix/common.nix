@@ -1,10 +1,10 @@
 # Common Nix
+# ❄️
 { config, pkgs, inputs, user, sensitive, ... }:
-
 {
   imports = [
     # Basic network hardening
-    # ./common/harden.nix
+    ./common/harden.nix
     # Very minimal packages
     ./common/pkgs.nix
   ];
@@ -16,28 +16,24 @@
       experimental-features = nix-command flakes
     '';
     trustedUsers = [ "root" "${user}" ];
+
+    # The default is 03:15 for when these run.
+    gc.automatic = true;
+    optimise.automatic = true;
+    autoOptimiseStore = true;
   };
 
   time.timeZone = "America/New_York";
-  services = {
-    openssh = {
-      enable = true;
-      passwordAuthentication = true;
-    };
-  };
-
-  networking = sensitive.lib.networking;
-
-  # PGP set up
-  programs.gnupg.agent.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.mutableUsers = false;
-  users.users."${user}" = {
+  users.users."${user}" = if !config.boot.isContainer then {
     isNormalUser = true;
     uid = 1337;
     shell = pkgs.fish;
     extraGroups = [ "wheel" "docker" "tty" "audio" "video" ];
+  } else {
+    isNormalUser = true;
   };
 
   # This value determines the NixOS release from which the default

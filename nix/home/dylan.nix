@@ -10,6 +10,8 @@
   home.packages = with pkgs; [
     gnupg
     keybase
+    wireguard
+
     neofetch
     python38Packages.pynvim
     tmux

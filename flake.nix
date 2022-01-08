@@ -41,8 +41,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # TODO: Use "${builtins.getEnv "PWD" ""}/nix/sensitive" once allowed,
+    # and builtins.readFile nix/sensitive/.git/refs/heads/master
     # see: NixOS/nix#/3966
-    sensitive.url = "/home/dylan/.dots/nix/sensitive";
+    # -1 to get latest commit. Maybe? Just decrement down
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?lastModified=-1";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -91,6 +93,7 @@
               }
             ] ++ extraModules ++ (if wms ? "${wm}" then [
               ./nix/common/fonts.nix
+              ./nix/common/getty.nix
               ./nix/common/head.nix
               (./nix + ("/display/" + wms."${wm}") + ".nix")
             ] else [ ])
