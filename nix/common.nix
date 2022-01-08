@@ -1,6 +1,6 @@
 # Common Nix
 # ❄️
-{ config, pkgs, inputs, user, sensitive, ... }:
+{ config, self, pkgs, user, sensitive, ... }:
 {
   imports = [
     # Basic network hardening

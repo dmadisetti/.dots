@@ -4,7 +4,7 @@
   services.getty.helpLine = ''
    ▄▄▄▄▄▄▄   ▄ ▄▄ ▄  ▄▄▄ ▄▄▄▄▄▄▄  Linux \r (\m)
    █ ▄▄▄ █ ▀ ▀ ▄█▀█▀   ▄ █ ▄▄▄ █  nixpkgs/${config.system.nixos.revision}
-   █ ███ █ ▀█▀ ▀ ▀ █▀ ▄▄ █ ███ █  dots/${if (self ? rev) then self.rev else "dirty"}
+   █ ███ █ ▀█▀ ▀ ▀ █▀ ▄▄ █ ███ █  dots/${if self ? rev then self.rev else "dirty"}
    █▄▄▄▄▄█ █▀▄▀█ ▄▀█▀█ █ █▄▄▄▄▄█  \d
    ▄▄▄▄▄ ▄▄▄█▀█  ▀▄▀▄▀█▀▄ ▄ ▄ ▄
    █▄▀██▀▄▄█ █ ▀██▄██▀▀██▀██▀▀▀▀
