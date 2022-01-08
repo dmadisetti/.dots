@@ -3,8 +3,8 @@
   services.getty.greetingLine = ''NixOS ${config.system.nixos.release} - \l'';
   services.getty.helpLine = ''
    ▄▄▄▄▄▄▄   ▄ ▄▄ ▄  ▄▄▄ ▄▄▄▄▄▄▄  Linux \r (\m)
-   █ ▄▄▄ █ ▀ ▀ ▄█▀█▀   ▄ █ ▄▄▄ █  nixpkgs/${config.system.nixos.revision}
-   █ ███ █ ▀█▀ ▀ ▀ █▀ ▄▄ █ ███ █  dots/${if self ? rev then self.rev else "dirty"}
+   █ ▄▄▄ █ ▀ ▀ ▄█▀█▀   ▄ █ ▄▄▄ █  nixpkgs/${self.inputs.nixpkgs.shortRev}
+   █ ███ █ ▀█▀ ▀ ▀ █▀ ▄▄ █ ███ █  dots/${if self ? rev then self.shortRev else "dirty"}
    █▄▄▄▄▄█ █▀▄▀█ ▄▀█▀█ █ █▄▄▄▄▄█  \d
    ▄▄▄▄▄ ▄▄▄█▀█  ▀▄▀▄▀█▀▄ ▄ ▄ ▄
    █▄▀██▀▄▄█ █ ▀██▄██▀▀██▀██▀▀▀▀
