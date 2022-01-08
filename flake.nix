@@ -20,6 +20,8 @@
 #          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
 #
 # Implemented machines:
+#   • mamba - Dualboot Thinkpad daily driver
+#   • slug - WSL on the daily driver.
 #   • exalt - Craptop converted for Nix hacking
 #
 # A fair bit of inspiraton from github:srid/nixos-config
@@ -39,8 +41,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # TODO: Use "${builtins.getEnv "PWD" ""}/nix/sensitive" once allowed,
+    # and builtins.readFile nix/sensitive/.git/refs/heads/master
     # see: NixOS/nix#/3966
-    sensitive.url = "/home/dylan/.dots/nix/sensitive";
+    # -1 to get latest commit. Maybe? Just decrement down
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?lastModified=-1";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -70,7 +74,7 @@
         }: nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           # Arguments to pass to all modules.
-          specialArgs = { inherit system inputs sensitive user; };
+          specialArgs = { inherit system inputs sensitive user self; };
           modules = (
             [
               # System configuration for this host
@@ -84,11 +88,12 @@
                 home-manager.useUserPackages = true;
                 home-manager.users."${user}" = homeConfig user userConfigs wm
                   {
-                    inherit inputs system pkgs;
+                    inherit inputs system pkgs self;
                   };
               }
             ] ++ extraModules ++ (if wms ? "${wm}" then [
               ./nix/common/fonts.nix
+              ./nix/common/getty.nix
               ./nix/common/head.nix
               (./nix + ("/display/" + wms."${wm}") + ".nix")
             ] else [ ])

@@ -55,7 +55,7 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- certain contrib modules.
 --
 myTerminal = "kitty"
-background = "~/.dots/backgrounds/snow.png"
+background = "~/.dots/backgrounds/space.png"
 picom = "~/.dots/config/compton.cfg"
 
 -- Whether focus follows the mouse pointer.
@@ -121,15 +121,6 @@ infixr 0 ~>
 -- Key bindings. Add, modify or remove key bindings here.
 --
 
-centerlaunch =
-  spawn $
-    unwords
-      [ "exec eww open-many",
-        "blur_full weather profile",
-        "incognito-icon vpn-icon screenshot power_full",
-        "reboot_full lock_full logout_full suspend_full"
-      ]
-
 sidebarlaunch =
   spawn $
     unwords
@@ -152,7 +143,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       (modm, xK_F1) ~> spawn "betterlockscreen -l",
       -- launch rofi and dashboard
       (modm, xK_o) ~> rofi_launcher,
-      (modm, xK_c) ~> centerlaunch,
       -- launch eww sidebar
       (modm, xK_s) ~> sidebarlaunch,
       (modm .|. shiftMask, xK_s) ~> ewwclose,

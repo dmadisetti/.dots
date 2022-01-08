@@ -1,5 +1,5 @@
 # Common Nix
-{ config, pkgs, inputs, sensitive, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # List packages installed in system profile.
@@ -8,9 +8,17 @@
     fish
     neovim
     nixpkgs-fmt
+    nixos-option
 
     # Basic utils
     killall
   ];
+
+  # Override defaults
+  environment.defaultPackages = lib.mkForce [
+    # Removes nano/perl/rsync by omission
+    pkgs.strace
+  ];
+  environment.variables.EDITOR = "nvim";
 }
 

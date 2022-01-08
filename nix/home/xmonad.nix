@@ -12,33 +12,33 @@
       haskellPackages.containers
     ];
     enableContribAndExtras = true;
-    config = ../../config/xmonad/Main.hs;
+    config = ../../dot/xmonad/Main.hs;
   };
 
   home.packages = with pkgs; [
+    # utils
     acpi # hardware states
-    brightnessctl
-    playerctl
-    betterlockscreen
+    brightnessctl # Control background
+    playerctl # Control audio
+    jq # parse json
+
+    # rice
+    betterlockscreen # ok lockscreen
     dunst # notifications
     eww # bars and widgets
     feh # background
-    jq # parse json
-    maim # Screenshot
     picom # Compositor
-    imagemagick # TODO: remove
-    libnotify
+
+    # nice
+    maim # Screenshot
     rofi # quick start
+    clipcat # Clipboard
 
     zathura # pdfs
-
-    # Games for fun
-    steam-tui
-    steamcmd
 
     # isn't tweag the best
     ormolu
   ];
 
-  home.file.".xinitrc".source = ../../config/xmonad/xinitrc;
+  home.file.".xinitrc".source = ../../dot/xmonad/xinitrc;
 }
