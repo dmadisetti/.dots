@@ -14,3 +14,5 @@
   tool = nvim
 [alias]
   l = log --graph --pretty=format:\"%C(auto)%h%<(3)%d %s %C(bold blue)(%cr, %an)%Creset\" --abbrev-commit --all
+[init]
+  defaultBranch = main

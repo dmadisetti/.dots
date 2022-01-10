@@ -44,7 +44,7 @@
     # and builtins.readFile nix/sensitive/.git/refs/heads/master
     # see: NixOS/nix#/3966
     # -1 to get latest commit. Maybe? Just decrement down
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?lastModified=-1";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
