@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }: {
+{ config, pkgs, user, sensitive, ... }: {
   networking.firewall.enable = true;
   security.sudo.execWheelOnly = true;
 
@@ -21,4 +21,6 @@
   };
   nix.allowedUsers = [ "root" "${user}" ];
   nix.trustedUsers = [ "root" "${user}" ];
+
+  security.pki.certificateFiles = sensitive.lib.certificates;
 }

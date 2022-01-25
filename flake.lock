@@ -62,17 +62,17 @@
     },
     "sensitive": {
       "locked": {
-        "lastModified": 1641621261,
-        "narHash": "sha256-L5HnEyd1aw7rP/1xSx9GlGoat4V+QLBVtqwVA/8Mavs=",
+        "lastModified": 1643137570,
+        "narHash": "sha256-plHT2oTB5KT1m/CnCAYugGh763w+FxIcqg2FVOc4h/g=",
         "ref": "master",
-        "rev": "a6e301c35a21756eb1fa148d3af1099097aa35df",
-        "revCount": 16,
+        "rev": "da77bc9c2a35bfcbe2333ceb63d27aa5fa64f17d",
+        "revCount": 18,
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
       }
     }
   },

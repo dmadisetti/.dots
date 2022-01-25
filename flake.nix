@@ -21,7 +21,7 @@
 #
 # Implemented machines:
 #   • mamba - Dualboot Thinkpad daily driver
-#   • slug - WSL on the daily driver.
+#   • slug  - WSL on the daily driver.
 #   • exalt - Craptop converted for Nix hacking
 #
 # A fair bit of inspiraton from github:srid/nixos-config
@@ -43,8 +43,8 @@
     # TODO: Use "${builtins.getEnv "PWD" ""}/nix/sensitive" once allowed,
     # and builtins.readFile nix/sensitive/.git/refs/heads/master
     # see: NixOS/nix#/3966
-    # -1 to get latest commit. Maybe? Just decrement down
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
+    # 1 to get latest commit. Maybe? Just increment/decrement around
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:

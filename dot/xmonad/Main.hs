@@ -30,12 +30,10 @@ import XMonad.Hooks.ManageDocks
     manageDocks,
   )
 import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
-import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.Fullscreen
-  (
-    FullscreenMessage (AddFullscreen, RemoveFullscreen),
-    fullscreenFloat,
+  ( FullscreenMessage (AddFullscreen, RemoveFullscreen),
     fullscreenEventHook,
+    fullscreenFloat,
     fullscreenFull,
     fullscreenManageHook,
     fullscreenSupport,
@@ -48,14 +46,19 @@ import XMonad.Layout.Gaps
   )
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing (Border (Border), spacingRaw, toggleScreenSpacingEnabled)
+import XMonad.Layout.ToggleLayouts
 import qualified XMonad.StackSet as W
 import XMonad.Util.SpawnOnce (spawnOnce)
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
+
+-- TODO Collect into def {}
 myTerminal = "kitty"
+
 background = "~/.dots/backgrounds/space.png"
+
 picom = "~/.dots/config/compton.cfg"
 
 -- Whether focus follows the mouse pointer.
@@ -94,6 +97,41 @@ myWorkspaces = map show [1 .. 9]
 myNormalBorderColor = "#3b4252"
 myFocusedBorderColor = "#bc96da"
 
+-- TODO: Create instance for eww groups
+-- Eww
+eww_command command = unwords . (++) ["exec eww " ++ command]
+eww_open = eww_command "open-many"
+eww_close = eww_command "close"
+eww_launch :: [[Char]] -> X ()
+eww_launch = spawn . eww_open
+eww_destroy = spawn . eww_close
+eww_toggle widgets =
+  spawn $
+    unwords
+      [ conditional, "&&",
+        eww_open widgets,
+        "||",
+        eww_close widgets ]
+  where
+    conditional = "test -z $(eww windows | grep \"*" ++ (head widgets) ++ "\")"
+
+sidebar_widgets =
+  [ "weather_side",
+    "time_side",
+    "smol_calendar",
+    "player_side",
+    "sys_side",
+    "sliders_side"
+  ]
+
+sidebar_launch = eww_launch sidebar_widgets
+sidebar_destroy = eww_destroy sidebar_widgets
+sidebar_toggle = eww_toggle sidebar_widgets
+
+bar_widgets = ["desktop", "time_top"]
+bar_launch = eww_launch bar_widgets
+
+-- TODO: Move to support
 addNETSupported :: Atom -> X ()
 addNETSupported x = withDisplay $ \dpy -> do
   r <- asks theRoot
@@ -110,6 +148,8 @@ addEWMHFullscreen = do
   wfs <- getAtom "_NET_WM_STATE_FULLSCREEN"
   mapM_ addNETSupported [wms, wfs]
 
+firefoxFullscreenSupport = addEWMHFullscreen
+
 -- Infix (,) to clean up key and mouse bindings
 infixr 0 ~>
 
@@ -121,31 +161,21 @@ infixr 0 ~>
 -- Key bindings. Add, modify or remove key bindings here.
 --
 
-sidebarlaunch =
-  spawn $
-    unwords
-      [ "exec eww open-many",
-        "weather_side time_side smol_calendar",
-        "player_side sys_side sliders_side"
-      ]
-
-ewwclose = spawn "exec eww close-all"
 maimcopy = spawn "maim -s | xclip -selection clipboard -t image/png"
 maimsave = spawn "maim ~/$(date +%Y-%m-%d_%H-%M-%S).png"
 rofi_launcher = spawn "rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/launcher/style"
+rofi_help = spawn ("rofi -modi run,drun,window -theme $HOME/.config/rofi/help/style -e \"$(echo -e \"" ++ help ++ "\")\"")
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) =
   M.fromList $
     -- launch a terminal
     [ (modm, xK_Return) ~> spawn $ XMonad.terminal conf,
-      -- (modm, xK_Return) ~> spawn $ XMonad.terminal conf,
       -- lock screen
-      (modm, xK_F1) ~> spawn "betterlockscreen -l",
+      (modm .|. shiftMask, xK_l) ~> spawn "betterlockscreen -l",
       -- launch rofi and dashboard
-      (modm, xK_o) ~> rofi_launcher,
+      (modm, xK_space) ~> rofi_launcher,
       -- launch eww sidebar
-      (modm, xK_s) ~> sidebarlaunch,
-      (modm .|. shiftMask, xK_s) ~> ewwclose,
+      (modm, xK_Tab) ~> sidebar_toggle,
       -- Audio keys
       (0, xF86XK_AudioPlay) ~> spawn "playerctl play-pause",
       (0, xF86XK_AudioPrev) ~> spawn "playerctl previous",
@@ -174,16 +204,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       (modm .|. shiftMask, xK_i) ~> sendMessage $ DecGap 10 R, -- decrement the right-hand gap
 
       -- Toggle Full Screen
-      (modm, xK_f) ~> sequence_ [ewwclose, sendMessage (Toggle "Full")],
-
+      (modm, xK_f) ~> sequence_ [sidebar_destroy, sendMessage (Toggle "Full")],
       -- Rotate through the available layout algorithms
-      (modm, xK_space) ~> sendMessage NextLayout,
+      (modm, xK_n) ~> sendMessage NextLayout,
       --  Reset the layouts on the current workspace to default
-      (modm .|. shiftMask, xK_space) ~> setLayout $ XMonad.layoutHook conf,
+      (modm .|. shiftMask, xK_n) ~> setLayout $ XMonad.layoutHook conf,
       -- Resize viewed windows to the correct size
-      (modm, xK_n) ~> refresh,
-      -- Move focus to the next window
-      (modm, xK_Tab) ~> windows W.focusDown,
+      (modm, xK_r) ~> refresh,
       -- Move focus to the next window
       (modm, xK_j) ~> windows W.focusDown,
       -- Move focus to the previous window
@@ -209,7 +236,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- Restart xmonad
       (modm, xK_q) ~> spawn "xmonad --recompile; xmonad --restart",
       -- Run rofi with a summary of the default keybindings (useful for beginners)
-      (modm .|. shiftMask, xK_slash) ~> spawn ("rofi -modi run,drun,window -theme $HOME/.config/rofi/launcher/style -e \"$(echo -e \"" ++ help ++ "\")\"")
+      (modm .|. shiftMask, xK_slash) ~> rofi_help
     ]
       ++
       --
@@ -226,7 +253,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
       --
       [ ((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0 ..],
+        | (key, sc) <- zip [xK_a, xK_b, xK_c] [0 ..],
           (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
       ]
 
@@ -332,6 +359,7 @@ myStartupHook = do
   spawnOnce $ "feh --bg-scale " ++ background
   spawnOnce $ "picom --experimental-backends --config " ++ picom
   spawnOnce "dunst"
+  bar_launch
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -365,7 +393,7 @@ defaults =
       layoutHook = toggleLayouts (smartBorders Full) $ gaps [(L, 30), (R, 30), (U, 40), (D, 60)] $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True $ smartBorders $ myLayout,
       handleEventHook = myEventHook,
       logHook = myLogHook,
-      startupHook = myStartupHook >> addEWMHFullscreen
+      startupHook = myStartupHook >> firefoxFullscreenSupport
     }
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.

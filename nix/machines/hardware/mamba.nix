@@ -28,7 +28,7 @@
 
   # Bluetooth
   # https://nixos.wiki/wiki/Bluetooth
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth.enable = true;
   # Don't power up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = false;
 }
