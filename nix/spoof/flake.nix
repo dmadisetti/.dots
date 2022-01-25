@@ -7,6 +7,7 @@
   outputs = inputs@{ self, ... }: {
     lib = {
       networking = {};
+      certificates = [];
     };
   };
 }
