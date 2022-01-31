@@ -1,4 +1,5 @@
-# Tell it how it is
+# Sipping once 🥣, sipping twice 🥣
+# Sipping chicken noodle soup with rice.
 
 { pkgs, lib, home, ... }:
 
@@ -33,12 +34,6 @@
     maim # Screenshot
     rofi # quick start
     clipcat # Clipboard
-
-    zathura # pdfs
-    zotero # research
-
-    # isn't tweag the best
-    ormolu
   ];
 
   home.file.".xinitrc".source = ../../dot/xmonad/xinitrc;

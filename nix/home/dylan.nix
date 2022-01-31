@@ -1,4 +1,4 @@
-# Home sweet home
+# Home sweet home 🏠
 
 { pkgs, inputs, system, ... }:
 

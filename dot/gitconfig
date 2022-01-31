@@ -2,17 +2,27 @@
   email = madisetti@jhu.edu
   name = madisetti
   signingkey = 9080F46A6E933A9D
+
 [core]
   editor = nvim
+
 [commit]
   gpgsign = true
+
 [diff]
   tool = nvim -d
+
 [difftool "vimdiff3"]
   path = nvim
+
 [merge]
   tool = nvim
+
 [alias]
   l = log --graph --pretty=format:\"%C(auto)%h%<(3)%d %s %C(bold blue)(%cr, %an)%Creset\" --abbrev-commit --all
+
 [init]
   defaultBranch = main
+
+[credential]
+  helper = cache --timeout=86400

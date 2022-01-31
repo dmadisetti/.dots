@@ -42,7 +42,7 @@ let g:UltiSnipsSnippetsDir = "~/.vim/ulties"
 let g:UltiSnipsSnippetDirectories = ["ulties"]
 
 " Citation for PhD work
-let g:citation_vim_bibtex_file="/home/dylan/phd/notes/bibtex.bib"
+let g:citation_vim_bibtex_file="~/phd/notes/bibtex.bib"
 let g:citation_vim_mode="bibtex"
 let g:citation_vim_cache_path="~/.vim/citation.cache"
 

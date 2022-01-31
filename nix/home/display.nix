@@ -1,11 +1,15 @@
-# Tell it how it is
+# All I need is a browser and a shell 🐌
 
-{ pkgs, inputs, home, system, ... }:
-
+{ pkgs, config, ... }:
+let
+  # This doesn't work.. But we should make it?
+  browser = (if (config.services ? tor) then
+    pkgs.tor-browser-bundle-bin else pkgs.firefox);
+in
 {
   imports = [ ];
-  home.packages = with pkgs; [
-    kitty
-    firefox
+  home.packages = [
+    pkgs.kitty
+    browser
   ];
 }

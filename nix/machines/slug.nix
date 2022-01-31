@@ -1,11 +1,11 @@
 # WSL configuration
 
-{ lib, pkgs, config, modulesPath, ... }:
+{ lib, pkgs, user, config, modulesPath, ... }:
 
 with lib;
 let
-  defaultUser = "dylan";
-  syschdemd = import ./syschdemd.nix { inherit lib pkgs config defaultUser; };
+  defaultUser = user;
+  syschdemd = import ../lib/syschdemd.nix { inherit lib pkgs config defaultUser; };
 in
 {
   imports = [

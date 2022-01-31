@@ -8,6 +8,8 @@
     lib = {
       networking = {};
       certificates = [];
+      hashed = "";
+      paper = "";
     };
   };
 }

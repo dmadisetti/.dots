@@ -24,6 +24,9 @@
 #   • slug  - WSL on the daily driver.
 #   • exalt - Craptop converted for Nix hacking
 #
+# Implemented devices
+#   • momento - Live USB stick with configs for amnesiac + installs
+#
 # A fair bit of inspiraton from github:srid/nixos-config
 
 {
@@ -44,7 +47,7 @@
     # and builtins.readFile nix/sensitive/.git/refs/heads/master
     # see: NixOS/nix#/3966
     # 1 to get latest commit. Maybe? Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=6";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -107,6 +110,7 @@
         mamba = mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
           wm = "xmonad";
+          userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = mkComputer {
           machineConfig = ./nix/machines/exalt.nix;
@@ -114,6 +118,11 @@
         };
         slug = mkComputer {
           machineConfig = ./nix/machines/slug.nix;
+        };
+        momento = mkComputer {
+          machineConfig = ./nix/machines/momento.nix;
+          wm = "xmonad";
+          userConfigs = [ ./nix/home/live.nix ];
         };
       };
     };
