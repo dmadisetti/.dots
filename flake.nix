@@ -47,7 +47,7 @@
     # and builtins.readFile nix/sensitive/.git/refs/heads/master
     # see: NixOS/nix#/3966
     # 1 to get latest commit. Maybe? Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=6";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=7";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -70,7 +70,7 @@
       };
       mkComputer =
         { machineConfig
-        , user ? "dylan"
+        , user ? sensitive.lib.user
         , wm ? ""
         , extraModules ? [ ]
         , userConfigs ? [ ]

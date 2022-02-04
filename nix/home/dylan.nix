@@ -23,6 +23,11 @@
       viAlias = true;
       vimAlias = true;
       extraConfig = builtins.readFile ../../dot/vimrc;
+      withNodeJs = true;
+
+      # python is true by default, but we need pybtex for managing citations.
+      # see https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/python-packages.nix
+      extraPython3Packages = (py: with py; [ pybtex ]);
     };
   };
 

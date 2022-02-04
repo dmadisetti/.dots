@@ -38,3 +38,10 @@ function! Zen()
 endfunction
 
 command Zen :call Zen()
+
+" copilot tweaks
+" ctrl-F classic emacs forwards
+imap <silent><script><expr> <C-F> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+" Suggestion color really needs to change because of Zen mode
+highlight CopilotSuggestion guifg=#000000 ctermfg=8
