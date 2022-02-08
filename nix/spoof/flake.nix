@@ -7,7 +7,8 @@
 
   outputs = inputs@{ self, ... }: {
     lib = {
-      user = "{{user}}";
+      # TODO: Remove reference to dylan...
+      user = "dylan";
       hashed = "{{hashed}}";
       paper = "{{paper}}";
       default_wm = "{{default_wm}}";
