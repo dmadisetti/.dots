@@ -7,13 +7,12 @@
 
   outputs = inputs@{ self, ... }: {
     lib = {
-      # TODO: Remove reference to dylan...
-      user = "dylan";
+      user = "{{user}}";
       hashed = "{{hashed}}";
       paper = "{{paper}}";
       default_wm = "{{default_wm}}";
       networking = #{{#unless networking}}
-        {};
+        { };
       #{{else}}{{{networking}}};{{/unless}}
 
       certificates = [

@@ -1,6 +1,5 @@
 # Common Nix
 { config, pkgs, lib, ... }:
-
 {
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
