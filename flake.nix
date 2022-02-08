@@ -43,11 +43,10 @@
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: Use "${builtins.getEnv "PWD" ""}/nix/sensitive" once allowed,
-    # and builtins.readFile nix/sensitive/.git/refs/heads/master
-    # see: NixOS/nix#/3966
-    # 1 to get latest commit. Maybe? Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=7";
+    # TODO: Wait for internal submodules
+    # see: NixOS/nix/issues/5497
+    # Cache invalidation is hard. Just increment/decrement around
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=9";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
@@ -121,9 +120,12 @@
         };
         momento = mkComputer {
           machineConfig = ./nix/machines/momento.nix;
-          wm = "xmonad";
+          wm = sensitive.lib.default_wm;
           userConfigs = [ ./nix/home/live.nix ];
         };
       };
+      live = self.nixosConfigurations.momento.config.system.build.isoImage;
+      # TODO! Bootstrap script
+      # bootstrap = ./nix/bootstrap/default.nix;
     };
 }

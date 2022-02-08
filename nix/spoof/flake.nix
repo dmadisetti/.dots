@@ -1,17 +1,24 @@
 # Fantastic Fake Flake For Fooling Flake tests
-# TODO: Maybe also make this a stub for templating?
+# 🥸 Should be valid nix, but also double as template
 {
-  description = "fake flake for completeness";
+  description = "{{user}}'s flake";
 
   inputs = { };
 
   outputs = inputs@{ self, ... }: {
     lib = {
+      # TODO: Remove reference to dylan...
       user = "dylan";
-      networking = {};
-      certificates = [];
-      hashed = "";
-      paper = "";
+      hashed = "{{hashed}}";
+      paper = "{{paper}}";
+      default_wm = "{{default_wm}}";
+      networking = #{{#unless networking}}
+        {};
+      #{{else}}{{{networking}}};{{/unless}}
+
+      certificates = [
+        /* {{{certificates}}} */
+      ];
     };
   };
 }
