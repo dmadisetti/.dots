@@ -46,7 +46,7 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=9";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=0";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:

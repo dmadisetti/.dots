@@ -19,6 +19,10 @@
       certificates = [
         /* {{{certificates}}} */
       ];
+
+      pkgs = [
+        /* {{{pkgs}}} */
+      ];
     };
   };
 }
