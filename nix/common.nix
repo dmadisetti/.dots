@@ -15,12 +15,14 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [ "root" "${user}" ];
 
     # The default is 03:15 for when these run.
     gc.automatic = true;
     optimise.automatic = true;
-    autoOptimiseStore = true;
+    settings = {
+      trusted-users = [ "root" "${user}" ];
+      auto-optimise-store = true;
+    };
   };
 
   time.timeZone = "America/New_York";
@@ -28,14 +30,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.mutableUsers = false;
   boot.isContainer = isContainer;
-  users.users."${user}" = if !config.boot.isContainer then {
-    isNormalUser = true;
-    uid = 1337;
-    shell = pkgs.fish;
-    extraGroups = [ "wheel" "docker" "tty" "audio" "video" ];
-  } else {
-    isNormalUser = true;
-  };
+  users.users."${user}" =
+    if !config.boot.isContainer then {
+      isNormalUser = true;
+      uid = 1337;
+      shell = pkgs.fish;
+      extraGroups = [ "wheel" "docker" "tty" "audio" "video" ];
+    } else {
+      isNormalUser = true;
+    };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

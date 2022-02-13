@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1641121012,
-        "narHash": "sha256-svaOMxNMQgFHjcxdmLojOxTxfqSENtnO+S3kb+npIwY=",
+        "lastModified": 1644706973,
+        "narHash": "sha256-xOyxrhc5V79u0ZNmnPmJbY3ngtp43dNISEmrb8Ie6wQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8e7a10602d1eb1d242c9d3f9b822203d5751a8c6",
+        "rev": "7c2ae0bdd20ddcaafe41ef669226a1df67f8aa06",
         "type": "github"
       },
       "original": {
@@ -22,11 +22,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1640686209,
-        "narHash": "sha256-6glXUlKRDhEhNuYx6r3fXU6KH2/Vq9mJZjB9oUpwrmc=",
+        "lastModified": 1644691988,
+        "narHash": "sha256-WoZCvPNlQ/ZaOYLmSTPCl1dfCa4mloaUtS1CfBgwPT8=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "46df95ca81e7e4cf3458cdb4b7d1714b5fce9da5",
+        "rev": "c361b954759195c2ac085fbbed5ad7d513e1585b",
         "type": "github"
       },
       "original": {
@@ -38,17 +38,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1638239011,
-        "narHash": "sha256-AjhmbT4UBlJWqxY0ea8a6GU2C2HdKUREkG43oRr3TZg=",
+        "lastModified": 1644486793,
+        "narHash": "sha256-EeijR4guVHgVv+JpOX3cQO+1XdrkJfGmiJ9XVsVU530=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a7ecde854aee5c4c7cd6177f54a99d2c1ff28a31",
+        "rev": "1882c6b7368fd284ad01b0a5b5601ef136321292",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a7ecde854aee5c4c7cd6177f54a99d2c1ff28a31",
+        "rev": "1882c6b7368fd284ad01b0a5b5601ef136321292",
         "type": "github"
       }
     },
@@ -68,11 +68,11 @@
         "rev": "17148aeebc86385c9c02bdcd346971e57dfd2f51",
         "revCount": 21,
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=0"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=0"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
       }
     }
   },

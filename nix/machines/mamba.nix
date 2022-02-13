@@ -25,7 +25,7 @@
     }
   '';
   # chainloader (hd0,1)+1
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "mamba"; # Define your hostname.
