@@ -1,6 +1,6 @@
 # Common Nix
 # ❄️
-{ config, self, pkgs, user, sensitive, ... }:
+{ config, self, pkgs, user, sensitive, isContainer, ... }:
 {
   imports = [
     # Basic network hardening
@@ -27,6 +27,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.mutableUsers = false;
+  boot.isContainer = isContainer;
   users.users."${user}" = if !config.boot.isContainer then {
     isNormalUser = true;
     uid = 1337;

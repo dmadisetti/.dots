@@ -27,7 +27,7 @@
 # Implemented devices
 #   • momento - Live USB stick with configs for amnesiac + installs
 #
-# A fair bit of inspiraton from github:srid/nixos-config
+# A fair bit of inspiration from github:srid/nixos-config
 
 {
   description = "dmadisetti meets NixOS";
@@ -37,7 +37,7 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    nixpkgs.url = github:nixos/nixpkgs/a7ecde854aee5c4c7cd6177f54a99d2c1ff28a31;
+    nixpkgs.url = github:nixos/nixpkgs/1882c6b7368fd284ad01b0a5b5601ef136321292;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     home-manager.url = github:nix-community/home-manager;
@@ -46,17 +46,18 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=0";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
     let
       system = "x86_64-linux";
+
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
         overlays = import ./nix/overlays.nix;
-        config.allowUnfree = true;
+        config.allowUnfree = false;
       };
       wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
       homeConfig = user: userConfigs: wm: { ... }: {
@@ -73,10 +74,11 @@
         , wm ? ""
         , extraModules ? [ ]
         , userConfigs ? [ ]
+        , isContainer ? false
         }: nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           # Arguments to pass to all modules.
-          specialArgs = { inherit system inputs sensitive user self; };
+          specialArgs = { inherit system inputs sensitive user self isContainer; };
           modules = (
             [
               # System configuration for this host
@@ -93,10 +95,12 @@
                     inherit inputs system pkgs self;
                   };
               }
-            ] ++ extraModules ++ (if wms ? "${wm}" then [
+            ] ++ extraModules ++ (if !isContainer then [
               ./nix/common/fonts.nix
               ./nix/common/getty.nix
               ./nix/common/head.nix
+            ] else [ ]) ++
+            (if wms ? "${wm}" then [
               (./nix + ("/display/" + wms."${wm}") + ".nix")
             ] else [ ])
           );
@@ -117,6 +121,7 @@
         };
         slug = mkComputer {
           machineConfig = ./nix/machines/slug.nix;
+          isContainer = true;
         };
         momento = mkComputer {
           machineConfig = ./nix/machines/momento.nix;
@@ -124,6 +129,8 @@
           userConfigs = [ ./nix/home/live.nix ];
         };
       };
+
+      # Technically not allowed, but whatever.
       live = self.nixosConfigurations.momento.config.system.build.isoImage;
       # TODO! Bootstrap script
       # bootstrap = ./nix/bootstrap/default.nix;
