@@ -6,27 +6,31 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware/mamba.nix
     ];
 
   # Allow for dualboot
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.extraEntries = ''
-    menuentry "Windows" {
-      insmod part_gpt
-      insmod fat
-      insmod search_fs_uuid
-      insmod chain
-      chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-    }
-  '';
-  # chainloader (hd0,1)+1
-  # boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    grub = {
+      enable = true;
+      efiSupport = true;
+      version = 2;
+      device = "nodev";
+      configurationLimit = 5;
+      extraEntries = ''
+        menuentry "Windows" {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+      '';
+    };
+    efi.canTouchEfiVariables = true;
+  };
 
   networking.hostName = "mamba"; # Define your hostname.
 
