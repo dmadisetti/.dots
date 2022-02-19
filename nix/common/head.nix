@@ -1,6 +1,5 @@
 # If we can actually sit at the computer
 { config, pkgs, lib, inputs, sensitive, ... }:
-
 {
   # Programs
   programs.fish.enable = true;

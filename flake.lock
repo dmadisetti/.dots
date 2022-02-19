@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "grub2-themes": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1644869197,
+        "narHash": "sha256-h+Uv4JLMAhQui+OyVc1pwLxn/LHwcxRvXvtjP6B+gEA=",
+        "type": "git",
+        "url": "file:///home/dylan/src/grub2-themes?c=29"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/dylan/src/grub2-themes?c=29"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -22,11 +37,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1644691988,
-        "narHash": "sha256-WoZCvPNlQ/ZaOYLmSTPCl1dfCa4mloaUtS1CfBgwPT8=",
+        "lastModified": 1644870092,
+        "narHash": "sha256-RLPD92lqXW98LDIbbwYqwAbt3R4iD1V1PiylfgBq5cU=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "c361b954759195c2ac085fbbed5ad7d513e1585b",
+        "rev": "10eab1c4cd8e715c0b41d32c28af2b89fc67bed0",
         "type": "github"
       },
       "original": {
@@ -37,6 +52,22 @@
       }
     },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1644865686,
+        "narHash": "sha256-in58Kggpev74vu7reOqYZ8HddGQfWdLT2B1zd4rxLdE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c8fce94f429a8638c8147ccef07cf89f15c8e29a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1644486793,
         "narHash": "sha256-EeijR4guVHgVv+JpOX3cQO+1XdrkJfGmiJ9XVsVU530=",
@@ -54,25 +85,23 @@
     },
     "root": {
       "inputs": {
+        "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "sensitive": "sensitive"
       }
     },
     "sensitive": {
       "locked": {
         "lastModified": 1644445633,
-        "narHash": "sha256-5p8d3ilmggWHmqALdi6ssbcnjN5TtrJqO7tczEPj33U=",
-        "ref": "master",
-        "rev": "17148aeebc86385c9c02bdcd346971e57dfd2f51",
-        "revCount": 21,
+        "narHash": "sha256-2jxsPJnHlwVO4l05ubtk2JItsC4j9LPj20J2EKNvpVw=",
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
       }
     }
   },

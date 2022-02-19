@@ -9,7 +9,7 @@ setup() {
 
   rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
-    ~/.gitconfig ~/.tmux.conf
+    ~/.gitconfig ~/.tmux.conf ~/.dots-installed
 
   mkdir -p ~/.config/nvim
   mkdir -p ~/.vim
@@ -22,7 +22,8 @@ setup() {
   ln -s $scriptpath/dot/vim ~/.vim/config
 
   # fish
-  ln -s $configpath/fish ~/.config
+  mkdir ~/.config/fish/
+  ln -s $configpath/fish/* ~/.config/fish/
 
   # i3
   ln -s $configpath/i3 ~/.config
@@ -43,6 +44,9 @@ setup() {
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
     echo "[ -f ~/.dots/dot/bashrc ] && . ~/.dots/dot/bashrc" >> ~/.bashrc
   }
+
+  # indicate we have run the installation
+  touch ~/.dots-installed
 }
 
 setup

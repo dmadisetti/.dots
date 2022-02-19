@@ -39,5 +39,8 @@
     };
   };
 
-  home.stateVersion = "21.11";
+  # Setting fish config will bootstrap other dots
+  home.file.".config/fish/config.fish".source = ../../config/fish/config.fish;
+
+  home.stateVersion = "22.05";
 }
