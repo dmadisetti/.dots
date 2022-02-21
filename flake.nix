@@ -48,7 +48,8 @@
     # Cache invalidation is hard. Just increment/decrement around
     sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
 
-    grub2-themes.url = "/home/dylan/src/grub2-themes?c=29";
+    # Common Grub2 themes
+    grub2-themes.url = github:AnotherGroupChat/grub2-themes/nixos;
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
