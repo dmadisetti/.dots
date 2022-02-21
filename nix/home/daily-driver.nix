@@ -1,7 +1,6 @@
 # User packages beyond DE
 
 { pkgs, lib, home, ... }:
-
 {
   imports = [ ];
 
@@ -13,4 +12,3 @@
     ormolu
   ];
 }
-

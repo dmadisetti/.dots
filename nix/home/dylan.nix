@@ -22,7 +22,12 @@
       enable = true;
       viAlias = true;
       vimAlias = true;
-      extraConfig = builtins.readFile ../../dot/vimrc;
+      # builtins.readFile ../../dot/vimrc;
+      # in theory by but actually set by setup.sh, and we symink so it's
+      # editable.
+      extraConfig = ''
+          source ~/.config/nvim/user.vim
+      '';
       withNodeJs = true;
 
       # python is true by default, but we need pybtex for managing citations.

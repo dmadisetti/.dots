@@ -1,4 +1,4 @@
-[
+{ sensitive }: [
   (self: super: {
     picom = super.picom.overrideAttrs (old: {
       src = super.fetchFromGitHub {
@@ -12,12 +12,14 @@
   (self: super:
     let
       pref = "extensions.zotero.dataDir";
-      path = ".zotero/data";
+      path = "/home/${sensitive.lib.user}/.zotero/data";
+      pref2 = "extensions.zotero.useDataDir";
     in
     {
       zotero = super.zotero.overrideAttrs (old: {
         postPatch = old.postPatch + ''
-          sed -i '/pref("${pref}", .*);/c\pref("${pref}", "${path}");" defaults/preferences/zotero.js
+          sed -i '/pref("${pref}", .*);/c\pref("${pref}", "${path}");' defaults/preferences/zotero.js
+          sed -i '/pref("${pref2}", .*);/c\pref("${pref2}", true);' defaults/preferences/zotero.js
         '';
       });
     })

@@ -6,20 +6,28 @@ setup() {
     pwd -P
   )"
   local configpath="$scriptpath/config"
+  local isnixos=$(uname -a | grep -iq nixos && echo 1 || echo 0)
 
-  rm -rf ~/.vimrc ~/.config/nvim/init.vim ~/.config/nvim/ulties ~/.vim/ulties \
+  rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
     ~/.gitconfig ~/.tmux.conf ~/.dots-installed
 
+  mkdir -p ~/.zotero/data
   mkdir -p ~/.config/nvim
   mkdir -p ~/.vim
 
   # nvim
   ln -s $scriptpath/dot/vimrc ~/.vimrc
-  ln -s $scriptpath/dot/vimrc ~/.config/nvim/init.vim
   ln -s $scriptpath/dot/vim/ulties ~/.config/nvim/ulties
   ln -s $scriptpath/dot/vim/ulties ~/.vim/ulties
   ln -s $scriptpath/dot/vim ~/.vim/config
+  # if managed by nixos, then we just import our script.
+  test $isnixos -eq 1 && {
+    ln -s $scriptpath/dot/vimrc ~/.config/nvim/user.vim
+  } || {
+    rm -rf ~/.config/nvim/init.vim
+    ln -s $scriptpath/dot/vimrc ~/.config/nvim/init.vim
+  }
 
   # fish
   mkdir ~/.config/fish/

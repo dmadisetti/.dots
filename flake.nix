@@ -51,14 +51,14 @@
     grub2-themes.url = "/home/dylan/src/grub2-themes?c=29";
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, sensitive, grub2-themes, ... }:
+  outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
     let
       system = "x86_64-linux";
 
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
-        overlays = import ./nix/overlays.nix;
+        overlays = import ./nix/overlays.nix { sensitive = sensitive; };
         config.allowUnfree = false;
       };
       wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
