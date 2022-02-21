@@ -15,3 +15,5 @@ export CC=clang-12
 if not test -e ~/.dots-installed
     ~/.dots/setup.sh
 end
+
+any-nix-shell fish --info-right | source

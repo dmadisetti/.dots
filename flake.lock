@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1645416036,
-        "narHash": "sha256-xDumffOFQE3iOO4LdwCmiI7xpPMTsv0Kzaqjt2Hgxbc=",
+        "lastModified": 1645462744,
+        "narHash": "sha256-H7w3GhG/3fAZFP2YTifSetCRaEZUz29CiV7GagYRfwg=",
         "owner": "AnotherGroupChat",
         "repo": "grub2-themes",
-        "rev": "2fd6eb9b662efa5b0fb5f29bfb2cf9b6e289e644",
+        "rev": "4f3b99cdf3900f7f5fd396f92b256ddfd90ec646",
         "type": "github"
       },
       "original": {
@@ -98,14 +98,17 @@
     },
     "sensitive": {
       "locked": {
-        "lastModified": 1644445633,
+        "lastModified": 1645417089,
         "narHash": "sha256-2jxsPJnHlwVO4l05ubtk2JItsC4j9LPj20J2EKNvpVw=",
+        "ref": "master",
+        "rev": "8a4eedb8c7166a25ba302345aed2e77e4a51a707",
+        "revCount": 22,
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=3"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=3"
       }
     }
   },

@@ -21,7 +21,7 @@
       device = "nodev";
       configurationLimit = 5;
       extraEntries = ''
-        menuentry "Windows" --class=windows {
+        menuentry "Windows" --class windows {
           insmod part_gpt
           insmod fat
           insmod search_fs_uuid
@@ -31,10 +31,12 @@
       '';
     };
     grub2-theme = {
-      # enable = true;
-      icon = "color";
-      theme = "stylish";
+      enable = true;
+      icon = "white";
+      theme = "whitesur";
       screen = "1080p";
+      splashImage = ../../backgrounds/grub.jpg;
+      footer = true;
     };
     efi.canTouchEfiVariables = true;
   };

@@ -15,6 +15,8 @@
     neofetch
     python38Packages.pynvim
     tmux
+
+    any-nix-shell
   ];
 
   programs = {
