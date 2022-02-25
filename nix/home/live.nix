@@ -1,12 +1,12 @@
 # Self reference as read only for isos
 
-{ config, sensitive, ... }:
+{ config, inputs, ... }:
 {
   imports = [ ];
   home.file.".dots".source = ../../.;
 
   home.sessionVariables = {
     LIVE = 1;
-    KEYBASE_USER = sensitive.lib.keybase_user;
+    KEYBASE_USER = inputs.sensitive.lib.keybase_user;
   };
 }

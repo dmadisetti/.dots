@@ -37,7 +37,8 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    nixpkgs.url = github:nixos/nixpkgs/1882c6b7368fd284ad01b0a5b5601ef136321292;
+    nixpkgs.url = "/home/dylan/src/nixpkgs";
+    # nixpkgs.url = github:nixos/nixpkgs/1882c6b7368fd284ad01b0a5b5601ef136321292;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     home-manager.url = github:nix-community/home-manager;
@@ -46,7 +47,7 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=3";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=4";
 
     # Common Grub2 themes
     # grub2-themes.url = "/home/dylan/src/grub2?cache-bust=8";
@@ -94,6 +95,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users."${user}" = homeConfig user userConfigs wm
                   {
                     inherit inputs system pkgs self;

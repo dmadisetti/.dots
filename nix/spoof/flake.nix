@@ -10,6 +10,7 @@
       # TODO: Remove reference to dylan...
       user = "dylan";
       hashed = "{{hashed}}";
+      keybase_user = "{{keybase_user}}";
       paper = "{{paper}}";
       default_wm = "{{default_wm}}";
       networking = #{{#unless networking}}
@@ -17,11 +18,11 @@
       #{{else}}{{{networking}}};{{/unless}}
 
       certificates = [
-        /* {{{certificates}}} */
+        # {{{certificates}}}
       ];
 
       pkgs = [
-        /* {{{pkgs}}} */
+        # {{{pkgs}}}
       ];
     };
   };
