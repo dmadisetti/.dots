@@ -45,12 +45,8 @@ in
   ## add self?
   isoImage.contents = [
     {
-      source = "${self}";
-      target = "/dots";
-    }
-    {
-      source = pkgs.writeText "paper" sensitive.lib.paper;
-      target = "/paper";
+      source = pkgs.writeText "paper.gpg" sensitive.lib.paper;
+      target = "/paper.gpg";
     }
   ];
   # isoFileSystems <- add luks
