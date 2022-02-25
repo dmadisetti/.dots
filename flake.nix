@@ -37,7 +37,7 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    nixpkgs.url = "/home/dylan/src/nixpkgs";
+    nixpkgs.url = "/home/dylan/src/nixpkgs"; # TODO: remove! On merge changes
     # nixpkgs.url = github:nixos/nixpkgs/1882c6b7368fd284ad01b0a5b5601ef136321292;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
