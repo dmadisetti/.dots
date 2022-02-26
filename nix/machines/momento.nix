@@ -27,8 +27,14 @@ in
 
   # Run through tor because finger printing or something? Supposed to be
   # relatively amnesiac.
-  services.tor.client.enable = true;
-  services.tor.enable = true;
+  services.tor = {
+    enable = true;
+    client = {
+      enable = true;
+      dns.enable = true;
+      transparentProxy.enable = true;
+    };
+  };
 
   users.mutableUsers = false;
   users.users."${user}".initialHashedPassword = sensitive.lib.hashed;
