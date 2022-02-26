@@ -17,18 +17,17 @@ if not test -e ~/.dots-installed
 end
 
 # Set up system for live disk
-if test -n "$LIVE" && test ! -d keybase/private/$KEYBASE_USER
-  cat iso/paper.gpg | \
+if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
+  cat /iso/paper.gpg | \
     gpg -id 2> /dev/null | \
     xargs -i \
       keybase oneshot -u $KEYBASE_USER --paperkey "{}" || exit 1
 end
 
-if -d ~/keybase/private/$KEYBASE_USER && ! -d ~/.ssh
+if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
   mkdir -p ~/.ssh
   git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys
   ln -s ~/.ssh/keys/config ~/.ssh/config
 end
-
 
 any-nix-shell fish --info-right | source
