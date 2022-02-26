@@ -21,7 +21,8 @@ if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
   cat /iso/paper.gpg | \
     gpg -id 2> /dev/null | \
     xargs -i \
-      keybase oneshot -u $KEYBASE_USER --paperkey "{}" || exit 1
+      keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+  or exit 1
 end
 
 if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
