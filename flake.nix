@@ -47,7 +47,7 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=0";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
 
     # Common Grub2 themes
     # grub2-themes.url = "/home/dylan/src/grub2?cache-bust=8";
