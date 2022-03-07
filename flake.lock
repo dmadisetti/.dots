@@ -98,14 +98,14 @@
     },
     "sensitive": {
       "locked": {
-        "lastModified": 1645827870,
-        "narHash": "sha256-osX813yqa8C46zW46nLSSLDVwzbDoRlQjxQi6b5KtVg=",
+        "lastModified": 1645829332,
+        "narHash": "sha256-v/fE3vFDmJpmeAxzjbajlyjhQNa2y7ggC0GIGjjBy2M=",
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=4"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=0"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=4"
+        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=0"
       }
     }
   },
