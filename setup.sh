@@ -7,6 +7,8 @@ setup() {
   )"
   local configpath="$scriptpath/config"
   local isnixos=$(uname -a | grep -iq nixos && echo 1 || echo 0)
+  local isnix=$(test -d ~/.nix-profile && echo 1 || echo 0)
+  isnix=$(( $isnix + $isnixos > 0 ? 1 : 0 ))
 
   rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
@@ -22,7 +24,7 @@ setup() {
   ln -s $scriptpath/dot/vim/ulties ~/.vim/ulties
   ln -s $scriptpath/dot/vim ~/.vim/config
   # if managed by nixos, then we just import our script.
-  test $isnixos -eq 1 && {
+  test $isnix -eq 1 && {
     ln -s $scriptpath/dot/vimrc ~/.config/nvim/user.vim
   } || {
     rm -rf ~/.config/nvim/init.vim
@@ -32,7 +34,7 @@ setup() {
   # fish
   mkdir ~/.config/fish/
   # if managed by nixos, be careful with fish_variables since must be writeable.
-  test $isnixos -eq 1 && {
+  test $isnix -eq 1 && {
     ln -s $configpath/fish/functions ~/.config/fish/
     ln -s $configpath/fish/config.fish ~/.config/fish/user.fish
     cp $configpath/fish/fish_variables ~/.config/fish/

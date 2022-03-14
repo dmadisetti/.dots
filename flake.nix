@@ -37,8 +37,8 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    nixpkgs.url = "/home/dylan/src/nixpkgs"; # TODO: remove! On merge changes
-    # nixpkgs.url = github:nixos/nixpkgs/1882c6b7368fd284ad01b0a5b5601ef136321292;
+    # nixpkgs.url = "/home/dylan/src/nixpkgs"; # TODO: remove! On merge changes
+    nixpkgs.url = github:nixos/nixpkgs/1882c6b7368fd284ad01b0a5b5601ef136321292;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     home-manager.url = github:nix-community/home-manager;
@@ -47,10 +47,9 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
 
     # Common Grub2 themes
-    # grub2-themes.url = "/home/dylan/src/grub2?cache-bust=8";
     grub2-themes.url = github:AnotherGroupChat/grub2-themes/nixos;
   };
 
@@ -111,6 +110,18 @@
             ] else [ ])
           );
         };
+      mkHome = username: {
+        "${username}" =
+          home-manager.lib.homeManagerConfiguration {
+            inherit system username;
+            # Specify the path to your home configuration here
+            configuration = import (./nix/home + "/${username}.nix");
+            extraModules = [ ./nix/home/standalone.nix ];
+
+            homeDirectory = "/home/${username}";
+            stateVersion = "22.05";
+          };
+      };
     in
     {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
@@ -136,9 +147,13 @@
         };
       };
 
+      # For standalone configurations
+      #
+      homeConfigurations = nixpkgs.lib.foldr (a: b: a // b) { } (map mkHome [
+        "${sensitive.lib.user}"
+      ]);
+
       # Technically not allowed, but whatever.
       live = self.nixosConfigurations.momento.config.system.build.isoImage;
-      # TODO! Bootstrap script
-      # bootstrap = ./nix/bootstrap/default.nix;
     };
 }

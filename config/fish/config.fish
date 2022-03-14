@@ -30,4 +30,8 @@ if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
   ln -s ~/.ssh/keys/config ~/.ssh/config
 end
 
-any-nix-shell fish --info-right | source
+# Conditionally run if nix is installed
+type --quiet "fenv" && fenv source  ~/.nix-profile/etc/profile.d/nix.sh
+if not test -z (which any-nix-shell)
+  any-nix-shell fish --info-right | source
+end
