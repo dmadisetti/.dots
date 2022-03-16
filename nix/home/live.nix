@@ -7,6 +7,6 @@
 
   home.sessionVariables = {
     LIVE = 1;
-    KEYBASE_USER = inputs.sensitive.lib.keybase_user;
+    KEYBASE_USER = inputs.sensitive.lib.keybase.username;
   };
 }

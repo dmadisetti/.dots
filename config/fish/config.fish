@@ -18,10 +18,18 @@ end
 
 # Set up system for live disk
 if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
-  cat /iso/paper.gpg | \
-    gpg -id 2> /dev/null | \
-    xargs -i \
-      keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+  if test -e /iso/paper.key.asc
+    cat /iso/paper.key.asc | \
+      gpg -ida --cipher-algo twofish 2> /dev/null | \
+      xargs -i \
+        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+  else if test -e /iso/paper.key
+    cat /iso/paper.key | \
+      xargs -i \
+        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+  else
+    echo "No paper key found..."
+  end
 end
 
 if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh

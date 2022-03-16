@@ -3,11 +3,14 @@ function get-pkgs
 end
 
 function ,
-  set command $argv[1]
+  set pkg $argv[1]
+  set command $history[1]
   if test (count $argv) -eq 0
-    set command (get-pkgs | head -1)
+    set pkg (get-pkgs | head -1)
+  else if test (count $argv) -gt 1
+    set command $argv[2..-1]
   end
-  nix-shell -p $command --command $history[1]
+  nix-shell -p $pkg --command $command
 end
 
 complete -f -c , -a "(get-pkgs)"

@@ -1,6 +1,6 @@
 # Common Nix
 # ❄️
-{ config, self, pkgs, user, sensitive, isContainer, ... }:
+{ config, self, pkgs, user, sensitive, isContainer, stateVersion, ... }:
 {
   imports = [
     # Basic network hardening
@@ -46,6 +46,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05";
+  system.stateVersion = stateVersion;
   system.configurationRevision = pkgs.lib.mkIf (self ? rev) self.rev;
 }

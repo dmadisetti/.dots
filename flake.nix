@@ -19,18 +19,18 @@
 #          ▟███▛  ▜███▙       ▜███▙
 #          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
 #
-# Implemented machines:
-#   • mamba - Dualboot Thinkpad daily driver
-#   • slug  - WSL on the daily driver.
-#   • exalt - Craptop converted for Nix hacking
+# » Implemented machines:
+#    • mamba   → Dualboot Thinkpad daily driver
+#    • slug    → WSL on the daily driver.
+#    • exalt   → Craptop converted for Nix hacking
 #
-# Implemented devices
-#   • momento - Live USB stick with configs for amnesiac + installs
+# » Implemented devices
+#    • momento → Live USB stick with configs for amnesiac + installs
 #
 # A fair bit of inspiration from github:srid/nixos-config
 
 {
-  description = "dmadisetti meets NixOS";
+  description = "⚫⚫⚫s on NixOS";
 
   inputs = {
     # To update nixpkgs (and thus NixOS), pick the nixos-unstable rev from
@@ -56,6 +56,7 @@
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:
     let
       system = "x86_64-linux";
+      stateVersion = "22.05";
 
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
@@ -82,7 +83,7 @@
         }: nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           # Arguments to pass to all modules.
-          specialArgs = { inherit system inputs sensitive user self isContainer; };
+          specialArgs = { inherit system inputs sensitive user self isContainer stateVersion; };
           modules = (
             [
               # System configuration for this host
@@ -94,7 +95,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit inputs self; };
+                home-manager.extraSpecialArgs = { inherit inputs self stateVersion; };
                 home-manager.users."${user}" = homeConfig user userConfigs wm
                   {
                     inherit inputs system pkgs self;
@@ -113,13 +114,12 @@
       mkHome = username: {
         "${username}" =
           home-manager.lib.homeManagerConfiguration {
-            inherit system username;
+            inherit system username stateVersion;
             # Specify the path to your home configuration here
             configuration = import (./nix/home + "/${username}.nix");
             extraModules = [ ./nix/home/standalone.nix ];
 
             homeDirectory = "/home/${username}";
-            stateVersion = "22.05";
           };
       };
     in

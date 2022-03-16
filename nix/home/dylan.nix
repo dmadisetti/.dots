@@ -1,6 +1,6 @@
 # Home sweet home 🏠
 
-{ pkgs, inputs, system, ... }:
+{ pkgs, inputs, system, stateVersion, ... }:
 
 {
   imports = [
@@ -28,7 +28,7 @@
       # in theory by but actually set by setup.sh, and we symink so it's
       # editable.
       extraConfig = ''
-          source ~/.config/nvim/user.vim
+        source ~/.config/nvim/user.vim
       '';
       withNodeJs = true;
 
@@ -42,15 +42,29 @@
         source ~/.dots/config/fish/config.fish;
       '';
     };
+    git = {
+      enable = inputs.sensitive.lib.git.enable;
+      extraConfig = {
+        user = {
+          name = inputs.sensitive.lib.git.enable;
+          email = inputs.sensitive.lib.git.enable;
+          signingKey = inputs.sensitive.lib.git.signing.key;
+        };
+        commit = {
+          gpgSign = inputs.sensitive.lib.git.signing.enable;
+        };
+      };
+      includes = [{ path = "~/.dots/dot/gitconfig"; }];
+    };
   };
 
   services = {
-    keybase.enable = true;
+    keybase.enable = inputs.sensitive.lib.keybase.enable;
     kbfs = {
-      enable = true;
+      enable = inputs.sensitive.lib.keybase.enable;
       mountPoint = "keybase";
     };
   };
 
-  home.stateVersion = "22.05";
+  home.stateVersion = stateVersion;
 }

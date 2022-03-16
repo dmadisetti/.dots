@@ -98,8 +98,8 @@
     },
     "sensitive": {
       "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-vsvdAUGxynYkIh90l3v1gzWFMW4k33K5RzarBDrQ3rg=",
+        "lastModified": 1647221282,
+        "narHash": "sha256-5AeXECBWxdnFdw7M1VdNhvN17ViANQpm2rqvzhgM+NM=",
         "type": "git",
         "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=2"
       },

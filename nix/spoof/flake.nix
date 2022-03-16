@@ -1,5 +1,5 @@
-# Fantastic Fake Flake For Fooling Flake tests
-# 🥸 Should be valid nix, but also double as template
+# Fantastic Fake Flake For Fooling Flake tests‽
+# 🥸 Should be valid nix, but also double as a mustache template.
 {
   description = "{{user}}'s flake";
 
@@ -7,23 +7,41 @@
 
   outputs = inputs@{ self, ... }: {
     lib = {
-      # TODO: Remove reference to dylan...
-      user = "dylan";
-      hashed = "{{hashed}}";
-      keybase_user = "{{keybase_user}}";
-      paper = "{{paper}}";
-      default_wm = "{{default_wm}}";
-      networking = #{{#unless networking}}
-        { };
-      #{{else}}{{{networking}}};{{/unless}}
 
+      user = /*Default is nixos.{{#unless user}}*/ "nixos";
+      #{{else}}*/ "{{user}}";{{/unless}}
+      hashed = "{{hashed}}";
+
+      default_wm = "{{default_wm}}";
+      networking = /*Networking 📡📡📡{{#unless networking}}*/ { };
+      #{{else}}*/{{{networking}}};{{/unless}}
+
+      keybase = {
+        enable = /*Only relevant for live images.{{#if keybase}}*/ true;
+        #{{else}}*/ false;{{/if}}
+        username = "{{keybase_username}}";
+        paper = ''{{{keybase_paper}}}'';
+      };
+      git = {
+        enable = /*User particular information.{{#if git}}*/ true;
+        #{{else}}*/ false;{{/if}}
+        name = "{{git_name}}";
+        email = "{{git_email}}";
+        signing = {
+          enable = /*Enforce signatures.{{#if git_signing}}*/ true;
+          #{{else}}*/ false;{{/if}}
+          key = "{{git_signing_key}}";
+        };
+      };
       certificates = [
-        # {{{certificates}}}
+        #{{{certificates}}}
       ];
 
       pkgs = [
-        # {{{pkgs}}}
+        #{{{pkgs}}}
       ];
+
+      #{{{misc}}}
     };
   };
 }

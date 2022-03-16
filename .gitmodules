@@ -1,3 +1,2 @@
 [submodule "nix/sensitive"]
 	path = nix/sensitive
-	url = keybase://private/dmadisetti/sensitive.git

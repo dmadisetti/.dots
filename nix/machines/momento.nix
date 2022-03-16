@@ -5,6 +5,10 @@ let
   hostName = "momento";
   nixRev = self.inputs.nixpkgs.shortRev;
   selfRev = if self ? rev then self.shortRev else "dirty";
+
+  # See if keybase key is encrypted
+  paper_plain = builtins.match ".*PGP.*" sensitive.lib.keybase.paper == null;
+  paper_suffix = if paper_plain then ".key" else ".key.asc";
 in
 {
   # For reference, see //blog.thomasheartman.com/posts/building-a-custom-nixos-installer
@@ -51,8 +55,8 @@ in
   ## add self?
   isoImage.contents = [
     {
-      source = pkgs.writeText "paper.gpg" sensitive.lib.paper;
-      target = "/paper.gpg";
+      source = pkgs.writeText "paper${suffix}" sensitive.lib.keybase.paper;
+      target = "/paper${suffix}";
     }
   ];
   # isoFileSystems <- add luks
