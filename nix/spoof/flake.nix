@@ -8,7 +8,7 @@
   outputs = inputs@{ self, ... }: {
     lib = {
 
-      user = /*Default is nixos.{{#unless user}}*/ "nixos";
+      user = /*Default is dylan (hi) for testing reasons.{{#unless user}}*/ "dylan";
       #{{else}}*/ "{{user}}";{{/unless}}
       hashed = "{{hashed}}";
 
