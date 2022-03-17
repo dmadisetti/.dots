@@ -75,6 +75,9 @@ Plug 'fidian/hexmode'
 Plug 'wfxr/protobuf.vim'
 Plug 'cybrown-zoox/vim-pbtxt'
 
+" Fish
+Plug 'dag/vim-fish', {'for': 'fish'}
+
 " All hail our AI overlord
 Plug 'github/copilot.vim', {'branch': 'main'}
 

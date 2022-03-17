@@ -36,4 +36,4 @@ fi
 
 feh --bg-scale ~/.dots/backgrounds/kitty.jpg
 picom --config ~/.dots/config/compton.cfg --daemon
-exec i3 -c ~/.dots/config/i3/config
+exec i3 -c ~/.dots/config/i3/i3.config

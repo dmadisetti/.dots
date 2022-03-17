@@ -8,14 +8,17 @@
   ];
 
   home.packages = with pkgs; [
+    # security
     gnupg
     keybase
-    wireguard
+    wireguard-tools
 
+    # all ya really need
     neofetch
     python38Packages.pynvim
     tmux
 
+    # cool little extensions
     any-nix-shell
   ];
 

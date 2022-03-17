@@ -36,6 +36,7 @@ if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
   mkdir -p ~/.ssh
   git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys
   ln -s ~/.ssh/keys/config ~/.ssh/config
+  chmod 600 ~/.ssh/keys/*
 end
 
 # Conditionally run if nix is installed
