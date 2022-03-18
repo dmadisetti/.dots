@@ -54,7 +54,7 @@ Plug 'gilligan/vim-lldb', { 'on': 'Lattach' }
 Plug 'dense-analysis/ale', { 'for' : 'cpp' }
 
 " Rhai
-Plug 'https://git.goyman.com/kuon/rhai.vim.git', { 'for': 'rhai', 'branch': 'main'}
+Plug 'kuon/rhai.vim', { 'for': 'rhai', 'branch': 'main'}
 
 " Git!
 " Plug 'tpope/vim-fugitive'
@@ -79,7 +79,9 @@ Plug 'cybrown-zoox/vim-pbtxt'
 Plug 'dag/vim-fish', {'for': 'fish'}
 
 " All hail our AI overlord
-Plug 'github/copilot.vim', {'branch': 'main'}
+if has('nvim-0.6')
+	Plug 'github/copilot.vim', {'branch': 'main'}
+endif
 
 " Maktaba + Glaive for code formatting
 Plug 'google/vim-maktaba'
