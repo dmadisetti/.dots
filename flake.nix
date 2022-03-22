@@ -47,7 +47,7 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
 
     # Common Grub2 themes
     grub2-themes.url = github:AnotherGroupChat/grub2-themes/nixos;
@@ -116,7 +116,9 @@
           home-manager.lib.homeManagerConfiguration {
             inherit system username stateVersion;
             # Specify the path to your home configuration here
-            configuration = import (./nix/home + "/${username}.nix");
+            configuration = import (./nix/home + "/${username}.nix") {
+              inherit inputs system pkgs self stateVersion;
+            };
             extraModules = [ ./nix/home/standalone.nix ];
 
             homeDirectory = "/home/${username}";
