@@ -158,7 +158,7 @@
       # Technically not allowed, but whatever.
       live = self.nixosConfigurations.momento.config.system.build.isoImage;
 
-      _clean = defaultPackage = pkgs.writeShellScriptBin "clean-dots" ''
+      _clean = pkgs.writeShellScriptBin "clean-dots" ''
           rm backgrounds/!("live.jpg"|"grub.jpg"|"default.jpg")
           rm nix/machines/!("momento.nix")
           rm nix/machines/hardware/!(".gitkeep")
