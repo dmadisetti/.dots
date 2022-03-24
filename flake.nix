@@ -159,6 +159,7 @@
       live = self.nixosConfigurations.momento.config.system.build.isoImage;
 
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
+          shopt -s extglob
           rm backgrounds/!("live.jpg"|"grub.jpg"|"default.jpg")
           rm nix/machines/!("momento.nix")
           rm nix/machines/hardware/!(".gitkeep")
