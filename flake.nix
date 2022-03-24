@@ -163,7 +163,7 @@
           rm nix/machines/!("momento.nix")
           rm nix/machines/hardware/!(".gitkeep")
           mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
-          ${dots-manager}/bin/dots-manager $stub $target;
+          #\$\{dots-manager}/bin/dots-manager $stub $target;
         '';
     };
 }
