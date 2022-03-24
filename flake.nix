@@ -157,5 +157,13 @@
 
       # Technically not allowed, but whatever.
       live = self.nixosConfigurations.momento.config.system.build.isoImage;
+
+      _clean = defaultPackage = pkgs.writeShellScriptBin "clean-dots" ''
+          rm backgrounds/!("live.jpg"|"grub.jpg"|"default.jpg")
+          rm nix/machines/!("momento.nix")
+          rm nix/machines/hardware/!(".gitkeep")
+          mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
+          ${dots-manager}/bin/dots-manager $stub $target;
+        '';
     };
 }
