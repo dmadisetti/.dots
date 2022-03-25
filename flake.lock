@@ -1,8 +1,38 @@
 {
   "nodes": {
+    "dots-manager": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "narHash": "sha256-VnWObU/oOGniwMKNC+45i6OJAFwNqvlic+g+FPsk8+8=",
+        "path": "/nix/store/8x0i34k5wzxl6g7ysjlnzic027fsiji9-source/dots-manager",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/8x0i34k5wzxl6g7ysjlnzic027fsiji9-source/dots-manager",
+        "type": "path"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1644229661,
+        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "grub2-themes": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1645462744,
@@ -57,6 +87,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1648133904,
+        "narHash": "sha256-YboHy9Ih7/FQ1lbHfQ37hUXYo3PFGZC7X+44F70nIcc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b27a002344dcc05e166adc60d7250c1b5549570a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1645412023,
         "narHash": "sha256-sMHy8s2TOLgwAQgLDQlqlyVZr0yDQ73EMv/3Tk/vMiI=",
         "owner": "NixOS",
@@ -71,7 +117,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1647297614,
         "narHash": "sha256-ulGq3W5XsrBMU/u5k9d4oPy65pQTkunR4HKKtTq0RwY=",
@@ -89,10 +135,11 @@
     },
     "root": {
       "inputs": {
+        "dots-manager": "dots-manager",
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "sensitive": "sensitive"
       }
     },
