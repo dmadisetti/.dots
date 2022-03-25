@@ -167,7 +167,7 @@
           rm nix/machines/!("momento.nix") 2> /dev/null
           rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
           mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
-          ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix};
+          ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
         '';
     };
 }
