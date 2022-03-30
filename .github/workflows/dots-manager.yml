@@ -26,5 +26,5 @@ jobs:
     - name: deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.5
       with:
-        branch: templated
+        branch: template
         folder: .
