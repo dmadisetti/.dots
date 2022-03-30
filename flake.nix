@@ -51,7 +51,7 @@
     sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
 
     # dots manager
-    dots-manager.url = "./dots-manager";
+    dots-manager.url = "path:./dots-manager";
 
     # Common Grub2 themes
     grub2-themes.url = github:vinceliuice/grub2-themes;

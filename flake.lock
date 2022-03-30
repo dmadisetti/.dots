@@ -7,11 +7,11 @@
       },
       "locked": {
         "narHash": "sha256-t8pBXAfsCNIyHNAhxxUNVFNXD7VdU0SO79jKRKTbWlQ=",
-        "path": "/nix/store/685x9jyg6fimii3acmg9rkwkgrkfq236-source/dots-manager",
+        "path": "./dots-manager",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/685x9jyg6fimii3acmg9rkwkgrkfq236-source/dots-manager",
+        "path": "./dots-manager",
         "type": "path"
       }
     },
