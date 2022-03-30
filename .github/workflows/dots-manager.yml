@@ -21,6 +21,7 @@ jobs:
       run: |
         sudo mkdir -p /home/dylan/.dots/nix
         sudo mv nix/spoof /home/dylan/.dots/nix/sensitive
+        rm flake.lock
         nix run ".#_clean"
     - name: deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.5
