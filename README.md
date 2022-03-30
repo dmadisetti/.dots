@@ -2,7 +2,7 @@
 
 ## (.dots) [![this is currently](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml/badge.svg)](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml)
 
-**so** you want to steal _my_ `.dots`? that's cool, and in fact encourged. feel free to use this as template, i just ask you leave a star.
+**so** you want to steal _my_ `.dots`? that's cool, and in fact encourged. feel free to [use this as template](https://github.com/dmadisetti/.dots/generate), i just ask you leave a star.
   
 ### installation
 
