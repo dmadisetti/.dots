@@ -1,4 +1,4 @@
-name: tests
+name: create template
 
 on:
   push:
@@ -27,3 +27,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4.2.5
       with:
         branch: template
+        folder: .
