@@ -20,7 +20,7 @@ jobs:
     - name: build
       run: |
         sudo mkdir -p /home/dylan/.dots/nix
-        sudo mv nix/spoof /home/dylan/.dots/nix/sensitive
+        sudo cp -r nix/spoof /home/dylan/.dots/nix/sensitive
         rm flake.lock
         nix run ".#_clean"
     - name: deploy
