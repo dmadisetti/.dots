@@ -8,9 +8,12 @@ function ,
   if test (count $argv) -eq 0
     set pkg (get-pkgs | head -1)
   else if test (count $argv) -gt 1
-    set command $argv[2..-1]
+    set command $argv[1..-1]
   end
-  nix-shell -p $pkg --command $command
+  echo $pkg
+  echo $command
+  echo nix-shell -p $pkg --command "$command"
+  nix-shell -p $pkg --command "$command"
 end
 
 complete -f -c , -a "(get-pkgs)"

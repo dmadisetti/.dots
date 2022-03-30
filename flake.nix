@@ -37,7 +37,8 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    # nixpkgs.url = "/home/dylan/src/nixpkgs"; # TODO: remove! On merge changes
+    # nixpkgs.url = "/home/dylan/src/nixpkgs-local?cache-bust=4";
+    # TODO: Change to patch system NixOs/nix/issues#3920
     nixpkgs.url = github:nixos/nixpkgs/73ad5f9e147c0d2a2061f1d4bd91e05078dc0b58;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
@@ -47,10 +48,15 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=3";
 
     # Common Grub2 themes
-    grub2-themes.url = github:AnotherGroupChat/grub2-themes/nixos;
+    grub2-themes.url = github:vinceliuice/grub2-themes;
+    grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
+    grub2-themes-png.url = github:AnotherGroupChat/grub2-themes-png;
+    grub2-themes-png.inputs.nixpkgs.follows = "nixpkgs";
+    # TODO: Fix grub2-themes so that it can use pngs.
+
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, ... }:

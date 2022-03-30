@@ -3,7 +3,7 @@
 with lib;
 let
   hostName = "momento";
-  nixRev = self.inputs.nixpkgs.shortRev;
+  nixRev = if self.inputs.nixpkgs ? rev then self.inputs.nixpkgs.shortRev else "dirty";
   selfRev = if self ? rev then self.shortRev else "dirty";
 
   # See if keybase key is encrypted
@@ -20,6 +20,7 @@ in
 
     # Let's get it booted in here
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
+    self.inputs.grub2-themes-png.nixosModule
 
     # Provide an initial copy of the NixOS channel so that the user
     # doesn't need to run "nix-channel --update" first.
@@ -60,8 +61,19 @@ in
     }
   ];
   # isoFileSystems <- add luks
-  # background image
-  # Grub theme
+  boot.loader = rec {
+    grub2-theme = {
+      enable = true;
+      icon = "white";
+      theme = "whitesur";
+      screen = "1080p";
+      splashImage = ../../backgrounds/live.png;
+      footer = true;
+    };
+  };
+  isoImage.grubTheme = config.boot.loader.grub.theme;
+  isoImage.splashImage = config.boot.loader.grub.splashImage;
+  isoImage.efiSplashImage = config.boot.loader.grub.splashImage;
 
   # Add Memtest86+ to the ISO.
   boot.loader.grub.memtest86.enable = true;
