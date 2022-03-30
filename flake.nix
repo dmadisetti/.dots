@@ -1,34 +1,8 @@
-#           ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖
-#           ▜███▙       ▜███▙  ▟███▛
-#            ▜███▙       ▜███▙▟███▛
-#             ▜███▙       ▜██████▛
-#      ▟█████████████████▙ ▜████▛     ▟▙
-#     ▟███████████████████▙ ▜███▙    ▟██▙
-#            ▄▄▄▄▖           ▜███▙  ▟███▛
-#           ▟███▛             ▜██▛ ▟███▛
-#          ▟███▛               ▜▛ ▟███▛
-# ▟███████████▛                  ▟██████████▙
-# ▜██████████▛                  ▟███████████▛
-#       ▟███▛ ▟▙               ▟███▛
-#      ▟███▛ ▟██▙             ▟███▛
-#     ▟███▛  ▜███▙           ▝▀▀▀▀
-#     ▜██▛    ▜███▙ ▜██████████████████▛
-#      ▜▛     ▟████▙ ▜████████████████▛
-#            ▟██████▙       ▜███▙
-#           ▟███▛▜███▙       ▜███▙
-#          ▟███▛  ▜███▙       ▜███▙
-#          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
-#
-# » Implemented machines:
-#    • mamba   → Dualboot Thinkpad daily driver
-#    • slug    → WSL on the daily driver.
-#    • exalt   → Craptop converted for Nix hacking
-#
-# » Implemented devices
+# ❄️ 
+# » Implemented devices:
 #    • momento → Live USB stick with configs for amnesiac + installs
 #
 # A fair bit of inspiration from github:srid/nixos-config
-
 {
   description = "⚫⚫⚫s on NixOS";
 
@@ -137,26 +111,14 @@
     {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
-      nixosConfigurations = {
-        mamba = mkComputer {
-          machineConfig = ./nix/machines/mamba.nix;
-          wm = "xmonad";
-          userConfigs = [ ./nix/home/daily-driver.nix ];
+      nixosConfigurations =
+        {
+          "momento" = mkComputer {
+            machineConfig = ./nix/machines/momento.nix;
+            wm = "sway";
+            userConfigs = [ ./nix/home/live.nix ];
+          };
         };
-        exalt = mkComputer {
-          machineConfig = ./nix/machines/exalt.nix;
-          wm = "xmonad";
-        };
-        slug = mkComputer {
-          machineConfig = ./nix/machines/slug.nix;
-          isContainer = true;
-        };
-        momento = mkComputer {
-          machineConfig = ./nix/machines/momento.nix;
-          wm = "sway";
-          userConfigs = [ ./nix/home/live.nix ];
-        };
-      };
 
       # For standalone configurations
       #
@@ -168,12 +130,13 @@
       live = self.nixosConfigurations.momento.config.system.build.isoImage;
 
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
-          shopt -s extglob
-          rm backgrounds/!("live.jpg"|"grub.jpg"|"default.jpg") 2> /dev/null
-          rm nix/machines/!("momento.nix") 2> /dev/null
-          rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
-          mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
-          ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
-        '';
+        shopt -s extglob
+        rm backgrounds/!("live.jpg"|"grub.jpg"|"default.jpg") 2> /dev/null
+        rm nix/machines/!("momento.nix") 2> /dev/null
+        rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
+        mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
+        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
+      '';
     };
 }
+
