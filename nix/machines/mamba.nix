@@ -41,6 +41,10 @@
 
   networking.hostName = "mamba"; # Define your hostname.
 
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+  };
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.

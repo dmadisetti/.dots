@@ -6,12 +6,12 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "narHash": "sha256-VnWObU/oOGniwMKNC+45i6OJAFwNqvlic+g+FPsk8+8=",
-        "path": "/nix/store/8x0i34k5wzxl6g7ysjlnzic027fsiji9-source/dots-manager",
+        "narHash": "sha256-t8pBXAfsCNIyHNAhxxUNVFNXD7VdU0SO79jKRKTbWlQ=",
+        "path": "/nix/store/685x9jyg6fimii3acmg9rkwkgrkfq236-source/dots-manager",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/8x0i34k5wzxl6g7ysjlnzic027fsiji9-source/dots-manager",
+        "path": "/nix/store/685x9jyg6fimii3acmg9rkwkgrkfq236-source/dots-manager",
         "type": "path"
       }
     },
@@ -32,20 +32,41 @@
     },
     "grub2-themes": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1645462744,
-        "narHash": "sha256-H7w3GhG/3fAZFP2YTifSetCRaEZUz29CiV7GagYRfwg=",
-        "owner": "AnotherGroupChat",
+        "lastModified": 1648398371,
+        "narHash": "sha256-Ti32Wbftf33gfMd/R6z+ESc9mF7In38GHH7F/cXJKeM=",
+        "owner": "vinceliuice",
         "repo": "grub2-themes",
-        "rev": "4f3b99cdf3900f7f5fd396f92b256ddfd90ec646",
+        "rev": "fa74d1b6af8ba7cb142a14e4e4deb46789f1a6af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
+        "type": "github"
+      }
+    },
+    "grub2-themes-png": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1648185202,
+        "narHash": "sha256-IyDijI5etH6+Ys2io5NyE4RJXOevXTBIMkCtjCFISYQ=",
+        "owner": "AnotherGroupChat",
+        "repo": "grub2-themes-png",
+        "rev": "702df8d4ab55250d756ee3565e2599a058a59811",
         "type": "github"
       },
       "original": {
         "owner": "AnotherGroupChat",
-        "ref": "nixos",
-        "repo": "grub2-themes",
+        "repo": "grub2-themes-png",
         "type": "github"
       }
     },
@@ -56,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645244400,
-        "narHash": "sha256-o7KCd6ySFZ9/LbS62aTeuFmBWtP7Tt3Q3RcNjYgTgZU=",
+        "lastModified": 1648366999,
+        "narHash": "sha256-Sdm0lI2ZBc70EnMMmvfDVY7gIM3M4c2L86EdQ9tKRE4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0232fe1b75e6d7864fd82b5c72f6646f87838fc3",
+        "rev": "888eac32bd657bfe0d024c8770130d80d1c02cd3",
         "type": "github"
       },
       "original": {
@@ -71,11 +92,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1645346782,
-        "narHash": "sha256-3qd0cu+2kapIP7cdHW9n8zh1wCvRGg83K7/cCj5Xv+A=",
+        "lastModified": 1648141026,
+        "narHash": "sha256-h8e3+5EZFbYHTMb0DN2ACuQTJBNHpqigvmEV1w2WIuE=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "1ccfe243aa6e94bf80f2a66f6be41d086d37fc87",
+        "rev": "feceb4d24f582817d8f6e737cd40af9e162dee05",
         "type": "github"
       },
       "original": {
@@ -103,22 +124,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1645412023,
-        "narHash": "sha256-sMHy8s2TOLgwAQgLDQlqlyVZr0yDQ73EMv/3Tk/vMiI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b359608e4009d6a492c6c84ace5c61e341ffb80e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1647297614,
         "narHash": "sha256-ulGq3W5XsrBMU/u5k9d4oPy65pQTkunR4HKKtTq0RwY=",
         "owner": "nixos",
@@ -137,9 +142,10 @@
       "inputs": {
         "dots-manager": "dots-manager",
         "grub2-themes": "grub2-themes",
+        "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "sensitive": "sensitive"
       }
     },

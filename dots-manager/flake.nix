@@ -70,12 +70,14 @@
         #   if not prompt
         # build flake
         # prompt for dd
-        defaultPackage = pkgs.writeShellScriptBin "generate-dots" ''
+        generate-dots = pkgs.writeShellScriptBin "generate-dots" ''
           stub=$1
           target=$2
-          test -z $1 && stub=$HOME/.dots/nix/spoof/flake.nix
-          test -z $2 && target=$out/flake.nix
+          test -z $1 && stub=${../nix/spoof/flake.nix}
+          test -z $2 && target=flake.nix
           ${dots-manager}/bin/dots-manager template $stub $target;
         '';
+
+        defaultPackage = dots-manager;
       });
 }

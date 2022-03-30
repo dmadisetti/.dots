@@ -10,6 +10,7 @@
 
       user = /*Default is dylan (hi) for testing reasons.{{#unless user}}*/ "dylan";
       #{{else}}*/ "{{user}}";{{/unless}}
+      # Change this with `mkpasswd -m sha512crypt`.
       hashed = "{{hashed}}";
 
       default_wm = "{{default_wm}}";
