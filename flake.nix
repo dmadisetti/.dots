@@ -48,7 +48,8 @@
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=2";
+    # or run the fish command `unlock`, which will scrub flake.lock
+    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
 
     # dots manager
     dots-manager.url = "path:./dots-manager";
