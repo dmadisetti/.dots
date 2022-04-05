@@ -1,2 +1,2 @@
 [submodule "nix/sensitive"]
-	path = nix/sensitive
+  path = nix/sensitive
