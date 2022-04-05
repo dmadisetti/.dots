@@ -1,6 +1,7 @@
 set DOTFILES ~/.dots
 function home
   pushd $DOTFILES;
+  unlock
   if test (count $argv) -eq 0
     home-manager switch --flake ".#$USER" -j auto
   else

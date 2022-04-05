@@ -10,7 +10,7 @@ alias vim=nvim
 alias vi=nvim
 
 export EDITOR=vim
-export CC=clang-12
+export CC=clang-13
 
 if not test -e ~/.dots-installed
     ~/.dots/setup.sh

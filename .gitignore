@@ -1,3 +1,4 @@
-fish/fishd.*
+config/fish/functions/fenv.*
+config/fish/fishd.*
 result
 req.cnf
