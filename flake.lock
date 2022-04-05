@@ -131,20 +131,7 @@
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs",
-        "sensitive": "sensitive"
-      }
-    },
-    "sensitive": {
-      "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-/lFm8MiXw1eqQR0H6KwTMEEMU4RLn1he7hOeicLuaBA=",
-        "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/dylan/.dots/nix/sensitive?cache-bust=1"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
