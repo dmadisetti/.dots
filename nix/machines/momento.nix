@@ -67,7 +67,7 @@ in
       icon = "white";
       theme = "whitesur";
       screen = "1080p";
-      splashImage = ../../backgrounds/live.png;
+      splashImage = ../../dot/backgrounds/live.png;
       footer = true;
     };
   };

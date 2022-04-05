@@ -1,4 +1,4 @@
-#           ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖ ▜███▙       ▜███▙  ▟███▛
+#▄▄         ▜███▙       ▜███▙  ▟███▛
 #            ▜███▙       ▜███▙▟███▛
 #             ▜███▙       ▜██████▛
 #      ▟█████████████████▙ ▜████▛     ▟▙
@@ -182,7 +182,7 @@
       _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
           shopt -s extglob
-          rm backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
+          rm dot/backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
           rm nix/machines/!("momento.nix") 2> /dev/null
           rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
           mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix

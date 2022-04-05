@@ -33,7 +33,7 @@
       icon = "white";
       theme = "whitesur";
       screen = "1080p";
-      splashImage = ../../backgrounds/grub.jpg;
+      splashImage = ../../dot/backgrounds/grub.jpg;
       footer = true;
     };
     efi.canTouchEfiVariables = true;

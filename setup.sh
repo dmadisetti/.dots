@@ -12,7 +12,7 @@ setup() {
 
   rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
-    ~/.gitconfig ~/.tmux.conf ~/.dots-installed
+    ~/.gitconfig ~/.tmux.conf ~/.backgrounds ~/.dots-installed
 
   mkdir -p ~/.zotero/data
   mkdir -p ~/.config/nvim

@@ -57,9 +57,9 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- TODO Collect into def {}
 myTerminal = "kitty"
 
-background = "~/.dots/backgrounds/space.png"
+background = "~/.backgrounds/space.png"
 
-picom = "~/.dots/config/compton.cfg"
+picom = "~/.config/compton.cfg"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
