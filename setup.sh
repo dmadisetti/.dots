@@ -5,10 +5,10 @@ setup() {
     cd "$(dirname "$0")" > /dev/null 2>&1
     pwd -P
   )"
-  local configpath="$scriptpath/config"
+  local configpath="$scriptpath/dot/config"
   local isnixos=$(uname -a | grep -iq nixos && echo 1 || echo 0)
   local isnix=$(test -d ~/.nix-profile && echo 1 || echo 0)
-  isnix=$(( $isnix + $isnixos > 0 ? 1 : 0 ))
+  isnix=$(($isnix + $isnixos > 0 ? 1 : 0))
 
   rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
@@ -39,6 +39,13 @@ setup() {
     ln -s $configpath/fish/config.fish ~/.config/fish/user.fish
     cp $configpath/fish/fish_variables ~/.config/fish/
     chmod +w ~/.config/fish/fish_variables
+
+    # if we are using nix but not nixos, we need to source our files and need fenv
+    test $isnixos -eq 0 && {
+      curl -L \
+        https://github.com/oh-my-fish/plugin-foreign-env/archive/refs/heads/master.tar.gz 2> /dev/null |
+        tar xfz - --strip-components 2 --exclude-ignore-recursive="*.fish" -C $configpath/fish/functions
+    }
   } || {
     ln -s $configpath/fish/* ~/.config/fish/
   }
@@ -58,13 +65,16 @@ setup() {
   # yapf
   ln -s $configpath/yapf ~/.config/yapf
 
+  # background
+  ln -s $scriptpath/backgrounds ~/.backgrounds
+
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
     echo "[ -f ~/.dots/dot/bashrc ] && . ~/.dots/dot/bashrc" >> ~/.bashrc
   }
 
   # indicate we have run the installation
-  touch ~/.dots-installed
+  ln -s $scriptpath/dot/dots-installed ~/.dots-installed
 }
 
 setup
