@@ -3,7 +3,9 @@
     "dots-manager": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "narHash": "sha256-t8pBXAfsCNIyHNAhxxUNVFNXD7VdU0SO79jKRKTbWlQ=",
@@ -77,11 +79,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1649084009,
-        "narHash": "sha256-jfU0rYnMbL8jMNH+o+BYGxsb7d+HrtbFYtG5/kbQDLc=",
+        "lastModified": 1649130493,
+        "narHash": "sha256-tp2UxeS1A5ESb+I/rh4GoD0DH7edOGdc2fsP6D8o27Y=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0382c5f75e9b4ffb0cdc75535c3e249019710a02",
+        "rev": "07b941f0c45ac4af6732d96f4cb6142824eee3df",
         "type": "github"
       },
       "original": {
@@ -108,22 +110,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1648133904,
-        "narHash": "sha256-YboHy9Ih7/FQ1lbHfQ37hUXYo3PFGZC7X+44F70nIcc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b27a002344dcc05e166adc60d7250c1b5549570a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1647297614,
         "narHash": "sha256-ulGq3W5XsrBMU/u5k9d4oPy65pQTkunR4HKKtTq0RwY=",
         "owner": "nixos",
@@ -145,19 +131,7 @@
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
-        "sensitive": "sensitive"
-      }
-    },
-    "sensitive": {
-      "locked": {
-        "narHash": "sha256-pf8gJwJhW/KxAwTtOoebJ7FQjb+jyVGJKbU/MjY6CNg=",
-        "path": "/home/dylan/.dots/nix/sensitive",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/dylan/.dots/nix/sensitive",
-        "type": "path"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
