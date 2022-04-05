@@ -128,12 +128,24 @@
         "${sensitive.lib.user}"
       ]);
 
-      # Technically not allowed, but whatever.
-      live = self.nixosConfigurations.momento.config.system.build.isoImage;
+      # Technically not allowed (warnings thrown), but whatever.
+      live = pkgs.writeShellScriptBin "create-live" ''
+        out=$(pwd)/result
+        # check for dots
+        # check for sensitive
+        # else
+        # dm=${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager
+        # dm template ${./nix/spoof/flake.nix}
+        # move result
+        # cp ${self._live} .
+        nix build --out-link $out --override-input sensitive "/home/dylan/sensitive" -j auto "${self}#_live"
+      '';
 
+      # Flake outputs used by hooks.
+      _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
         shopt -s extglob
-        rm backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
+        rm dot/backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
         rm nix/machines/!("momento.nix") 2> /dev/null
         rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
         mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix

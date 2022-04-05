@@ -16,6 +16,9 @@ if not test -e ~/.dots-installed
     ~/.dots/setup.sh
 end
 
+# Check if we are on a multiuser system
+test (stat -c '%G' /nix/store) != $USER && export NIX_REMOTE=daemon
+
 # Set up system for live disk
 if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
   if test -e /iso/paper.key.asc

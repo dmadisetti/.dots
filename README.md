@@ -1,4 +1,4 @@
-<p align=center><img src=https://raw.githubusercontent.com/dmadisetti/.dots/main/backgrounds/dots.png alt=".dots logo" height=100px/></p>
+<p align=center><img src=https://raw.githubusercontent.com/dmadisetti/.dots/main/dot/backgrounds/dots.png alt=".dots logo" height=100px/></p>
 
 ## (.dots) [![this is currently](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml/badge.svg?branch=main)](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml)
 

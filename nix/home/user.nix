@@ -42,7 +42,7 @@
     fish = {
       enable = true;
       shellInit = ''
-        source ~/.dots/config/fish/config.fish;
+        source ~/.dots/dot/config/fish/config.fish;
       '';
     };
     git = {
