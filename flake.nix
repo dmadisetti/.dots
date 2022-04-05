@@ -52,6 +52,7 @@
 
     # dots manager
     dots-manager.url = "path:./dots-manager";
+    dots-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Common Grub2 themes
     grub2-themes.url = github:vinceliuice/grub2-themes;
@@ -174,6 +175,8 @@
           rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
           mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
           ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
+          jq=${pkgs.jq}
+          echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
         '';
     };
 }
