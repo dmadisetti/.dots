@@ -57,7 +57,7 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- TODO Collect into def {}
 myTerminal = "kitty"
 
-background = "~/.backgrounds/space.png"
+background = "~/.backgrounds/punk.jpg"
 
 picom = "~/.config/compton.cfg"
 

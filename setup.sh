@@ -12,7 +12,7 @@ setup() {
 
   rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
-    ~/.gitconfig ~/.tmux.conf ~/.backgrounds ~/.dots-installed
+    ~/.gitconfig ~/.tmux.conf ~/.backgrounds ~/.config/compton.cfg ~/.dots-installed
 
   mkdir -p ~/.zotero/data
   mkdir -p ~/.config/nvim
@@ -66,7 +66,10 @@ setup() {
   ln -s $configpath/yapf ~/.config/yapf
 
   # background
-  ln -s $scriptpath/backgrounds ~/.backgrounds
+  ln -s $scriptpath/dot/backgrounds ~/.backgrounds
+
+  # picom
+  ln -s $configpath/compton.cfg ~/.config/compton.cfg
 
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
