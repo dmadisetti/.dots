@@ -160,7 +160,7 @@
         ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
         jq=${pkgs.jq}
         echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
-        echo -en "$(jq -r 'del(.nodes.root.inputs.\"dots-manager\") | del(.nodes.\"dots-manager\")' flake.lock)" > flake.lock
+        echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
       '';
     };
 }

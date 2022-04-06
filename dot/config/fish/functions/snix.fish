@@ -1,4 +1,3 @@
-set DOTFILES ~/.dots
 function snix
   pushd $DOTFILES;
   mv ~/.xmonad/xmonad-x86_64-linux ~/.xmonad/xmonad-x86_64-linux.old 2> /dev/null;

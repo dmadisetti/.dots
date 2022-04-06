@@ -1,4 +1,3 @@
-set DOTFILES ~/.dots
 function update
     pushd $DOTFILES
     set -l new (git ls-remote github:NixOs/nixpkgs refs/heads/master | cut -f1)
@@ -7,5 +6,6 @@ function update
     unlock nixpkgs
     nix flake update
     unlock
+    unlock dots-manager
     popd
 end
