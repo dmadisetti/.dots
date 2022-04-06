@@ -75,14 +75,21 @@
         config.allowUnfree = false;
       };
       wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
-      homeConfig = user: userConfigs: wm: { ... }: {
-        imports = [ (./nix/home + "/${user}.nix") ]
-          ++ userConfigs
-          ++ (if wms ? "${wm}" then [
-          ./nix/home/display.nix
-          (./nix/home + "/${wm}.nix")
-        ] else [ ]);
-      };
+      homeConfig = user: userConfigs: wm: { ... }:
+        let
+          personalized_config = (./nix/home + "/${user}.nix");
+          user_config =
+            if builtins.pathExists personalized_config then
+              personalized_config else ./nix/home/user.nix;
+        in
+        {
+          imports = [ user_config ]
+            ++ userConfigs
+            ++ (if wms ? "${wm}" then [
+            ./nix/home/display.nix
+            (./nix/home + "/${wm}.nix")
+          ] else [ ]);
+        };
       mkComputer =
         { machineConfig
         , user ? sensitive.lib.user
@@ -167,29 +174,30 @@
 
       # Technically not allowed (warnings thrown), but whatever.
       live = pkgs.writeShellScriptBin "create-live" ''
-          out=$(pwd)/result
-          # check for dots
-          # check for sensitive
-          # else
+        out=$(pwd)/result
+        # check for dots
+        # check for sensitive
+        # else
 
-          tmp=$(mktemp -d -t dots-flake-XXXXXXXXXX)
-          dm=${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager
-          dm template ${./nix/spoof/flake.nix} $tmp/flake.nix
+        tmp=$(mktemp -d -t dots-flake-XXXXXXXXXX)
+        dm=${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager
+        dm template ${./nix/spoof/flake.nix} $tmp/flake.nix
 
-          nix build --out-link $out --override-input sensitive $tmp -j auto "${self}#_live"
-        '';
+        nix build --out-link $out --override-input sensitive $tmp -j auto "${self}#_live"
+      '';
 
       # Flake outputs used by hooks.
       _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
-          shopt -s extglob
-          rm dot/backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
-          rm nix/machines/!("momento.nix") 2> /dev/null
-          rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
-          mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
-          ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
-          jq=${pkgs.jq}
-          echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
-        '';
+        shopt -s extglob
+        rm dot/backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
+        rm nix/machines/!("momento.nix") 2> /dev/null
+        rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
+        mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
+        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
+        jq=${pkgs.jq}
+        echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
+        echo -en "$(jq -r 'del(.nodes.root.inputs.\"dots-manager\") | del(.nodes.\"dots-manager\")' flake.lock)" > flake.lock
+      '';
     };
 }
