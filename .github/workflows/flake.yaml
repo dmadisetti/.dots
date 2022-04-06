@@ -14,4 +14,7 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
     - run: |
+        apt install jq
+        echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
+        echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
         nix flake check .
