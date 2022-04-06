@@ -50,14 +50,21 @@
         config.allowUnfree = false;
       };
       wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
-      homeConfig = user: userConfigs: wm: { ... }: {
-        imports = [ (./nix/home + "/${user}.nix") ]
-          ++ userConfigs
-          ++ (if wms ? "${wm}" then [
-          ./nix/home/display.nix
-          (./nix/home + "/${wm}.nix")
-        ] else [ ]);
-      };
+      homeConfig = user: userConfigs: wm: { ... }:
+        let
+          personalized_config = (./nix/home + "/${user}.nix");
+          user_config =
+            if builtins.pathExists personalized_config then
+              personalized_config else ./nix/home/user.nix;
+        in
+        {
+          imports = [ user_config ]
+            ++ userConfigs
+            ++ (if wms ? "${wm}" then [
+            ./nix/home/display.nix
+            (./nix/home + "/${wm}.nix")
+          ] else [ ]);
+        };
       mkComputer =
         { machineConfig
         , user ? sensitive.lib.user
@@ -153,6 +160,7 @@
         ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
         jq=${pkgs.jq}
         echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
+        echo -en "$(jq -r 'del(.nodes.root.inputs.\"dots-manager\") | del(.nodes.\"dots-manager\")' flake.lock)" > flake.lock
       '';
     };
 }
