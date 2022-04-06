@@ -1,4 +1,4 @@
-#▄▄         ▜███▙       ▜███▙  ▟███▛
+#           ▜███▙       ▜███▙  ▟███▛
 #            ▜███▙       ▜███▙▟███▛
 #             ▜███▙       ▜██████▛
 #      ▟█████████████████▙ ▜████▛     ▟▙
@@ -48,7 +48,7 @@
     # see: NixOS/nix/issues/5497
     # Cache invalidation is hard. Just increment/decrement around
     # or run the fish command `unlock`, which will scrub flake.lock
-    sensitive.url = "/home/dylan/.dots/nix/sensitive?cache-bust=1";
+    sensitive.url = "path:./nix/spoof";
 
     # dots manager
     dots-manager.url = "path:./dots-manager";
@@ -171,11 +171,12 @@
           # check for dots
           # check for sensitive
           # else
-          # dm=${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager
-          # dm template ${./nix/spoof/flake.nix}
-          # move result
-          # cp ${self._live} .
-          nix build --out-link $out --override-input sensitive "/home/dylan/sensitive" -j auto "${self}#_live"
+
+          tmp=$(mktemp -d -t dots-flake-XXXXXXXXXX)
+          dm=${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager
+          dm template ${./nix/spoof/flake.nix} $tmp/flake.nix
+
+          nix build --out-link $out --override-input sensitive $tmp -j auto "${self}#_live"
         '';
 
       # Flake outputs used by hooks.
