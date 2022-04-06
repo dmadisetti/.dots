@@ -38,10 +38,6 @@
         #{{{certificates}}}
       ];
 
-      pkgs = [
-        #{{{pkgs}}}
-      ];
-
       # Just a bunch of other stuff that is not as easily configurable.
       #{{#unless misc}}
       getty = pkgs_rev: dots_rev: ''

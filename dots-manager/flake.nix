@@ -11,7 +11,6 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
         };
         dots-manager = with pkgs;
           rustPlatform.buildRustPackage rec {

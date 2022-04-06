@@ -49,6 +49,7 @@
     # Cache invalidation is hard. Just increment/decrement around
     # or run the fish command `unlock`, which will scrub flake.lock
     sensitive.url = "path:./nix/spoof";
+    sensitive.inputs.nixpkgs.follows = "nixpkgs";
 
     # dots manager
     dots-manager.url = "path:./dots-manager";
@@ -180,10 +181,14 @@
         # else
 
         tmp=$(mktemp -d -t dots-flake-XXXXXXXXXX)
-        dm=${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager
-        dm template ${./nix/spoof/flake.nix} $tmp/flake.nix
+        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager \
+          template ${./nix/spoof/flake.nix} $tmp/flake.nix
 
-        nix build --out-link $out --override-input sensitive $tmp -j auto "${self}#_live"
+        ${pkgs.nix}/bin/nix build --out-link $out \
+          --override-input sensitive $tmp \
+          --extra-experimental-features nix-command \
+          --extra-experimental-features flakes \
+          --no-write-lock-file -j auto "${self}#_live"
       '';
 
       # Flake outputs used by hooks.
