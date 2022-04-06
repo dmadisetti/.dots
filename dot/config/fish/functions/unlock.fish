@@ -1,4 +1,3 @@
-set DOTFILES ~/.dots
 function unlock
     if test (count $argv) -eq 0
         set inputs sensitive

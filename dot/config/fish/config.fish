@@ -12,6 +12,8 @@ alias vi=nvim
 export EDITOR=vim
 export CC=clang-13
 
+set DOTFILES ~/.dots
+
 if not test -e ~/.dots-installed
     ~/.dots/setup.sh
 end
