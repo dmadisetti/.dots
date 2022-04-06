@@ -1,7 +1,7 @@
 function update
     pushd $DOTFILES
-    set -l new (git ls-remote github:NixOs/nixpkgs refs/heads/master | cut -f1)
-    set -l old (+ jq -- jq ".nodes.nixpkgs.locked.rev" flake.lock | tr -d '"')
+    set -l new (+ jq -- curl -s "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_revision" \| jq -r "'.data.result[] | select(.metric.channel==\"nixos-unstable\") | .metric.revision'")
+    set -l old (+ jq -- jq -r ".nodes.nixpkgs.locked.rev" flake.lock)
     sed -i s/$old/$new/ flake.nix
     unlock nixpkgs
     nix flake update
