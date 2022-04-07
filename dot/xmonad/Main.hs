@@ -95,7 +95,7 @@ myWorkspaces = map show [1 .. 9]
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor = "#3b4252"
-myFocusedBorderColor = "#bc96da"
+myFocusedBorderColor = "#FFD13D"
 
 -- TODO: Create instance for eww groups
 -- Eww
