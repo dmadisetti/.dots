@@ -5,7 +5,7 @@
   imports = [ ];
 
   home.packages = with pkgs; [
-    zathura # pdfs
+    # zathura # pdfs
     zotero # research
 
     # isn't tweag the best
