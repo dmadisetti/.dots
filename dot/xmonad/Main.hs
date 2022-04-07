@@ -355,6 +355,7 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
   spawnOnce "exec eww daemon"
+  spawnOnce "polybar bar"
   spawn "xsetroot -cursor_name left_ptr"
   spawnOnce $ "feh --bg-scale " ++ background
   spawnOnce $ "picom --experimental-backends --config " ++ picom
