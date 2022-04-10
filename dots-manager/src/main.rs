@@ -28,6 +28,9 @@ enum Command {
         /// Outfile location
         #[clap(parse(from_os_str))]
         outfile: Option<PathBuf>,
+        /// Default json configuration
+        #[clap(parse(from_os_str))]
+        defaults: Option<PathBuf>,
     },
 }
 
@@ -55,6 +58,6 @@ fn main() -> Result<(), Box<dyn Error>> {
             };
             clean(config, reserve)
         }
-        Command::Template { template, outfile } => config_template(template, outfile),
+        Command::Template { template, outfile, defaults } => config_template(template, outfile, defaults),
     }
 }

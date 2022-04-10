@@ -19,8 +19,10 @@ jobs:
           experimental-features = nix-command flakes
     - name: build
       run: |
+        cachix dylan
         rm flake.lock
         nix run ".#_clean"
+        git remote get-url origin > .github/remote.txt
     - name: deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.5
       with:
