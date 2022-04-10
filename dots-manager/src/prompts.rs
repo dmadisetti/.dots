@@ -14,6 +14,7 @@ pub fn prompts(key: String) -> Option<String> {
     match key.as_str() {
         "getty" => Some("".to_string()),
         "certificates" => Some("".to_string()),
+        "dots" => Some("".to_string()),
         "default_wm" => default_wm(),
         "git_email" => free("Enter your email for git".to_string()),
         "git_name" => free("Enter your name for git".to_string()),

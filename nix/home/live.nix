@@ -3,7 +3,7 @@
 { config, inputs, ... }:
 {
   imports = [ ];
-  home.file.".dots".source = ../../.;
+  home.file.".ro-dots".source = ../../.;
 
   home.sessionVariables = {
     LIVE = 1;

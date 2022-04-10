@@ -20,7 +20,11 @@ use crate::prompts::prompts;
 // TODO: Just make this part of prompts.
 use crate::prompts::getty_qr;
 
-fn build_questions(prefix: String, lib: AttrSet) -> Result<JsonValue, Box<dyn Error>> {
+fn build_questions(
+    defaults: JsonValue,
+    prefix: String,
+    lib: AttrSet,
+) -> Result<JsonValue, Box<dyn Error>> {
     let mut data = json!({});
     for entry in lib.entries() {
         let key = maybe_key(&entry).ok_or("Could not extract key. Invalid Nix?")?;
@@ -41,8 +45,9 @@ fn build_questions(prefix: String, lib: AttrSet) -> Result<JsonValue, Box<dyn Er
                             ) {
                                 let prefix = key.clone() + "_";
                                 data[key] = json!(true);
-                                for (key, value) in
-                                    build_questions(prefix, body)?.as_object().unwrap()
+                                for (key, value) in build_questions(json!({}), prefix, body)?
+                                    .as_object()
+                                    .unwrap()
                                 {
                                     data[key] = json!(value);
                                 }
@@ -58,12 +63,18 @@ fn build_questions(prefix: String, lib: AttrSet) -> Result<JsonValue, Box<dyn Er
                 continue;
             }
         }
-        let maybe_json = prompts(key.clone()).ok_or(format!("Unmanaged entry: {}", &key))?;
-        data[key] = json!(maybe_json);
+        let maybe_json = match defaults.get(&key) {
+            Some(x) => x.clone(),
+            None => {
+                let tmp = prompts(key.clone()).ok_or(format!("Unmanaged entry: {}", &key))?;
+                json!(tmp)
+            }
+        };
+        data[key] = maybe_json;
     }
     Ok(data)
 }
-fn build_questions_from_root(ast: &AST) -> Result<JsonValue, Box<dyn Error>> {
+fn build_questions_from_root(ast: &AST, defaults: JsonValue) -> Result<JsonValue, Box<dyn Error>> {
     let partial_find = |key| move |set| find_entry(key, set);
     let lib = ast
         .root()
@@ -84,13 +95,10 @@ fn build_questions_from_root(ast: &AST) -> Result<JsonValue, Box<dyn Error>> {
         .and_then(partial_find("lib"))
         .and_then(AttrSet::cast)
         .ok_or("Malformed flake template (missing lib)")?;
-    build_questions("".to_string(), lib)
+    build_questions(defaults, "".to_string(), lib)
 }
 
-pub fn apply_template(
-    data: JsonValue,
-    content: String,
-) -> Result<String, Box<dyn Error>> {
+pub fn apply_template(data: JsonValue, content: String) -> Result<String, Box<dyn Error>> {
     let mut reg = Handlebars::new();
     reg.register_template_string("flake", content)?;
     let attempt = reg.render("flake", &data)?;
@@ -108,12 +116,33 @@ pub fn apply_template(
     Ok(reformat_string(&attempt))
 }
 
-pub fn config_template(file: PathBuf, outfile: Option<PathBuf>) -> Result<(), Box<dyn Error>> {
+pub fn config_template(
+    file: PathBuf,
+    outfile: Option<PathBuf>,
+    defaults: Option<PathBuf>,
+) -> Result<(), Box<dyn Error>> {
+    let defaults = match defaults {
+        Some(path) => match read_to_string(path) {
+            Ok(x) => match serde_json::from_str(&x) {
+                Ok(x) => x,
+                Err(e) => {
+                    eprintln!("Could not parse defaults: {}", e);
+                    return Err("Could not parse defaults".into());
+                }
+            },
+            Err(err) => {
+                eprintln!("Could not read defaults: {}", err);
+                return Err("Could not read defaults".into());
+            }
+        },
+        None => json!({}),
+    };
+
     let content = match read_to_string(file) {
         Ok(content) => content,
         Err(err) => {
             eprintln!("error reading file: {}", err);
-            return Ok(());
+            return Err("Could not read file".into());
         }
     };
     let ast = rnix::parse(&content);
@@ -127,8 +156,9 @@ pub fn config_template(file: PathBuf, outfile: Option<PathBuf>) -> Result<(), Bo
 
     // Refresh content to get rid of extrenous comments.
     let content = ast.root().inner().unwrap().to_string();
-    let mut data = build_questions_from_root(&ast)?;
+    let mut data = build_questions_from_root(&ast, defaults)?;
 
+    // TODO: I don't like this.
     data["misc"] = json!(format!(
         r#"
     getty = pkgs_rev: dots_rev: ''

@@ -12,6 +12,8 @@
       #{{else}}*/ "{{user}}";{{/unless}}
       # Change this with `mkpasswd -m sha512crypt`.
       hashed = "{{hashed}}";
+      # You can change this manually. Just sure make you manually move the folder.
+      dots = "/home/{{user}}/.dots";
 
       default_wm = "{{default_wm}}";
       networking = /*Networking 📡📡📡{{#unless networking}}*/ { };

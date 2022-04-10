@@ -9,8 +9,8 @@
 if you just want my `.dots` run `setup.sh`. if you want the whole os experience, start with the live disk or
 
 ```bash
-nix flake run github:dmadisetti/.dots#live;
-# or nix flake run github:dmadisetti/.dots#install if you don't want the live disk, but you're missing out.
+nix run github:dmadisetti/.dots#live;
+# or nix run github:dmadisetti/.dots#install if you don't want the live disk, but you're missing out.
 ```
 
 and that's it. follow the wizard 🧙🏾‍♂️✨

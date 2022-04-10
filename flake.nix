@@ -154,6 +154,23 @@
           --no-write-lock-file -j auto "${self}#_live"
       '';
 
+      home = pkgs.writeShellScriptBin "create-home" ''
+        DOTFILES=$HOME/dots
+        git clone $(cat ${./.github/remote.txt}) $DOTFILES
+        mkdir -p $DOTFILES/nix/sensitive
+        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager \
+          template ${./nix/spoof/flake.nix} $DOTFILES/nix/sensitive/flake.nix \
+           <(echo "{\"user\": \"$USER\", \
+                    \"hashed\":\"\", \
+                    \"networking\":\"{}\", \
+                    \"default_wm\":\"none\"}")
+
+        ${pkgs.home-manager} switch \
+          --override-input sensitive \
+          $DOTFILES/nix/sensitive \
+          --flake "$DOTFILES#$USER" -j auto
+      '';
+
       # Flake outputs used by hooks.
       _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
