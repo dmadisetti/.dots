@@ -73,7 +73,7 @@ setup() {
 
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {
-    echo "[ -f ~/.dots/dot/bashrc ] && . ~/.dots/dot/bashrc" >> ~/.bashrc
+    echo "[ -f $scriptpath/dot/bashrc ] && . $scriptpath/dot/bashrc" >> ~/.bashrc
   }
 
   # indicate we have run the installation

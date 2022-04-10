@@ -191,6 +191,33 @@
           --no-write-lock-file -j auto "${self}#_live"
       '';
 
+      live = pkgs.writeShellScriptBin "create-live" ''
+        out=$(pwd)/result
+        # check for dots
+        # check for sensitive
+        # else
+
+        tmp=$(mktemp -d -t dots-flake-XXXXXXXXXX)
+        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager \
+          template ${./nix/spoof/flake.nix} $tmp/flake.nix
+
+        ${pkgs.nix}/bin/nix build --out-link $out \
+          --override-input sensitive $tmp \
+          --extra-experimental-features nix-command \
+          --extra-experimental-features flakes \
+          --no-write-lock-file -j auto "${self}#_live"
+      '';
+
+      home = pkgs.writeShellScriptBin "create-live" ''
+        #DOTFILES=/home/${sensitive.lib.user}/.dots
+        # git clone $(git remote get-url origin) $DOTFILES
+        # home-manager switch \
+        #   --override-input sensitive \
+        #   $DOTFILES/nix/sensitive \
+        #   --flake ".#$USER" -j auto
+      '';
+
+
       # Flake outputs used by hooks.
       _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''

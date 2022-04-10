@@ -129,6 +129,7 @@ pub fn config_template(file: PathBuf, outfile: Option<PathBuf>) -> Result<(), Bo
     let content = ast.root().inner().unwrap().to_string();
     let mut data = build_questions_from_root(&ast)?;
 
+    // TODO: I don't like this.
     data["misc"] = json!(format!(
         r#"
     getty = pkgs_rev: dots_rev: ''

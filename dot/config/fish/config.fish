@@ -5,17 +5,15 @@ set PATH /home/$USER/bin $PATH
 
 alias icat="kitty +kitten icat"
 
-export TEXINPUTS=".:~/.tex/lib:"
 alias vim=nvim
 alias vi=nvim
 
+export TEXINPUTS=".:~/.tex/lib:"
 export EDITOR=vim
-export CC=clang-13
 
-set DOTFILES ~/.dots
-
+set -q DOTFILES; or set DOTFILES ~/.dots
 if not test -e ~/.dots-installed
-    ~/.dots/setup.sh
+    $DOTFILES/setup.sh
 end
 
 # Check if we are on a multiuser system

@@ -42,7 +42,12 @@
     fish = {
       enable = true;
       shellInit = ''
-        source ~/.dots/dot/config/fish/config.fish;
+        if not test -d ${inputs.sensitive.lib.dots}; then
+          cp -R ${../../.} ${inputs.sensitive.lib.dots};
+          git init ${inputs.sensitive.lib.dots};
+
+        fi
+        source ${inputs.sensitive.lib.dots}/dot/config/fish/config.fish;
       '';
     };
     git = {
@@ -57,7 +62,7 @@
           gpgSign = inputs.sensitive.lib.git.signing.enable;
         };
       };
-      includes = [{ path = "~/.dots/dot/gitconfig"; }];
+      includes = [{ path = "${inputs.sensitive.lib.dots}/dot/gitconfig"; }];
     };
   };
 
