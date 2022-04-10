@@ -19,7 +19,6 @@ jobs:
           experimental-features = nix-command flakes
     - name: build
       run: |
-        cachix dylan
         rm flake.lock
         nix run ".#_clean"
         git remote get-url origin > .github/remote.txt
