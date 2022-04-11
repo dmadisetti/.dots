@@ -1,12 +1,11 @@
+# Sometimes template and main get out of wack.
+# This tries to rectify that
 name: sync template
 
 on:
   workflow_dispatch:
   push:
     branches: [ template ]
-
-env:
-  CARGO_TERM_COLOR: always
 
 jobs:
   build:
@@ -17,6 +16,7 @@ jobs:
         fetch-depth: 0
     - name: sync
       run: |
+        cp ./.github/workflows/sync.yml ~
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
         # Aggressively resolve merge.
@@ -24,15 +24,19 @@ jobs:
         git merge -s recursive -X ours origin/main || echo "merge failed (no branch?)"
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
         # Update remote if changed
+        previous_user=$(cat .github/assets/remote.txt | cut -d/ -f4)
         previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         echo "$(git remote get-url origin)" > .github/assets/remote.txt
         updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        updated_user=$(cat .github/assets/remote.txt | cut -d/ -f4)
         # Update references to remote (if applicable)
         find README.md .github/ -type f | xargs sed -i "s@$previous@$updated@g"
-        # Commit sync or open pr
+        find .github/ -type f | xargs sed -i "s@$previous_user@$updated_user@g"
+        # Commit sync or open pr. Overwrite any changes made to sync.yml!
+        cp ~/sync.yml ./.github/workflows/sync.yml
         git add --all
         git commit -am "♻️" || echo "resolved"
-        git push || { git checkout -B resolve-actions && gh pr create --title "♻️" --body ":tada" --head resolve-actions; }
+        git push
         # if main doesn't exist we should make it.
         git rev-parse --verify origin/main || { git checkout -b main && git push origin main; }
       env:
@@ -45,6 +49,6 @@ jobs:
         cp -r ~/github .github
         git add --all
         git commit -am "♻️" || echo "resolved"
-        git push || { git checkout -B sync-actions && gh pr create --title "♻️" --body ":tada" --head sync-actions -B main; }
+        git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
