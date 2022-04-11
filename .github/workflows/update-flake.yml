@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - uses: cachix/install-nix-action@v17
       with:
         nix_path: nixpkgs=channel:nixos-unstable
@@ -29,6 +31,8 @@ jobs:
       run: |
         git config user.name '${{ github.actor }}'
         git config user.email '${{ github.actor }}@users.noreply.github.com'
+        git checkout -B main
         fish -c "export DOTFILES=(pwd); source ./dot/config/fish/functions/{update,unlock,+}.fish; update"
         git commit -am "❄️: flake update"
-        gh pr --title "❄️"
+        git push -f origin main:flake-update
+        gh pr --title "❄️" --base main --head flake-update --body ":tada:"
