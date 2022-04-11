@@ -42,12 +42,12 @@
     fish = {
       enable = true;
       shellInit = ''
-        if not test -d ${inputs.sensitive.lib.dots}; then
-          cp -R ${../../.} ${inputs.sensitive.lib.dots};
-          git init ${inputs.sensitive.lib.dots};
-
+        set DOTFILES ${inputs.sensitive.lib.dots}
+        if not test -d $DOTFILES; then
+          cp -R ${../../.} $DOTFILES;
+          git init $DOTFILES;
         fi
-        source ${inputs.sensitive.lib.dots}/dot/config/fish/config.fish;
+        source $DOTFILES/dot/config/fish/config.fish;
       '';
     };
     git = {
