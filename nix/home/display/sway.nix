@@ -7,7 +7,7 @@
 
   wayland.windowManager.sway = {
     enable = true;
-    extraConfig = builtins.readFile ../../dot/config/i3/sway.config;
+    extraConfig = builtins.readFile ../../../dot/config/i3/sway.config;
     # Zero out default config because nix is annoyingly paternalistic.
     config = rec {
       bars = [ ];

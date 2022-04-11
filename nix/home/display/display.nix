@@ -17,7 +17,7 @@ in
   services = {
     polybar = {
       enable = true;
-      config = ../../dot/config/polybar/config.ini;
+      config = ../../../dot/config/polybar/config.ini;
       script = "polybar bar &";
     };
   };

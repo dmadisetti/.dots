@@ -4,7 +4,7 @@ shopt -s extglob
 rm dot/backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
 rm nix/machines/!("momento.nix") 2> /dev/null
 rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
-mv nix/home/$FLAKE_USER.nix nix/home/user.nix
+mv nix/home/users/$FLAKE_USER.nix nix/home/users/user.nix
 
 dots-manager clean $FLAKE > flake.nix;
 
