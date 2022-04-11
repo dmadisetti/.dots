@@ -95,6 +95,7 @@
       '';
 
       # Flake outputs used by hooks.
+      _configs = nixpkgs.lib.strings.concatStringsSep " " (builtins.attrNames self.nixosConfigurations);
       _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
         FLAKE=${./flake.nix}

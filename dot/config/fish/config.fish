@@ -13,7 +13,7 @@ export EDITOR=vim
 
 set -q DOTFILES; or set DOTFILES ~/.dots
 if not test -e ~/.dots-installed
-    $DOTFILES/setup.sh
+    $DOTFILES/setup.sh;
 end
 export DOTFILES
 
