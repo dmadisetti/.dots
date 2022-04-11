@@ -16,6 +16,7 @@ jobs:
         fetch-depth: 0
     - name: sync
       run: |
+        cp ./.github/workflows/sync.yml ~
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
         # Aggressively resolve merge.
@@ -31,10 +32,11 @@ jobs:
         # Update references to remote (if applicable)
         find README.md .github/ -type f | xargs sed -i "s@$previous@$updated@g"
         find .github/ -type f | xargs sed -i "s@$previous_user@$updated_user@g"
-        # Commit sync or open pr
+        # Commit sync or open pr. Overwrite any changes made to sync.yml!
+        cp ~/sync.yml ./.github/workflows/sync.yml
         git add --all
         git commit -am "♻️" || echo "resolved"
-        git push || gh pr create --title "♻️"
+        git push
         # if main doesn't exist we should make it.
         git rev-parse --verify origin/main || { git checkout -b main && git push origin main; }
       env:
@@ -47,6 +49,6 @@ jobs:
         cp -r ~/github .github
         git add --all
         git commit -am "♻️" || echo "resolved"
-        git push || gh pr create --title "♻️"
+        git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
