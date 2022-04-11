@@ -9,6 +9,6 @@
     in
     lib.mkForce ''${sensitive.lib.getty pkgs_rev dots_rev}
 
-Run 'dots-help' or 'nixos-help' for more information. For a desktop, 'gui-plz'.'';
+Run 'dots-help' or 'nixos-help' for more information.'';
 
 }

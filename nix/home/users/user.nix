@@ -48,7 +48,7 @@
         set DOTFILES ${inputs.sensitive.lib.dots}
         if not test -d $DOTFILES
           cp -R ${../../../.} $DOTFILES;
-          git init $DOTFILES;
+          chmod -R u+rw $DOTFILES;
         end
         source $DOTFILES/dot/config/fish/config.fish;
       '';
