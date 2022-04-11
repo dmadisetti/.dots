@@ -22,6 +22,7 @@ jobs:
         git fetch
         git merge -s recursive -X ours origin/main
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
+        echo "$(git remote get-url origin)" > .github/assets/remote.txt
         git add --all
         git commit -am "♻️" || echo "resolved"
         git push
