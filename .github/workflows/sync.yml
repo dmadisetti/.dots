@@ -1,0 +1,24 @@
+name: sync template
+
+on:
+  push:
+    branches: [ template ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '🚀')"
+    steps:
+    - uses: actions/checkout@v2
+    - name: sync
+      run: |
+        git merge -s recursive -X ours origin/main
+        git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm
+        git add --all
+        git config --global user.name '${{ github.actor }}'
+        git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+        git commit -am "♻️"
+        git push
