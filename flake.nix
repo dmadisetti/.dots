@@ -90,7 +90,7 @@
       home = pkgs.writeShellScriptBin "create-home" ''
         REMOTE=${./.github/assets/remote.txt}
         SPOOF=${./nix/spoof/flake.nix}
-        PATH=${dots-manager-path}:${pkgs.home-manager}/bin:$PATH
+        PATH=${dots-manager-path}:${pkgs.nix}:${pkgs.home-manager}/bin:$PATH
         source ${./scripts/create-home.nix.sh}
       '';
 
