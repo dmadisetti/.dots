@@ -46,10 +46,10 @@
       enable = true;
       shellInit = ''
         set DOTFILES ${inputs.sensitive.lib.dots}
-        if not test -d $DOTFILES; then
+        if not test -d $DOTFILES
           cp -R ${../../.} $DOTFILES;
           git init $DOTFILES;
-        fi
+        end
         source $DOTFILES/dot/config/fish/config.fish;
       '';
     };

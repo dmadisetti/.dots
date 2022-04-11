@@ -29,9 +29,9 @@ jobs:
         local updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         # Update references to remote (if applicable)
         find README.md .github/ -type f |  xargs sed -i "s@$previous@$updated@g"
-        # Commit sync
+        # Commit sync or open pr
         git add --all
         git commit -am "♻️" || echo "resolved"
-        git push
+        git push || gh pr create
         # if main doesn't exist we should make it.
         git rev-parse --verify main || { git checkout -B main && git push origin main; }
