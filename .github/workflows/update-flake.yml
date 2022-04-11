@@ -35,8 +35,9 @@ jobs:
       run: |
         git config user.name '${{ github.actor }}'
         git config user.email '${{ github.actor }}@users.noreply.github.com'
-        git checkout -B main
-        fish -c "export DOTFILES=(pwd); source ./dot/config/fish/functions/{update,unlock,+}.fish; update"
+        git fetch
+        git checkout origin/main -B main
+        fish -c "export DOTFILES=(pwd); fish_add_path ./dot/config/fish/functions/; update"
         git commit -am "❄️: flake update"
         git push -f origin main:flake-update
         gh pr create --title "❄️" --base main --head flake-update --body ":tada:"
