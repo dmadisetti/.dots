@@ -24,11 +24,11 @@ jobs:
         git merge -s recursive -X ours origin/main || echo "merge failed (no branch?)"
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
         # Update remote if changed
-        local previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         echo "$(git remote get-url origin)" > .github/assets/remote.txt
-        local updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         # Update references to remote (if applicable)
-        find README.md .github/ -type f |  xargs sed -i "s@$previous@$updated@g"
+        find README.md .github/ -type f | xargs sed -i "s@$previous@$updated@g"
         # Commit sync or open pr
         git add --all
         git commit -am "♻️" || echo "resolved"
