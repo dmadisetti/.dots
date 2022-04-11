@@ -558,7 +558,7 @@ dependencies = [
  "nixpkgs-fmt",
  "pgp",
  "qr_code",
- "rand 0.7.3",
+ "rand 0.8.5",
  "regex",
  "requestty",
  "rnix 0.10.1",
