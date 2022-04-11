@@ -14,7 +14,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: sync
       run: |
-        git merge -s recursive -X ours origin/main
+        git remote -v
+        git fetch
+        git merge -s recursive -X ours main
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm
         git add --all
         git config --global user.name '${{ github.actor }}'
