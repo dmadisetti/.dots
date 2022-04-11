@@ -15,6 +15,7 @@ set -q DOTFILES; or set DOTFILES ~/.dots
 if not test -e ~/.dots-installed
     $DOTFILES/setup.sh
 end
+export DOTFILES
 
 # Check if we are on a multiuser system
 test (stat -c '%G' /nix/store) != $USER && export NIX_REMOTE=daemon

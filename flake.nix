@@ -44,86 +44,28 @@
       system = "x86_64-linux";
       stateVersion = "22.05";
 
+      dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";
+
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
         overlays = import ./nix/overlays.nix { sensitive = sensitive; };
         config.allowUnfree = false;
       };
-      wms = { i3 = "x"; sway = "wayland"; fb = "none"; xmonad = "x"; };
-      homeConfig = user: userConfigs: wm: { ... }:
-        let
-          personalized_config = (./nix/home + "/${user}.nix");
-          user_config =
-            if builtins.pathExists personalized_config then
-              personalized_config else ./nix/home/user.nix;
-        in
+
+      utils = import ./nix/utils.nix
         {
-          imports = [ user_config ]
-            ++ userConfigs
-            ++ (if wms ? "${wm}" then [
-            ./nix/home/display.nix
-            (./nix/home + "/${wm}.nix")
-          ] else [ ]);
+          inherit inputs self home-manager
+            nixpkgs sensitive system
+            pkgs stateVersion;
         };
-      mkComputer =
-        { machineConfig
-        , user ? sensitive.lib.user
-        , wm ? ""
-        , extraModules ? [ ]
-        , userConfigs ? [ ]
-        , isContainer ? false
-        }: nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          # Arguments to pass to all modules.
-          specialArgs = { inherit system inputs sensitive user self isContainer stateVersion; };
-          modules = (
-            [
-              # System configuration for this host
-              machineConfig
-              ./nix/common.nix
-
-              # home-manager configuration
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit inputs self stateVersion; };
-                home-manager.users."${user}" = homeConfig user userConfigs wm
-                  {
-                    inherit inputs system pkgs self;
-                  };
-              }
-            ] ++ extraModules ++ (if !isContainer then [
-              ./nix/common/fonts.nix
-              ./nix/common/getty.nix
-              ./nix/common/head.nix
-            ] else [ ]) ++
-            (if wms ? "${wm}" then [
-              (./nix + ("/display/" + wms."${wm}") + ".nix")
-            ] else [ ])
-          );
-        };
-      mkHome = username: {
-        "${username}" =
-          home-manager.lib.homeManagerConfiguration {
-            inherit system username stateVersion;
-            # Specify the path to your home configuration here
-            configuration = import (./nix/home + "/${username}.nix") {
-              inherit inputs system pkgs self stateVersion;
-            };
-            extraModules = [ ./nix/home/standalone.nix ];
-
-            homeDirectory = "/home/${username}";
-          };
-      };
     in
     {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations =
         {
-          "momento" = mkComputer {
+          "momento" = utils.mkComputer {
             machineConfig = ./nix/machines/momento.nix;
             wm = "sway";
             userConfigs = [ ./nix/home/live.nix ];
@@ -132,57 +74,33 @@
 
       # For standalone configurations
       #
-      homeConfigurations = nixpkgs.lib.foldr (a: b: a // b) { } (map mkHome [
+      homeConfigurations = nixpkgs.lib.foldr (a: b: a // b) { } (map utils.mkHome [
         "${sensitive.lib.user}"
       ]);
 
       # Technically not allowed (warnings thrown), but whatever.
       live = pkgs.writeShellScriptBin "create-live" ''
         out=$(pwd)/result
-        # check for dots
-        # check for sensitive
-        # else
-
-        tmp=$(mktemp -d -t dots-flake-XXXXXXXXXX)
-        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager \
-          template ${./nix/spoof/flake.nix} $tmp/flake.nix
-
-        ${pkgs.nix}/bin/nix build --out-link $out \
-          --override-input sensitive $tmp \
-          --extra-experimental-features nix-command \
-          --extra-experimental-features flakes \
-          --no-write-lock-file -j auto "${self}#_live"
+        TEMPLATE=${./nix/spoof/flake.nix}
+        SELF=${self}
+        PATH=${dots-manager-path}:${pkgs.nix}/bin:$PATH
+        source ${./scripts/create-live.nix.sh}
       '';
 
       home = pkgs.writeShellScriptBin "create-home" ''
-        DOTFILES=$HOME/dots
-        git clone $(cat ${./.github/remote.txt}) $DOTFILES
-        mkdir -p $DOTFILES/nix/sensitive
-        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager \
-          template ${./nix/spoof/flake.nix} $DOTFILES/nix/sensitive/flake.nix \
-           <(echo "{\"user\": \"$USER\", \
-                    \"hashed\":\"\", \
-                    \"networking\":\"{}\", \
-                    \"default_wm\":\"none\"}")
-
-        ${pkgs.home-manager} switch \
-          --override-input sensitive \
-          $DOTFILES/nix/sensitive \
-          --flake "$DOTFILES#$USER" -j auto
+        REMOTE=${./.github/assets/remote.txt}
+        SPOOF=${./nix/spoof/flake.nix}
+        PATH=${dots-manager-path}:${pkgs.home-manager}/bin:$PATH
+        source ${./scripts/create-home.nix.sh}
       '';
 
       # Flake outputs used by hooks.
       _live = self.nixosConfigurations.momento.config.system.build.isoImage;
       _clean = pkgs.writeShellScriptBin "clean-dots" ''
-        shopt -s extglob
-        rm dot/backgrounds/!("live.png"|"grub.jpg"|"default.jpg") 2> /dev/null
-        rm nix/machines/!("momento.nix") 2> /dev/null
-        rm nix/machines/hardware/!(".gitkeep") 2> /dev/null
-        mv nix/home/${sensitive.lib.user}.nix nix/home/user.nix
-        ${dots-manager.dots-manager.x86_64-linux}/bin/dots-manager clean ${./flake.nix} > flake.nix;
-        jq=${pkgs.jq}
-        echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
-        echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
+        FLAKE=${./flake.nix}
+        PATH=${dots-manager-path}:${pkgs.jq}/bin:$PATH
+        FLAKE_USER=${sensitive.lib.user}
+        source ${./scripts/clean-dots.nix.sh}
       '';
     };
 }
