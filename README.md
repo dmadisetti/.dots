@@ -1,6 +1,6 @@
-<p align=center><img src=https://raw.githubusercontent.com/dmadisetti/.dots/main/dot/backgrounds/dots.png alt=".dots logo" height=100px/></p>
+<p align=center><img src=https://raw.githubusercontent.com/dmadisetti/.dots/template/.github/assets/dots.png alt=".dots logo" height=100px/></p>
 
-## (.dots) [![this is currently](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml/badge.svg?branch=main)](https://github.com/dmadisetti/.dots/actions/workflows/flake.yaml)
+## (.dots) [![this is currently](https://github.com/dmadisetti/.dots/actions/workflows/flake.yml/badge.svg?branch=main)](https://github.com/dmadisetti/.dots/actions/workflows/flake.yml)
 
 **so** you want to steal _my_ `.dots`? that's cool, and in fact encouraged. feel free to [use this as template](https://github.com/dmadisetti/.dots/generate), i just ask you leave a star.
 
