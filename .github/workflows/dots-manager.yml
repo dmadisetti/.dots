@@ -11,8 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v15
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
       with:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
@@ -22,7 +22,7 @@ jobs:
         rm flake.lock
         nix run ".#_clean"
     - name: deploy
-      uses: JamesIves/github-pages-deploy-action@v4.2.5
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:
         branch: template
         folder: .
