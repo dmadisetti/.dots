@@ -39,4 +39,4 @@ jobs:
         fish -c "export DOTFILES=(pwd); source ./dot/config/fish/functions/{update,unlock,+}.fish; update"
         git commit -am "❄️: flake update"
         git push -f origin main:flake-update
-        gh pr --title "❄️" --base main --head flake-update --body ":tada:"
+        gh pr create --title "❄️" --base main --head flake-update --body ":tada:"
