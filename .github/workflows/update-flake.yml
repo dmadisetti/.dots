@@ -27,6 +27,10 @@ jobs:
         name: dmadisetti
         extraPullNames: 'nix-community'
 
+    - name: install fish
+      run: |
+        sudo apt install fish
+
     - name: update system
       run: |
         git config user.name '${{ github.actor }}'
