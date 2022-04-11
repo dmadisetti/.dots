@@ -35,3 +35,11 @@ jobs:
         git push || gh pr create
         # if main doesn't exist we should make it.
         git rev-parse --verify main || { git checkout -B main && git push origin main; }
+    - name: sync-back
+      run: |
+        cp -r .github ~/github
+        git checkout main
+        cp -r ~/github .github
+        git add --all
+        git commit -am "♻️" || echo "resolved"
+        git push || gh pr create
