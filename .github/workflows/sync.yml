@@ -21,7 +21,7 @@ jobs:
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
         git fetch
         git merge -s recursive -X ours origin/main
-        git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm
+        git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
         git add --all
         git commit -am "♻️"
         git push
