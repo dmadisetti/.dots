@@ -7,3 +7,9 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "🤖: "
+  - package-ecosystem: "cargo"
+    directory: "/dots-manager"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "🤖: "

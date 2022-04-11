@@ -17,10 +17,19 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
           experimental-features = nix-command flakes
+
+    # Use cache for speed up!
+    - uses: cachix/cachix-action@v10
+      with:
+        name: nix-community
+
     - name: build
       run: |
         rm flake.lock
+        # if cache isn't configured continue
+        cachix use dmadisetti | echo "cache cannot be used"
         nix run ".#_clean"
+
     - name: deploy
       uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:

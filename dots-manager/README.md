@@ -1,11 +1,8 @@
 # dots manager
 
 missing:
- - actually setting up the submodules
 
  - manage machines
-   - allow edit blocks
-
  - remove machines
 
 - a manager to install new machines
@@ -21,12 +18,11 @@ missing:
    - set up partitions
    - customize
    - build
-   - dd
+   - dd if of
 
   install wsl
    - customize
 
-  home-manager
-   - customize
-`nix-rebuild switch --flake ".#blahblah#$hostname"`
-
+actions:
+  - generate iso/ dockers
+  - update flake source and PR

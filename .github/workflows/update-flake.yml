@@ -1,0 +1,34 @@
+name: "update flakes"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 11 * * 1"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - uses: cachix/cachix-action@v10
+      continue-on-error: true
+      with:
+        name: dmadisetti
+        extraPullNames: 'nix-community'
+
+    - name: update system
+      run: |
+        git config user.name '${{ github.actor }}'
+        git config user.email '${{ github.actor }}@users.noreply.github.com'
+        fish -c "export DOTFILES=(pwd); source ./dot/config/fish/functions/{update,unlock,+}.fish; update"
+        git commit -am "❄️: flake update"
+        gh pr --title "❄️"
