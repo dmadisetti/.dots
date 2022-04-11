@@ -34,6 +34,16 @@ jobs:
         git commit -am "♻️" || echo "resolved"
         git push || gh pr create
         # if main doesn't exist we should make it.
-        git rev-parse --verify main || { git checkout -B main && git push origin main; }
+        git rev-parse --verify main || { git checkout -b main && git push origin main; }
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: sync-back
+      run: |
+        cp -r .github ~/github
+        git checkout main
+        cp -r ~/github .github
+        git add --all
+        git commit -am "♻️" || echo "resolved"
+        git push || gh pr create
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
