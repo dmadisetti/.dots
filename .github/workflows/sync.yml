@@ -1,6 +1,7 @@
 name: sync template
 
 on:
+  workflow_dispatch:
   push:
     branches: [ template ]
 
