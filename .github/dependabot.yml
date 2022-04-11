@@ -1,0 +1,10 @@
+# very meta. bot to update bot actions
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "master"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "🤖: "
