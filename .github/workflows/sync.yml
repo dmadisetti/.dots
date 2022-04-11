@@ -25,7 +25,7 @@ jobs:
         local previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         echo "$(git remote get-url origin)" > .github/assets/remote.txt
         local updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
-        sed -i s@$previous@$updated@g README.md
+        find README.md .github/ -type f |  xargs sed -i "s@$previous@$updated@g"
         git add --all
         git commit -am "♻️" || echo "resolved"
         git push
