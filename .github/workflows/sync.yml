@@ -19,13 +19,19 @@ jobs:
       run: |
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+        # Aggressively resolve merge.
         git fetch
         git merge -s recursive -X ours origin/main || echo "merge failed (no branch?)"
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
-        previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        # Update remote if changed
+        local previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         echo "$(git remote get-url origin)" > .github/assets/remote.txt
-        updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        local updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        # Update references to remote (if applicable)
         find README.md .github/ -type f |  xargs sed -i "s@$previous@$updated@g"
+        # Commit sync or open pr
         git add --all
         git commit -am "♻️" || echo "resolved"
-        git push
+        git push || gh pr create
+        # if main doesn't exist we should make it.
+        git rev-parse --verify main || { git checkout -B main && git push origin main; }
