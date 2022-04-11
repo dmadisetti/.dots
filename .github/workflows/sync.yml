@@ -20,9 +20,12 @@ jobs:
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
         git fetch
-        git merge -s recursive -X ours origin/main
+        git merge -s recursive -X ours origin/main || echo "merge failed (no branch?)"
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
+        local previous=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         echo "$(git remote get-url origin)" > .github/assets/remote.txt
+        local updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
+        sed -i s@$previous@$updated@g README.md
         git add --all
         git commit -am "♻️" || echo "resolved"
         git push
