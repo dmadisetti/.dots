@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./gpg.nix
+    ../misc/gpg.nix
   ];
 
   home.packages = with pkgs; [
@@ -30,7 +30,7 @@
       enable = true;
       viAlias = true;
       vimAlias = true;
-      # builtins.readFile ../../dot/vimrc;
+      # builtins.readFile ../../../dot/vimrc;
       # in theory by but actually set by setup.sh, and we symink so it's
       # editable.
       extraConfig = ''
@@ -47,7 +47,7 @@
       shellInit = ''
         set DOTFILES ${inputs.sensitive.lib.dots}
         if not test -d $DOTFILES
-          cp -R ${../../.} $DOTFILES;
+          cp -R ${../../../.} $DOTFILES;
           git init $DOTFILES;
         end
         source $DOTFILES/dot/config/fish/config.fish;

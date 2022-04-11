@@ -13,7 +13,7 @@
       haskellPackages.containers
     ];
     enableContribAndExtras = true;
-    config = ../../dot/xmonad/Main.hs;
+    config = ../../../dot/xmonad/Main.hs;
   };
 
   home.packages = with pkgs; [
@@ -36,5 +36,5 @@
     clipcat # Clipboard
   ];
 
-  home.file.".xinitrc".source = ../../dot/xmonad/xinitrc;
+  home.file.".xinitrc".source = ../../../dot/xmonad/xinitrc;
 }

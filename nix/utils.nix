@@ -19,17 +19,17 @@
   # home-manager on nixos
   homeConfig = user: userConfigs: wm: { ... }:
     let
-      personalized_config = (./home + "/${user}.nix");
+      personalized_config = (./home/users + "/${user}.nix");
       user_config =
         if builtins.pathExists personalized_config then
-          personalized_config else ./home/user.nix;
+          personalized_config else ./home/users/user.nix;
     in
     {
       imports = [ user_config ]
         ++ userConfigs
         ++ (if wms ? "${wm}" then [
-        ./home/display.nix
-        (./home + "/${wm}.nix")
+        ./home/display/display.nix
+        (./home/display + "/${wm}.nix")
       ] else [ ]);
     };
 
@@ -39,7 +39,7 @@
       home-manager.lib.homeManagerConfiguration {
         inherit system username stateVersion;
         # Specify the path to your home configuration here
-        configuration = import (./home + "/${username}.nix") {
+        configuration = import (./home/users + "/${username}.nix") {
           inherit inputs system pkgs self stateVersion;
         };
         extraModules = [ ./home/standalone.nix ];
