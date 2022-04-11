@@ -1,6 +1,7 @@
 name: sync template
 
 on:
+  workflow_dispatch:
   push:
     branches: [ template ]
 
@@ -10,15 +11,15 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '🚀')"
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
     - name: sync
       run: |
+        git fetch
         git merge -s recursive -X ours origin/main
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm
-        # Nix strips git information in store
-        echo "$(git remote get-url origin)" > .github/assets/remote.txt
         git add --all
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
