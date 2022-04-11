@@ -20,6 +20,9 @@
 
     # cool little extensions
     any-nix-shell
+
+    # caching
+    cachix
   ];
 
   programs = {
