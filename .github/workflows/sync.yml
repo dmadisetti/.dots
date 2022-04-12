@@ -36,9 +36,13 @@ jobs:
         cp ~/sync.yml ./.github/workflows/sync.yml
         git add --all
         git commit -am "♻️" || echo "resolved"
+        # if this failed you probably didn't make workflow changes on template
         git push
-        # if main doesn't exist we should make it.
-        git rev-parse --verify origin/main || { git checkout -b main && git push origin main; }
+        # if main doesn't exist we should make it (new template)
+        git rev-parse --verify origin/main || {
+          git checkout -b main && git push origin main;
+          gh issue create -a @me -t "finish setting up template" -F ./.github/template_todo.md;
+        }
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: sync-back
