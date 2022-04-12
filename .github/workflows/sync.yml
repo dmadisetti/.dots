@@ -52,7 +52,6 @@ jobs:
         rm -rf .github
         cp -r ~/github .github
         git add --all
-        git commit -am "♻️" || echo "resolved"
-        git push
+        git commit -am "♻️" && git push || echo "resolved"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
