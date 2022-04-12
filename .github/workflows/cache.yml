@@ -21,13 +21,13 @@ jobs:
           experimental-features = nix-command flakes
 
     # 1) create a https://app.cachix.org account
-    # 2) make a cache called dmadisetti (or whatever): https://app.cachix.org/cache
-    # 3) create an auth token: https://app.cachix.org/cache/dmadisetti/settings/authtokens
-    # 4) add the CACHIX_TOKEN: https://github.com/dmadisetti/.dots/settings/secrets/actions/new
+    # 2) make a cache called <username> (or whatever, but update accordingly): https://app.cachix.org/cache
+    # 3) create an auth token: https://app.cachix.org/cache/<username>/settings/authtokens
+    # 4) add the CACHIX_TOKEN: https://github.com/<username>/.dots/settings/secrets/actions/new
     - uses: cachix/cachix-action@v10
       continue-on-error: true
       with:
-        name: dmadisetti
+        name: "${{ github.repository_owner }}"
         extraPullNames: 'nix-community'
         authToken: '${{ secrets.CACHIX_TOKEN }}'
 
@@ -37,11 +37,11 @@ jobs:
       run: |
         for config in $(nix eval --raw ".#_configs"); do
           nix build --json ".#nixosConfigurations.$config.config.system.build.toplevel" \
-            | jq -r '(.[]|.outputs|.out)' | cachix push dmadisetti;
+            | jq -r '(.[]|.outputs|.out)' | cachix push $GITHUB_REPOSITORY_OWNER;
         done
 
     - name: build and cache dots-manager
       if: ${{ success() }}
       continue-on-error: true
       run: |
-        nix build --json "./dots-manager#" | jq -r '(.[]|.outputs|.out)' | cachix push dmadisetti
+        nix build --json "./dots-manager#" | jq -r '(.[]|.outputs|.out)' | cachix push $GITHUB_REPOSITORY_OWNER;

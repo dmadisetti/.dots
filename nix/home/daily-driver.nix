@@ -4,10 +4,12 @@
   imports = [ ];
 
   home.packages = with pkgs; [
-    # zathura # pdfs
+    jq # of course
+    ripgrep # gotta go fast
+
+    zathura # pdfs
     zotero # research
 
-    # isn't tweag the best
-    ormolu
+    ormolu # isn't tweag the best
   ];
 }

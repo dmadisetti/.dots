@@ -23,7 +23,7 @@ jobs:
       # if cache isn't configured continue
       continue-on-error: true
       with:
-        name: dmadisetti
+        name: "${{ github.repository_owner }}"
         extraPullNames: 'nix-community'
         authToken: '${{ secrets.CACHIX_TOKEN }}'
 

@@ -2,7 +2,9 @@
 # Sipping chicken noodle soup with rice.
 { pkgs, home, ... }:
 {
-  imports = [ ];
+  imports = [
+    ../misc/eww.nix
+  ];
 
   xsession.windowManager.xmonad = {
     enable = true;
@@ -24,7 +26,6 @@
     # rice
     betterlockscreen # ok lockscreen
     dunst # notifications
-    eww # bars and widgets
     feh # background
     picom # Compositor
 
