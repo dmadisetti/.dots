@@ -5,6 +5,7 @@
 {
   imports = [
     ../misc/gpg.nix
+    ../misc/cachix.nix
   ];
 
   home.packages = with pkgs; [

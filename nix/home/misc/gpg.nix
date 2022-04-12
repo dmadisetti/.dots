@@ -1,6 +1,5 @@
 # Gotta encrypt it to believe it 🔒
-{ pkgs, inputs, system, ... }:
-
+{ ... }:
 {
   imports = [ ];
 

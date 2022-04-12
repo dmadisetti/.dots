@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "declarative-cachix": {
+      "locked": {
+        "lastModified": 1644208524,
+        "narHash": "sha256-BW43hqKBxNNMrgUnn6D53useE8f4/yz66bvCzwUbueQ=",
+        "owner": "jonascarpay",
+        "repo": "declarative-cachix",
+        "rev": "b63e9cb0d0962656d08fb4668a5b6b1ba1ca5648",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jonascarpay",
+        "repo": "declarative-cachix",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1644229661,
@@ -109,6 +124,7 @@
     },
     "root": {
       "inputs": {
+        "declarative-cachix": "declarative-cachix",
         "grub2-themes": "grub2-themes",
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",

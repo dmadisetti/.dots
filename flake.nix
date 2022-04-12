@@ -37,6 +37,8 @@
     grub2-themes-png.inputs.nixpkgs.follows = "nixpkgs";
     # TODO: Fix grub2-themes so that it can use pngs.
 
+    # Cachix for caching!
+    declarative-cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
