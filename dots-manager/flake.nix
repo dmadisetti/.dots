@@ -25,6 +25,7 @@
                 lockFileContents = fixupLockFile ./Cargo.lock;
                 outputHashes = {
                   "rnix-0.10.1" = "sha256-R7kf/XE0EzfS0DUI3V++OAoL0a5i86P7wTz0zjQs3Po=";
+                  "pgp-0.7.2" = "sha256-IRFa9tvSwyPrWtf9blAtQzL++kbETu13vOzYytJtzGw=";
                 };
               };
           };
