@@ -1498,9 +1498,9 @@ dependencies = [
 
 [[package]]
 name = "sha-crypt"
-version = "0.3.2"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "382b8736dd60ab0f70a54345ffa6a3f1375f43cbf8be0f0b949a89ac782d4c02"
+checksum = "f0193e80e8a92aa7173dad160cfd5f5eda57ba146aac9826ea5c9dc3d5492072"
 dependencies = [
  "rand 0.8.5",
  "sha2 0.10.2",
