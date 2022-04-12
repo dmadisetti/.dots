@@ -41,7 +41,7 @@ jobs:
         # if main doesn't exist we should make it (new template)
         git rev-parse --verify origin/main || {
           git checkout -b main && git push origin main;
-          gh issue create -t "finish setting up template" -F ./.github/template_todo.md;
+          gh issue create -a '${{ github.actor }}' -t "finish setting up template" -F ./.github/template_todo.md;
         }
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
