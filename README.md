@@ -2,9 +2,11 @@
 
 ## (.dots) [![this is currently](https://github.com/dmadisetti/.dots/actions/workflows/flake.yml/badge.svg?branch=main)](https://github.com/dmadisetti/.dots/actions/workflows/flake.yml)
 
-**so** you want to steal _my_ `.dots`? that's cool, and in fact encouraged. feel free to [use this as template](https://github.com/dmadisetti/.dots/generate), i just ask you leave a star.
+**so** you want to steal _my_ `.dots`? that's cool, and in fact encouraged. feel free to [use this as template](https://github.com/dmadisetti/.dots/generate), i just ask you leave a star. my current systems are provisioned on [main](https://github.com/dmadisetti/.dots/tree/main).
 
 ### installation
+
+[first template this repository](https://github.com/dmadisetti/.dots/generate), do **not** include additional branches, and continue reading from your new repository.
 
 if you just want my `.dots` run `setup.sh`. if you want the whole os experience, start with the live disk or
 

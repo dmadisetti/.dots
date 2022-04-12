@@ -1,7 +1,11 @@
-{ inputs, ... }:
+{ inputs, home, pkgs, ... }:
 {
   imports = [
     inputs.declarative-cachix.homeManagerModules.declarative-cachix
+  ];
+
+  home.packages = with pkgs; [
+    cachix
   ];
 
   # Cheers @thiagokokada
