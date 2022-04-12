@@ -8,13 +8,16 @@ tmp_weather_hex=$tmp_weather/weather-hex
 tmp_weather_icon=$tmp_weather/weather-icon
 
 if [ ! -d $tmp_weather ]; then
-        mkdir -p $tmp_weather
+  mkdir -p $tmp_weather
 fi
 
 # Put in your api and stuff link here
 # If you dunno, head to openweathermap.org, and make and account
 #(completely free I swear, and then get your API Key and  your City ID)
-# I wish I was smart enough to do it like Elena, but this is the top I could do lol
+
+# Boooo, I should proabably remove this- but I don't really care?
+# Please let me know if you figure out how to compromise me off of this.
+# I will be much impressed, such wowed.
 KEY="b7ca5a94a8dc209b017fcd48e6a15ef2"
 ID="4140963"
 UNIT="metric" #Options are 'metric' and 'imperial'
