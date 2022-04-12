@@ -1,7 +1,5 @@
 # Nix
-
-{ config, pkgs, ... }:
-
+{ ... }:
 {
   imports =
     [

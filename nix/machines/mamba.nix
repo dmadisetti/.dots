@@ -1,6 +1,6 @@
 # Fancy grub and networking
 
-{ config, pkgs, self, ... }:
+{ self, ... }:
 
 {
   imports =

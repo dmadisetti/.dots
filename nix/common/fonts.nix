@@ -1,5 +1,5 @@
 # Fonts!
-{ config, pkgs, inputs, sensitive, ... }:
+{ pkgs, ... }:
 
 {
   fonts.fonts = with pkgs; [
