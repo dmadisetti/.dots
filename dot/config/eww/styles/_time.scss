@@ -1,0 +1,42 @@
+
+
+
+
+
+
+
+
+
+
+$day-color: #FFD5CD !default;
+$minute-color: #D35D6E !default;
+$week-color: #90c861 !default;
+
+window .time-bar {
+  //background-color: #000;
+}
+
+.time-bar {
+  padding: 3px 64px 0px 64px;
+  font-size: 48px;
+  // line-height: 0;
+  // background-color: none;
+  color: $day-color;
+}
+.minute-bar {
+  color: $minute-color;
+}
+
+.time-side {
+  margin: 20px 65px 0px 65px;
+  font-size: 60px;
+  color: $day-color;
+}
+.minute-side {
+  color: $minute-color;
+}
+.day-side {
+  font-size: 16px;
+  font-weight: bold;
+  color: $week-color;
+}

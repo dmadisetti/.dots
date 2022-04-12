@@ -1,0 +1,113 @@
+(defwidget smol_calendar []
+  (box :orientation "v" :space-evenly "false"
+    (box :class "number_day" number_day)
+    (box :class "month" month)))
+(defwidget weather_side []
+  (box :orientation "h" :space-evenly "false"
+    (box :class "weather-icon-side" weather-icon)
+    (box :class "weather-info-side" :orientation "v" :space-evenly "false"
+      (box :class "temperature-side" "${temperature}  ")
+      (box :class "weather-stat-side" weather-stat-side))))
+(defwidget player_side []
+  (box :orientation "h" :space-evenly "false"
+    (box :class "musicstuff-side" :orientation "v" :space-evenly "false"
+      (box :orientation "h" :halign "center" :class "musicbtn-side"
+      :space-evenly "true"
+        (button :class "prev-play-side" :onclick "playerctl previous" "")
+        (button :class "pause-play-side" :onclick "playerctl play-pause" musicstat)
+        (button :onclick "playerctl next" ""))
+      (box :class "musicinfo-side" music3))))
+
+(defwidget time_side []
+  (box :orientation "v" :space-evenly "false"
+    (box :orientation "h" :class "time-side" :space-evenly "true"
+      (box :class "hour-side" hour)
+      (box :class "minute-side" min))
+    (box :class "day-side" day)))
+(defwidget sliders_side []
+  (box :orientation "v" :space-evenly "false" :class "sliders-side"
+    (box :orientation "h" :class "slider-vol-side" :space-evenly "false"
+      (box :class "label-vol-side" "")
+      (scale :min 0 :max 101 :value volume :onchange "amixer -D pulse sset Master {}%"))
+    (box :orientation "h" :class "slider-bright-side" :space-evenly "false"
+      (box :class "label-bright-side" "")
+      (scale :min 0 :max 101 :value bright :onchange "brightnessctl s {}%"))
+    (box :orientation "h" :class "slider-ram-side" :space-evenly "false"
+      (box :class "label-ram-side" "")
+      (scale :min 0 :active "false" :max 101 :value ram-used))
+    (box :orientation "h" :class "slider-battery-side" :space-evenly "false"
+      (box :class "label-battery-side" bat-icon)
+      (scale :min 0 :active "false" :max 101 :value battery-remaining))))
+(defwidget sys_side []
+  (box :orientation "v" :space-evenly "false"
+    (box :orientation "h" :halign "center" :class "sysbtn" :space-evenly "true"
+      (button :class "shutdown-side" :onclick "~/.config/eww/scripts/shutdown.sh" "⏻")
+       (button :class "reboot-side" :onclick "~/.config/eww/scripts/reboot.sh" "⭯")
+      ;; (button :class "lock-side" :onclick "~/.config/eww/scripts/lockscreen.sh" "🔒")
+      (button :class "logout-side" :onclick "~/.config/eww/scripts/logout.sh" "⮩")
+      (button :class "suspend-side" :onclick "~/.config/eww/scripts/suspend.sh"
+      "🙀 "))))
+(defwidget calendar_full []
+       (box :class "calendar_title" "     ${day}, ${number_day} ${month_full} ${year_full}"))
+(defwidget power_full []
+  (box :orientation "h" :space-evenly "true"
+    (button :class "power-full sysbtn-full" :onclick "~/.config/eww/scripts/shutdown.sh" "")))
+(defwidget reboot_full []
+  (box :orientation "h" :space-evenly "true"
+    (button :class "reboot-full sysbtn-full" :onclick "~/.config/eww/scripts/reboot.sh" "")))
+(defwidget lock_full []
+  (box :orientation "h" :space-evenly "true"
+    (button :class "lock-full sysbtn-full" :onclick "~/.config/eww/scripts/lockscreen.sh" "")))
+(defwidget suspend_full []
+  (box :orientation "h" :space-evenly "true"
+    (button :class "suspend-full sysbtn-full" :onclick "~/.config/eww/scripts/suspend.sh" "")))
+(defwidget logout_full []
+  (box :orientation "h" :space-evenly "true"
+    (button :class "logout-full sysbtn-full" :onclick "~/.config/eww/scripts/logout.sh" "")))
+(defwidget close_full []
+  (box :orientation "h" :space-evenly "true"
+    (button :class "power-full sysbtn-full" :onclick "~/bin/centerkill" "")))
+(defwidget profile []
+(box :orientation "v" :space-evenly "false" :class "profile"
+    (box :orientation "h" :space-evenly "false"
+      (box :class "pfp"))
+    (box :orientation "v" :space-evenly "false"
+      (box :class "pfptxt" :valign "center" "merry *nix-mas")
+      ;; (box :class "subpfptxt" :halign "center" "*Some-cheeky-line*")
+      )))
+(defwidget weather []
+  (box :orientation "v" :space-evenly "false"
+    (box :orientation "h" :space-evenly "false"
+      (box :class "weather-icon" :style "color: ${weather-hex}" weather-icon)
+      (box :class "temperature" "${temperature}  ")
+      )
+    ;;(box :orientation "v" :space-evenly "false"
+    ;;  (box :class "weather-stat" weather-stat)
+    ;;  ;; (box :class "weather-quote-head" weather-quote)
+    ;;  ;; (box :class "weather-quote-tail" weather-quote2)
+    ;;  )
+    ))
+(defwidget blur_full []
+  (box :orientation "v" :space-evenly "true"))
+
+(defwidget time_bar []
+  (box :orientation "v" :space-evenly "false"
+    (box :orientation "h" :class "time-bar" :space-evenly "true"
+      (box :class "hour-bar" hour)
+      ;; (box :class "hour-bar" ":")
+      (box :class "minute-bar" min))))
+
+(defwidget desktop_bar []
+  (box :orientation "v" :space-evenly "false"
+    (box :orientation "h" :class "time-bar" :space-evenly "true"
+      (box :class "hour-bar" "2")
+      (box :class "hour-bar" "1")
+      (box :class "hour-bar" "2")
+      (box :class "hour-bar" "3")
+      (box :class "hour-bar" "4")
+      (box :class "hour-bar" "5")
+      (box :class "hour-bar" "6")
+      (box :class "hour-bar" "7")
+      (box :class "hour-bar" "8")
+      (box :class "hour-bar" "9")
+      )))

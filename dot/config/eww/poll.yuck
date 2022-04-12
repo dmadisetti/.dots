@@ -1,0 +1,29 @@
+;;  Music vars
+(defpoll music :interval "5s"  "playerctl metadata --format '{{ artist }} - {{ title }}'")
+(defpoll music2 :interval "5s"  "playerctl metadata --format '{{ artist }}'")
+(defpoll music3 :interval "5s"  "~/.config/eww/scripts/gettitle")
+(defpoll volume :interval "50ms"  "~/.config/eww/scripts/getvol")
+(defpoll bright :interval "50ms"  "~/.config/eww/scripts/getbri")
+(defpoll musicstat :interval "5s"  "~/.config/eww/scripts/media.sh")
+
+;; Date vars
+(defpoll number_day :interval "1h"  "date \"+%d\"")
+(defpoll month :interval "1h"  "date \"+%b\"")
+(defpoll min :interval "10s"  "date \"+%M\"")
+(defpoll hour :interval "1m"  "date \"+%H\"")
+(defpoll day :interval "1h"  "~/.config/eww/scripts/getday")
+(defpoll month_full :interval "1h"  "date \"+%B\"")
+(defpoll year_full :interval "1h"  "date \"+%Y\"")
+
+;; Weather vars
+(defpoll weather-icon :interval "20m"  "cat /tmp/xmonad/weather/weather-icon")
+(defpoll temperature :interval "20m"  "cat /tmp/xmonad/weather/weather-degree")
+(defpoll weather-hex :interval "20m"  "cat /tmp/xmonad/weather/weather-hex")
+(defpoll weather-stat-side :interval "20m"  "~/.config/eww/scripts/weather-trimmer")
+
+;; Big brain RAM vars
+(defpoll ram-used :interval "1s"  "~/.config/eww/scripts/getram")
+
+;; Battery charge vars
+(defpoll battery-remaining :interval "2m"  "cat /sys/class/power_supply/BAT0/capacity")
+(defpoll bat-icon :interval "2m"  "~/.config/eww/scripts/battery.sh")

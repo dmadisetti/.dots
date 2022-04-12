@@ -1,0 +1,26 @@
+;;  Sidebar stuff
+
+;; Hack to make it actually shift windows. Overlay is no bueno in my books.
+;; 345 for displayed windows
+(defwindow smol_calendar
+    :wm-ignore false
+    :reserve  (struts :distance "310px" :side "left")
+    :geometry (geometry :x "10px" :y "60px" :width "80px" :height "80px")
+            (smol_calendar))
+
+(defwindow weather_side
+    :geometry (geometry :x "95px" :y "60px" :width "215px" :height "80px")
+            (weather_side))
+
+(defwindow time_side
+    :geometry (geometry :x "10px" :y "145px" :width "300px" :height "135px")
+            (time_side))
+(defwindow player_side
+    :geometry (geometry :x "10px" :y "285px" :width "300px" :height "110px")
+            (player_side))
+(defwindow sliders_side
+    :geometry (geometry :x "10px" :y "400px" :width "300px" :height "205px")
+            (sliders_side))
+(defwindow sys_side
+    :geometry (geometry :x "10px" :y "610px" :width "300px" :height "30px")
+            (sys_side))

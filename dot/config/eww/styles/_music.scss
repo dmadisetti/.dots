@@ -1,0 +1,24 @@
+$primary-color: #D35D6E !default;
+$secondary-color: #FFD5CD !default;
+
+.musicinfo-side {
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.musicbtn-side {
+  min-width: 290px;
+  button {
+    font-size: 16px;
+    padding-top: 25px;
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+.pause-play-side {
+  color: $primary-color;
+  &:hover {
+    color: $secondary-color;
+  }
+}

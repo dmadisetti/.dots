@@ -51,7 +51,12 @@
           cp -R ${../../../.} $DOTFILES;
           chmod -R u+rw $DOTFILES;
         end
-        source $DOTFILES/dot/config/fish/config.fish;
+        # prefer the local link
+        if test -f ~/.config/fish/user.fish
+          source ~/.config/fish/user.fish
+        else
+          source $DOTFILES/dot/config/fish/config.fish;
+        end
       '';
     };
     git = {

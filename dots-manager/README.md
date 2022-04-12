@@ -25,4 +25,3 @@ missing:
 
 actions:
   - generate iso/ dockers
-  - update flake source and PR

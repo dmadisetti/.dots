@@ -1,0 +1,94 @@
+﻿$primary-color:  #94167F;//#AA0284;//#8cd3ff;//#D35D6E;
+$secondary-color: #E93479;//#CA0077;//#84afdb;//#FFD5CD;
+$background: #0E0021;// #484856; //#1E3F66;// ##121212;
+
+$p1-color: #c47eb7;
+$p2-color: #F9AC53;
+$p3-color: #D35D6E;
+$p4-color: #FFD13D;
+$s1-color: #ffd5cd;
+
+// $p1-color: #c47eb7;
+// $p2-color: #84afdb;
+// $p3-color: #D35D6E;
+// $p4-color: #FFD13D;
+// $s1-color: #ffd5cd;
+
+/** sidebar **/
+@use 'styles/date' with (
+  $day-color: $primary-color
+);
+
+@use 'styles/weather' with (
+  $title-color: $primary-color,
+  $icon-color: $p4-color
+);
+
+@use 'styles/time' with (
+  $day-color: $secondary-color,
+  $minute-color: $primary-color,
+  $week-color: $p2-color
+);
+
+@use 'styles/music' with (
+  $primary-color: $secondary-color,
+  $secondary-color: $primary-color
+);
+
+@use 'styles/sliders' with (
+  $vol-color: $p1-color,
+  $bri-color: $p2-color,
+  $ram-color: $p3-color,
+  $bat-color: $p4-color,
+  $back-color: $s1-color,
+  $height: 16px
+);
+
+@use 'styles/buttons' with (
+  $shutdown-color: $p1-color,
+  $reboot-color: $p2-color,
+  $lock-color: $p3-color,
+  $suspend-color: $p4-color,
+  $logout-color: $s1-color
+);
+
+/** profile **/
+
+@use 'styles/buttons_full' with (
+  $shutdown-color: $p1-color,
+  $reboot-color: $p2-color,
+  $lock-color: $p3-color,
+  $suspend-color: $p4-color,
+  $logout-color: $s1-color
+);
+
+
+* {
+  all: unset;
+}
+window {
+  background-color: $background;
+  color: $secondary-color;
+  font-family: Museo Sans;
+}
+
+button {
+  all: unset;
+  padding: 10px;
+}
+
+.weather-icon {
+  font-size: 120px;
+  margin: 0px 0px 0px 40px;
+}
+.weather-stat {
+  font-size: 30px;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  font-weight: bold;
+  color: #D35D6E;
+}
+.temperature {
+  font-size: 48px;
+  font-weight: 900;
+}
