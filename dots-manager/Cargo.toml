@@ -19,7 +19,7 @@ clap = { version = "3.1.8", features = ["derive"] }
 
 pgp = { git = 'https://github.com/rpgp/rpgp', branch = "master" }
 rand = "0.8"
-sha-crypt = "0.3.2"
+sha-crypt = "0.4.0"
 
 handlebars = "4.2.2"
 regex = "1"
