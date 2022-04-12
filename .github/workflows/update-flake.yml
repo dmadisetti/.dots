@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: "30 11 * * 1"
 
-env:
-  CARGO_TERM_COLOR: always
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,3 +42,5 @@ jobs:
         git commit -am "❄️: flake update"
         git push -f origin main:flake-update
         gh pr create --title "❄️" --base main --head flake-update --body ":tada:"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
