@@ -23,7 +23,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-T1piaEyI+vSOYsHUg3qCdBWCbtr1zeP1XWjkwf+25GE=",
+        "narHash": "sha256-2W+QpDd7JSWBo5tcxgoiKAmmJZR1n8YFYQvwRmos31o=",
         "path": "./dots-manager",
         "type": "path"
       },
