@@ -20,14 +20,16 @@ jobs:
 
     # Use cache for speed up!
     - uses: cachix/cachix-action@v10
+      # if cache isn't configured continue
+      continue-on-error: true
       with:
-        name: nix-community
+        name: dmadisetti
+        extraPullNames: 'nix-community'
+        authToken: '${{ secrets.CACHIX_TOKEN }}'
 
     - name: build
       run: |
         rm flake.lock
-        # if cache isn't configured continue
-        cachix use dmadisetti | echo "cache cannot be used"
         nix run ".#_clean"
 
     - name: deploy
