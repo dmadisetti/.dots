@@ -36,6 +36,7 @@ if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
   end
 end
 
+# Set up ssh keys
 if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
   mkdir -p ~/.ssh
   git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys

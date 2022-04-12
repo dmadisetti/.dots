@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+/home/dylan/.config/eww/scripts/getweather > /dev/null
+
+weather=$(cat /tmp/xmonad/weather/weather-stat)
+weather_count=$(cat /tmp/xmonad/weather/weather-stat | wc -c)
+
+if [ "$weather_count" -lt 12 ]; then
+  echo $weather;
+else
+  echo $(cat /tmp/xmonad/weather/weather-stat | cut -c1-8)...
+fi

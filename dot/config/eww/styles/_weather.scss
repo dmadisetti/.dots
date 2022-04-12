@@ -1,0 +1,22 @@
+$title-color: #D35D6E !default;
+$icon-color: #D35D6E !default;
+
+.weather-icon-side {
+  font-size: 45px;
+  font-family: Iosevka;
+  margin: 5px 30px 5px 30px;
+  color: $icon-color;
+}
+.weather-stat-side {
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: $title-color;
+}
+.temperature-side {
+  font-size: 16px;
+  font-weight: 900;
+  padding-top: 15px;
+  padding-left: 10px;
+}

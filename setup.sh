@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Managing symlinks over home-manager or nix means we can use this on all
+# platforms :), also it means we don't end up with those terrible ro links.
 setup() {
   local scriptpath="$(
     cd "$(dirname "$0")" > /dev/null 2>&1
@@ -11,9 +13,11 @@ setup() {
   isnix=$(($isnix + $isnixos > 0 ? 1 : 0))
 
   rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
-    ~/.vim/config ~/.config/fish ~/.config/i3 ~/.config/kitty ~/.config/yapf \
-    ~/.gitconfig ~/.tmux.conf ~/.backgrounds ~/.config/compton.cfg ~/.dots-installed
+    ~/.vim/config ~/.config/fish/functions ~/.config/i3 ~/.config/kitty ~/.config/yapf \
+    ~/.gitconfig ~/.tmux.conf ~/.backgrounds ~/.config/compton.cfg ~/.config/eww \
+    ~/.config/dunst ~/.config/rofi ~/.dots-installed
 
+  mkdir -p ~/.config/fish
   mkdir -p ~/.zotero/data
   mkdir -p ~/.config/nvim
   mkdir -p ~/.vim
@@ -32,7 +36,6 @@ setup() {
   }
 
   # fish
-  mkdir ~/.config/fish/
   # if managed by nixos, be careful with fish_variables since must be writeable.
   test $isnix -eq 1 && {
     ln -s $configpath/fish/functions ~/.config/fish/
@@ -45,7 +48,7 @@ setup() {
       curl -L \
         https://github.com/oh-my-fish/plugin-foreign-env/archive/refs/heads/master.tar.gz 2> /dev/null |
         tar xfz - --strip-components 2 --exclude-ignore-recursive="*.fish" -C $configpath/fish/functions
-    }
+    } || :
   } || {
     ln -s $configpath/fish/* ~/.config/fish/
   }
@@ -70,6 +73,15 @@ setup() {
 
   # picom
   ln -s $configpath/compton.cfg ~/.config/compton.cfg
+
+  # dunst
+  ln -s $configpath/dunst ~/.config/dunst
+
+  # rofi
+  ln -s $configpath/rofi ~/.config
+
+  # eww
+  ln -s $configpath/eww ~/.config
 
   # bashrc as backup
   test -n ${BASH} && test -z ${DOTFILES_LOADED+x} && {

@@ -1,0 +1,86 @@
+$vol-color: #c47eb7 !default;
+$bri-color: #84afdb !default;
+$ram-color: #D35D6E !default;
+$bat-color: #90c861 !default;
+$back-color: #ffd5cd !default;
+$height: 16px !default;
+
+.sliders-side {
+  trough {
+    highlight {
+      all: unset;
+      color: #000000;
+      border-radius: 10px;
+    }
+    slider {
+      all: unset;
+      color: $back-color;
+    }
+    all: unset;
+    background-color: #4e4e4e;
+    border-radius: 50px;
+    min-height: $height;
+    min-width: 170px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+}
+.slider-vol-side {
+  margin-top: 10px;
+  scale {
+    trough {
+      highlight {
+        background-color: $vol-color;
+      }
+    }
+  }
+}
+.slider-bright-side {
+  scale {
+    trough {
+      highlight {
+        background-color: $bri-color;
+      }
+    }
+  }
+}
+.slider-ram-side {
+  scale {
+    trough {
+      highlight {
+        background-color: $ram-color;
+      }
+    }
+  }
+}
+.slider-battery-side {
+  scale {
+    trough {
+      highlight {
+        background-color: $bat-color;
+      }
+    }
+  }
+}
+
+.label-vol-side, .label-bright-side, .label-ram-side, .label-battery-side {
+  margin-top: 10px;
+  font-family: Iosevka;
+  margin-left: 35px;
+  font-size: 25px;
+}
+.label-vol-side {
+  color: $vol-color;
+}
+.label-bright-side {
+  color: $bri-color;
+}
+.label-ram-side {
+  color: $ram-color;
+}
+.label-battery-side {
+  color: $bat-color;
+}
+.search-side {
+  border-radius: 12px;
+}

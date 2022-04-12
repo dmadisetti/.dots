@@ -17,20 +17,18 @@
             name = "dots-manager";
             pname = "dots-manager";
             src = ./.;
-            cargoLock =
-              let
-                fixupLockFile = path: (builtins.readFile path);
-              in
-              {
-                lockFileContents = fixupLockFile ./Cargo.lock;
-                outputHashes = {
-                  "rnix-0.10.1" = "sha256-R7kf/XE0EzfS0DUI3V++OAoL0a5i86P7wTz0zjQs3Po=";
-                  "pgp-0.7.2" = "sha256-IRFa9tvSwyPrWtf9blAtQzL++kbETu13vOzYytJtzGw=";
-                };
+            cargoLock = {
+              lockFileContents = builtins.readFile ./Cargo.lock;
+              outputHashes = {
+                "rnix-0.10.1" = "sha256-R7kf/XE0EzfS0DUI3V++OAoL0a5i86P7wTz0zjQs3Po=";
+                "pgp-0.7.2" = "sha256-IRFa9tvSwyPrWtf9blAtQzL++kbETu13vOzYytJtzGw=";
               };
+            };
           };
       in
       {
+        inherit dots-manager;
+
         devShell = with pkgs;
           mkShell {
             buildInputs = [
@@ -46,19 +44,16 @@
               pkg-config
             ];
           };
-        dots-manager = dots-manager;
 
         # OK for set up
         # Ask user to partition and mount their drives
         #   # install blah
         # make home/$user
-        # prompt for templated github
         # prompt for hostname
         # clone .dots
         # copy over .dots
         # copy over sensitive flake
         # git add
-        # sed readme
         # nixos-generate-config --root --dir . --show-hardware-config > host.nix
         # drop into dots-manager editor
         # nixos-install --root blah --flake  -j auto

@@ -1,0 +1,32 @@
+$hover-color: #c47eb7 !default;
+
+$shutdown-color: #c47eb7 !default;
+$reboot-color: #c47eb7 !default;
+$lock-color: #84afdb !default;
+$suspend-color: #D35D6E !default;
+$logout-color: #90c861 !default;
+
+.sysbtn {
+  button {
+    font-size: 30px;
+    &:hover {
+      color: $hover-color;
+    }
+  }
+}
+
+.shutdown-side {
+  color: $shutdown-color;
+}
+.reboot-side {
+  color: $reboot-color;
+}
+.lock-side {
+  color: $lock-color;
+}
+.suspend-side {
+  color: $suspend-color;
+}
+.logout-side {
+  color: $logout-color;
+}

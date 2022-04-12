@@ -1,0 +1,54 @@
+;; Center profile
+
+(defwindow blur_full
+      :geometry (geometry :x "0px" :y "0px" :width "100%" :height "100%")
+              (blur_full))
+
+;; (defwindow profile
+;;       :geometry (geometry :x "390px" :y "220px" :width "340px" :height "411px")
+;;               (profile))
+(defwindow profile
+      :geometry (geometry :x "740px" :y "380px" :width "380px" :height "411px")
+              (profile))
+ (defwindow weather
+      :geometry (geometry :x "740px" :y "220px" :width "380px" :height "100px")
+              (weather))
+
+;; (defwindow power_full
+;;     :geometry (geometry :x "740px" :y "380px" :width "120px" :height "120px")
+;;             (power_full))
+;; (defwindow reboot_full
+;;     :geometry (geometry :x "740px" :y "510px" :width "120px" :height "121px")
+;;             (reboot_full))
+;; 
+;; (defwindow lock_full
+;;     :geometry (geometry :x "870px" :y "380px" :width "120px" :height "120px")
+;;             (power_full))
+;; (defwindow suspend_full
+;;     :geometry (geometry :x "870px" :y "510px" :width "120px" :height "121px")
+;;             (reboot_full))
+;; 
+;; (defwindow power_full
+;;     :geometry (geometry :x "1000px" :y "380px" :width "120px" :height "120px")
+;;             (power_full))
+;; (defwindow logout_full
+;;     :geometry (geometry :x "1000px" :y "510px" :width "120px" :height "121px")
+;;             (logout_full))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
