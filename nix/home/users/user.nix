@@ -1,6 +1,6 @@
 # Home sweet home 🏠
 
-{ pkgs, inputs, system, stateVersion, ... }:
+{ pkgs, inputs, stateVersion, ... }:
 
 {
   imports = [

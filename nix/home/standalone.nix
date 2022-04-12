@@ -1,7 +1,5 @@
 # Let's manage some packages!
-
-{ pkgs, inputs, system, ... }:
-
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     home-manager

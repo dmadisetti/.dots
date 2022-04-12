@@ -1,4 +1,4 @@
-{ config, pkgs, user, sensitive, ... }: {
+{ config, user, sensitive, ... }: {
   networking.firewall.enable = true;
   security.sudo.execWheelOnly = true;
 

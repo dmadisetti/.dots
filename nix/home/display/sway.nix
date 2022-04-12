@@ -1,7 +1,5 @@
 # Tell it how it is
-
-{ pkgs, inputs, home, system, ... }:
-
+{ pkgs, home, ... }:
 {
   imports = [ ];
 

@@ -1,6 +1,5 @@
 # User packages beyond DE
-
-{ pkgs, lib, home, ... }:
+{ pkgs, home, ... }:
 {
   imports = [ ];
 

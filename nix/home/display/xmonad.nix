@@ -1,8 +1,6 @@
 # Sipping once 🥣, sipping twice 🥣
 # Sipping chicken noodle soup with rice.
-
-{ pkgs, lib, home, ... }:
-
+{ pkgs, home, ... }:
 {
   imports = [ ];
 
