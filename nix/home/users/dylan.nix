@@ -4,13 +4,12 @@
 
 {
   imports = [
-    ../misc/gpg.nix
-    ../misc/cachix.nix
+    ../programs/gpg.nix
+    ../programs/cachix.nix
   ];
 
   home.packages = with pkgs; [
     # security
-    gnupg
     keybase
     wireguard-tools
 
@@ -21,9 +20,6 @@
 
     # cool little extensions
     any-nix-shell
-
-    # caching
-    cachix
   ];
 
   programs = {

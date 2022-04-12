@@ -3,7 +3,7 @@
 { pkgs, home, ... }:
 {
   imports = [
-    ../misc/eww.nix
+    ../programs/eww.nix
   ];
 
   xsession.windowManager.xmonad = {
