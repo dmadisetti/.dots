@@ -44,4 +44,4 @@ jobs:
         git push -f origin main:flake-update
         gh pr create --title "❄️" --base main --head flake-update --body ":tada:"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
