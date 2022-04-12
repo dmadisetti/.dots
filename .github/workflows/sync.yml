@@ -41,7 +41,7 @@ jobs:
         # if main doesn't exist we should make it (new template)
         git rev-parse --verify origin/main || {
           git checkout -b main && git push origin main;
-          gh issue create -a @me -t "finish setting up template" -F ./.github/template_todo.md;
+          gh issue create -a '${{ github.actor }}' -t "finish setting up template" -F ./.github/template_todo.md;
         }
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -52,7 +52,6 @@ jobs:
         rm -rf .github
         cp -r ~/github .github
         git add --all
-        git commit -am "♻️" || echo "resolved"
-        git push
+        git commit -am "♻️" && git push || echo "resolved"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
