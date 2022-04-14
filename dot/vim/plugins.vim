@@ -80,7 +80,7 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 
 " All hail our AI overlord
 if has('nvim-0.6')
-	Plug 'github/copilot.vim', {'branch': 'main'}
+	Plug 'github/copilot.vim', {'branch': 'release'}
 endif
 
 " Maktaba + Glaive for code formatting
