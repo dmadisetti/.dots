@@ -37,15 +37,35 @@ fn build_questions(
                 if let Some(enable_value) = rnix::types::Value::cast(enable_node) {
                     match enable_value.to_value() {
                         Ok(rnix::value::Value::Boolean(boolean)) => {
-                            if let Ok(Answer::Bool(true)) = requestty::prompt_one(
-                                Question::confirm("enable")
-                                    .message(&format!("Enable {}?", key))
-                                    .default(boolean)
-                                    .build(),
-                            ) {
+                            let maybe_default = match defaults.get(&key) {
+                                Some(value) => value
+                                    .get("enable")
+                                    .unwrap_or(&json!(false))
+                                    .as_bool()
+                                    .unwrap_or(false),
+                                None => false,
+                            };
+                            let maybe_enabled = if maybe_default {
+                                true
+                            } else {
+                                matches!(
+                                    requestty::prompt_one(
+                                        Question::confirm("enable")
+                                            .message(&format!("Enable {}?", key))
+                                            .default(boolean)
+                                            .build()
+                                    ),
+                                    Ok(Answer::Bool(true))
+                                )
+                            };
+                            if maybe_enabled {
                                 let prefix = key.clone() + "_";
+                                let inner_default = match defaults.get(key.clone()) {
+                                    Some(inner) => inner.clone(),
+                                    None => json!({}),
+                                };
                                 data[key] = json!(true);
-                                for (key, value) in build_questions(json!({}), prefix, body)?
+                                for (key, value) in build_questions(inner_default, prefix, body)?
                                     .as_object()
                                     .unwrap()
                                 {
@@ -54,7 +74,7 @@ fn build_questions(
                             }
                         }
                         Ok(x) => {
-                            println!("{:?}", x);
+                            eprintln!("{:?}", x);
                             return Err("Enable value is not a boolean".into());
                         }
                         _ => {}
@@ -147,10 +167,10 @@ pub fn config_template(
     };
     let ast = rnix::parse(&content);
     for error in ast.errors() {
-        println!("error: {}", error);
+        eprintln!("error: {}", error);
     }
     if !ast.errors().is_empty() {
-        println!("potential issues: {}", nixpkgs_fmt::explain(&content));
+        eprintln!("potential issues: {}", nixpkgs_fmt::explain(&content));
         return Err("Please fix template errors.".into());
     }
 
