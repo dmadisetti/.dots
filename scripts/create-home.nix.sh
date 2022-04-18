@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 if [ -z "$DOTFILES" ]; then
-   DOTFILES=$HOME/.dots
+   DOTFILES="$HOME/.dots"
 fi
-if [ ! -d $DOTFILES ]; then
-  git clone $(cat $REMOTE) $DOTFILES || {
+if [ ! -d "$DOTFILES" ]; then
+  git clone "$(cat "$REMOTE")" "$DOTFILES" || {
     echo "Could not clone .dots";
     exit 1;
   };
-  cd $DOTFILES
+  pushd "$DOTFILES" || exit 1
   git checkout -B main
-  mkdir -p $DOTFILES/nix/sensitive
-  cd -
+  mkdir -p "$DOTFILES"/nix/sensitive
+  popd || exit 1
 fi
 
 infer_settings() {
@@ -30,7 +30,7 @@ infer_settings() {
   if [ -n "$GIT_EMAIL" ]; then
     EXTRA="$EXTRA, \"git_email\":\"$GIT_EMAIL\""
   fi
-  if "true" = "$(git config commit.gpgsign)"; then
+  if [ "true" = "$(git config commit.gpgsign)" ]; then
     GIT_KEY="$(git config user.signingKey)"
     if [ -n "$GIT_KEY" ]; then
       EXTRA="$EXTRA, \"git_signing\":{"
@@ -40,22 +40,22 @@ infer_settings() {
     fi
   fi
   EXTRA="$EXTRA}";
-  echo $EXTRA
+  echo "$EXTRA"
 }
 
-EXTRA="$(infer_settings)"
-if [ ! -f $DOTFILES/nix/sensitive/flake.nix ]; then
-  dots-manager template $SPOOF \
-     $DOTFILES/nix/sensitive/flake.nix \
+if [ ! -f "$DOTFILES"/nix/sensitive/flake.nix ]; then
+  dots-manager template "$SPOOF" \
+     "$DOTFILES"/nix/sensitive/flake.nix \
      <(echo "{\"user\": \"$USER\", \
               \"hashed\":\"\", \
-              $EXTRA, \
+              $(infer_settings), \
               \"networking\":\"{}\", \
               \"default_wm\":\"none\"}")
 fi
 
+NIX_CONFIG="experimental-features = nix-command flakes" \
 home-manager switch \
   --override-input sensitive \
-  $DOTFILES/nix/sensitive \
+  "$DOTFILES"/nix/sensitive \
   --show-trace \
   --flake "$DOTFILES#$USER" -j auto
