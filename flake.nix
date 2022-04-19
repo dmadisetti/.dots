@@ -93,7 +93,7 @@
       nixosConfigurations = {
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
-          wm = "xmonad";
+          wm = "fbterm";
           userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = utils.mkComputer {
