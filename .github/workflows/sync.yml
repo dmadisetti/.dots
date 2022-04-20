@@ -30,10 +30,14 @@ jobs:
         updated=$(cat .github/assets/remote.txt | cut -d/ -f4-5)
         updated_user=$(cat .github/assets/remote.txt | cut -d/ -f4)
         # Update references to remote (if applicable)
-        find README.md .github/ -type f | xargs sed -i "s@$previous@$updated@g"
+        find .github/ -type f | xargs sed -i "s@$previous@$updated@g"
         find .github/ -type f | xargs sed -i "s@$previous_user@$updated_user@g"
         # Commit sync or open pr. Overwrite any changes made to sync.yml!
         cp ~/sync.yml ./.github/workflows/sync.yml
+        # Check if this is a new template
+        git rev-parse --verify origin/main || {
+          sed -iE '/#examples\s*-/,/\/examples\s*-/{/^#/!{/^\$/!d;};}' ./.github/README.md
+        }
         git add --all
         git commit -am "♻️" || echo "resolved"
         # if this failed you probably didn't make workflow changes on template
