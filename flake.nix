@@ -93,12 +93,12 @@
       nixosConfigurations = {
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
-          wm = "fbterm";
+          wm = "xmonad";
           userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = utils.mkComputer {
           machineConfig = ./nix/machines/exalt.nix;
-          wm = "xmonad";
+          wm = "fb";
         };
         slug = utils.mkComputer {
           machineConfig = ./nix/machines/slug.nix;

@@ -6,7 +6,7 @@
 
 ### installation
 
-[first template this repository](https://github.com/dmadisetti/.dots/generate), do **not** include additional branches, and continue reading from your new repository.
+ > [first template this repository](https://github.com/dmadisetti/.dots/generate), do **not** include additional branches, and continue reading from your new repository.
 
 if you just want my `.dots` run `setup.sh`. if you want the whole os experience, start with the live disk or
 
@@ -18,6 +18,24 @@ nix run github:dmadisetti/.dots#live;
 and that's it. follow the wizard 🧙🏾‍♂️✨
 
 ---
+<!-- anything between #examples and /examples comments will be stripped -->
+<!-- #examples -->
+<img src=https://user-images.githubusercontent.com/2689338/164264993-cb3c3892-35f3-4afb-9ba9-71ba778f358d.png align=left width=50%/>
+<pre>
+dylan@mamba
+-----------
+OS: NixOS 22.05 (Quokka) x86_64
+Kernel: 5.15.34
+Packages: 457 (nix-system), 856 (nix-user)
+Shell: fish 3.4.1
+Resolution: 1920x1080
+WM: xmonad
+Terminal: kitty
+Bar: polybar
+Pkgs: rofi, eww, dunst, zathura, zotero
+</pre>
+<br clear="both"/>
+<!-- /examples -->
 
 ### contribution
 
