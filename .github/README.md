@@ -31,8 +31,7 @@ Shell: fish 3.4.1
 Resolution: 1920x1080
 WM: xmonad
 Terminal: kitty
-Bar: polybar
-Pkgs: rofi, eww, dunst, zathura, zotero
+Pkgs: polybar, rofi, eww, dunst, zathura
 </pre>
 <br clear="both"/>
 <!-- /examples -->
