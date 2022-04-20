@@ -36,7 +36,7 @@ jobs:
         cp ~/sync.yml ./.github/workflows/sync.yml
         # Check if this is a new template
         git rev-parse --verify origin/main || {
-          sed -iE '/#examples\s*-/,/\/examples\s*-/{/^#/!{/^\$/!d;};}' ./.github/README.md
+          sed -i '/#examples\s*-/,/\/examples\s*-/{/^#/!{/^\$/!d;};}' ./.github/README.md
         }
         git add --all
         git commit -am "♻️" || echo "resolved"
