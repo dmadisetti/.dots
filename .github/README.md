@@ -11,8 +11,11 @@
 if you just want my `.dots` run `setup.sh`. if you want the whole os experience, start with the live disk or
 
 ```bash
-nix run github:dmadisetti/.dots#live;
-# or nix run github:dmadisetti/.dots#install if you don't want the live disk, but you're missing out.
+nix run github:dmadisetti/.dots#live; # make your own install disk (recommended)
+# or
+nix run github:dmadisetti/.dots#home; # install with home-manager
+# or
+nix run github:dmadisetti/.dots#install; # disk level installation
 ```
 
 and that's it. follow the wizard 🧙🏾‍♂️✨
@@ -31,8 +34,7 @@ Shell: fish 3.4.1
 Resolution: 1920x1080
 WM: xmonad
 Terminal: kitty
-Bar: polybar
-Pkgs: rofi, eww, dunst, zathura, zotero
+Pkgs: polybar, rofi, eww, dunst, zathura
 </pre>
 <br clear="both"/>
 <!-- /examples -->
