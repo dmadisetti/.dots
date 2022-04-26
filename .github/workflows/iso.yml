@@ -2,7 +2,6 @@ name: "build isos"
 
 on:
   push:
-    branches: [ main ]
 
 jobs:
   build-iso:
@@ -11,5 +10,4 @@ jobs:
     - uses: actions/checkout@v3
     - id: provision
       uses: ./.github/runner
-    - run: | echo shell ${{ steps.provision.outputs.shell }}
-
+    #- run: echo shell ${{ steps.provision.outputs.shell }}
