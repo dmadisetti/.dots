@@ -1,0 +1,37 @@
+name: 'runner'
+description: 'Set up home'
+inputs:
+  cachix-endpoint:  # id of input
+    description: 'Name of cachix endpoint'
+    required: true
+    default: "${{ github.repository_owner }}"
+  cachix-token:
+    description: 'Cachix secret token'
+    default: '${{ secrets.CACHIX_TOKEN }}'
+outputs:
+  shell:
+    description: "Shell"
+    value: ${{ steps.shell.outputs.shell }}
+runs:
+  using: "composite"
+  steps:
+    - uses: cachix/install-nix-action@v17
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+    # Use cache for speed up!
+    - uses: cachix/cachix-action@v10
+      # if cache isn't configured continue
+      continue-on-error: true
+      with:
+        name: "${{ inputs.cachix-endpoint }}"
+        authToken: '${{ inputs.cachix-token }}'
+        extraPullNames: 'nix-community'
+
+    - run: |
+        nix run ".#home"
+
+    - id: shell
+      run: echo "::set-output name=shell::$(echo $RANDOM)"
+      shell: bash
