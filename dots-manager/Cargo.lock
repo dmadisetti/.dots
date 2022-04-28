@@ -1372,7 +1372,7 @@ dependencies = [
 [[package]]
 name = "rnix"
 version = "0.10.1"
-source = "git+https://github.com/AnotherGroupChat/rnix-parser?branch=bools!#0f4fcc619a3771177a5c4ccce024b8da2680619c"
+source = "git+https://github.com/AnotherGroupChat/rnix-parser?rev=41e8090#41e8090c3293c27bbc78e40ca3ccc6aaa7bf9120"
 dependencies = [
  "cbitset",
  "rowan",
