@@ -14,34 +14,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v17
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-
     # 1) create a https://app.cachix.org account
     # 2) make a cache called <username> (or whatever, but update accordingly): https://app.cachix.org/cache
     # 3) create an auth token: https://app.cachix.org/cache/<username>/settings/authtokens
     # 4) add the CACHIX_TOKEN: https://github.com/<username>/.dots/settings/secrets/actions/new
-    - uses: cachix/cachix-action@v10
-      continue-on-error: true
+    - name: "provision home-mananger"
+      uses: ./.github/actions/runner
+      id: runner
       with:
-        name: "${{ github.repository_owner }}"
-        extraPullNames: 'nix-community'
-        authToken: '${{ secrets.CACHIX_TOKEN }}'
+        cachix-endpoint: "${{ github.repository_owner }}"
+        cachix-token: '${{ secrets.CACHIX_TOKEN }}'
 
-    - name: build and cache systems
+    - name: "build and cache systems"
       if: ${{ success() }}
-      continue-on-error: true
       run: |
         for config in $(nix eval --raw ".#_configs"); do
           nix build --json ".#nixosConfigurations.$config.config.system.build.toplevel" \
             | jq -r '(.[]|.outputs|.out)' | cachix push $GITHUB_REPOSITORY_OWNER;
         done
 
-    - name: build and cache dots-manager
+    - name: "build and cache dots-manager"
       if: ${{ success() }}
-      continue-on-error: true
       run: |
         nix build --json "./dots-manager#" | jq -r '(.[]|.outputs|.out)' | cachix push $GITHUB_REPOSITORY_OWNER;

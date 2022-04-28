@@ -12,27 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v17
+    - name: "provision home-mananger"
+      uses: ./.github/actions/runner
+      id: runner
       with:
-        nix_path: nixpkgs=channel:nixos-unstable
-        extra_nix_config: |
-          experimental-features = nix-command flakes
+        cachix-endpoint: "${{ github.repository_owner }}"
+        cachix-token: '${{ secrets.CACHIX_TOKEN }}'
 
-    # Use cache for speed up!
-    - uses: cachix/cachix-action@v10
-      # if cache isn't configured continue
-      continue-on-error: true
-      with:
-        name: "${{ github.repository_owner }}"
-        extraPullNames: 'nix-community'
-        authToken: '${{ secrets.CACHIX_TOKEN }}'
-
-    - name: build
+    - name: "strip main into template"
       run: |
-        rm flake.lock
+        rm flake.lock # easy unlock lol
         nix run ".#_clean"
 
-    - name: deploy
+    - name: "deploy"
       uses: JamesIves/github-pages-deploy-action@v4.3.2
       with:
         branch: template
