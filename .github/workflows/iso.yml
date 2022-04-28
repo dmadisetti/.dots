@@ -1,12 +1,27 @@
 name: "build isos"
 
 on:
-  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 9 * * 2"
 
 jobs:
   build-live:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: ./runner
-    #- run: echo shell  steps.provision.outputs.shell }}
+    - name: "provision home-mananger"
+      uses: ./.github/actions/runner
+      id: runner
+
+    - name: "build public iso"
+      run: |
+        export DOTFILES="$(pwd)"
+        nix run ".#live"
+      shell: fish {0}
+
+    - name: "provide default iso"
+      uses: actions/upload-artifact@v3
+      with:
+        name: live-iso
+        path: result/iso/*.iso

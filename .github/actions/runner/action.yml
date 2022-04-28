@@ -1,0 +1,49 @@
+name: 'runner'
+description: 'Set up home'
+author: 'dmadisetti'
+outputs:
+  shell:
+    description: "Shell"
+    value:  '${{ steps.shell.outputs.shell }}'
+inputs:
+  cachix-endpoint:  # id of input
+    description: 'Name of cachix endpoint'
+    required: true
+    default: ${{ github.repository_owner }}
+  cachix-token:
+    description: 'Cachix secret token'
+    required: false
+branding:
+  color: 'blue'
+  icon: 'sun'
+runs:
+  using: "composite"
+  steps:
+    - uses: cachix/install-nix-action@v17
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - uses: cachix/cachix-action@v10
+      # if cache isn't configured continue
+      continue-on-error: true
+      with:
+        name: ${{ inputs.cachix-endpoint }}
+        authToken: ${{ inputs.cachix-token }}
+        extraPullNames: 'nix-community'
+
+    - run: |
+        # unlock sensitive
+        echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
+        echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
+        export DOTFILES="$(pwd)"
+        nix run --no-write-lock-file --show-trace ".#home"
+        ./setup.sh
+      shell: bash
+
+    - id: shell
+      run: |
+        echo "RUNNER=$(which fish)" >> $GITHUB_ENV
+        echo "::set-output name=shell::$(which fish)"
+      shell: bash
