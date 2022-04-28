@@ -13,9 +13,9 @@ edition = "2018"
 [dependencies]
 nixpkgs-fmt = "1.2.0"
 requestty = "0.3.0"
-rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', branch = "bools!" }
+rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', rev = "41e8090" }
 
-clap = { version = "3.1.9", features = ["derive"] }
+clap = { version = "3.1.12", features = ["derive"] }
 
 pgp = { git = 'https://github.com/rpgp/rpgp', branch = "master" }
 rand = "0.8"

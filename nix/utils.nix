@@ -16,16 +16,17 @@
     xmonad = "x";
   };
 
-  # home-manager on nixos
-  homeConfig = user: userConfigs: wm: { ... }:
+  maybeUserConfig = user:
     let
       personalized_config = (./home/users + "/${user}.nix");
-      user_config =
-        if builtins.pathExists personalized_config then
-          personalized_config else ./home/users/user.nix;
     in
-    {
-      imports = [ user_config ]
+    if builtins.pathExists personalized_config then
+      personalized_config else ./home/users/user.nix;
+
+
+  # home-manager on nixos
+  homeConfig = user: userConfigs: wm: { ... }: {
+      imports = [ (maybeUserConfig user) ]
         ++ userConfigs
         ++ (if wms ? "${wm}" then [
         ./home/display/display.nix
@@ -39,7 +40,7 @@
       home-manager.lib.homeManagerConfiguration {
         inherit system username stateVersion;
         # Specify the path to your home configuration here
-        configuration = import (./home/users + "/${username}.nix") {
+        configuration = import (maybeUserConfig username) {
           inherit inputs system pkgs self stateVersion;
         };
         extraModules = [ ./home/standalone.nix ];

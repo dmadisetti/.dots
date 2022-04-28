@@ -278,9 +278,9 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "3.1.9"
+version = "3.1.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6aad2534fad53df1cc12519c5cda696dd3e20e6118a027e24054aea14a0bdcbe"
+checksum = "7c167e37342afc5f33fd87bbc870cedd020d2a6dffa05d45ccd9241fbdd146db"
 dependencies = [
  "atty",
  "bitflags",
@@ -561,7 +561,7 @@ dependencies = [
 name = "dots-manager"
 version = "0.1.0"
 dependencies = [
- "clap 3.1.9",
+ "clap 3.1.12",
  "handlebars",
  "nixpkgs-fmt",
  "pgp",
@@ -1372,7 +1372,7 @@ dependencies = [
 [[package]]
 name = "rnix"
 version = "0.10.1"
-source = "git+https://github.com/AnotherGroupChat/rnix-parser?branch=bools!#0f4fcc619a3771177a5c4ccce024b8da2680619c"
+source = "git+https://github.com/AnotherGroupChat/rnix-parser?rev=41e8090#41e8090c3293c27bbc78e40ca3ccc6aaa7bf9120"
 dependencies = [
  "cbitset",
  "rowan",
