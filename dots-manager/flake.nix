@@ -20,7 +20,7 @@
             cargoLock = {
               lockFileContents = builtins.readFile ./Cargo.lock;
               outputHashes = {
-                "rnix-0.10.1" = "sha256-R7kf/XE0EzfS0DUI3V++OAoL0a5i86P7wTz0zjQs3Po=";
+                "rnix-0.10.1" = "sha256-ZC4v3439hgKpCsBwd/SxkpdHHzhH6mVPdcqdwFJxzD0=";
                 "pgp-0.7.2" = "sha256-IRFa9tvSwyPrWtf9blAtQzL++kbETu13vOzYytJtzGw=";
               };
             };
@@ -68,7 +68,7 @@
         generate-dots = pkgs.writeShellScriptBin "generate-dots" ''
           stub=$1
           target=$2
-          test -z $1 && stub=${../nix/spoof/flake.nix}
+          test -z $1 && stub=./../nix/spoof/flake.nix
           test -z $2 && target=flake.nix
           ${dots-manager}/bin/dots-manager template $stub $target;
         '';

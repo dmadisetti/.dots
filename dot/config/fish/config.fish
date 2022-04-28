@@ -39,13 +39,15 @@ end
 # Set up ssh keys
 if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
   mkdir -p ~/.ssh
-  git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys
-  ln -s ~/.ssh/keys/config ~/.ssh/config
-  chmod 600 ~/.ssh/keys/*
+  git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys 2> /dev/null && {
+    ln -s ~/.ssh/keys/config ~/.ssh/config
+    chmod 600 ~/.ssh/keys/* 2> /dev/null
+  }
 end
 
 # Conditionally run if nix is installed
-type --quiet "fenv" && fenv source  ~/.nix-profile/etc/profile.d/nix.sh
+set source ~/.nix-profile/etc/profile.d/nix.sh
+type --quiet "fenv" && test -f $source && fenv source $source
 if not test -z (which any-nix-shell)
   any-nix-shell fish --info-right | source
 end

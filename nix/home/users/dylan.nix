@@ -1,12 +1,14 @@
 # Home sweet home 🏠
 
-{ pkgs, inputs, stateVersion, ... }:
+{ inputs, pkgs, stateVersion, ... }:
 
 {
   imports = [
     ../programs/gpg.nix
-    ../programs/cachix.nix
-  ];
+  ] ++ (if inputs.sensitive.lib ? cachix then [
+    inputs.declarative-cachix.homeManagerModules.declarative-cachix
+    (import ../programs/cachix.nix { inherit pkgs; cache = inputs.sensitive.lib.cachix; })
+  ] else [ ]);
 
   home.packages = with pkgs; [
     # security
