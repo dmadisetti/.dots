@@ -43,7 +43,7 @@ runs:
         echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
         export DOTFILES="$(pwd)"
         # If user is not explicitly set, then fill in with stub.
-        if [ "${{ inputs.user }}" -eq "user" ]; then
+        if [ "${{ inputs.user }}" == "user" ]; then
           if [ ! -f "nix/home/users/user.nix" ]; then
             ln -sf ../../spoof/user.nix nix/home/users/
             git add nix/home/users/user.nix
