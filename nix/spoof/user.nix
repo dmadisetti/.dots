@@ -6,7 +6,7 @@ let
 in
 {
   imports = [
-    (propagate ../common.nix)
+    (propagate ../home/common.nix)
   ];
 
   home.packages = with pkgs; [ ];
