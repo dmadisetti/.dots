@@ -6,6 +6,10 @@ outputs:
     description: "Shell"
     value:  '${{ steps.shell.outputs.shell }}'
 inputs:
+  user:
+    description: 'The user config to use (defaults to stub)'
+    required: false
+    default: 'user'
   cachix-endpoint:  # id of input
     description: 'Name of cachix endpoint'
     required: true
@@ -38,6 +42,14 @@ runs:
         echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
         echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
         export DOTFILES="$(pwd)"
+        # If user is not explicitly set, then fill in with stub.
+        if [ "${{ inputs.user }}" -eq "user" ]; then
+          if [ ! -f "nix/home/users/user.nix" ]; then
+            ln -sf ../spoof/user.nix nix/home/users/
+          fi
+        else
+          ln -sf "${{ inputs.user }}.nix" nix/home/users/
+        fi
         nix run --no-write-lock-file --show-trace ".#home"
         ./setup.sh
       shell: bash
