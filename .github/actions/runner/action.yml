@@ -45,7 +45,7 @@ runs:
         # If user is not explicitly set, then fill in with stub.
         if [ "${{ inputs.user }}" -eq "user" ]; then
           if [ ! -f "nix/home/users/user.nix" ]; then
-            ln -sf ../spoof/user.nix nix/home/users/
+            ln -sf ../../spoof/user.nix nix/home/users/
           fi
         else
           ln -sf "${{ inputs.user }}.nix" nix/home/users/
