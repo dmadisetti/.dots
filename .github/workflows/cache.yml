@@ -24,6 +24,7 @@ jobs:
   # For each user, build each system.
   build:
     runs-on: ubuntu-latest
+    needs: list-users
     strategy:
       matrix:
         users: ${{ fromJson(needs.list-users.outputs.matrix) }}
