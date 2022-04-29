@@ -1,3 +1,3 @@
 function dots-help
-  echo Hello!
+  cat ~/.config/fish/functions/help.md
 end
