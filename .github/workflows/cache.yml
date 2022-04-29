@@ -18,6 +18,7 @@ jobs:
       - id: set-matrix
         run: |
           matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
+          echo $matrix # Sanity check
           echo "::set-output name=matrix::$matrix"
 
   # For each user, build each system.
@@ -25,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        users: ${{ fromJson(needs.list-users.outputs.matrix) }}
+        users: ${{ fromJson(jobs.list-users.outputs.matrix) }}
     steps:
     - uses: actions/checkout@v3
     # 1) create a https://app.cachix.org account
@@ -36,7 +37,7 @@ jobs:
       uses: ./.github/actions/runner
       id: runner
       with:
-        user: "${{ matrix.users }}"
+        user: ${{ matrix.users }}
         cachix-endpoint: "${{ github.repository_owner }}"
         cachix-token: '${{ secrets.CACHIX_TOKEN }}'
 
