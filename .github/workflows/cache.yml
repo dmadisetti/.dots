@@ -6,12 +6,26 @@ on:
     types: [completed]
     branches: [main]
 
-env:
-  CARGO_TERM_COLOR: always
-
 jobs:
+  # For single user this isn't a big deal. Hopefully not a deal breaker for
+  # multi-user.
+  list-users:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: |
+          matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
+          echo "::set-output name=matrix::$matrix"
+
+  # For each user, build each system.
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        users: ${{ fromJson(needs.list-users.outputs.matrix) }}
     steps:
     - uses: actions/checkout@v3
     # 1) create a https://app.cachix.org account
@@ -22,6 +36,7 @@ jobs:
       uses: ./.github/actions/runner
       id: runner
       with:
+        user: "${{ matrix.users }}"
         cachix-endpoint: "${{ github.repository_owner }}"
         cachix-token: '${{ secrets.CACHIX_TOKEN }}'
 
