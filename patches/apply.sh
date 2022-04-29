@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/env bash
 
 patch_all() {
   local scriptpath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
