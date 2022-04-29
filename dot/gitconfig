@@ -18,3 +18,5 @@
 
 [credential]
   helper = cache --timeout=86400
+[safe]
+	directory = /home/runner/work/.dots/.dots
