@@ -16,13 +16,13 @@
     xmonad = "x";
   };
 
+  # helper
   maybeUserConfig = user:
     let
       personalized_config = (./home/users + "/${user}.nix");
     in
     if builtins.pathExists personalized_config then
       personalized_config else ./home/users/user.nix;
-
 
   # home-manager on nixos
   homeConfig = user: userConfigs: wm: { ... }: {
