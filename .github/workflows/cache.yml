@@ -17,9 +17,7 @@ jobs:
       - uses: actions/checkout@v3
       - id: set-matrix
         run: |
-          matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
-          echo $matrix # Sanity check
-          echo "::set-output name=matrix::$matrix"
+          echo "::set-output name=matrix::$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')"
 
   # For each user, build each system.
   build:
