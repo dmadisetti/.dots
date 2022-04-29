@@ -5,9 +5,10 @@ let
   propagate = f: extra@{ ... }: (import f (args // extra));
 in
 {
-  # You can rename this file to your main username;
-  # you'll just need to update inputs.spoof.lib.user accordingly
-  # and leave a stub for user.nix (see spoof/user.nix)
+  # you can rename this file to your main username;
+  # you'll just need to update inputs.spoof.lib.user accordingly.
+  # if not defined in main, user.nix will be filled from a stub (see spoof/user.nix)
+  # for basic workflow tasks.
 
   imports = [
     (propagate ../common.nix)
