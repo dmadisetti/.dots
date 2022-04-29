@@ -14,12 +14,14 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
-      - id: set-matrix
-        run: |
-          matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
-          echo $matrix # Sanity check
-          echo "::set-output name=matrix::$matrix"
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+    - id: set-matrix
+      run: |
+        matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
+        echo $matrix # Sanity check
+        echo "::set-output name=matrix::$matrix"
 
   # For each user, build each system.
   build:
@@ -30,6 +32,8 @@ jobs:
         users: ${{ fromJson(needs.list-users.outputs.matrix) }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: main
     # 1) create a https://app.cachix.org account
     # 2) make a cache called <username> (or whatever, but update accordingly): https://app.cachix.org/cache
     # 3) create an auth token: https://app.cachix.org/cache/<username>/settings/authtokens
