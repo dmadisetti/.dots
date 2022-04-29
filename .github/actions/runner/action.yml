@@ -41,16 +41,18 @@ runs:
         # unlock sensitive
         echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
         echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
-        export DOTFILES="$(pwd)"
         # If user is not explicitly set, then fill in with stub.
         if [ "${{ inputs.user }}" == "user" ]; then
           if [ ! -f "nix/home/users/user.nix" ]; then
             ln -sf ../../spoof/user.nix nix/home/users/
-            git add nix/home/users/user.nix
           fi
         else
           ln -sf "${{ inputs.user }}.nix" nix/home/users/user.nix
         fi
+        git add nix/home/users/user.nix;
+        # set dots to checkout dir
+        export DOTFILES="$(pwd)"
+        # set up home manager
         nix run --no-write-lock-file --show-trace ".#home"
         ./setup.sh
       shell: bash
