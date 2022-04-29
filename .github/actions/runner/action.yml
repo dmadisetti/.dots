@@ -47,7 +47,7 @@ runs:
             ln -sf ../../spoof/user.nix nix/home/users/
           fi
         else
-          ln -sf "${{ inputs.user }}.nix" nix/home/users/
+          ln -sf "${{ inputs.user }}.nix" nix/home/users/user.nix
         fi
         git add nix/home/users/user.nix;
         # set dots to checkout dir
