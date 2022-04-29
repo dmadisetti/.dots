@@ -49,7 +49,7 @@ runs:
             git add nix/home/users/user.nix
           fi
         else
-          ln -sf "${{ inputs.user }}.nix" nix/home/users/
+          ln -sf "${{ inputs.user }}.nix" nix/home/users/user.nix
         fi
         nix run --no-write-lock-file --show-trace ".#home"
         ./setup.sh
