@@ -7,7 +7,7 @@ in
 {
   imports = [
     (propagate ../common.nix)
-  ]
+  ];
 
   home.packages = with pkgs; [ ];
 }
