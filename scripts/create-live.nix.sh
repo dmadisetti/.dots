@@ -16,11 +16,15 @@ if [ -d $DOTFILES ]; then
 fi
 
 if [ "$SKIP_GENERATE" = false ]; then
-  dots-manager template $TEMPLATE $TMP/flake.nix
+  dots-manager template $TEMPLATE $TMP/flake.nix \
+    <(echo "{\"sshd\": {\"enable\": false}}") || exit 1
 fi
 
 nix build --out-link $out \
   --override-input sensitive $TMP \
   --extra-experimental-features nix-command \
   --extra-experimental-features flakes \
-  --no-write-lock-file -j auto "$SELF#_live"
+  --no-write-lock-file -j auto "$SELF#_live" || exit 1
+
+cp $out/result $out/live.iso
+echo "Congrats! Flash $out/live.iso to your device of choice."

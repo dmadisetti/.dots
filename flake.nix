@@ -117,30 +117,6 @@
         "${sensitive.lib.user}"
       ]);
 
-      # Technically not allowed (warnings thrown), but whatever.
-      live = pkgs.writeShellScriptBin "create-live" ''
-        out=$(pwd)/result
-        TEMPLATE=${./nix/spoof/flake.nix}
-        SELF=${self}
-        PATH=${dots-manager-path}:${pkgs.nix}/bin:$PATH
-        source ${./scripts/create-live.nix.sh}
-      '';
-
-      home = pkgs.writeShellScriptBin "create-home" ''
-        REMOTE=${./.github/assets/remote.txt}
-        SPOOF=${./nix/spoof/flake.nix}
-        PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
-        source ${./scripts/create-home.nix.sh}
-      '';
-
-      # Flake outputs used by hooks.
-      _configs = nixpkgs.lib.strings.concatStringsSep " " (builtins.attrNames self.nixosConfigurations);
-      _live = self.nixosConfigurations.momento.config.system.build.isoImage;
-      _clean = pkgs.writeShellScriptBin "clean-dots" ''
-        FLAKE=${./flake.nix}
-        PATH=${dots-manager-path}:${pkgs.jq}/bin:$PATH
-        FLAKE_USER=${sensitive.lib.user}
-        source ${./scripts/clean-dots.nix.sh}
-      '';
-    };
+    # Import some scripts!
+    } // (import ./scripts/scripts.nix {inherit self nixpkgs pkgs sensitive dots-manager-path;});
 }
