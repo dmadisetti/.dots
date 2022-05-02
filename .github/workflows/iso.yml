@@ -37,10 +37,13 @@ jobs:
     - name: "provision home-mananger"
       uses: ./.github/actions/runner
       id: runner
+      with:
+        nix-features: 'nixos-test benchmark big-parallel kvm'
 
     - name: "build docker runner"
       run: |
         export DOTFILES="$(pwd)"
+        + docker
         dots-docker
         docker tag dots-docker ghcr.io/${{ github.actor }}/dots
       shell: fish {0}
