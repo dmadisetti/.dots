@@ -55,9 +55,16 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Docker meta
+      id: docker-meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ghcr.io/${{ github.actor }}/dots
+        tags: latest
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ github.actor }}/dots:latest
+        tags:  ${{ steps.docker-meta.outputs.tags }}
