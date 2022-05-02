@@ -10,6 +10,10 @@ inputs:
     description: 'The user config to use (defaults to stub)'
     required: false
     default: 'user'
+  nix-features:
+    description: 'Features to pass to nix provisioning'
+    required: false
+    default: 'nixos-test benchmark big-parallel'
   cachix-endpoint:  # id of input
     description: 'Name of cachix endpoint'
     required: true
@@ -28,6 +32,7 @@ runs:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
           experimental-features = nix-command flakes
+          system-features = ${{inputs.nix-features}}
 
     - uses: cachix/cachix-action@v10
       # if cache isn't configured continue
