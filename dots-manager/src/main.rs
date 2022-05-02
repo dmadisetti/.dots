@@ -49,7 +49,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         Command::Clean { config, reserve } => {
             let config = match config {
                 Some(config) => config,
-                None => PathBuf::from("/home/dylan/.dots/flake.nix"),
+                None => PathBuf::from("./.dots/flake.nix"),
             };
             let reserve = if reserve.is_empty() {
                 vec!["momento".to_string()]
