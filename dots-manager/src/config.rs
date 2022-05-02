@@ -42,7 +42,7 @@ impl Category {
         machines.sort_by(|a, b| a.machine.cmp(&b.machine));
         Category {
             name: self.name.clone(),
-            machines
+            machines,
         }
     }
 }
@@ -65,16 +65,23 @@ impl System {
         let mut categories = HashMap::<String, Category>::new();
         for config in configs.clone() {
             if categories.contains_key(&config.category) {
-                categories.get_mut(&config.category).ok_or("")?.add_machine(config.clone());
+                categories
+                    .get_mut(&config.category)
+                    .ok_or("")?
+                    .add_machine(config.clone());
             } else {
-                categories.insert(config.category.clone(), Category::new(
+                categories.insert(
                     config.category.clone(),
-                    vec![config.clone()],
-                ));
+                    Category::new(config.category.clone(), vec![config.clone()]),
+                );
             }
         }
-        let mut categories = categories.values().collect::<Vec<_>>().iter().map(
-            |category| category.sorted()).collect::<Vec<_>>();
+        let mut categories = categories
+            .values()
+            .collect::<Vec<_>>()
+            .iter()
+            .map(|category| category.sorted())
+            .collect::<Vec<_>>();
         categories.sort_by(|a, b| a.name.cmp(&b.name));
         let categories = categories;
 
@@ -174,28 +181,32 @@ pub fn parse_system(file: PathBuf) -> Result<System, Box<dyn Error>> {
         .inner()
         .and_then(AttrSet::cast)
         .ok_or("Malformed flake template root isn't a set");
+
+    // lol, this is so brittle. need nicer way
+    // maybe special syntax: .outputs\_2.{0}.nixosConfigurations
+    // think I need macros cause will be type nightmare... not worth
     let lib = maybe_root
         .clone()
         .ok()
         .and_then(partial_find("outputs"))
         .and_then(Lambda::cast)
-        .ok_or("Malformed flake template (missing output)")
-        .ok()
-        .and_then(|x| x.body())
-        .ok_or("Malformed flake template (invalid output)")
-        .ok()
-        .and_then(LetIn::cast)
-        .ok_or("Malformed flake template (missing output)")
-        .ok()
-        .and_then(|x| x.body())
-        .ok_or("Malformed flake template (invalid output)")
-        .ok()
+        .ok_or("Malformed flake template (missing output)")?;
+    let lib = lib
+        .body()
+        .ok_or("Malformed flake template (invalid output)")?;
+    let lib = LetIn::cast(lib).ok_or("Malformed flake template (expected let-in output)")?;
+    let lib = lib
+        .body()
+        .ok_or("Malformed flake template (invalid output)")?;
+    let lib = BinOp::cast(lib).ok_or("Malformed flake template (expected overloaded body)")?;
+    let lib = lib
+        .lhs()
+        .ok_or("Malformed flake template (could not isolate main body)")?;
+    let lib =
+        AttrSet::cast(lib).ok_or("Malformed flake template (output body is not attribute set)")?;
+    let lib = partial_find("nixosConfigurations")(lib)
         .and_then(AttrSet::cast)
-        .ok_or("Malformed flake template (output missing body)")
-        .ok()
-        .and_then(partial_find("nixosConfigurations"))
-        .and_then(AttrSet::cast)
-        .ok_or("Malformed flake template (missing lib)")?;
+        .ok_or("Malformed flake template (missing nixosConfigurations)")?;
 
     let root = maybe_root?;
     let bounds = root.node().text_range();
