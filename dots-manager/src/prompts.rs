@@ -16,6 +16,7 @@ pub fn prompts(key: String) -> Option<String> {
         "certificates" => Some("".to_string()),
         "dots" => Some("".to_string()),
         "default_wm" => default_wm(),
+        "sshd_port" => free("Provide the accepting port number".to_string()),
         "git_email" => free("Enter your email for git".to_string()),
         "git_name" => free("Enter your name for git".to_string()),
         "git_signing_key" => free("Enter your gpg key fingerprint".to_string()),

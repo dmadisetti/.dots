@@ -19,6 +19,11 @@
       networking = /*Networking 📡📡📡{{#unless networking}}*/ { };
       #{{else}}*/{{{networking}}};{{/unless}}
 
+      sshd = {
+        enable = /*Disabled for live images.{{#if sshd}}*/ true;
+        #{{else}}*/ false;{{/if}}
+        ssh_port = "{{sshd_port}}";
+      };
       keybase = {
         enable = /*Only relevant for live images.{{#if keybase}}*/ true;
         #{{else}}*/ false;{{/if}}

@@ -10,7 +10,8 @@
 
   services = {
     openssh = {
-      enable = true;
+      enable = sensitive.lib.sshd.enable;
+      ports = [ sensitive.lib.sshd.port ];
       permitRootLogin = "prohibit-password"; # distributed-build.nix requires it
       passwordAuthentication = false;
       allowSFTP = false;
