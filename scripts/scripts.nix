@@ -14,8 +14,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
       ];
 
       runAsRoot = ''
-        #!${pkgs.runtimeShell}
-        mkdir -p ${home}
+        mkdir -p ${home} /etc
         echo "root:x:0:0::${home}:${pkgs.runtimeShell}" > /etc/passwd
         echo "root:!x:::::::" > /etc/shadow
         ${pkgs.dockerTools.shadowSetup}
