@@ -15,6 +15,24 @@
         "type": "github"
       }
     },
+    "dots-manager": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-vCCsR9YpTVzRwib3TTjjOY1PfeVCNxp8l4itWIQzR8Q=",
+        "path": "./dots-manager",
+        "type": "path"
+      },
+      "original": {
+        "path": "./dots-manager",
+        "type": "path"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1644229661,
@@ -125,6 +143,7 @@
     "root": {
       "inputs": {
         "declarative-cachix": "declarative-cachix",
+        "dots-manager": "dots-manager",
         "grub2-themes": "grub2-themes",
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
@@ -136,7 +155,7 @@
     "sensitive": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-XtCxHoszaVqyzEWD/30g5iUj/fUw/v2zxH2N3c6mQ3k=",
+        "narHash": "sha256-eUWthE59kWILaOCEtsMeif+su124AkGGUFzDt/i2X4c=",
         "path": "./nix/spoof",
         "type": "path"
       },
