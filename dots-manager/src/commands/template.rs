@@ -37,18 +37,10 @@ fn build_questions(
                 if let Some(enable_value) = rnix::types::Value::cast(enable_node) {
                     match enable_value.to_value() {
                         Ok(rnix::value::Value::Boolean(boolean)) => {
-                            let maybe_default = match defaults.get(&key) {
-                                Some(value) => value
-                                    .get("enable")
-                                    .unwrap_or(&json!(false))
-                                    .as_bool()
-                                    .unwrap_or(false),
-                                None => false,
-                            };
-                            let maybe_enabled = if maybe_default {
-                                true
-                            } else {
-                                matches!(
+                            let maybe_default = defaults.get(&key).and_then(|v|v.get("enable")).and_then(|v|v.as_bool());
+                            let maybe_enabled = match maybe_default {
+                                Some(value) => value,
+                                None => matches!(
                                     requestty::prompt_one(
                                         Question::confirm("enable")
                                             .message(&format!("Enable {}?", key))
@@ -56,7 +48,7 @@ fn build_questions(
                                             .build()
                                     ),
                                     Ok(Answer::Bool(true))
-                                )
+                                ),
                             };
                             if maybe_enabled {
                                 let prefix = key.clone() + "_";
