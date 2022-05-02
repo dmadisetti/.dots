@@ -25,3 +25,36 @@ jobs:
       with:
         name: live-iso
         path: result/iso/*.iso
+
+  build-docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: "provision home-mananger"
+      uses: ./.github/actions/runner
+      id: runner
+
+    - name: "build docker runner"
+      run: |
+        export DOTFILES="$(pwd)"
+        dots-docker
+        docker tag dots-docker ghcr.io/${{ github.actor }}/dots
+      shell: fish {0}
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@2
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ github.actor }}/dots:latest
