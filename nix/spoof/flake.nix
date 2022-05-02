@@ -22,7 +22,8 @@
       sshd = {
         enable = /*Disabled for live images.{{#if sshd}}*/ true;
         #{{else}}*/ false;{{/if}}
-        ssh_port = "{{sshd_port}}";
+        port = /*{{#unless sshd_port}}*/ 22;
+        #{{else}}*/ {{sshd_port}}; #{{/unless}}
       };
       keybase = {
         enable = /*Only relevant for live images.{{#if keybase}}*/ true;
