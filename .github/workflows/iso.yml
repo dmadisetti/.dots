@@ -46,14 +46,14 @@ jobs:
       shell: fish {0}
 
     - name: Log in to the Container registry
-      uses: docker/login-action@1
+      uses: docker/login-action@v1
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@2
+      uses: docker/build-push-action@v2
       with:
         context: .
         push: true
