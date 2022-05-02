@@ -37,8 +37,9 @@ fn build_questions(
                 if let Some(enable_value) = rnix::types::Value::cast(enable_node) {
                     match enable_value.to_value() {
                         Ok(rnix::value::Value::Boolean(boolean)) => {
-                            let maybe_enabled = match defaults.get(&key) {
-                                Some(value) => value.get("enable").unwrap().as_bool().unwrap(),
+                            let maybe_default = defaults.get(&key).and_then(|v|v.get("enable")).and_then(|v|v.as_bool());
+                            let maybe_enabled = match maybe_default {
+                                Some(value) => value,
                                 None => matches!(
                                     requestty::prompt_one(
                                         Question::confirm("enable")
