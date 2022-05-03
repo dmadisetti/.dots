@@ -26,5 +26,5 @@ nix build --out-link $out \
   --extra-experimental-features flakes \
   --no-write-lock-file -j auto "$SELF#_live" || exit 1
 
-cp $out $(dirname $out)/live.iso
+cp $out/iso/*.iso $(dirname $out)/live.iso
 echo "Congrats! Flash $(dirname $out)/live.iso to your device of choice."
