@@ -30,8 +30,8 @@ and that's it. follow the wizard 🧙🏾‍♂️✨
 ---
 <!-- anything between #examples and /examples comments will be stripped -->
 <!-- #examples -->
-<img src=https://user-images.githubusercontent.com/2689338/167262397-ef2f41d4-9c4f-496c-aca3-4b80ecf975b5.png align=left width=48%/>
-<img src=https://user-images.githubusercontent.com/2689338/164264993-cb3c3892-35f3-4afb-9ba9-71ba778f358d.png align=right width=48%/>
+<img src=https://user-images.githubusercontent.com/2689338/167262397-ef2f41d4-9c4f-496c-aca3-4b80ecf975b5.png align=left width=45%/>
+<img src=https://user-images.githubusercontent.com/2689338/164264993-cb3c3892-35f3-4afb-9ba9-71ba778f358d.png align=right width=45%/>
 <br clear="both"/>
 <!-- /examples -->
 
