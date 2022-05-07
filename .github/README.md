@@ -8,7 +8,7 @@
 
  > [first template this repository](https://github.com/dmadisetti/.dots/generate), do **not** include additional branches, and continue reading from your new repository.
 
-if you just want my `.dots` run `setup.sh`. if you want the whole os experience, start with the live disk or
+if you just want my `.dots` run `setup.sh`. if you want the whole os experience, start with [a generated live disk](https://github.com/dmadisetti/.dots/actions/workflows/iso.yml) or
 
 ```bash
 nix run github:dmadisetti/.dots#live; # make your own install disk (recommended)
@@ -18,24 +18,20 @@ nix run github:dmadisetti/.dots#home; # install with home-manager
 nix run github:dmadisetti/.dots#install; # disk level installation
 ```
 
+to create a live disk without `nix`:
+
+```bash
+docker run --rm -it --privileged ghcr.io/dmadisetti/dots
+# but TODO: remove the --privileged flag
+```
+
 and that's it. follow the wizard 🧙🏾‍♂️✨
 
 ---
 <!-- anything between #examples and /examples comments will be stripped -->
 <!-- #examples -->
-<img src=https://user-images.githubusercontent.com/2689338/164264993-cb3c3892-35f3-4afb-9ba9-71ba778f358d.png align=left width=50%/>
-<pre>
-dylan@mamba
------------
-OS: NixOS 22.05 (Quokka) x86_64
-Kernel: 5.15.34
-Packages: 457 (nix-system), 856 (nix-user)
-Shell: fish 3.4.1
-Resolution: 1920x1080
-WM: xmonad
-Terminal: kitty
-Pkgs: polybar, rofi, eww, dunst, zathura
-</pre>
+<img src=https://user-images.githubusercontent.com/2689338/167262397-ef2f41d4-9c4f-496c-aca3-4b80ecf975b5.png align=left width=48%/>
+<img src=https://user-images.githubusercontent.com/2689338/164264993-cb3c3892-35f3-4afb-9ba9-71ba778f358d.png align=right width=48%/>
 <br clear="both"/>
 <!-- /examples -->
 
