@@ -29,10 +29,9 @@ jobs:
 
     - name: "update system"
       run: |
+        export DOTFILES="$(pwd)"
         update
       shell: fish {0}
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
 
     - name: "create pr"
       run: |
