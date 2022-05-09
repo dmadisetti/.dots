@@ -20,15 +20,15 @@ jobs:
     - name: "update system"
       run: |
         update
+        rm -rf nix/sensitive/.git nix/home/users/user.nix
       shell: fish {0}
 
     - name: "create pr"
       run: |
         git config user.name '${{ github.actor }}'
         git config user.email '${{ github.actor }}@users.noreply.github.com'
-        git fetch
-        git checkout origin/main -B main
-        rm -rf nix/sensitive/.git
         git commit -am "❄️: flake update"
         git push -f origin main:flake-update
         gh pr create --title "❄️" --base main --head flake-update --body ":tada:" || echo pr already exists
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
