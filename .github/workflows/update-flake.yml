@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-      with:
-        ref: main
     - name: "provision home-mananger"
       uses: ./.github/actions/runner
       id: runner
@@ -20,7 +18,7 @@ jobs:
       run: |
         export DOTFILES="$(pwd)"
         update
-      shell: bash -c "$RUNNER -c {0}"
+      shell: fish {0}
 
     - name: "create pr"
       run: |
