@@ -66,4 +66,6 @@ runs:
       run: |
         echo "RUNNER=$(which fish)" >> $GITHUB_ENV
         echo "::set-output name=shell::$(which fish)"
+        echo "DOTFILES=$(pwd)" >> $GITHUB_ENV
+        echo "::set-output name=dotfiles::$(pwd)"
       shell: bash
