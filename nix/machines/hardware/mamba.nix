@@ -8,6 +8,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.extraModprobeConfig = '' options bluetooth disable_ertm=1 '';
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/1e57d40a-db51-43b3-854e-2b5c243299dc";
