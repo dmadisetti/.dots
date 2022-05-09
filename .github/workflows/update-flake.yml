@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: main
     - name: "provision home-mananger"
       uses: ./.github/actions/runner
       id: runner
 
     - name: "update system"
       run: |
-        export DOTFILES="$(pwd)"
         update
       shell: fish {0}
 
