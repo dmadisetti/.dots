@@ -15,24 +15,6 @@
         "type": "github"
       }
     },
-    "dots-manager": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-7fnrKUdsCnPCWJQLy8kgCf8lNSq0xe6w8PBs0qSMyec=",
-        "path": "./dots-manager",
-        "type": "path"
-      },
-      "original": {
-        "path": "./dots-manager",
-        "type": "path"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1644229661,
@@ -95,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1651598446,
-        "narHash": "sha256-UykdAyAcf2zFW5Wbv3uXDhMg9Fd+zarrRQxfMnR2BAs=",
+        "lastModified": 1651886851,
+        "narHash": "sha256-kbXOJSf1uho0/7P54nZkJdJY3oAelIjyc6tfiRhaXJI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ac722cddf44276d2b11d797b2ace273d0b674000",
+        "rev": "882bd8118bdbff3a6e53e5ced393932b351ce2f6",
         "type": "github"
       },
       "original": {
@@ -126,42 +108,28 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1651558728,
-        "narHash": "sha256-8HzyRnWlgZluUrVFNOfZAOlA1fghpOSezXvxhalGMUo=",
+        "lastModified": 1651726670,
+        "narHash": "sha256-dSGdzB49SEvdOJvrQWfQYkAefewXraHIV08Vz6iDXWQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cbe587c735b734405f56803e267820ee1559e6c1",
+        "rev": "c777cdf5c564015d5f63b09cc93bef4178b19b01",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cbe587c735b734405f56803e267820ee1559e6c1",
+        "rev": "c777cdf5c564015d5f63b09cc93bef4178b19b01",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
         "declarative-cachix": "declarative-cachix",
-        "dots-manager": "dots-manager",
         "grub2-themes": "grub2-themes",
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs",
-        "sensitive": "sensitive"
-      }
-    },
-    "sensitive": {
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-eUWthE59kWILaOCEtsMeif+su124AkGGUFzDt/i2X4c=",
-        "path": "./nix/spoof",
-        "type": "path"
-      },
-      "original": {
-        "path": "./nix/spoof",
-        "type": "path"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
