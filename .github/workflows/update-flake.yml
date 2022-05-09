@@ -20,7 +20,7 @@ jobs:
       run: |
         export DOTFILES="$(pwd)"
         update
-      shell: $RUNNER {0}
+      shell: bash -c "$RUNNER -c {0}"
 
     - name: "create pr"
       run: |
