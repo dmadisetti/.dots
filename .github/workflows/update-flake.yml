@@ -18,7 +18,6 @@ jobs:
 
     - name: "update system"
       run: |
-        export DOTFILES="$(pwd)"
         update
       shell: fish {0}
 
