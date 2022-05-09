@@ -7,6 +7,8 @@ in
 {
   imports = [
     (propagate ../home/common.nix)
+    # Fish is needed for various helper commands.
+    (propagate ../home/programs/fish.nix)
   ];
 
   home.packages = with pkgs; [ ];
