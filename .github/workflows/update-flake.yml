@@ -12,14 +12,6 @@ jobs:
     - uses: actions/checkout@v3
       with:
         ref: main
-
-    - name: "setup git"
-      run: |
-        git config user.name '${{ github.actor }}'
-        git config user.email '${{ github.actor }}@users.noreply.github.com'
-        git fetch
-        git checkout origin/main -B main
-
     - name: "provision home-mananger"
       uses: ./.github/actions/runner
       id: runner
@@ -32,6 +24,8 @@ jobs:
 
     - name: "create pr"
       run: |
+        git config user.name '${{ github.actor }}'
+        git config user.email '${{ github.actor }}@users.noreply.github.com'
         git commit -am "❄️: flake update"
         git push -f origin main:flake-update
         gh pr create --title "❄️" --base main --head flake-update --body ":tada:" || echo pr already exists
