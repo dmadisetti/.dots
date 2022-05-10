@@ -16,6 +16,10 @@ jobs:
 
     - name: "build public iso"
       run: |
+        # TODO: Find how to set dotfiles
+        env
+        export DOTFILES="$(pwd)"
+        env
         nix run ".#live"
       shell: fish {0}
 
@@ -41,6 +45,7 @@ jobs:
 
     - name: "build docker runner"
       run: |
+        export DOTFILES="$(pwd)"
         + docker
         dots-docker
         docker tag dots-docker ghcr.io/${{ github.actor }}/dots
