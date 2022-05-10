@@ -16,10 +16,8 @@ jobs:
 
     - name: "build public iso"
       run: |
-        # TODO: Find how to set dotfiles
-        env
+        # TODO: Properly set dotfiles
         export DOTFILES="$(pwd)"
-        env
         nix run ".#live"
       shell: fish {0}
 
