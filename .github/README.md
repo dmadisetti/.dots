@@ -21,7 +21,7 @@ nix run github:dmadisetti/.dots#install; # disk level installation
 to create a live disk without `nix`:
 
 ```bash
-docker run --rm -it -v/tmp --privileged ghcr.io/dmadisetti/dots
+docker run --rm -it -v/tmp:/tmp --privileged ghcr.io/dmadisetti/dots
 # but TODO: remove the --privileged flag
 ```
 
