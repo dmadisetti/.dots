@@ -19,7 +19,6 @@ jobs:
 
     - name: "update system"
       run: |
-        export DOTFILES="$(pwd)"
         update
         rm -rf nix/sensitive/.git nix/home/users/user.nix
       shell: fish {0}

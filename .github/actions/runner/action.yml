@@ -57,8 +57,15 @@ runs:
         git add nix/home/users/user.nix;
         # set dots to checkout dir
         export DOTFILES="$(pwd)"
+        # remove nix config temporarily for home manager
+        export NIX_CONFIG="$(cat ~/.config/nix/nix.conf)"
+        rm ~/.config/nix/nix.conf
         # set up home manager
         nix run --no-write-lock-file --show-trace ".#home"
+        # Set nix.config again
+        rm ~/.config/nix/nix.conf
+        echo -en "$NIX_CONFIG" > ~/.config/nix/nix.conf
+        # Finish fish setup
         ./setup.sh
       shell: bash
 
