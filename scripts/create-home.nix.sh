@@ -50,7 +50,7 @@ if [ ! -f "$DOTFILES"/nix/sensitive/flake.nix ]; then
      "$DOTFILES"/nix/sensitive/flake.nix \
      <(echo "{\"user\": \"$USER\", \
               \"hashed\":\"\", \
-              \"dots\":\"$DOTFILES\", \
+              \"dots\": \"$DOTFILES\", \
               $(infer_settings), \
               \"networking\":\"{}\", \
               \"default_wm\":\"none\"}")
