@@ -17,9 +17,6 @@ use serde_json::json;
 use crate::parse::*;
 use crate::prompts::prompts;
 
-// TODO: Just make this part of prompts.
-use crate::prompts::getty_qr;
-
 fn build_questions(
     defaults: JsonValue,
     prefix: String,
@@ -37,7 +34,10 @@ fn build_questions(
                 if let Some(enable_value) = rnix::types::Value::cast(enable_node) {
                     match enable_value.to_value() {
                         Ok(rnix::value::Value::Boolean(boolean)) => {
-                            let maybe_default = defaults.get(&key).and_then(|v|v.get("enable")).and_then(|v|v.as_bool());
+                            let maybe_default = defaults
+                                .get(&key)
+                                .and_then(|v| v.get("enable"))
+                                .and_then(|v| v.as_bool());
                             let maybe_enabled = match maybe_default {
                                 Some(value) => value,
                                 None => matches!(
@@ -78,7 +78,8 @@ fn build_questions(
         let maybe_json = match defaults.get(&key) {
             Some(x) => x.clone(),
             None => {
-                let tmp = prompts(key.clone()).ok_or(format!("Unmanaged entry: {}", &key))?;
+                let tmp =
+                    prompts(key.clone(), &data).ok_or(format!("Unmanaged entry: {}", &key))?;
                 json!(tmp)
             }
         };
@@ -168,21 +169,7 @@ pub fn config_template(
 
     // Refresh content to get rid of extrenous comments.
     let content = ast.root().inner().unwrap().to_string();
-    let mut data = build_questions_from_root(&ast, defaults)?;
-
-    // TODO: I don't like this.
-    data["misc"] = json!(format!(
-        r#"
-    getty = pkgs_rev: dots_rev: ''
-{}
-    '';"#,
-        getty_qr(
-            data["user"].as_str().map(|x| x.to_string()),
-            data["git_email"].as_str().map(|x| x.to_string())
-        )
-        .or_else(|| Some("".to_string()))
-        .unwrap()
-    ));
+    let data = build_questions_from_root(&ast, defaults)?;
 
     let attempt = apply_template(data, content)?;
     match outfile {

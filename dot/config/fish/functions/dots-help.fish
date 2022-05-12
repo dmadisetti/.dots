@@ -1,3 +1,3 @@
 function dots-help
-  cat ~/.config/fish/functions/help.md
+  prettyprint help | less
 end

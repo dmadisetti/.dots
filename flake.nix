@@ -87,13 +87,13 @@
             pkgs stateVersion;
         };
     in
-    {
+    rec {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
-          wm = "xmonad";
+          wm = "sway";
           userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = utils.mkComputer {

@@ -23,4 +23,16 @@
         '';
       });
     })
+  (self: super: {
+    firefox = super.firefox.override {
+      extraPolicies = {
+        DontCheckDefaultBrowser = true;
+        DisablePocket = true;
+        Certificates = {
+          ImportEnterpriseRoots = true;
+          Install = sensitive.lib.certificates;
+        };
+      };
+    };
+  })
 ]
