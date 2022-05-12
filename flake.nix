@@ -93,7 +93,7 @@
       nixosConfigurations = {
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
-          wm = "sway";
+          wm = "xmonad";
           userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = utils.mkComputer {
