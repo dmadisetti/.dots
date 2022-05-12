@@ -5,7 +5,7 @@ infer_settings() {
   if [ -n "$KEYBASE_USER" ]; then
     EXTRA="$EXTRA\"enable\":true"
     EXTRA="$EXTRA, \"keybase_username\":\"$KEYBASE_USER\""
-    EXTRA="$EXTRA, \"keybase_paper\":\"$(cat /boot/paper* || echo '')\""
+    EXTRA="$EXTRA, \"keybase_paper\":\"$(cat /iso/paper* || echo '')\""
   fi
   EXTRA="$EXTRA}";
   GIT_USER="$(git config user.name)"

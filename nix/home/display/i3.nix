@@ -1,7 +1,9 @@
 # Tell it how it is
 { pkgs, home, ... }:
 {
-  imports = [ ];
+  imports = [
+    ../programs/polybar.nix
+  ];
 
   xsession.windowManager.i3.package = pkgs.i3-gaps;
   xsession.windowManager.i3 = {
@@ -17,8 +19,6 @@
   home.packages = with pkgs; [
     picom
     feh
-    i3blocks
-    i3status
     playerctl
   ];
 

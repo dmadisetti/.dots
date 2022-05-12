@@ -1,7 +1,5 @@
 use std::convert::TryInto;
 
-use requestty::{Answer, Choice, DefaultSeparator, OnEsc, Question};
-
 use pgp::crypto::sym::SymmetricKeyAlgorithm;
 use pgp::types::StringToKey;
 use sha_crypt::{sha512_check, sha512_simple, Sha512Params};
@@ -10,11 +8,12 @@ use rand::thread_rng;
 
 use regex::Regex;
 
-pub fn prompts(key: String) -> Option<String> {
+use handlebars::JsonValue;
+use requestty::{Answer, Choice, DefaultSeparator, OnEsc, Question};
+
+pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
     match key.as_str() {
-        "getty" => Some("".to_string()),
         "certificates" => Some("".to_string()),
-        "dots" => Some("".to_string()),
         "default_wm" => default_wm(),
         "sshd_port" => free("Provide the accepting port number".to_string()),
         "git_email" => free("Enter your email for git".to_string()),
@@ -26,6 +25,14 @@ pub fn prompts(key: String) -> Option<String> {
         "networking" => networking(),
         "pkgs" => pkgs(),
         "user" => user("Enter your username".to_string()),
+        // context dependent
+        "dots" => context["user"]
+            .as_str()
+            .map(|u| format!("/home/{}/.dots", u)),
+        "getty" => getty_qr(
+            context["user"].as_str().map(|x| x.to_string()),
+            context["git_email"].as_str().map(|x| x.to_string()),
+        ),
         _ => None,
     }
 }
