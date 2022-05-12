@@ -19,8 +19,6 @@
   home.packages = with pkgs; [
     picom
     feh
-    i3blocks
-    i3status
     playerctl
   ];
 
