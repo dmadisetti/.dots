@@ -16,8 +16,6 @@ jobs:
 
     - name: "build public iso"
       run: |
-        # TODO: Properly set dotfiles
-        export DOTFILES="$(pwd)"
         nix run ".#live"
       shell: fish {0}
 
@@ -43,7 +41,6 @@ jobs:
 
     - name: "build docker runner"
       run: |
-        export DOTFILES="$(pwd)"
         + docker
         dots-docker
         docker tag dots-docker ghcr.io/${{ github.actor }}/dots
