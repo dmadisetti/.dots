@@ -106,7 +106,7 @@
         };
         momento = utils.mkComputer {
           machineConfig = ./nix/machines/momento.nix;
-          wm = "sway";
+          wm = "none";
           userConfigs = [ ./nix/home/live.nix ];
         };
       };
