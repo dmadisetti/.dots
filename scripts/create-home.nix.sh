@@ -3,9 +3,10 @@ infer_settings() {
   local EXTRA=""
   EXTRA="\"keybase\":{"
   if [ -n "$KEYBASE_USER" ]; then
+    local PAPER="$(echo $(cat /iso/paper* || echo '') | tr -d \n)"
     EXTRA="$EXTRA\"enable\":true"
     EXTRA="$EXTRA, \"keybase_username\":\"$KEYBASE_USER\""
-    EXTRA="$EXTRA, \"keybase_paper\":\"$(cat /iso/paper* || echo '')\""
+    EXTRA="$EXTRA, \"keybase_paper\":\"$PAPER\""
   fi
   EXTRA="$EXTRA}";
   GIT_USER="$(git config user.name)"
@@ -28,6 +29,10 @@ infer_settings() {
     EXTRA="$EXTRA}";
   fi
   echo "$EXTRA"
+  # if not nixos, we do not need to provide system settings
+  uname -a | grep -iq nixos || echo ",\
+      \"hashed\":\"\", \
+      \"networking\":\"{}\"";
 }
 
 if [ -z "$DOTFILES" ]; then
@@ -50,24 +55,22 @@ if [ ! -f "$DOTFILES"/nix/sensitive/flake.nix ]; then
   echo
   dots-manager template "$SPOOF" \
      "$DOTFILES"/nix/sensitive/flake.nix \
-     <(echo "{\"user\": \"$USER\", \
-              \"hashed\":\"\", \
-              \"dots\": \"$DOTFILES\", \
-              $(infer_settings), \
-              \"networking\":\"{}\", \
-              \"default_wm\":\"none\"}")
+     <(echo -n "{\"user\": \"$USER\", \
+               \"dots\": \"$DOTFILES\", \
+               $(infer_settings), \
+               \"default_wm\":\"none\"}") || exit 1
 fi
 if [ ! -d "$DOTFILES"/nix/sensitive/.git ]; then
-  pushd "$DOTFILES"/nix/sensitive || exit 1
-  git init .
-  git add .
-  popd || exit 1
-  git add .
+  pushd "$DOTFILES"/nix/sensitive > /dev/null || exit 1
+  git init . > /dev/null
+  git add -N flake.nix
+  git add -N nix/home/users/user.nix 2> /dev/null
+  git add -N nix/home/users/$USER.nix 2> /dev/null
+  popd > /dev/null || exit 1
 fi
 
 NIX_CONFIG="experimental-features = nix-command flakes" \
 home-manager switch \
   --override-input sensitive \
   "$DOTFILES"/nix/sensitive \
-  --no-write-lock-file \
   --flake "$DOTFILES#$USER" -j auto
