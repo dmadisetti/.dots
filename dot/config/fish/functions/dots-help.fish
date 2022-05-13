@@ -14,7 +14,7 @@ function dots-help
   type -q i3 && set display "i3"
   type -q fbterm && set display "fb"
 
-  set -l keybase "\n\n✓ Keybase is not set up. See the keybase section for more details."
+  set -l keybase "\n\n✗ Keybase is not set up. See the keybase section for more details."
   [ (ls ~/keybase/ | wc -l) -gt 2 ] && set keybase "\n\n✓ Keybase is set up (nice)."
 
   set -l cachix "\n✗ Cachix is not set up. See the cachix section for more details."
