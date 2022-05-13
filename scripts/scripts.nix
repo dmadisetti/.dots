@@ -56,7 +56,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     sleep 0.05
     REMOTE=${../.github/assets/remote.txt}
     SPOOF=${../nix/spoof/flake.nix}
-    WELCOME="$(${self._prettyprint} hello-home)"
+    WELCOME="$(${self._prettyprint}/bin/prettyprint hello-home)"
     PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
     source ${./create-home.nix.sh}
   '';
