@@ -38,10 +38,11 @@ keyUsage = keyEncipherment, dataEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 [alt_names]
-DNS.1   = https.$DOMAIN
-DNS.2   = *.https.$DOMAIN
+DNS.1   = *.https.$DOMAIN
 IP   = 10.0.0.1
 EOF
+
+# DNS.1   = https.$DOMAIN
 
 # Generate our Private Key, and Certificate directly
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \

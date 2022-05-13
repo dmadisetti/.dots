@@ -5,7 +5,7 @@ infer_settings() {
   if [ -n "$KEYBASE_USER" ]; then
     EXTRA="$EXTRA\"enable\":true"
     EXTRA="$EXTRA, \"keybase_username\":\"$KEYBASE_USER\""
-    EXTRA="$EXTRA, \"keybase_paper\":\"$(cat /boot/paper* || echo '')\""
+    EXTRA="$EXTRA, \"keybase_paper\":\"$(cat /iso/paper* || echo '')\""
   fi
   EXTRA="$EXTRA}";
   GIT_USER="$(git config user.name)"
@@ -46,11 +46,13 @@ if [ ! -d "$DOTFILES"/nix/sensitive ]; then
   mkdir -p "$DOTFILES"/nix/sensitive
 fi
 if [ ! -f "$DOTFILES"/nix/sensitive/flake.nix ]; then
+  echo -en "$WELCOME"
+  echo
   dots-manager template "$SPOOF" \
      "$DOTFILES"/nix/sensitive/flake.nix \
      <(echo "{\"user\": \"$USER\", \
               \"hashed\":\"\", \
-              \"dots\":\"$DOTFILES\", \
+              \"dots\": \"$DOTFILES\", \
               $(infer_settings), \
               \"networking\":\"{}\", \
               \"default_wm\":\"none\"}")

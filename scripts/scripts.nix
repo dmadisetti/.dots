@@ -39,22 +39,49 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     };
 
   live = pkgs.writeShellScriptBin "create-live" ''
+    # Sleep required for requestty
     sleep 0.05
     out=$(pwd)/result
     TEMPLATE=${../nix/spoof/flake.nix}
     SELF=${self}
     PATH=${dots-manager-path}:${pkgs.nix}/bin:$PATH
+    WELCOME="$(${self._prettyprint}/bin/prettyprint hello-live)"
+    WAIT="$(${self._prettyprint}/bin/prettyprint wait)"
     source ${./create-live.nix.sh}
+    echo "Congrats 🎉! Flash $(dirname $out)/live.iso to your device of choice."
   '';
 
   home = pkgs.writeShellScriptBin "create-home" ''
+    # Sleep required for requestty
+    sleep 0.05
     REMOTE=${../.github/assets/remote.txt}
     SPOOF=${../nix/spoof/flake.nix}
+    WELCOME="$(${self._prettyprint} hello-home)"
     PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
     source ${./create-home.nix.sh}
   '';
 
   # Flake outputs used by hooks.
+  _prettyprint =
+    let
+      messages = pkgs.stdenv.mkDerivation {
+        name = "prettyprint-messages";
+        src = ./messages;
+        installPhase = ''
+          mkdir -p $out/;
+          files="*.md"
+          for f in $files; do
+            ${pkgs.glow}/bin/glow -s dark $f > $out/$(basename $f .md);
+          done
+        '';
+      };
+    in
+    # generate messages prior to remove 20mb+ dependency of glow.
+    pkgs.writeShellScriptBin "prettyprint" ''
+      for msg in "$@"; do
+        cat ${messages}/$(basename $msg .md) 2> /dev/null || echo "prettyprint error for $msg";
+      done
+    '';
   _configs = nixpkgs.lib.strings.concatStringsSep " " (builtins.attrNames self.nixosConfigurations);
   _live = self.nixosConfigurations.momento.config.system.build.isoImage;
   _clean = pkgs.writeShellScriptBin "clean-dots" ''

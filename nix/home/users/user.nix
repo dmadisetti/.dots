@@ -1,6 +1,6 @@
 # Home sweet home 🏠
 
-args@{ inputs, pkgs, stateVersion, ... }:
+args@{ inputs, self, pkgs, stateVersion, ... }:
 let
   propagate = f: extra@{ ... }: (import f (args // extra));
 in

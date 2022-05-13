@@ -4,6 +4,7 @@
 {
   imports = [
     ../programs/eww.nix
+    ../programs/polybar.nix
   ];
 
   xsession.windowManager.xmonad = {

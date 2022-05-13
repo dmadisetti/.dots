@@ -17,7 +17,6 @@
   home.packages = with pkgs; [
     swaylock
     swayidle
-    i3blocks
     waybar
     wl-clipboard
   ];

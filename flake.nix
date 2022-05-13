@@ -62,7 +62,7 @@
             pkgs stateVersion;
         };
     in
-    {
+    rec {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations =
