@@ -26,11 +26,11 @@ if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
     cat /iso/paper.key.asc | \
       gpg -ida --cipher-algo twofish 2> /dev/null | \
       xargs -i \
-        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+        torify keybase oneshot -u $KEYBASE_USER --paperkey "{}"
   else if test -e /iso/paper.key
     cat /iso/paper.key | \
       xargs -i \
-        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+        torify keybase oneshot -u $KEYBASE_USER --paperkey "{}"
   else
     echo "No paper key found..."
   end
@@ -39,10 +39,10 @@ end
 # Set up ssh keys
 if test -d ~/keybase/private/$KEYBASE_USER && ! test -d ~/.ssh
   mkdir -p ~/.ssh
-  git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys 2> /dev/null && {
+  git clone keybase://private/$KEYBASE_USER/keys.git ~/.ssh/keys 2> /dev/null && begin
     ln -s ~/.ssh/keys/config ~/.ssh/config
-    chmod 600 ~/.ssh/keys/* 2> /dev/null
-  }
+    find ~/.ssh/keys -type f | xargs chmod 600
+  end
 end
 
 # Conditionally run if nix is installed
