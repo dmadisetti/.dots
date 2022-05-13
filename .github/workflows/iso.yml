@@ -17,7 +17,7 @@ jobs:
     - name: "build public iso"
       run: |
         nix run ".#live"
-        dots-help | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' > README.txt
+        dots-help | sed -n 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g;/# default iso/,$p' > README.txt
       shell: fish {0}
 
     - name: "provide default iso"
