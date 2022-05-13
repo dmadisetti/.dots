@@ -17,13 +17,16 @@ jobs:
     - name: "build public iso"
       run: |
         nix run ".#live"
+        dots-help | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' > README.txt
       shell: fish {0}
 
     - name: "provide default iso"
       uses: actions/upload-artifact@v3
       with:
         name: live-iso
-        path: result/iso/*.iso
+        path: |
+          result/iso/*.iso
+          README.txt
 
   build-docker:
     runs-on: ubuntu-latest
