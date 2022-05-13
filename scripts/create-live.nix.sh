@@ -17,11 +17,13 @@ fi
 
 if [ "$SKIP_GENERATE" = false ]; then
   echo -en "$WELCOME"
+  echo
   dots-manager template $TEMPLATE $TMP/flake.nix \
     <(echo "{\"sshd\": {\"enable\": false}}") || exit 1
 fi
 
 echo -en "$WAIT"
+echo
 
 nix build --out-link $out \
   --override-input sensitive $TMP \

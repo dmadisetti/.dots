@@ -1,10 +1,10 @@
 function live
   pushd $DOTFILES;
   if test (count $argv) -eq 0
-    nix build \
+    nix run \
       --override-input sensitive \
       $DOTFILES/nix/sensitive \
-      -j auto ".#_live"
+      -j auto ".#live"
   else
     nix $argv[1..-1] -j auto ".#_live"
   end

@@ -46,6 +46,8 @@ if [ ! -d "$DOTFILES"/nix/sensitive ]; then
   mkdir -p "$DOTFILES"/nix/sensitive
 fi
 if [ ! -f "$DOTFILES"/nix/sensitive/flake.nix ]; then
+  echo -en "$WELCOME"
+  echo
   dots-manager template "$SPOOF" \
      "$DOTFILES"/nix/sensitive/flake.nix \
      <(echo "{\"user\": \"$USER\", \

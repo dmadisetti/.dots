@@ -45,8 +45,8 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     TEMPLATE=${../nix/spoof/flake.nix}
     SELF=${self}
     PATH=${dots-manager-path}:${pkgs.nix}/bin:$PATH
-    WELCOME="$(${self._prettyprint} hello-live)"
-    WAIT="$(${self._prettyprint} wait)"
+    WELCOME="$(${self._prettyprint}/bin/prettyprint hello-live)"
+    WAIT="$(${self._prettyprint}/bin/prettyprint wait)"
     source ${./create-live.nix.sh}
     echo "Congrats 🎉! Flash $(dirname $out)/live.iso to your device of choice."
   '';
@@ -56,6 +56,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     sleep 0.05
     REMOTE=${../.github/assets/remote.txt}
     SPOOF=${../nix/spoof/flake.nix}
+    WELCOME="$(${self._prettyprint} hello-home)"
     PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
     source ${./create-home.nix.sh}
   '';
