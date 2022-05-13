@@ -66,7 +66,7 @@
       #  █▄▄▄▄▄█ █ ▄ █▀▄▀ ▄ ▄▀█ █ ▀▄▀
       #
       getty = pkgs_rev: dots_rev: ''
-        {{getty}}
+{{getty}}
       '';
     };
   };
