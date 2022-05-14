@@ -22,15 +22,15 @@ test (stat -c '%G' /nix/store) != $USER && export NIX_REMOTE=daemon
 
 # Set up system for live disk
 if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
-  if test -e /iso/paper.key.asc
-    cat /iso/paper.key.asc | \
+  if test -e $DOTFILES/nix/sensitive/paper.key.asc
+    cat $DOTFILES/nix/sensitive/paper.key.asc | \
       gpg -ida --cipher-algo twofish 2> /dev/null | \
       xargs -i \
-        torify keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
   else if test -e /iso/paper.key
     cat /iso/paper.key | \
       xargs -i \
-        torify keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
   else
     echo "No paper key found..."
   end

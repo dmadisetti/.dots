@@ -7,37 +7,11 @@
     [
       # Include the results of the hardware scan.
       ./hardware/mamba.nix
-      self.inputs.grub2-themes.nixosModule
+      (import ./common/fancy-grub.nix {
+        splash = ../../dot/backgrounds/grub.jpg;
+        windows = true;
+      })
     ];
-
-  # Allow for dualboot
-  boot.loader = {
-    grub = {
-      enable = true;
-      efiSupport = true;
-      version = 2;
-      device = "nodev";
-      configurationLimit = 5;
-      extraEntries = ''
-        menuentry "Windows" --class windows {
-          insmod part_gpt
-          insmod fat
-          insmod search_fs_uuid
-          insmod chain
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-      '';
-    };
-    grub2-theme = {
-      enable = true;
-      icon = "white";
-      theme = "whitesur";
-      screen = "1080p";
-      splashImage = ../../dot/backgrounds/grub.jpg;
-      footer = true;
-    };
-    efi.canTouchEfiVariables = true;
-  };
 
   networking.hostName = "mamba"; # Define your hostname.
 

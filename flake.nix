@@ -22,6 +22,7 @@
 #    • mamba   → Dualboot Thinkpad daily driver
 #    • slug    → WSL on the daily driver.
 #    • exalt   → Craptop converted for Nix hacking
+#    • brick   → Tower that works as router, 610 NVidia graphics lol
 #
 # » Implemented devices
 #    • momento → Live USB stick with configs for amnesiac + installs
@@ -77,7 +78,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = import ./nix/overlays.nix { inherit sensitive; };
-        config.allowUnfree = false;
+        config.allowUnfree = true;
       };
 
       utils = import ./nix/utils.nix
@@ -91,6 +92,11 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations = {
+        brick = utils.mkComputer {
+          machineConfig = ./nix/machines/brick.nix;
+          wm = "xmonad";
+          userConfigs = [ ./nix/home/daily-driver.nix ];
+        };
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
           wm = "xmonad";
