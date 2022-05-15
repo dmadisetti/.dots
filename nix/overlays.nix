@@ -30,7 +30,7 @@
         DisablePocket = true;
         Certificates = {
           ImportEnterpriseRoots = true;
-          Install = sensitive.lib.certificates;
+          Install = self.lib.catAttrs "cert" (self.lib.attrValues sensitive.lib.certificates);
         };
       };
     };

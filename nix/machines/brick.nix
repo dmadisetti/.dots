@@ -16,6 +16,35 @@
       };
       ssid = ''"🙃"'';
     })
+    (import ./common/nginx.nix rec {
+      tld = "brick";
+      cert = if (self.inputs.sensitive.lib.certificates ? brick) then {
+        crt = self.inputs.sensitive.lib.certificates.brick.cert;
+        key = self.inputs.sensitive.lib.certificates.brick.key;
+      } else null;
+      proxies = {
+        "notebook.${tld}" = { port = "8000"; };
+        "~^(?<sub>.+)?\\.notebook.${tld}$" = { port = "800$sub"; };
+        "notes.${tld}" = { port = "9000"; };
+      };
+    })
+    (import ./common/nginx.nix rec {
+      tld = "krack";
+      cert = if (self.inputs.sensitive.lib.certificates ? krack) then {
+        crt = self.inputs.sensitive.lib.certificates.krack.cert;
+        key = self.inputs.sensitive.lib.certificates.krack.key;
+      } else null;
+      proxies = {
+        "notebook.${tld}" = {
+          port = "8000";
+          host = "127.0.0.1";
+        };
+        "~^(?<sub>.+)?\\.notebook.${tld}$" = {
+          port = "800$sub";
+          host = "127.0.0.1";
+        };
+      };
+    })
   ];
 
   networking.hostName = "brick"; # Define your hostname.

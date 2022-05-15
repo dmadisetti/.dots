@@ -43,9 +43,9 @@
           key = "{{git_signing_key}}";
         };
       };
-      certificates = [
+      certificates = {
         #{{{certificates}}}
-      ];
+      };
 
       # getty can be just as pretty as lightdm imho.
       # example getty response
