@@ -133,10 +133,10 @@ them somewhere publicly. for more details see `dot/config/eww/scripts/getweather
 
 if you have some self signed ssl certificates, you can install them by setting
 ```nix
-      certificates = [
-        ./relative/path/to/my/source/checked/cert.crt
-        ./another.crt
-      ];
+      certificates = {
+        cert_name = {cert = ./relative/path/to/my/source/checked/cert.crt;};
+        another = {cert=./another.crt; optional_key=./place.key;}
+      };
 ```
 
 in your `sensitive` flake.

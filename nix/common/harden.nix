@@ -21,5 +21,5 @@
   nix.settings.allowed-users = [ "root" "${user}" ];
   nix.settings.trusted-users = [ "root" "${user}" ];
 
-  security.pki.certificateFiles = sensitive.lib.certificates;
+  security.pki.certificateFiles = lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates);
 }
