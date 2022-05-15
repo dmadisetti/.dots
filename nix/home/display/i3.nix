@@ -1,9 +1,6 @@
 # Tell it how it is
-{ pkgs, home, ... }:
-{
-  imports = [
-    ../programs/polybar.nix
-  ];
+{ pkgs, home, ... }: {
+  imports = [ ../programs/polybar.nix ];
 
   xsession.windowManager.i3.package = pkgs.i3-gaps;
   xsession.windowManager.i3 = {
@@ -16,11 +13,7 @@
     };
   };
 
-  home.packages = with pkgs; [
-    picom
-    feh
-    playerctl
-  ];
+  home.packages = with pkgs; [ picom feh playerctl ];
 
   home.file.".xinitrc".source = ../../../dot/config/i3/xinitrc;
 }

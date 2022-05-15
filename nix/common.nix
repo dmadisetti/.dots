@@ -1,7 +1,6 @@
 # Common Nix
 # ❄️
-{ config, self, pkgs, user, isContainer, stateVersion, ... }:
-{
+{ config, self, pkgs, user, isContainer, stateVersion, ... }: {
   imports = [
     # Basic network hardening
     ./common/harden.nix

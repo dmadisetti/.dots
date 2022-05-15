@@ -5,16 +5,9 @@
 {
   imports = [ ];
 
-  home.packages = with pkgs; [
-    fbterm
-    fbv
-    fbida
-    browsh
-  ];
+  home.packages = with pkgs; [ fbterm fbv fbida browsh ];
 
   home.file.".fbtermrc".source = ../../../dot/fbtermrc;
 
-  home.sessionVariables = {
-   FBTERM_BACKGROUND_IMAGE = 1;
-  };
+  home.sessionVariables = { FBTERM_BACKGROUND_IMAGE = 1; };
 }

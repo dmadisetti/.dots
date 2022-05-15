@@ -9,9 +9,7 @@
         email = inputs.sensitive.lib.git.email;
         signingKey = inputs.sensitive.lib.git.signing.key;
       };
-      commit = {
-        gpgSign = inputs.sensitive.lib.git.signing.enable;
-      };
+      commit = { gpgSign = inputs.sensitive.lib.git.signing.enable; };
     };
     includes = [{ path = "${inputs.sensitive.lib.dots}/dot/gitconfig"; }];
   };

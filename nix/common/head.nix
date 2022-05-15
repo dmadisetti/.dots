@@ -1,6 +1,5 @@
 # If we can actually sit at the computer
-{ lib, sensitive, ... }:
-{
+{ lib, sensitive, ... }: {
   # Programs
   programs.fish.enable = true;
 

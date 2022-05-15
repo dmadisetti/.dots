@@ -1,6 +1,5 @@
 # Self reference as read only for isos
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   imports = [ ];
   home.file.".ro-dots".source = ../../.;
 

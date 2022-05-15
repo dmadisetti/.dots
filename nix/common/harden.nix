@@ -16,9 +16,7 @@
       passwordAuthentication = false;
       allowSFTP = false;
     };
-    fail2ban = {
-      enable = true;
-    };
+    fail2ban = { enable = true; };
   };
   nix.settings.allowed-users = [ "root" "${user}" ];
   nix.settings.trusted-users = [ "root" "${user}" ];

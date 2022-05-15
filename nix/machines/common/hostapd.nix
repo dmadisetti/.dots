@@ -1,5 +1,6 @@
 # Fancy grub and networking
-{ dev, ssid }: { pkgs, sensitive, lib, config, ... }:
+{ dev, ssid }:
+{ pkgs, sensitive, lib, config, ... }:
 
 lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
 
@@ -50,8 +51,7 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
     dnsmasq = {
       enable = true;
       extraConfig =
-        if sensitive.lib ? dnsmasq then
-          sensitive.lib.dnsmasq else "";
+        if sensitive.lib ? dnsmasq then sensitive.lib.dnsmasq else "";
     };
 
     # Sometimes slow connection speeds are attributed to absence of haveged.
@@ -59,8 +59,7 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
   };
 
   systemd.services.wifi =
-    let
-      tables = "${pkgs.iptables}/bin/iptables";
+    let tables = "${pkgs.iptables}/bin/iptables";
     in
     {
       description = "post dnsmasq iptables rules for wifi";

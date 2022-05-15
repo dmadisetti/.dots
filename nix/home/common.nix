@@ -9,9 +9,7 @@ in
   imports = [ ];
 
   # Derived script to pretty print messages.
-  home.packages = with self.outputs.pkgs; [
-    self.outputs._prettyprint
-  ];
+  home.packages = with self.outputs.pkgs; [ self.outputs._prettyprint ];
 
   # Make sure flakes work by default..
   home.file."${nix_config}".text = ''

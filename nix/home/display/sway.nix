@@ -1,6 +1,5 @@
 # Tell it how it is
-{ pkgs, home, ... }:
-{
+{ pkgs, home, ... }: {
   imports = [ ];
 
   wayland.windowManager.sway = {
@@ -14,10 +13,5 @@
     wrapperFeatures.gtk = true;
   };
 
-  home.packages = with pkgs; [
-    swaylock
-    swayidle
-    waybar
-    wl-clipboard
-  ];
+  home.packages = with pkgs; [ swaylock swayidle waybar wl-clipboard ];
 }

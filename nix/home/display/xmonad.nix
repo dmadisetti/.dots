@@ -1,11 +1,7 @@
 # Sipping once 🥣, sipping twice 🥣
 # Sipping chicken noodle soup with rice.
-{ pkgs, home, ... }:
-{
-  imports = [
-    ../programs/eww.nix
-    ../programs/polybar.nix
-  ];
+{ pkgs, home, ... }: {
+  imports = [ ../programs/eww.nix ../programs/polybar.nix ];
 
   xsession.windowManager.xmonad = {
     enable = true;

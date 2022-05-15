@@ -1,8 +1,8 @@
 # Common Nix
-{ ... }:
-{
+{ ... }: {
   imports = [ ];
-  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+  environment.pathsToLink =
+    [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
   hardware.opengl = {
     enable = true;
     driSupport = true;

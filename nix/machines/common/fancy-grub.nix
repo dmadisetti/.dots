@@ -1,5 +1,6 @@
 # Fancy grub and networking
-{splash, windows ? false}: { self, lib, ... }:
+{ splash, windows ? false }:
+{ self, lib, ... }:
 
 {
   imports = [ self.inputs.grub2-themes.nixosModule ];

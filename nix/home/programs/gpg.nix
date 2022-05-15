@@ -1,11 +1,8 @@
 # Gotta encrypt it to believe it 🔒
-{ home, pkgs, ... }:
-{
+{ home, pkgs, ... }: {
   imports = [ ];
 
-  home.packages = with pkgs; [
-    gnupg
-  ];
+  home.packages = with pkgs; [ gnupg ];
 
   # PGP settings for headless pinentry
   home.file.".gnupg/gpg-agent.conf".text = ''
