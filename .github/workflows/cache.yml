@@ -25,7 +25,6 @@ jobs:
       uses: ./.github/actions/runner
       id: runner
       with:
-        user: ${{ matrix.users }}
         cachix-endpoint: "${{ github.repository_owner }}"
         cachix-token: '${{ secrets.CACHIX_TOKEN }}'
     - id: set-matrix
