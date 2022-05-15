@@ -1,12 +1,13 @@
 # Fancy grub and networking
-{ tld, proxies ? { }, cert ? { crt = null; key = null; } }:
+{ tld, proxies ? { }, cert ? null }:
 { lib, ... }:
 let
-  ssl = {
-    forceSSL = cert.key != null;
-    sslCertificate = cert.crt;
-    sslCertificateKey = cert.key;
-  };
+  ssl =
+    if cert != null then {
+      forceSSL = cert ? key && cert.key != null;
+      sslCertificate = cert.crt;
+      sslCertificateKey = cert.key;
+    } else { forceSSL = false; };
 
   port_proxy =
     { port
