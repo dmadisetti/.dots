@@ -1,11 +1,8 @@
 # 🗝️
-{ home, pkgs, ... }:
-{
+{ home, pkgs, ... }: {
   imports = [ ];
 
-  home.packages = with pkgs; [
-    keybase
-  ];
+  home.packages = with pkgs; [ keybase ];
   services = {
     keybase.enable = true;
     kbfs = {

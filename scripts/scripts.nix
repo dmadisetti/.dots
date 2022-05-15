@@ -1,17 +1,13 @@
 inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
   docker =
-    let
-      home = "/tmp/dots-manager-build-home";
+    let home = "/tmp/dots-manager-build-home";
     in
     pkgs.dockerTools.buildImage {
       name = "dots-docker";
       tag = "latest";
 
       # everything in this is *copied* to the root of the image
-      contents = [
-        self.live
-        pkgs.coreutils
-      ];
+      contents = [ self.live pkgs.coreutils ];
 
       runAsRoot = ''
         mkdir -p ${home} /etc
@@ -31,9 +27,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
           "USER=root"
         ];
         Cmd = [ "create-live" ];
-        Volumes = {
-          "/tmp" = { };
-        };
+        Volumes = { "/tmp" = { }; };
         WorkingDir = home;
       };
     };
@@ -75,14 +69,15 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
           done
         '';
       };
+      # generate messages prior to remove 20mb+ dependency of glow.
     in
-    # generate messages prior to remove 20mb+ dependency of glow.
     pkgs.writeShellScriptBin "prettyprint" ''
       for msg in "$@"; do
         cat ${messages}/$(basename $msg .md) 2> /dev/null || echo "prettyprint error for $msg";
       done
     '';
-  _configs = nixpkgs.lib.strings.concatStringsSep " " (builtins.attrNames self.nixosConfigurations);
+  _configs = nixpkgs.lib.strings.concatStringsSep " "
+    (builtins.attrNames self.nixosConfigurations);
   _live = self.nixosConfigurations.momento.config.system.build.isoImage;
   _clean = pkgs.writeShellScriptBin "clean-dots" ''
     FLAKE=${../flake.nix}

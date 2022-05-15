@@ -5,12 +5,11 @@
 with lib;
 let
   defaultUser = user;
-  syschdemd = import ../lib/syschdemd.nix { inherit lib pkgs config defaultUser; };
+  syschdemd =
+    import ../lib/syschdemd.nix { inherit lib pkgs config defaultUser; };
 in
 {
-  imports = [
-    "${modulesPath}/profiles/minimal.nix"
-  ];
+  imports = [ "${modulesPath}/profiles/minimal.nix" ];
 
   # WSL is closer to a container than anything else
   boot.isContainer = true;

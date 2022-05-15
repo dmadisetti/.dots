@@ -1,6 +1,5 @@
 # 🐡🐠🐟🦈
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   imports = [ ];
   programs.fish = {
     enable = true;

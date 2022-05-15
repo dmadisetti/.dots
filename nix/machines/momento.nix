@@ -3,7 +3,8 @@
 with lib;
 let
   hostName = "momento";
-  nixRev = if self.inputs.nixpkgs ? rev then self.inputs.nixpkgs.shortRev else "dirty";
+  nixRev =
+    if self.inputs.nixpkgs ? rev then self.inputs.nixpkgs.shortRev else "dirty";
   selfRev = if self ? rev then self.shortRev else "dirty";
 
   # See if keybase key is encrypted
@@ -45,7 +46,7 @@ in
   users.users."${user}".initialHashedPassword = sensitive.lib.hashed;
 
   # ISO naming.
-  isoImage.isoName = ''${hostName}-${nixRev}-${selfRev}.iso'';
+  isoImage.isoName = "${hostName}-${nixRev}-${selfRev}.iso";
 
   # EFI + USB bootable
   isoImage.makeEfiBootable = true;
@@ -54,12 +55,10 @@ in
   # Other cases
   isoImage.appendToMenuLabel = " live";
   ## add self?
-  isoImage.contents = [
-    {
-      source = pkgs.writeText "paper${paper_suffix}" sensitive.lib.keybase.paper;
-      target = "/paper${paper_suffix}";
-    }
-  ];
+  isoImage.contents = [{
+    source = pkgs.writeText "paper${paper_suffix}" sensitive.lib.keybase.paper;
+    target = "/paper${paper_suffix}";
+  }];
   # isoFileSystems <- add luks
   boot.loader = rec {
     grub2-theme = {

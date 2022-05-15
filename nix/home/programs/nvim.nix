@@ -1,11 +1,8 @@
 # 🖖im
-{ home, pkgs, ... }:
-{
+{ home, pkgs, ... }: {
   imports = [ ];
 
-  home.packages = with pkgs; [
-    python38Packages.pynvim
-  ];
+  home.packages = with pkgs; [ python38Packages.pynvim ];
 
   programs.neovim = {
     enable = true;

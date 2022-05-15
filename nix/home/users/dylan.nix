@@ -1,8 +1,7 @@
 # Home sweet home 🏠
 
 args@{ inputs, self, pkgs, stateVersion, ... }:
-let
-  propagate = f: extra@{ ... }: (import f (args // extra));
+let propagate = f: extra@{ ... }: (import f (args // extra));
 in
 {
   # you can rename this file to your main username;
@@ -19,9 +18,11 @@ in
   ] ++ (if inputs.sensitive.lib ? cachix then [
     inputs.declarative-cachix.homeManagerModules.declarative-cachix
     (propagate ../programs/cachix.nix { cache = inputs.sensitive.lib.cachix; })
-  ] else [ ]) ++ (if inputs.sensitive.lib.keybase.enable then [
-    ../programs/keybase.nix
-  ] else [ ]);
+  ] else
+    [ ]) ++ (if inputs.sensitive.lib.keybase.enable then
+    [ ../programs/keybase.nix ]
+  else
+    [ ]);
 
   home.packages = with pkgs; [
     # security
