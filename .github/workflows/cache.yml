@@ -12,7 +12,8 @@ jobs:
   list-users:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      user_matrix: ${{ steps.set-matrix.outputs.user_matrix }}
+      config_matrix: ${{ steps.set-matrix.outputs.config_matrix }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -29,6 +30,8 @@ jobs:
         cachix-token: '${{ secrets.CACHIX_TOKEN }}'
     - id: set-matrix
       run: |
+        echo $(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
+        echo $(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")')
         user_matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
         config_matrix=$(nix eval --raw ".#_configs" | jq -R -s -c 'split(" ")')
         echo "::set-output name=user_matrix::$user_matrix"
