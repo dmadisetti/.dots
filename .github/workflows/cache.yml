@@ -30,9 +30,9 @@ jobs:
         cachix-token: '${{ secrets.CACHIX_TOKEN }}'
     - id: set-matrix
       run: |
-        echo $(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
-        echo $(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")')
-        user_matrix=$(ls nix/home/users/*.nix | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
+        users=$(find nix/home/users/*.nix -type f ! -name "user.nix")
+        test -z "$user" && user="user.nix"
+        user_matrix=$(echo $user | xargs basename -s .nix | jq -R -s -c 'split("\n")[:-1]')
         config_matrix=$(nix eval --raw ".#_configs" | jq -R -s -c 'split(" ")')
         echo "::set-output name=user_matrix::$user_matrix"
         echo "::set-output name=config_matrix::$config_matrix"
