@@ -59,12 +59,6 @@
         # nixos-install --root blah --flake  -j auto
         # congrats message !
 
-        # check dots
-        #    if not clone
-        # check sensitive
-        #   if not prompt
-        # build flake
-        # prompt for dd
         generate-dots = pkgs.writeShellScriptBin "generate-dots" ''
           stub=$1
           target=$2
