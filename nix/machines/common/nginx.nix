@@ -27,8 +27,7 @@ in
 
   services.nginx = {
     enable = true;
-    virtualHosts = (if ssl.forceSSL then {
-      "*.https.${tld}" = ssl;
+    virtualHosts = (lib.mapAttrs wrap_proxy proxies) // (if ssl.forceSSL then {
       "~^(?<port>\\d+)?\\.https.${tld}$" = (port_proxy {
         port = "$port";
       }) // ssl;
@@ -39,6 +38,14 @@ in
           proxyWebsockets = true;
         };
       } // ssl;
-    } else { }) // (lib.mapAttrs wrap_proxy proxies);
+
+      # fallback
+      "https.${tld}" = {
+        locations."/" = {
+          priority = 10001;
+          # some sort of page I reckon
+        };
+      } // ssl;
+    } else { });
   };
 }

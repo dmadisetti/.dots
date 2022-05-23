@@ -8,5 +8,5 @@
     in
     lib.mkForce ''${sensitive.lib.getty pkgs_rev dots_rev}
 
-    Run 'dots-help' or 'nixos-help' for more information.'';
+Run 'dots-help' or 'nixos-help' for more information.'';
 }
