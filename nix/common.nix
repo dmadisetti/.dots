@@ -12,7 +12,7 @@
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes ca-derivations
     '';
 
     # The default is 03:15 for when these run.
