@@ -52,7 +52,9 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = import ./nix/overlays.nix { inherit sensitive; };
-        config.allowUnfree = true;
+        config.allowUnfree = false;
+        # we are not ready... !
+        # config.contentAddressedByDefault = false;
       };
 
       utils = import ./nix/utils.nix

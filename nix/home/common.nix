@@ -13,7 +13,7 @@ in
 
   # Make sure flakes work by default..
   home.file."${nix_config}".text = ''
-    experimental-features = nix-command flakes
+    experimental-features = nix-command flakes ca-derivations
   '';
   home.stateVersion = stateVersion;
 }
