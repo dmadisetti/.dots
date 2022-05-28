@@ -11,6 +11,7 @@
   # window managers or lack thereof
   wms = {
     fb = "none";
+    hyprland = "wayland";
     i3 = "x";
     sway = "wayland";
     xmonad = "x";

@@ -35,4 +35,31 @@
       };
     };
   })
+  (_: pkgs: {
+    # ripped off nur/berbiche
+    mpvpaper = with pkgs; stdenv.mkDerivation rec {
+      pname = "mpvpaper";
+      version = "1.2.1";
+
+      src = fetchFromGitHub {
+        owner = "GhostNaN";
+        repo = "mpvpaper";
+        rev = version;
+        hash = "sha256-1+noph6iXM5OSNMFQyta/ttGyZQ6F7bWDQi8W190G5E=";
+      };
+
+      nativeBuildInputs = [ pkgconfig meson ninja cmake ];
+
+      buildInputs = [ wayland wayland-protocols mpv wlroots cairo ];
+
+      meta = {
+        description = ''
+          A wallpaper program for wlroots based Wayland compositors that
+          allows you to play videos with mpv as your wallpaper
+        '';
+        homepage = "https://github.com/GhostNaN/mpvpaper";
+        # license = licenses.gpl3;
+      };
+    };
+  })
 ]
