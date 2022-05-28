@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/dylan/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/dfd82985c273aac6eced03625f454b334daae2e8;
+    nixpkgs.url = github:nixos/nixpkgs/5ce6597eca7d7b518c03ecda57d45f9404b5e060;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     home-manager.url = github:nix-community/home-manager;
@@ -62,6 +62,10 @@
     grub2-themes-png.url = github:AnotherGroupChat/grub2-themes-png;
     grub2-themes-png.inputs.nixpkgs.follows = "nixpkgs";
     # TODO: Fix grub2-themes so that it can use pngs.
+
+    # Hyprland is **such** eye candy
+    hyprland.url = github:vaxerski/Hyprland/v0.1.0beta;
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix for caching!
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
@@ -101,7 +105,7 @@
         };
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
-          wm = "xmonad";
+          wm = "hyprland";
           userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = utils.mkComputer {
