@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 
-THEME="$HOME/.config/bspwm/rofi/powermenu.rasi"
+THEME="-theme $HOME/.config/rofi/powermenu/powermenu.rasi"
 
-rofi_command="wofi -no-config -theme $THEME"
+rofi_command="rofi -no-config $THEME -i"
+
 
 # Options
-shutdown="Shutdown"
-reboot="Restart"
-lock="Lock"
-suspend="Suspend"
-logout="Logout"
+shutdown="shutdown"
+reboot="restart"
+lock="lock"
+suspend="suspend"
+logout="logout"
 
 # Variable passed to rofi
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
 
-chosen="$(echo -e "$options" | $rofi_command -dmenu -selected-row 0)"
+chosen="$(echo -e "$options" | $rofi_command -p ">" -dmenu)"
 case $chosen in
     $shutdown)
       systemctl poweroff

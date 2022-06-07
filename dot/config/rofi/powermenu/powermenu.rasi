@@ -2,8 +2,8 @@ configuration {
     show-icons:                     true;
     disable-history:                false;
     fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+  hide-scrollbar:         true;
+  sidebar-mode:           false;
 }
 
 * {
@@ -21,10 +21,10 @@ configuration {
 #window {
     background-color:               @background;
     text-color:                     @foreground;
-	border:							0;
-	border-color:					@background;
+  border:             0;
+  border-color:         @background;
     border-radius:                  8;
-	width:							300px;
+  width:              300px;
     location:                       southeast;
     x-offset:                       -8;
     y-offset:                       -60;
@@ -57,7 +57,7 @@ configuration {
 #element.selected {
     background-color:               @selected-background;
     text-color:                     @selected-foreground;
-	border:							0;
+  border:             0;
     border-radius:                  8;
 }
 

@@ -1,18 +1,18 @@
 /** EWW.SCSS
 Created by saimoom **/
 *{
-	all: unset;
-	font-family: feather;
-	font-family: Inter Nerd Font;
+  all: unset;
+  font-family: feather;
+  font-family: Inter Nerd Font;
 }
 
 /** General **/
 .bar_class {
-    background-color: rgba(00, 00, 00, 0.55);
-    border-radius: 12px;
-    border-style: solid;
-    border-width: 2;
-    border-color: #53E2AE;
+    //background-color: rgba(00, 00, 00, 0.55);
+    //border-radius: 12px;
+    //border-style: solid;
+    //border-width: 2;
+    //border-color: #53E2AE;
 }
 .module {
     margin: 0px 0px 0px 0px;
@@ -133,12 +133,12 @@ tooltip label {
   }
 .mem_module {
     background-color: rgba(00, 00, 00, 0.0);
-	border-radius: 16px;
+  border-radius: 16px;
   margin: 0px 10px 0px 3px;
   }
 .bat_module {
     background-color: rgba(00, 00, 00, 0.0);
-	border-radius: 16px;
+  border-radius: 16px;
   margin: 0px 10px 0px 10px;
   }
 
@@ -182,33 +182,33 @@ color: #606060;
 
 
 .song_cover_art {
-	background-size: cover;	
-	background-position: center;
-	min-height: 24px;
-	min-width: 24px;
-	margin: 10px;
-	border-radius: 100px;
+  background-size: cover;
+  background-position: center;
+  min-height: 24px;
+  min-width: 24px;
+  margin: 10px;
+  border-radius: 100px;
 }
 
 .song {
-	color: #92B6F4;
-	font-size : 18px;
-	font-weight : bold;
-	margin : 3px 5px 0px 0px;
+  color: #92B6F4;
+  font-size : 18px;
+  font-weight : bold;
+  margin : 3px 5px 0px 0px;
 }
 
 .song_btn_play {
-	color: #92B6F4;
-	font-size : 28px;
-	margin : 3px 0px 0px 5px;
+  color: #92B6F4;
+  font-size : 28px;
+  margin : 3px 0px 0px 5px;
 
 }
 
 
 .song_btn_prev, .song_btn_next {
-	color: #bfc9db;
-	font-size : 24px;
-	margin : 3px 0px 0px 5px;
+  color: #bfc9db;
+  font-size : 24px;
+  margin : 3px 0px 0px 5px;
 
 }
 // Calendar
@@ -258,12 +258,6 @@ calendar:indeterminate {
 color: #bfc9db;
 }
 
-
-
-
-
-
-
 .sys_sep {
     color: #38384d;
     font-size: 18;
@@ -303,11 +297,11 @@ color: #bfc9db;
     color: #F1FA8C;
 }
 .sys_bat_box {
-	border-radius: 16px;
+  border-radius: 16px;
     margin: 15px 10px 10px 20px;
   }
 .sys_mem_box {
-	border-radius: 16px;
+  border-radius: 16px;
     margin: 10px 10px 15px 20px;
   }
 
@@ -319,143 +313,143 @@ color: #bfc9db;
 
 .music_pop {
     background-color: rgba(00, 00, 00, 0.6);
-	border-radius: 16px;
+  border-radius: 16px;
 }
   .music_cover_art {
-	background-size: cover;
-	background-position: center;
-	min-height: 100px;
+  background-size: cover;
+  background-position: center;
+  min-height: 100px;
     box-shadow: 5px 5px 5px 5px #06060b;
-	min-width: 170px;
-	margin: 20px;
-	border-radius: 20px;
+  min-width: 170px;
+  margin: 20px;
+  border-radius: 20px;
 }
 
 .music {
-	color: #92B6F4;
-	font-size : 20px;
-	font-weight : bold;
-	margin : 20px 0px 0px -15px;
+  color: #92B6F4;
+  font-size : 20px;
+  font-weight : bold;
+  margin : 20px 0px 0px -15px;
 }
 
 .music_artist {
-	color: #bbc5d7;
-	font-size : 16px;
-	font-weight : normal;
-	margin : 0px 0px 0px 0px;
+  color: #bbc5d7;
+  font-size : 16px;
+  font-weight : normal;
+  margin : 0px 0px 0px 0px;
 }
 
 .music_btn_prev, .music_btn_play, .music_btn_next {
-	font-family: Inter Nerd Font;
+  font-family: Inter Nerd Font;
 }
 .music_btn_prev {
-	color: #bbc5d7;
-	font-size : 32px;
-	font-weight : normal;
-	margin: 0px 0px 0px 0px;
+  color: #bbc5d7;
+  font-size : 32px;
+  font-weight : normal;
+  margin: 0px 0px 0px 0px;
 }
 .music_btn_play {
-	color: #92B6F4;
-	font-size : 48px;
-	font-weight : normal;
-	margin: 0px 0px 0px 0px;
+  color: #92B6F4;
+  font-size : 48px;
+  font-weight : normal;
+  margin: 0px 0px 0px 0px;
 }
 .music_btn_next {
-	color: #bbc5d7;
-	font-size : 32px;
-	font-weight : normal;
-	margin: 0px 0px 0px 0px;
+  color: #bbc5d7;
+  font-size : 32px;
+  font-weight : normal;
+  margin: 0px 0px 0px 0px;
 }
 
 .music_bar scale trough highlight {
-	all: unset;
+  all: unset;
     background-image: linear-gradient(to right, #afcee0 30%, #92B6F4 50%, #77a5bf 100% *50);
-	border-radius: 24px;
+  border-radius: 24px;
 }
 .music_bar scale trough {
-	all: unset;
-	background-color: #232232;
+  all: unset;
+  background-color: #232232;
     box-shadow: 0 6px 5px 2px #06060b;
-	border-radius: 24px;
-	min-height: 13px;
-	min-width: 190px;
-	margin : -10px 10px 20px 0px;
+  border-radius: 24px;
+  min-height: 13px;
+  min-width: 190px;
+  margin : -10px 10px 20px 0px;
 }
 
 .audio-box {
     background-color: rgba(00, 00, 00, 0.6);
-	border-radius: 16px;
+  border-radius: 16px;
 }
 .speaker_icon {
-	background-size: cover;
+  background-size: cover;
     background-image: url('images/speaker.png');
-	background-position: center;
-	min-height: 70px;
-	min-width: 75px;
-	margin: 10px 20px 5px 20px;
-	border-radius: 12px;
+  background-position: center;
+  min-height: 70px;
+  min-width: 75px;
+  margin: 10px 20px 5px 20px;
+  border-radius: 12px;
 }
 
 .speaker_text {
-	color: #92B6F4;
-	font-size : 26px;
-	font-weight : bold;
-	margin: 20px 0px 0px 0px;
+  color: #92B6F4;
+  font-size : 26px;
+  font-weight : bold;
+  margin: 20px 0px 0px 0px;
 }
 
 .speaker_bar scale trough highlight {
-	all: unset;
+  all: unset;
     background-image: linear-gradient(to right, #afcee0 30%, #92B6F4 50%, #77a5bf 100% *50);
-	border-radius: 24px;
+  border-radius: 24px;
 }
 .speaker_bar scale trough {
-	all: unset;
-	background-color: #232232;
+  all: unset;
+  background-color: #232232;
     box-shadow: 0 6px 5px 2px #06060b;
-	border-radius: 24px;
-	min-height: 13px;
-	min-width: 120px;
-	margin : 0px 0px 5px 0px;
+  border-radius: 24px;
+  min-height: 13px;
+  min-width: 120px;
+  margin : 0px 0px 5px 0px;
 }
 
 
 
 
 .mic_icon {
-	background-size: cover;
+  background-size: cover;
     background-image: url('images/mic.png');
-	background-position: center;
-	min-height: 70px;
-	min-width: 75px;
-	margin: 5px 20px 20px 20px;
-	border-radius: 12px;
+  background-position: center;
+  min-height: 70px;
+  min-width: 75px;
+  margin: 5px 20px 20px 20px;
+  border-radius: 12px;
 }
 
 .mic_text {
-	color: #92B6F4;
-	font-size : 26px;
-	font-weight : bold;
-	margin: 0px 0px 0px 0px;
+  color: #92B6F4;
+  font-size : 26px;
+  font-weight : bold;
+  margin: 0px 0px 0px 0px;
 }
 
 .mic_bar scale trough highlight {
-	all: unset;
+  all: unset;
     background-image: linear-gradient(to right, #afcee0 30%, #92B6F4 50%, #77a5bf 100% *50);
-	border-radius: 24px;
+  border-radius: 24px;
 }
 .mic_bar scale trough {
-	all: unset;
+  all: unset;
     box-shadow: 0 6px 5px 2px #06060b;
-	background-color: #232232;
-	border-radius: 24px;
-	min-height: 13px;
-	min-width: 120px;
-	margin : 0px 0px 20px 0px;
+  background-color: #232232;
+  border-radius: 24px;
+  min-height: 13px;
+  min-width: 120px;
+  margin : 0px 0px 20px 0px;
 }
 
 .audio_sep {
     color: #38384d;
     font-size: 18;
-	margin : 0px 0px 0px 0px;
+  margin : 0px 0px 0px 0px;
 }
 

@@ -1,0 +1,36 @@
+;; Variables
+(defpoll clock_time :interval "30s" "date +\%l")
+(defpoll clock_minute :interval "5s" "date '+\%M \%p'")
+(defpoll clock_date :interval "10h" "date '+%b %d, %Y'")
+(defpoll volume_percent :interval "3s" "amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+(defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+(defpoll brightness_percent :interval "5s" "light")
+(defpoll battery :interval "15s" "scripts/battery --bat")
+(defpoll battery_status :interval "1m" "scripts/battery --bat-st")
+(defpoll memory :interval "15s" "scripts/memory")
+(defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
+(defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
+(defpoll memory_free_mb :interval "2m" "scripts/mem-ad free")
+(defvar vol_reveal false)
+(defvar br_reveal false)
+(defvar music_reveal false)
+(defvar wifi_rev false)
+(defvar time_rev false)
+(deflisten workspace "scripts/workspace")
+
+(defvar eww "eww -c $HOME/.config/eww/bar")
+
+
+(defpoll COL_WLAN :interval "1m" "scripts/wifi --COL")
+(defpoll ESSID_WLAN :interval "1m" "scripts/wifi --ESSID")
+(defpoll WLAN_ICON :interval "1m" "scripts/wifi --ICON")
+
+
+(defpoll song :interval "2s"  "scripts/music_info --song")
+(defpoll song_artist :interval "2s"  "scripts/music_info --artist")
+(defpoll current_status :interval "1s"  "scripts/music_info --time")
+(defpoll song_status :interval "2s"  "scripts/music_info --status")
+(defpoll cover_art :interval "2s"  "scripts/music_info --cover")
+
+(defpoll calendar_day :interval "20h" "date '+%d'")
+(defpoll calendar_year :interval "20h" "date '+%Y'")

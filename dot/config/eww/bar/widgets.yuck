@@ -1,40 +1,3 @@
-;; Variables
-(defpoll clock_time :interval "30s" "date +\%l")
-(defpoll clock_minute :interval "5s" "date '+\%M \%p'")
-(defpoll clock_date :interval "10h" "date '+%b %d, %Y'")
-(defpoll volume_percent :interval "3s" "amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
-(defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
-(defpoll brightness_percent :interval "5s" "light")
-(defpoll battery :interval "15s" "scripts/battery --bat")
-(defpoll battery_status :interval "1m" "scripts/battery --bat-st")
-(defpoll memory :interval "15s" "scripts/memory")
-(defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
-(defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
-(defpoll memory_free_mb :interval "2m" "scripts/mem-ad free")
-(defvar vol_reveal false)
-(defvar br_reveal false)
-(defvar music_reveal false)
-(defvar wifi_rev false)
-(defvar time_rev false)
-(deflisten workspace "scripts/workspace")
-
-(defvar eww "eww -c $HOME/.config/hypr/bar")
-
-
-(defpoll COL_WLAN :interval "1m" "scripts/wifi --COL")
-(defpoll ESSID_WLAN :interval "1m" "scripts/wifi --ESSID")
-(defpoll WLAN_ICON :interval "1m" "scripts/wifi --ICON")
-
-
-(defpoll song :interval "2s"  "scripts/music_info --song")
-(defpoll song_artist :interval "2s"  "scripts/music_info --artist")
-(defpoll current_status :interval "1s"  "scripts/music_info --time")
-(defpoll song_status :interval "2s"  "scripts/music_info --status")
-(defpoll cover_art :interval "2s"  "scripts/music_info --cover")
-
-(defpoll calendar_day :interval "20h" "date '+%d'")
-(defpoll calendar_year :interval "20h" "date '+%Y'")
-
 ;; widgets
 
 (defwidget wifi []
@@ -50,10 +13,8 @@
         :orientation "h"
         )))))
 
-
 (defwidget workspaces []
   (literal :content workspace))
-
 
 (defwidget bat []
     (box :class "bat_module" :vexpand "false" :hexpand "false"
@@ -123,9 +84,11 @@
 
 (defwidget launcher []
   (box :class "launcher_module" :orientation "h"
-   (button :onclick "QT_QPA_PLATFORMTHEME=qt5ct XDG_CACHE_HOME=~/.cache fuzzel -b 000000BB -t FFFFFFFF -f 'Inter Nerd Font' -i Tela --show-actions -C 53E2AEFF -B 2 -m EE4F84FF -p 20 --letter-spacing=1 -y 10 &" :class "iconlauncher" "")
-   (button :onclick "wofi -show 'Global Search' -modi 'Global Search':$HOME/.config/hypr/rofi/global/rofi-spotlight.sh -theme $HOME/.config/hypr/rofi/global/rofi.rasi &" :class "iconsearch" "")
-   ))
+   (button :onclick "nohup kitty -e fish &" :class "iconlauncher" "")
+   (button :onclick "nohup firefox &" :class "iconlauncher" "輸")
+   (button :onclick "rofi -show 'Global Search' -modi \
+   'Global Search':$HOME/.config/rofi/spot-light/rofi-spotlight.sh -theme\
+   $HOME/.config/rofi/spot-light/rofi.rasi &" :class "iconlauncher" "")))
 
 (defwidget bright []
   (eventbox :onhover "${eww} update br_reveal=true" :onhoverlost "${eww} update br_reveal=false"
@@ -210,20 +173,6 @@
   (right)
     ))
 
-
-(defwindow bar
-          :exclusive false
-          :monitor 0
-          :geometry (geometry
-                       :x "15px"
-                       :y "9px"
-                       :width "1888px"
-                       :height "30px"
-                       :anchor "top center")
-          :stacking "bg"
-          :windowtype "dock"
-  (bar_1))
-
 (defwidget system []
   (box :class "sys_win" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false" :spacing 0
   (box :class "sys_bat_box" :orientation "h" :space-evenly "false"
@@ -292,17 +241,6 @@
         :day calendar_day
         :year calendar_year))))
 
-(defwindow calendar :stacking "fg" :focusable "false" :screen 1
-  :monitor 0
-  :geometry (geometry
-            :x "20"
-            :y "7%"
-                        :anchor "top right"
-            :width "270px"
-            :height "60px")
-(cal))
-
-
 
 (defwidget audio []
   (box :class "audio-box" :orientation "v" :space-evenly "false" :vexpand "false" :hexpand "false"
@@ -332,29 +270,6 @@
         :max 100
         :min 0))))))
 
-(defwindow audio_ctl :stacking "fg" :focusable "false" :screen 1
-  :monitor 0
-  :geometry (geometry
-            :x "20"
-            :y "7%"
-                        :anchor "top right"
-            :width "280px"
-            :height "60px")
-(audio))
-
-
-(defwindow system :stacking "fg" :focusable "false" :screen 1
-  :monitor 0
-  :geometry (geometry
-            :x "20"
-            :y "7%"
-                        :anchor "top right"
-            :width "290px"
-            :height "120px")
-(system))
-
-
-
 ;;  Music
 (defwidget music_pop []
     (box :class "music_pop" :orientation "h" :space-evenly "false" :vexpand "false" :hexpand "false"
@@ -369,15 +284,4 @@
         (box :class "music_bar" :halign "center" :vexpand "false" :hexpand "false" :space-evenly "false"
           (scale :onscroll "mpc -q seek {}" :min 0 :active "true" :max 100 :value current_status)))))
 
-
-;;  music
-    (defwindow music_win :stacking "fg" :focusable "false" :screen 1
-          :monitor 0
-          :geometry (geometry
-                    :x "0"
-                    :y "7%"
-                    :width 428
-                    :height 104
-                    :anchor "top center")
-(music_pop))
 

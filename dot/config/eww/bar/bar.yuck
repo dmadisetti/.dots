@@ -1,0 +1,13 @@
+;; the bar!
+(defwindow bar
+          :exclusive false
+          :monitor 0
+          :geometry (geometry
+                       :x "-5px"
+                       :y "-5px"
+                       :width "1930px"
+                       :height "30px"
+                       :anchor "top center")
+          :stacking "bg"
+          :windowtype "dock"
+  (bar_1))
