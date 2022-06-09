@@ -64,7 +64,7 @@
     # TODO: Fix grub2-themes so that it can use pngs.
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:vaxerski/Hyprland/v0.1.0beta;
+    hyprland.url = github:vaxerski/Hyprland/v0.4.0beta;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix for caching!
@@ -105,7 +105,7 @@
         };
         mamba = utils.mkComputer {
           machineConfig = ./nix/machines/mamba.nix;
-          wm = "hyprland";
+          wm = "xmonad";
           userConfigs = [ ./nix/home/daily-driver.nix ];
         };
         exalt = utils.mkComputer {

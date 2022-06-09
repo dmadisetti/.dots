@@ -98,16 +98,16 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1653678651,
-        "narHash": "sha256-iGyBkal1i27KrKv02jFkI3lBS/kID0Oj4h6ddNYQwdA=",
+        "lastModified": 1654537424,
+        "narHash": "sha256-fHrdOLIbAm6J3QA2CKJeAbtw7XTfR1XPUnQK/grSZuc=",
         "owner": "vaxerski",
         "repo": "Hyprland",
-        "rev": "9b6960eb554f320492fd1414ecb9e52a3ad3b7d4",
+        "rev": "b62e530fdbb419a70886f016c261f4fe681e9297",
         "type": "github"
       },
       "original": {
         "owner": "vaxerski",
-        "ref": "v0.1.0beta",
+        "ref": "v0.4.0beta",
         "repo": "Hyprland",
         "type": "github"
       }
@@ -152,7 +152,20 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sensitive": "sensitive"
+      }
+    },
+    "sensitive": {
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-0OYIRIlyX61JVKRh0WyOI9J/jArgtbAORQUzs+MCpdE=",
+        "path": "./nix/spoof",
+        "type": "path"
+      },
+      "original": {
+        "path": "./nix/spoof",
+        "type": "path"
       }
     },
     "wlroots": {

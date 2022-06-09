@@ -21,16 +21,27 @@ export DOTFILES
 test (stat -c '%G' /nix/store) != $USER && export NIX_REMOTE=daemon
 
 # Set up system for live disk
+function _unlock
+  if test -e $argv
+    if string match -q -- "*.asc" $argv
+      cat $argv | \
+        gpg -ida --cipher-algo twofish 2> /dev/null | \
+        xargs -i \
+          keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+    else
+      cat $argv | \
+        xargs -i \
+          keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+    end
+    return $status
+  end
+  return 1
+end
 if test -n "$LIVE" && ! test -d ~/keybase/private/$KEYBASE_USER
-  if test -e $DOTFILES/nix/sensitive/paper.key.asc
-    cat $DOTFILES/nix/sensitive/paper.key.asc | \
-      gpg -ida --cipher-algo twofish 2> /dev/null | \
-      xargs -i \
-        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
-  else if test -e /iso/paper.key
-    cat /iso/paper.key | \
-      xargs -i \
-        keybase oneshot -u $KEYBASE_USER --paperkey "{}"
+  if _unlock $DOTFILES/nix/sensitive/paper.key.asc
+  else if _unlock /iso/paper.key.asc
+  else if _unlock $DOTFILES/nix/sensitive/paper.key.asc
+  else if _unlock /iso/paper.key
   else
     echo "No paper key found..."
   end
