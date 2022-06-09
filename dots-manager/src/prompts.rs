@@ -135,6 +135,7 @@ fn default_wm() -> Option<String> {
         Question::select("wm")
             .message("Which window manager do you want?")
             .choices(vec![
+                "hyprland".into(),
                 "i3".into(),
                 "sway".into(),
                 "xmonad".into(),

@@ -1,0 +1,32 @@
+;; controls and other
+(defwindow calendar :stacking "fg" :focusable "false" :screen 1
+  :monitor 0
+  :geometry (geometry
+            :x "20"
+            :y "7%"
+                        :anchor "top right"
+            :width "270px"
+            :height "60px")
+(cal))
+
+(defwindow audio_ctl :stacking "fg" :focusable "false" :screen 1
+  :monitor 0
+  :geometry (geometry
+            :x "20"
+            :y "7%"
+                        :anchor "top right"
+            :width "280px"
+            :height "60px")
+(audio))
+
+(defwindow system :stacking "fg" :focusable "false" :screen 1
+  :monitor 0
+  :geometry (geometry
+            :x "20"
+            :y "7%"
+                        :anchor "top right"
+            :width "290px"
+            :height "120px")
+(system))
+
+

@@ -11,7 +11,8 @@
     inputs.hyprland.packages."x86_64-linux".default
     eww-wayland
     wl-clipboard
-    wofi
+    rofi
+    grim
     # from overlay
     mpvpaper
   ];

@@ -1,0 +1,10 @@
+;;  music
+(defwindow music_win :stacking "fg" :focusable "false" :screen 1
+      :monitor 0
+      :geometry (geometry
+                :x "0"
+                :y "7%"
+                :width 428
+                :height 104
+                :anchor "top center")
+(music_pop))
