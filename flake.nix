@@ -74,7 +74,7 @@
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
     let
       system = "x86_64-linux";
-      stateVersion = "22.05";
+      stateVersion = "22.11";
 
       dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";
 
