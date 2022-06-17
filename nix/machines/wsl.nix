@@ -1,20 +1,28 @@
 # WSL configuration
 
-{ lib, pkgs, user, config, modulesPath, ... }:
+{ lib, pkgs, user, config, modulesPath, self, ... }:
 
 with lib;
 let
   defaultUser = user;
-  syschdemd =
-    import ../lib/syschdemd.nix { inherit lib pkgs config defaultUser; };
 in
 {
-  imports = [ "${modulesPath}/profiles/minimal.nix" ];
+  imports = [
+    "${modulesPath}/profiles/minimal.nix"
+    self.inputs.nixos-wsl.nixosModules.wsl
+  ];
+
+  wsl = {
+    enable = true;
+    automountPath = "/mnt";
+    defaultUser = defaultUser;
+    tarball.includeConfig = true;
+  };
 
   # WSL is closer to a container than anything else
   boot.isContainer = true;
 
-  networking.hostName = "slug";
+  networking.hostName = "wsl";
 
   environment.etc.hosts.enable = false;
   environment.etc."resolv.conf".enable = false;
@@ -22,7 +30,6 @@ in
   networking.dhcpcd.enable = false;
 
   users.users.root = {
-    shell = "${syschdemd}/bin/syschdemd";
     # Otherwise WSL fails to login as root with "initgroups failed 5"
     extraGroups = [ "root" ];
   };

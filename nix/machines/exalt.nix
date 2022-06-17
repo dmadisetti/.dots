@@ -12,9 +12,6 @@
   networking.hostName = "exalt";
   networking.nameservers = [ "10.0.0.1" "1.1.1.1" "8.8.8.8" ];
 
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.

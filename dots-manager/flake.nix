@@ -31,14 +31,13 @@
 
         devShell = with pkgs;
           mkShell {
-            buildInputs = [
+            packages = [
               openssl
               rustc
               rustfmt
-            ];
-            packages = [
               # app packages
               cargo
+              clippy
               rustup
               openssl
               pkg-config

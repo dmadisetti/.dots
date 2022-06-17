@@ -33,6 +33,11 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
             context["user"].as_str().map(|x| x.to_string()),
             context["git_email"].as_str().map(|x| x.to_string()),
         ),
+        "installation_hostname" => user("Enter system hostname".to_string()),
+        "installation_hostid" => Some("".to_string()),
+        "installation_description" => free("Enter system description".to_string()),
+        "installation_category" => Some("machines".to_string()),
+        "installation_zfs_pool" => Some("".to_string()),
         _ => None,
     }
 }
@@ -222,7 +227,7 @@ fn pkgs() -> Option<String> {
     })
 }
 
-pub fn getty_qr(user: Option<String>, email: Option<String>) -> Option<String> {
+fn getty_qr(user: Option<String>, email: Option<String>) -> Option<String> {
     let message = if let Some(email) = email {
         format!("mailto:{}", email)
     } else {

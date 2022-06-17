@@ -20,7 +20,7 @@
 #
 # » Implemented machines:
 #    • mamba   → Dualboot Thinkpad daily driver
-#    • slug    → WSL on the daily driver.
+#    • wsl     → WSL on the daily driver.
 #    • exalt   → Craptop converted for Nix hacking
 #    • brick   → Tower that works as router, 610 NVidia graphics lol
 #
@@ -39,8 +39,12 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/dylan/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/90cd5459a1fd707819b9a3fb9c852beaaac3b79a;
+    nixpkgs.url = github:nixos/nixpkgs/6616de389ed55fba6eeba60377fc04732d5a207c;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
+
+    # Build our own wsl
+    nixos-wsl.url = github:nix-community/NixOS-WSL;
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -112,8 +116,8 @@
           machineConfig = ./nix/machines/exalt.nix;
           wm = "fb";
         };
-        slug = utils.mkComputer {
-          machineConfig = ./nix/machines/slug.nix;
+        wsl = utils.mkComputer {
+          machineConfig = ./nix/machines/wsl.nix;
           isContainer = true;
         };
         momento = utils.mkComputer {
