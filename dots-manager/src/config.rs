@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::commands::template::apply_template;
 
+use handlebars::JsonValue;
+
 #[derive(Debug)]
 pub struct System {
     configs: HashMap<String, Config>,
@@ -99,7 +101,7 @@ impl System {
         {{# each categories as |category| }}
         # » Implemented {{category.name}}:
             {{# each category.machines as |config| }}
-        #    • {{config.machine}} → {{config.description}}
+        #    • {{config.machine}} → {{{config.description}}}
             {{/ each }}
         #
         {{/each}}
@@ -118,6 +120,11 @@ impl System {
 
     pub fn remove_config(&mut self, name: &str) {
         self.configs.remove(name);
+    }
+
+    pub fn add_config(&mut self, config: Config) -> Result<(), Box<dyn Error>> {
+        self.configs.insert(config.machine.clone(), config);
+        Ok(())
     }
 }
 
@@ -146,6 +153,40 @@ impl Config {
             description,
             category,
         }
+    }
+
+    pub fn maybe_new_from_data(data: JsonValue) -> Result<Self, Box<dyn Error>> {
+        let machine = data
+            .get("installation_hostname")
+            .ok_or("Bad hostname")?
+            .as_str()
+            .ok_or("Bad hostname")?
+            .to_string();
+        let description = data
+            .get("installation_description")
+            .ok_or("Bad description")?
+            .as_str()
+            .ok_or("Bad description")?
+            .to_string();
+        let category = data
+            .get("installation_category")
+            .ok_or("Bad category")?
+            .as_str()
+            .ok_or("Bad category")?
+            .to_string();
+        let content = "utils.mkComputer {
+          machineConfig = ./nix/machines/{{installation_hostname}}.nix;
+          wm = \"{{default_wm}}\";
+          userConfigs = [ ];
+        }"
+        .to_string();
+        let config = apply_template(data, content)?.trim().to_string();
+        Ok(Self {
+            machine,
+            config,
+            description,
+            category,
+        })
     }
 
     fn merge(&self, config: String) -> Self {

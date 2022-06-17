@@ -1,6 +1,5 @@
 use std::error::Error;
-use std::fs::{read_to_string, File};
-use std::io::Write;
+use std::fs::read_to_string;
 
 use std::path::PathBuf;
 
@@ -16,6 +15,7 @@ use serde_json::json;
 
 use crate::parse::*;
 use crate::prompts::prompts;
+use crate::utils::maybe_write;
 
 fn build_questions(
     defaults: JsonValue,
@@ -113,14 +113,16 @@ fn build_questions_from_root(ast: &AST, defaults: JsonValue) -> Result<JsonValue
 
 pub fn apply_template(data: JsonValue, content: String) -> Result<String, Box<dyn Error>> {
     let mut reg = Handlebars::new();
-    reg.register_template_string("flake", content)?;
+    reg.register_template_string("flake", content.clone())?;
     let attempt = reg.render("flake", &data)?;
     let ast = rnix::parse(&attempt);
+
     for error in ast.errors() {
         eprintln!("error: {}", error);
     }
     if !ast.errors().is_empty() {
         eprintln!("potential issues: {}", nixpkgs_fmt::explain(&attempt));
+        eprintln!("{}", content);
         return Err(
             "Could not parse template. Please open an issue?! github:dmadisetti/.dots/issues"
                 .into(),
@@ -129,28 +131,9 @@ pub fn apply_template(data: JsonValue, content: String) -> Result<String, Box<dy
     Ok(reformat_string(&attempt))
 }
 
-pub fn config_template(
+pub fn load_ast(
     file: PathBuf,
-    outfile: Option<PathBuf>,
-    defaults: Option<PathBuf>,
-) -> Result<(), Box<dyn Error>> {
-    let defaults = match defaults {
-        Some(path) => match read_to_string(path) {
-            Ok(x) => match serde_json::from_str(&x) {
-                Ok(x) => x,
-                Err(e) => {
-                    eprintln!("Could not parse defaults: {}", e);
-                    return Err("Could not parse defaults".into());
-                }
-            },
-            Err(err) => {
-                eprintln!("Could not read defaults: {}", err);
-                return Err("Could not read defaults".into());
-            }
-        },
-        None => json!({}),
-    };
-
+) -> Result<AST, Box<dyn Error>> {
     let content = match read_to_string(file) {
         Ok(content) => content,
         Err(err) => {
@@ -166,18 +149,55 @@ pub fn config_template(
         eprintln!("potential issues: {}", nixpkgs_fmt::explain(&content));
         return Err("Please fix template errors.".into());
     }
+    Ok(ast)
+}
+
+
+pub fn load_defaults(
+    defaults: Option<PathBuf>,
+) -> Result<JsonValue, Box<dyn Error>> {
+    match defaults {
+        Some(path) => match read_to_string(path) {
+            Ok(x) => match serde_json::from_str(&x) {
+                Ok(x) => Ok(x),
+                Err(e) => {
+                    eprintln!("Could not parse defaults: {}", e);
+                    Err("Could not parse defaults".into())
+                }
+            },
+            Err(err) => {
+                eprintln!("Could not read defaults: {}", err);
+                Err("Could not read defaults".into())
+            }
+        },
+        None => Ok(json!({})),
+    }
+}
+
+pub fn config_template_with_defaults(
+    file: PathBuf,
+    defaults: JsonValue,
+    outfile: Option<PathBuf>,
+) -> Result<JsonValue, Box<dyn Error>> {
+    let ast = load_ast(file)?;
 
     // Refresh content to get rid of extrenous comments.
-    let content = ast.root().inner().unwrap().to_string();
     let data = build_questions_from_root(&ast, defaults)?;
 
-    let attempt = apply_template(data, content)?;
-    match outfile {
-        Some(outfile) => {
-            let mut file = File::create(outfile)?;
-            file.write_all(attempt.as_bytes())?;
-        }
-        None => println!("{}", attempt),
-    };
-    Ok(())
+    let content = ast.root().inner().unwrap().to_string();
+    let attempt = apply_template(data.clone(), content)?;
+    maybe_write(outfile, attempt)?;
+    Ok(data)
+}
+
+pub fn config_template(
+    file: PathBuf,
+    defaults: Option<PathBuf>,
+    outfile: Option<PathBuf>,
+) -> Result<(), Box<dyn Error>> {
+    let defaults = load_defaults(defaults)?;
+    match config_template_with_defaults(file, defaults, outfile) {
+        Err(e) => Err(e),
+        Ok(_) => Ok(()),
+    }
 }

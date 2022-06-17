@@ -79,6 +79,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
   _configs = nixpkgs.lib.strings.concatStringsSep " "
     (builtins.attrNames self.nixosConfigurations);
   _live = self.nixosConfigurations.momento.config.system.build.isoImage;
+  _wsl = self.nixosConfigurations.wsl.config.system.build.installer;
   _clean = pkgs.writeShellScriptBin "clean-dots" ''
     FLAKE=${../flake.nix}
     PATH=${dots-manager-path}:${pkgs.jq}/bin:$PATH

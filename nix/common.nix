@@ -24,7 +24,10 @@
     };
   };
 
-  time.timeZone = "America/New_York";
+  time.timeZone =
+    if self.inputs.sensitive.lib ? timeZone
+    then self.inputs.sensitive.lib.timeZone
+    else "America/New_York";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.mutableUsers = false;
