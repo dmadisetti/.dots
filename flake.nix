@@ -2,6 +2,9 @@
 # » Implemented devices:
 #    • momento → Live USB stick with configs for amnesiac + installs
 #
+# » Implemented machines:
+#    • wsl → WSL on the daily driver.
+#
 # A fair bit of inspiration from github:srid/nixos-config
 {
   description = "⚫⚫⚫s on NixOS";
@@ -81,6 +84,11 @@
             machineConfig = ./nix/machines/momento.nix;
             wm = "none";
             userConfigs = [ ./nix/home/live.nix ];
+          };
+
+          "wsl" = utils.mkComputer {
+            machineConfig = ./nix/machines/wsl.nix;
+            isContainer = true;
           };
         };
 
