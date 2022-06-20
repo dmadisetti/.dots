@@ -40,7 +40,7 @@
   # for raw home-manager configurations
   mkHome = username: {
     "${username}" = home-manager.lib.homeManagerConfiguration {
-      inherit system username stateVersion;
+      inherit system username stateVersion pkgs;
       # Specify the path to your home configuration here
       configuration = import (maybeUserConfig username) {
         inherit inputs system pkgs self stateVersion;
