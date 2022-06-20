@@ -6,6 +6,28 @@ on:
     - cron: "30 9 * * 2"
 
 jobs:
+  build-wsl:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: "provision wsl"
+      uses: ./.github/actions/runner
+      id: runner
+
+    - name: "build public iso"
+      run: |
+        wsl
+        dots-help | sed -n 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g;/# default iso/,$p' > README.txt
+      shell: fish {0}
+
+    - name: "provide default iso"
+      uses: actions/upload-artifact@v3
+      with:
+        name: live-iso
+        path: |
+          result/tarball/*.tar.gz
+          README.txt
+
   build-live:
     runs-on: ubuntu-latest
     steps:
