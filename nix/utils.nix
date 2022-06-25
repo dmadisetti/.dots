@@ -18,6 +18,10 @@
   };
 
   # helper
+  maybe = set: attr: default:
+    if set ? "${attr}"
+    then set."${attr}" else default;
+
   maybeUserConfig = user:
     let personalized_config = (./home/users + "/${user}.nix");
     in
