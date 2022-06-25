@@ -68,7 +68,7 @@
     # TODO: Fix grub2-themes so that it can use pngs.
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:vaxerski/Hyprland/v0.4.0beta;
+    hyprland.url = github:vaxerski/Hyprland/v0.6.0beta;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix for caching!
@@ -86,7 +86,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = import ./nix/overlays.nix { inherit sensitive; };
-        config.allowUnfree = false;
+        config.allowUnfree = utils.maybe sensitive.lib "sellout" false;
         # we are not ready... !
         # config.contentAddressedByDefault = false;
       };
@@ -122,7 +122,7 @@
         };
         momento = utils.mkComputer {
           machineConfig = ./nix/machines/momento.nix;
-          wm = "none";
+          wm = utils.maybe sensitive.lib "default_wm" "none";
           userConfigs = [ ./nix/home/live.nix ];
         };
       };
@@ -133,6 +133,7 @@
         "${sensitive.lib.user}"
       ]);
 
-    # Import some scripts!
-    } // (import ./scripts/scripts.nix {inherit self nixpkgs pkgs sensitive dots-manager-path;});
+      lib.utils = utils;
+      # Import some scripts!
+    } // (import ./scripts/scripts.nix { inherit self nixpkgs pkgs sensitive dots-manager-path; });
 }
