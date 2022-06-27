@@ -15,6 +15,24 @@
         "type": "github"
       }
     },
+    "dots-manager": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-wLmIOqrMc1U4Uzti94mvGDskxnJFm1OfhPmsPLKXtms=",
+        "path": "./dots-manager",
+        "type": "path"
+      },
+      "original": {
+        "path": "./dots-manager",
+        "type": "path"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -201,13 +219,27 @@
     "root": {
       "inputs": {
         "declarative-cachix": "declarative-cachix",
+        "dots-manager": "dots-manager",
         "grub2-themes": "grub2-themes",
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sensitive": "sensitive"
+      }
+    },
+    "sensitive": {
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-E9Wtv9GpUV21F0RxW2w8GvyOnyrS8z2Ww3pQpZO6pPI=",
+        "path": "./nix/spoof",
+        "type": "path"
+      },
+      "original": {
+        "path": "./nix/spoof",
+        "type": "path"
       }
     },
     "utils": {
