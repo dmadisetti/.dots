@@ -44,14 +44,25 @@
   # for raw home-manager configurations
   mkHome = username: {
     "${username}" = home-manager.lib.homeManagerConfiguration {
-      inherit system username stateVersion pkgs;
-      # Specify the path to your home configuration here
-      configuration = import (maybeUserConfig username) {
-        inherit inputs system pkgs self stateVersion;
-      };
-      extraModules = [ ./home/standalone.nix ];
+      inherit pkgs;
+      modules = [
+        # No NixOs
+        ./home/standalone.nix
 
-      homeDirectory = "/home/${username}";
+        # Specify the path to your home configuration here
+        (import (maybeUserConfig username)
+          {
+            inherit inputs system pkgs self stateVersion;
+          })
+
+        # Set home directory
+        {
+          home = {
+            inherit stateVersion username;
+            homeDirectory = "/home/${username}";
+          };
+        }
+      ];
     };
   };
 
