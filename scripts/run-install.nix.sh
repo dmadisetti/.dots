@@ -125,7 +125,7 @@ nixos-generate-config --root /mnt \
 
 cd $DOTFILES
 git init .
-git add --all -f
+git add --all --ignore-errors || :
 cd /
 
 nixos-install \
