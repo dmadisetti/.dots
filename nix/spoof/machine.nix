@@ -6,7 +6,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      "./hardware/{{installation_hostname}}.nix"
+      /* {{#unless installation_hostname}} */
+      # {{else}} */ ./hardware/{{installation_hostname}}.nix
+      # {{/unless}}
     ];
 
   # Use the systemd-boot EFI boot loader.

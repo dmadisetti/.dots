@@ -56,10 +56,10 @@ ensure_dotfiles() {
 set_sensitive() {
   if [ ! -d "$DOTFILES"/nix/sensitive/.git ]; then
     pushd "$DOTFILES"/nix/sensitive > /dev/null || exit 1
-    git init . > /dev/null
+    git init . > /dev/null || :
     git add -N flake.nix
-    git add -N nix/home/users/user.nix 2> /dev/null
-    git add -N nix/home/users/${nix_user:-$USER}.nix 2> /dev/null
+    git add -N nix/home/users/user.nix 2> /dev/null || :
+    git add -N nix/home/users/${nix_user:-$USER}.nix 2> /dev/null || :
     popd > /dev/null || exit 1
   fi
 }

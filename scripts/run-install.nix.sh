@@ -76,7 +76,7 @@ zfs create -o canmount=on -o mountpoint=legacy $zfs_pool/user/home/root
 zfs create -o canmount=on $zfs_pool/user/home/$user
 
 # And a media container
-zfs create -o canmount=on -o mountpoint=/media $zfs_pool/media
+zfs create -o canmount=on -o mountpoint=legacy $zfs_pool/media
 
 mkdir -p /mnt/
 mount -t zfs $zfs_pool/system/root /mnt
@@ -90,7 +90,7 @@ mount -t zfs $zfs_pool/user/home/root /mnt/root
 mkdir -p /mnt/home/$user
 mount -t zfs $zfs_pool/user/home/$user /mnt/home/$user
 
-zfs mount $zfs_pool/media
+mount -t zfs $zfs_pool/media /mnt/media
 
 if $SHARED_BOOT; then
   mount "${bootable}$boot" /mnt/boot
@@ -123,9 +123,13 @@ set_sensitive
 nixos-generate-config --root /mnt \
   --show-hardware-config > /mnt/home/$user/.dots/nix/machines/hardware/$hostname.nix
 
+cd $DOTFILES
+git init .
+git add --all -f
+cd /
+
 nixos-install \
   --flake "$DOTFILES#$hostname" \
-  --no-root-passwd \
   --cores 0 \
   --no-channel-copy
 
