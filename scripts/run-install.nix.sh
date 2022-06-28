@@ -42,7 +42,8 @@ done
 
 mirror=
 if [ ${#disks[@]} -gt 1 ]; then
-  mirror="mirror"
+  mirror="raidz"
+  # mirror="mirror"
 fi
 
 zpool destroy $zfs_pool 2> /dev/null || true
@@ -130,6 +131,7 @@ cd /
 
 nixos-install \
   --flake "$DOTFILES#$hostname" \
+  --override-input sensitive $DOTFILES/nix/sensitive \
   --cores 0 \
   --no-channel-copy
 

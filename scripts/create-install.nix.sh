@@ -5,8 +5,7 @@ tmp_install_dir=$(mktemp -d -t dots-install-XXXXXXXXXX)
 
 echo -en "$WELCOME"
 dots-manager pre-installation "$DOTFILES" "$tmp_install_dir" \
-   <(echo -n "{\"user\": \"${nix_user:-$USER}\", \
-             \"dots\": \"$DOTFILES\", \
+   <(echo -n "{\"dots\": \"$DOTFILES\", \
              $(infer_settings), \
              \"default_wm\":\"$nix_default_wm\"}") || exit 1
 
