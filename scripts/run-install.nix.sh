@@ -1,12 +1,23 @@
 #!/usr/bin/env bash
-set -eu
+set -eux
 if [ $USER != root ]; then
   echo 'you must be root!' 1>&2
   exit 1
 fi
 
-[ " ${disks[*]} " =~ " ${bootable} " ] && \
-  SHARED_BOOT=true || \
+if [ "$user" == "" ]; then
+  user=$nix_user
+fi
+
+encrypt_flags=
+if [ "$zfs_encrypted" == "true" ]; then
+  encrypt_flags="-O encryption=aes-256-gcm \
+  -O keylocation=prompt \
+  -O keyformat=passphrase"
+fi
+
+[[ " ${disks[*]} " =~ " ${bootable} " ]] &&
+  SHARED_BOOT=true ||
   SHARED_BOOT=false
 
 main=1
@@ -34,7 +45,8 @@ if [ ${#disks[@]} -gt 1 ]; then
   mirror="mirror"
 fi
 
-zpool create \
+zpool destroy $zfs_pool 2> /dev/null || true
+zpool create -f \
   -o ashift=12 \
   -o autotrim=on \
   -R /mnt \
@@ -47,35 +59,38 @@ zpool create \
   -O normalization=formD \
   -O relatime=on \
   -O xattr=sa \
-  -O encryption=aes-256-gcm \
-  -O keylocation=prompt \
-  -O keyformat=passphrase \
   -O refreservation=1G \
-  zoot $mirror "${disks[@]/%/$main}"
+  $encrypt_flags \
+  $zfs_pool $mirror "${disks[@]/%/$main}"
 
-zfs create -p -o mountpoint=legacy zoot/system
-zfs create -o mountpoint=legacy  zoot/system/{root,nix}
-zfs create -o mountpoint=legacy  zoot/persist
-zfs snapshot zoot/system/root/@blank
+zfs create -p -o mountpoint=legacy $zfs_pool/system
+zfs create -o mountpoint=legacy $zfs_pool/system/root
+zfs create -o mountpoint=legacy $zfs_pool/system/nix
+zfs create -o mountpoint=legacy $zfs_pool/persist
+zfs snapshot $zfs_pool/system/root@blank
 
-zfs create -o canmount=off zoot/user
-zfs create -o canmount=on -o mountpoint=legacy zoot/user/home
-zfs create -o canmount=on -o mountpoint=legacy zoot/user/home/root
+zfs create -o canmount=off $zfs_pool/user
+zfs create -o canmount=on -o mountpoint=legacy $zfs_pool/user/home
+zfs create -o canmount=on -o mountpoint=legacy $zfs_pool/user/home/root
 # Create child datasets of home for users' home directories.
-zfs create -o canmount=on zoot/user/home/$user
+zfs create -o canmount=on $zfs_pool/user/home/$user
 
 # And a media container
-zfs create -o canmount=on -o mountpoint=/media zoot/media
+zfs create -o canmount=on -o mountpoint=/media $zfs_pool/media
 
-mkdir -p /mnt/{persist,nix,boot,root,media,home/$user}
+mkdir -p /mnt/
+mount -t zfs $zfs_pool/system/root /mnt
 
-mount -t zfs zoot/system/root /mnt
-mount -t zfs zoot/system/nix /mnt/nix
-mount -t zfs zoot/persist /mnt/persist
-mount -t zfs zoot/user/home /mnt/home
-mount -t zfs zoot/user/home/root /mnt/root
-mount -t zfs zoot/user/home/$user /mnt/home/$user
-mount -t zfs zoot/media /mnt/media
+mkdir -p /mnt/{persist,nix,boot,root,media,home}
+mount -t zfs $zfs_pool/system/nix /mnt/nix
+mount -t zfs $zfs_pool/persist /mnt/persist
+mount -t zfs $zfs_pool/user/home /mnt/home
+mount -t zfs $zfs_pool/user/home/root /mnt/root
+
+mkdir -p /mnt/home/$user
+mount -t zfs $zfs_pool/user/home/$user /mnt/home/$user
+
+zfs mount $zfs_pool/media
 
 if $SHARED_BOOT; then
   mount "${bootable}$boot" /mnt/boot
@@ -90,21 +105,30 @@ else
   mount "${bootable}2" /mnt/boot
 fi
 
-# TODO: !! copy dots here
-mkdir -p /mnt/home/$user/.dots
-
-cp $tmp_install_dir/machine.nix /mnt/home/$user/.dots/nix/machines/$hostname.nix
+# Move over generated files
+cp -R $DOTFILES /mnt/home/$user/.dots
+cp $tmp_install_dir/machine.nix \
+  /mnt/home/$user/.dots/nix/machines/$hostname.nix
 cp $tmp_install_dir/flake.nix /mnt/home/$user/.dots/
-nixos-generate-config --root /mnt --show-hardware-config > \
-  /mnt/home/$user/.dots/nix/machines/hardware/$hostname.nix
+if [ "$dont_refresh" != "true" ]; then
+  rm -rf /mnt/home/$user/.dots/nix/sensitive
+  mkdir -p /mnt/home/$user/.dots/nix/sensitive
+  cp $tmp_install_dir/sensitive.nix \
+    /mnt/home/$user/.dots/nix/sensitive/flake.nix
+fi
+
+DOTFILES=/mnt/home/$user/.dots
+set_sensitive
+
+nixos-generate-config --root /mnt \
+  --show-hardware-config > /mnt/home/$user/.dots/nix/machines/hardware/$hostname.nix
 
 nixos-install \
-  --flake "/mnt/persist/dots#$hostname"
+  --flake "$DOTFILES#$hostname" \
   --no-root-passwd \
   --cores 0 \
   --no-channel-copy
 
 cd /
 umount -R /mnt
-zpool export zoot
-echo 'You can reboot now (:'
+zpool export $zfs_pool

@@ -45,7 +45,7 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
         "installation_description" => free("Enter system description".to_string()),
         "installation_category" => Some("machines".to_string()),
 
-        "installation_zfs_encrypted" => Some("".to_string()),
+        "installation_zfs_encrypted" => confirm("Encrypt partitions?".to_string()),
         "installation_zfs_pool" => {
             user("What should we name your zfs pool? (e.g. zoot)".to_string())
         }
@@ -91,6 +91,12 @@ fn hex(prompt: String, length: u32) -> Option<String> {
         format!("Not valid hex (expected length {})", length),
         re,
     )
+}
+
+fn confirm(prompt: String) -> Option<String> {
+    requestty::prompt_one(Question::confirm("confirm").message(prompt).build())
+        .ok()
+        .and_then(|u| u.as_bool().map(|u| if u { "true" } else { "false" }.to_string()))
 }
 
 fn password(prompt: String, hashed: bool) -> Option<String> {
@@ -231,7 +237,7 @@ fn format_disk_strings(disks: &serde_json::Value) -> Vec<String> {
             x.iter()
                 .map(|xp| {
                     apply_template(xp, "{{name}} ➔ {{model}} ({{size}})".to_string())
-                        .unwrap_or_else(|_|"".to_string())
+                        .unwrap_or_else(|_| "".to_string())
                 })
                 .collect()
         })
@@ -249,7 +255,7 @@ fn select_disks(disks: serde_json::Value) -> Option<String> {
     .as_list_items()
     .map(|x| {
         x.iter()
-            .map(|y| disks[y.index]["name"].as_str().unwrap_or("").to_string())
+            .map(|x| format!("/dev/{}", disks[x.index]["name"].as_str().unwrap_or("")))
             .collect::<Vec<String>>()
             .join("\" \"")
     })
@@ -264,7 +270,7 @@ fn choose_disk(disks: serde_json::Value) -> Option<String> {
     )
     .ok()?
     .as_list_item()
-    .map(|x| disks[x.index]["name"].as_str().unwrap_or("").to_string())
+    .map(|x| format!("/dev/{}", disks[x.index]["name"].as_str().unwrap_or("")))
 }
 
 fn pkgs() -> Option<String> {

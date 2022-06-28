@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-if [ -z "$DOTFILES" ]; then
-   DOTFILES=$HOME/.dots
-fi
+ensure_dotfiles
+
 SKIP_GENERATE=false
 TMP=$(mktemp -d -t dots-flake-XXXXXXXXXX)
 if [ -d $DOTFILES ]; then

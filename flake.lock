@@ -24,7 +24,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-wLmIOqrMc1U4Uzti94mvGDskxnJFm1OfhPmsPLKXtms=",
+        "narHash": "sha256-LDJBnue/6JjGVdDbxG3IpaOWLxjSBImrZEQAcq57CmI=",
         "path": "./dots-manager",
         "type": "path"
       },
@@ -148,16 +148,16 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1655936542,
-        "narHash": "sha256-SHElAr8ZnLirEX8qd4vRyNaorUMi0lAEn/v5+GIlA5c=",
+        "lastModified": 1656266982,
+        "narHash": "sha256-0Msqe2ErAJvnO1zHoB2k6TkDhTYnHRGkvJrfSG12dTU=",
         "owner": "vaxerski",
         "repo": "Hyprland",
-        "rev": "64f6818a134057b84eb1aac473567b90a75d75d0",
+        "rev": "0b525cdc63b6dbed55d3a618664e059055c3938d",
         "type": "github"
       },
       "original": {
         "owner": "vaxerski",
-        "ref": "v0.6.0beta",
+        "ref": "v0.6.1beta",
         "repo": "Hyprland",
         "type": "github"
       }

@@ -4,7 +4,7 @@
   outputs = _: {
     lib = {
       installation = {
-        enable = false;
+        enable = true;
         hostname = "{{installation_hostname}}";
         hostid = "{{installation_hostid}}";
         description = "{{installation_description}}";

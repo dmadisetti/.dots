@@ -34,7 +34,7 @@ pub fn preinstall(
         Some(1) => template::load_defaults(defaults)?,
         Some(2) => {
             skip = true;
-            json!({"skip": true})
+            json!({"dont_refresh": true})
         }
         _ => return Err("bad selection".into()),
     };
@@ -63,7 +63,7 @@ pub fn preinstall(
     };
 
     // template install flake
-    let outfile = Some(install_folder.join(PathBuf::from("main.nix")));
+    let outfile = Some(install_folder.join(PathBuf::from("install.nix")));
     let template = dots_location.join(PathBuf::from("nix/spoof/install.nix"));
     let other_data = template::config_template_with_defaults(template, defaults, outfile)?;
     // merge data
