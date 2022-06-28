@@ -55,6 +55,17 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     source ${./create-home.nix.sh}
   '';
 
+  install = pkgs.writeShellScriptBin "create-install" ''
+    # Sleep required for requestty
+    sleep 0.05
+    REMOTE=${../.github/assets/remote.txt}
+    SPOOF=${../nix/spoof/flake.nix}
+    WELCOME="$(${self._prettyprint}/bin/prettyprint hello-home)"
+    PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
+    source ${./create-install.nix.sh}
+  '';
+
+
   # Flake outputs used by hooks.
   _prettyprint =
     let
@@ -69,8 +80,8 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
           done
         '';
       };
-      # generate messages prior to remove 20mb+ dependency of glow.
     in
+    # generate messages prior to remove 20mb+ dependency of glow.
     pkgs.writeShellScriptBin "prettyprint" ''
       for msg in "$@"; do
         cat ${messages}/$(basename $msg .md) 2> /dev/null || echo "prettyprint error for $msg";

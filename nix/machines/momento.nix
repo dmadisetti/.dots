@@ -28,6 +28,19 @@ in
     "${modulesPath}/installer/cd-dvd/channel.nix"
   ];
 
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+  };
+  services.sonarr = {
+    enable = true;
+    openFirewall = true;
+  };
+  services.radarr = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # who's a forgetful device?
   networking.hostName = hostName;
 
@@ -81,4 +94,13 @@ in
   # system layout on a fresh machine, before it has been formatted.
   swapDevices = mkImageMediaOverride [ ];
   fileSystems = mkImageMediaOverride config.lib.isoFileSystems;
+
+  # nvidia
+  services.xserver.videoDrivers = [ "nvidia" ];
+  programs.xwayland.enable = true;
+  hardware.nvidia.package =
+    pkgs.linuxKernel.packages.linux_5_15.nvidia_x11;
+  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.prime.offload.enable
+  environment.systemPackages = with pkgs; [ nvidia-docker ];
 }

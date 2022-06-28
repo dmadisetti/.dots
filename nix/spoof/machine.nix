@@ -1,4 +1,4 @@
-# Machine level configuaration for {{hostname}}
+# Machine level configuaration for {{installation_hostname}}
 # See 'dots-help' or 'nixos-help'.
 
 { config, pkgs, ... }:
@@ -6,7 +6,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      "./hardware/{{hostname}}.nix"
+      "./hardware/{{installation_hostname}}.nix"
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -28,7 +28,7 @@
     trim.enable = true;
     autoScrub = {
       enable = true;
-      pools = [ "{{installation_zfs_pool}}" ];
+      pools = [ "{{{installation_zfs_pool}}}" ];
     };
   };
   #{{else}}*/{{/if}}

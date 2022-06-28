@@ -11,14 +11,16 @@ use regex::Regex;
 use handlebars::JsonValue;
 use requestty::{Answer, Choice, DefaultSeparator, OnEsc, Question};
 
+use crate::commands::template::apply_template;
+
 pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
     match key.as_str() {
         "certificates" => Some("".to_string()),
         "default_wm" => default_wm(),
-        "sshd_port" => free("Provide the accepting port number".to_string()),
+        "sshd_port" => number("Provide the accepting port number".to_string()),
         "git_email" => free("Enter your email for git".to_string()),
         "git_name" => free("Enter your name for git".to_string()),
-        "git_signing_key" => free("Enter your gpg key fingerprint".to_string()),
+        "git_signing_key" => hex("Enter your gpg key fingerprint".to_string(), 16),
         "hashed" => password("system password".to_string(), true),
         "keybase_paper" => paper(),
         "keybase_username" => user("Enter your keybase username (https://keybase.io/)".to_string()),
@@ -33,34 +35,62 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
             context["user"].as_str().map(|x| x.to_string()),
             context["git_email"].as_str().map(|x| x.to_string()),
         ),
+
         "installation_hostname" => user("Enter system hostname".to_string()),
-        "installation_hostid" => Some("".to_string()),
+        "installation_hostid" => hex(
+            "Enter a 8 byte (hex) hostid, see gist.github.com/a8962d61a54631cd72cff16d3292cc69 for ideas"
+                .to_string(),
+            8,
+        ),
         "installation_description" => free("Enter system description".to_string()),
         "installation_category" => Some("machines".to_string()),
-        "installation_zfs_pool" => Some("".to_string()),
+
+        "installation_zfs_encrypted" => Some("".to_string()),
+        "installation_zfs_pool" => {
+            user("What should we name your zfs pool? (e.g. zoot)".to_string())
+        }
+        "installation_zfs_disks" => select_disks(context["installation_zfs_available"].clone()),
+        "installation_zfs_bootable" => choose_disk(context["installation_zfs_available"].clone()),
         _ => None,
     }
 }
 
-fn free(prompt: String) -> Option<String> {
-    requestty::prompt_one(Question::input("free").message(prompt).build())
-        .ok()
-        .and_then(|u| u.as_string().map(|u| u.to_string()))
-}
-
-fn user(prompt: String) -> Option<String> {
-    let re = Regex::new(r"^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$").unwrap();
+fn regex_prompt(prompt: String, error: String, re: Regex) -> Option<String> {
     requestty::prompt_one(
-        Question::input("user")
+        Question::input("regexed")
             .message(prompt)
             .validate(|u, _| match re.is_match(u) {
                 true => Ok(()),
-                false => Err("Username is not POSIX compliant".to_string()),
+                false => Err(error.clone()),
             })
             .build(),
     )
     .ok()
-    .and_then(|u| u.as_string().map(|u| u.to_string()))
+    .and_then(|u| u.as_string().map(|u| u.trim().to_string()))
+}
+
+fn free(prompt: String) -> Option<String> {
+    let re = Regex::new(r"^.{0, 512}$").unwrap();
+    regex_prompt(prompt, "String too long".to_string(), re)
+}
+
+fn user(prompt: String) -> Option<String> {
+    let re = Regex::new(r"^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$").unwrap();
+    regex_prompt(prompt, "Username is not POSIX compliant".to_string(), re)
+}
+
+fn number(prompt: String) -> Option<String> {
+    let re = Regex::new(r"^[0-9]+$").unwrap();
+    regex_prompt(prompt, "Not a valid number".to_string(), re)
+}
+
+fn hex(prompt: String, length: u32) -> Option<String> {
+    let re = Regex::new(&format!(r"^[A-Fa-f0-9]{{{}}}$", length)).unwrap();
+    regex_prompt(
+        prompt,
+        format!("Not valid hex (expected length {})", length),
+        re,
+    )
 }
 
 fn password(prompt: String, hashed: bool) -> Option<String> {
@@ -101,17 +131,11 @@ fn password(prompt: String, hashed: bool) -> Option<String> {
 
 fn paper() -> Option<String> {
     let re = Regex::new(r"^\s*([a-z]+\s+){12}[a-z]+\s*$").unwrap();
-    let paper_key = requestty::prompt_one(
-        Question::editor("paper")
-            .message("Enter your keybase paper key:")
-            .validate(|u, _| match re.is_match(u) {
-                true => Ok(()),
-                false => Err("keybase paperkeys are 13 lowercase words".to_string()),
-            })
-            .build(),
-    )
-    .ok()
-    .and_then(|u| u.as_string().map(|u| u.trim().to_string()));
+    let paper_key = regex_prompt(
+        "Enter your keybase paper key".to_string(),
+        "keybase paperkeys are 13 lowercase words".to_string(),
+        re,
+    );
     if let Ok(Answer::Bool(true)) = requestty::prompt_one(
         Question::confirm("enable")
             .message("Store encrypted?")
@@ -198,6 +222,49 @@ fn nix_block(message: String, block: String) -> Option<String> {
     )
     .ok()
     .and_then(|u| u.as_string().map(|u| u.to_string()))
+}
+
+fn format_disk_strings(disks: &serde_json::Value) -> Vec<String> {
+    disks
+        .as_array()
+        .map(|x| {
+            x.iter()
+                .map(|xp| {
+                    apply_template(xp, "{{name}} ➔ {{model}} ({{size}})".to_string())
+                        .unwrap_or_else(|_|"".to_string())
+                })
+                .collect()
+        })
+        .unwrap_or_else(|| [].to_vec())
+}
+
+fn select_disks(disks: serde_json::Value) -> Option<String> {
+    requestty::prompt_one(
+        Question::multi_select("disks")
+            .message("Select disks for zfs pool.")
+            .choices(format_disk_strings(&disks))
+            .build(),
+    )
+    .ok()?
+    .as_list_items()
+    .map(|x| {
+        x.iter()
+            .map(|y| disks[y.index]["name"].as_str().unwrap_or("").to_string())
+            .collect::<Vec<String>>()
+            .join("\" \"")
+    })
+}
+
+fn choose_disk(disks: serde_json::Value) -> Option<String> {
+    requestty::prompt_one(
+        Question::select("disks")
+            .message("Select bootable disk.")
+            .choices(format_disk_strings(&disks))
+            .build(),
+    )
+    .ok()?
+    .as_list_item()
+    .map(|x| disks[x.index]["name"].as_str().unwrap_or("").to_string())
 }
 
 fn pkgs() -> Option<String> {

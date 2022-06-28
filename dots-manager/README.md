@@ -1,27 +1,8 @@
 # dots manager
 
-missing:
+pretty much managed through flake scripts and fish functions. Refer to 
+[scripts help](../scripts/messages/help.md), (or just run `dots-help`).
 
- - manage machines
- - remove machines
-
-- a manager to install new machines
-  install computer
-   - set up partitions
-   - nixos-generate-config --dir whereever
-   - customize
-   - move over files
-   - nixos-install --flake
-   - sign off, suggest reboot
-
-  install live     # booo partition hell
-   - set up partitions
-   - customize
-   - build
-   - dd if of
-
-  install wsl
-   - customize
-
-actions:
-  - generate iso/ dockers
+so the dream is just to read + manage from nix modules, but not at a scale
+where that really makes sense, so one off definitions seem fine for me
+right now
