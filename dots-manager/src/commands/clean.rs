@@ -32,15 +32,20 @@ pub fn remove(
     let mut system = parse_system(file)?;
     let removed = match removed {
         Some(removed) => removed,
-        None => requestty::prompt_one(
-            Question::select("removal")
-                .message("Which system would you like to remove?")
-                .choices(system.list_configs())
-                .build(),
-        )?
-        .as_list_item()
-        .map(|x| x.text.as_str().to_string())
-        .ok_or("No selection")?,
+        None => {
+                let response = requestty::prompt_one(
+                Question::select("removal")
+                    .message("Which system would you like to remove?")
+                    .choices(system.list_configs())
+                    .build(),
+            )?
+            .as_list_item()
+            .map(|x| x.text.as_str().to_string())
+            .ok_or("No selection")?;
+            // print to provide consumers with what was removed
+            eprintln!("{}", response);
+            response
+        },
     };
     system.remove_config(&removed);
     maybe_write(outfile, system.render()?)

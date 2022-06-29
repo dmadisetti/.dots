@@ -15,7 +15,7 @@ nixpkgs-fmt = "1.2.0"
 requestty = "0.3.0"
 rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', rev = "41e8090" }
 
-clap = { version = "3.2.2", features = ["derive"] }
+clap = { version = "3.2.3", features = ["derive"] }
 
 pgp = { git = 'https://github.com/rpgp/rpgp', branch = "master" }
 rand = "0.8"

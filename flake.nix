@@ -1,4 +1,23 @@
-# ❄️ 
+#           ▜███▙       ▜███▙  ▟███▛
+#            ▜███▙       ▜███▙▟███▛
+#             ▜███▙       ▜██████▛
+#      ▟█████████████████▙ ▜████▛     ▟▙
+#     ▟███████████████████▙ ▜███▙    ▟██▙
+#            ▄▄▄▄▖           ▜███▙  ▟███▛
+#           ▟███▛             ▜██▛ ▟███▛
+#          ▟███▛               ▜▛ ▟███▛
+# ▟███████████▛                  ▟██████████▙
+# ▜██████████▛                  ▟███████████▛
+#       ▟███▛ ▟▙               ▟███▛
+#      ▟███▛ ▟██▙             ▟███▛
+#     ▟███▛  ▜███▙           ▝▀▀▀▀
+#     ▜██▛    ▜███▙ ▜██████████████████▛
+#      ▜▛     ▟████▙ ▜████████████████▛
+#            ▟██████▙       ▜███▙
+#           ▟███▛▜███▙       ▜███▙
+#          ▟███▛  ▜███▙       ▜███▙
+#          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
+#
 # » Implemented devices:
 #    • momento → Live USB stick with configs for amnesiac + installs
 #
@@ -45,7 +64,7 @@
     # TODO: Fix grub2-themes so that it can use pngs.
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:vaxerski/Hyprland/v0.6.0beta;
+    hyprland.url = github:vaxerski/Hyprland/v0.6.1beta;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix for caching!
@@ -79,14 +98,16 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations =
+
+
         {
-          "momento" = utils.mkComputer {
+          momento = utils.mkComputer {
             machineConfig = ./nix/machines/momento.nix;
             wm = utils.maybe sensitive.lib "default_wm" "none";
             userConfigs = [ ./nix/home/live.nix ];
           };
 
-          "wsl" = utils.mkComputer {
+          wsl = utils.mkComputer {
             machineConfig = ./nix/machines/wsl.nix;
             isContainer = true;
           };

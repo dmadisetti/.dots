@@ -19,4 +19,5 @@
 [credential]
   helper = cache --timeout=86400
 [safe]
+	directory = /mnt/home/dylan/.dots
 	directory = /home/runner/work/.dots/.dots
