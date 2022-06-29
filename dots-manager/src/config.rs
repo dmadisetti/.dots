@@ -129,7 +129,7 @@ impl System {
         # A fair bit of inspiration from github:srid/nixos-config
         {{{template_header}}}
         { {{#each configs as | config |}}
-        \"{{{config.machine}}}\" = {{{config.config}}};
+        {{{config.machine}}} = {{{config.config}}};
         {{/each}} }{{{template_footer}}}"
             .to_string();
         apply_nix_template(&data, content)
@@ -231,10 +231,10 @@ pub fn parse_system(file: PathBuf) -> Result<System, Box<dyn Error>> {
 
     let ast = rnix::parse(&content);
     for error in ast.errors() {
-        println!("error: {}", error);
+        eprintln!("error: {}", error);
     }
     if !ast.errors().is_empty() {
-        println!("potential issues: {}", nixpkgs_fmt::explain(&content));
+        eprintln!("potential issues: {}", nixpkgs_fmt::explain(&content));
         return Err("Please fix template errors.".into());
     }
     let partial_find = |key| move |set| find_entry(key, set);

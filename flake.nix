@@ -103,36 +103,36 @@
       #
       nixosConfigurations =
         {
-          "brick" = utils.mkComputer {
+          brick = utils.mkComputer {
             machineConfig = ./nix/machines/brick.nix;
             wm = "xmonad";
             userConfigs = [ ./nix/home/daily-driver.nix ];
           };
 
-          "exalt" = utils.mkComputer {
+          exalt = utils.mkComputer {
             machineConfig = ./nix/machines/exalt.nix;
             wm = "fb";
           };
 
-          "lambda" = utils.mkComputer {
+          lambda = utils.mkComputer {
             machineConfig = ./nix/machines/lambda.nix;
             wm = "hyprland";
             userConfigs = [ ];
           };
 
-          "mamba" = utils.mkComputer {
+          mamba = utils.mkComputer {
             machineConfig = ./nix/machines/mamba.nix;
             wm = "xmonad";
             userConfigs = [ ./nix/home/daily-driver.nix ];
           };
 
-          "momento" = utils.mkComputer {
+          momento = utils.mkComputer {
             machineConfig = ./nix/machines/momento.nix;
             wm = utils.maybe sensitive.lib "default_wm" "none";
             userConfigs = [ ./nix/home/live.nix ];
           };
 
-          "wsl" = utils.mkComputer {
+          wsl = utils.mkComputer {
             machineConfig = ./nix/machines/wsl.nix;
             isContainer = true;
           };
