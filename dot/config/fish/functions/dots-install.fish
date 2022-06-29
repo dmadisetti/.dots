@@ -3,8 +3,6 @@ function dots-install
   if test (count $argv) -eq 0
     if test ! -z "$LIVE"
       sudo -E nix run \
-        --override-input sensitive \
-        $DOTFILES/nix/sensitive \
         -j auto ".#install"
     end
   end

@@ -233,7 +233,7 @@
     "sensitive": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-MrY4r0NRbXNsMc72+JTkexy0fHfglWHv0Ws5fabvLV4=",
+        "narHash": "sha256-+XLmCpfqwGbZyzGasErUIbqZG6/I3UdFlXuGpZAInFA=",
         "path": "./nix/spoof",
         "type": "path"
       },
