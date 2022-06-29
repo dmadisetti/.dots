@@ -44,27 +44,6 @@
             ];
           };
 
-        # OK for set up
-        # Ask user to partition and mount their drives
-        #   # install blah
-        # make home/$user
-        # clone .dots
-        # copy over .dots
-        # copy over sensitive flake
-        # git add
-        # congrats message !
-
-        # Ask if
-        #  infer settings from current system
-        #  use current flake folder
-        #  continue (example: user=)
-        #
-        # Ask if install remote or local
-        #
-        # source script
-        # copy files
-        # clean up!
-
         generate-dots = pkgs.writeShellScriptBin "generate-dots" ''
           stub=$1
           target=$2

@@ -93,9 +93,18 @@ you can run this from github:
 
 ## machine install
 
-Run `dots-install` and follow the wizard. This is a little brittle, but seems to work in general.
+For auto-installation: run `dots-install` and follow the wizard. This is a
+little brittle, but seems to work in general and provides zfs partitioning.
 
-{{machine}}
+For manual installation, here's a check list of things to do:
+
+ - [] partition disks and mount them on /mnt
+ - [] move over `.dots` and generated sensitive flake to desired location.
+ - [] generate machine + hardware info (i.e. `nixos-generate-config --root /mnt --show-hardware-config > /mnt/$DOTFILES/nix/machines/hardware/$hostname.nix`, and make a `/mnt/$DOTFILES/nix/machines/$hostname.nix` file too (you can follow `nix/spoof/machine.nix`)
+ - [] run installation: `nixos-install --flake "$DOTFILES#$hostname" --override-input sensitive $DOTFILES/nix/sensitive --cores 0 --no-channel-copy`
+ - [] unmount, reboot and rejoice.
+
+current machine: {{machine}}
 
 ### Other
 
