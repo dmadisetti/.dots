@@ -44,20 +44,6 @@
             ];
           };
 
-        # OK for set up
-        # Ask user to partition and mount their drives
-        #   # install blah
-        # make home/$user
-        # prompt for hostname
-        # clone .dots
-        # copy over .dots
-        # copy over sensitive flake
-        # git add
-        # nixos-generate-config --root --dir . --show-hardware-config > host.nix
-        # drop into dots-manager editor
-        # nixos-install --root blah --flake  -j auto
-        # congrats message !
-
         generate-dots = pkgs.writeShellScriptBin "generate-dots" ''
           stub=$1
           target=$2

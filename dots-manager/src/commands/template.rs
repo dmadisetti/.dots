@@ -15,7 +15,7 @@ use serde_json::json;
 
 use crate::parse::*;
 use crate::prompts::prompts;
-use crate::utils::maybe_write;
+use crate::utils::{maybe_write, merge};
 
 fn build_questions(
     defaults: JsonValue,
@@ -43,7 +43,7 @@ fn build_questions(
                                 None => matches!(
                                     requestty::prompt_one(
                                         Question::confirm("enable")
-                                            .message(&format!("Enable {}?", key))
+                                            .message(&format!("Enable {}?", key.replace("_", " ")))
                                             .default(boolean)
                                             .build()
                                     ),
@@ -78,8 +78,10 @@ fn build_questions(
         let maybe_json = match defaults.get(&key) {
             Some(x) => x.clone(),
             None => {
+                let mut context = data.clone();
+                merge(&mut context, defaults.clone());
                 let tmp =
-                    prompts(key.clone(), &data).ok_or(format!("Unmanaged entry: {}", &key))?;
+                    prompts(key.clone(), &context).ok_or(format!("Unmanaged entry: {}", &key))?;
                 json!(tmp)
             }
         };
@@ -111,7 +113,13 @@ fn build_questions_from_root(ast: &AST, defaults: JsonValue) -> Result<JsonValue
     build_questions(defaults, "".to_string(), lib)
 }
 
-pub fn apply_template(data: JsonValue, content: String) -> Result<String, Box<dyn Error>> {
+pub fn apply_template(data: &JsonValue, content: String) -> Result<String, Box<dyn Error>> {
+    let mut reg = Handlebars::new();
+    reg.register_template_string("dump", content)?;
+    Ok(reg.render("dump", &data)?)
+}
+
+pub fn apply_nix_template(data: &JsonValue, content: String) -> Result<String, Box<dyn Error>> {
     let mut reg = Handlebars::new();
     reg.register_template_string("flake", content.clone())?;
     let attempt = reg.render("flake", &data)?;
@@ -185,7 +193,7 @@ pub fn config_template_with_defaults(
     let data = build_questions_from_root(&ast, defaults)?;
 
     let content = ast.root().inner().unwrap().to_string();
-    let attempt = apply_template(data.clone(), content)?;
+    let attempt = apply_nix_template(&data, content)?;
     maybe_write(outfile, attempt)?;
     Ok(data)
 }

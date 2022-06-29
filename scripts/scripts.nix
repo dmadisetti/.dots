@@ -37,10 +37,12 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     sleep 0.05
     out=$(pwd)/result
     TEMPLATE=${../nix/spoof/flake.nix}
+    REMOTE=${../.github/assets/remote.txt}
     SELF=${self}
     PATH=${dots-manager-path}:${pkgs.nix}/bin:$PATH
     WELCOME="$(${self._prettyprint}/bin/prettyprint hello-live)"
     WAIT="$(${self._prettyprint}/bin/prettyprint wait)"
+    source ${./utils.sh}
     source ${./create-live.nix.sh}
     echo "Congrats 🎉! Flash $(dirname $out)/live.iso to your device of choice."
   '';
@@ -52,8 +54,22 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     SPOOF=${../nix/spoof/flake.nix}
     WELCOME="$(${self._prettyprint}/bin/prettyprint hello-home)"
     PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
+    source ${./utils.sh}
     source ${./create-home.nix.sh}
   '';
+
+  install = pkgs.writeShellScriptBin "create-install" ''
+    # Sleep required for requestty
+    sleep 0.05
+    REMOTE=${../.github/assets/remote.txt}
+    WELCOME="$(${self._prettyprint}/bin/prettyprint hello-install)"
+    PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
+    source ${./utils.sh}
+    source ${./create-install.nix.sh}
+    source ${./run-install.nix.sh}
+    echo 'You can reboot now (:'
+  '';
+
 
   # Flake outputs used by hooks.
   _prettyprint =
@@ -69,8 +85,8 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
           done
         '';
       };
-      # generate messages prior to remove 20mb+ dependency of glow.
     in
+    # generate messages prior to remove 20mb+ dependency of glow.
     pkgs.writeShellScriptBin "prettyprint" ''
       for msg in "$@"; do
         cat ${messages}/$(basename $msg .md) 2> /dev/null || echo "prettyprint error for $msg";
@@ -84,6 +100,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     FLAKE=${../flake.nix}
     PATH=${dots-manager-path}:${pkgs.jq}/bin:$PATH
     FLAKE_USER=${sensitive.lib.user}
+    source ${./utils.sh}
     source ${./clean-dots.nix.sh}
   '';
 }
