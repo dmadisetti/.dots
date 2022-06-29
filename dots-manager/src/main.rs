@@ -29,12 +29,12 @@ enum Command {
         /// The path to the configuration file.
         #[clap(parse(from_os_str))]
         config: Option<PathBuf>,
-        /// The configurations to retain.
-        #[clap(parse(from_str))]
-        removed: Option<String>,
         /// Outfile location
         #[clap(parse(from_os_str))]
         outfile: Option<PathBuf>,
+        /// The configurations to remove.
+        #[clap(parse(from_str))]
+        removed: Option<String>,
     },
     /// Create files for installation.
     PreInstallation {

@@ -22,6 +22,7 @@ configs. i use this on unprivileged systems all the time. checkout the
 wm | display | cmd
 ----|----|-----
 sway | wayland |`sway`
+hyprland | wayland |`Hyprland`
 xmonad | x | `startx`
 i3 | x | `startx`
 fb | - | `fb`
@@ -41,9 +42,17 @@ command | description
 | | --- |
 `snix` | Switch and rebuild the current NixOS system.
 | | --- |
+`wsl` | Build a WSL tar file for use on windows.
+| | --- |
 `nixos-help` | Run nixos-help but with some fail safes.
 | | --- |
 `dots-help` | Show this readme.
+| | --- |
+`dots-docker` | Build a docker layer of `.dots` and load it.
+| | --- |
+`dots-remove` | Remove a machine from dots.
+| | --- |
+`dots-install` | Run installation from live disk with zfs partitioning.
 | | --- |
 `start-daemon` | For non-NixOS (but root) start nix-daemon.
 | | --- |
@@ -83,6 +92,8 @@ you can run this from github:
 ```
 
 ## machine install
+
+Run `dots-install` and follow the wizard. This is a little brittle, but seems to work in general.
 
 {{machine}}
 

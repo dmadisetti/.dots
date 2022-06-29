@@ -22,7 +22,6 @@
 #    • momento → Live USB stick with configs for amnesiac + installs
 #
 # » Implemented machines:
-#    • brick → Tower that works as router, 610 NVidia graphics lol
 #    • exalt → Craptop converted for Nix hacking
 #    • lambda → Main workstation with nvidia drivers and plex
 #    • mamba → Dualboot Thinkpad daily driver
@@ -102,13 +101,8 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations =
-        {
-          brick = utils.mkComputer {
-            machineConfig = ./nix/machines/brick.nix;
-            wm = "xmonad";
-            userConfigs = [ ./nix/home/daily-driver.nix ];
-          };
 
+        {
           exalt = utils.mkComputer {
             machineConfig = ./nix/machines/exalt.nix;
             wm = "fb";
