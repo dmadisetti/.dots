@@ -64,8 +64,6 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     REMOTE=${../.github/assets/remote.txt}
     WELCOME="$(${self._prettyprint}/bin/prettyprint hello-install)"
     PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
-    nix_default_wm=${sensitive.lib.default_wm}
-    nix_user=${sensitive.lib.user}
     source ${./utils.sh}
     source ${./create-install.nix.sh}
     source ${./run-install.nix.sh}

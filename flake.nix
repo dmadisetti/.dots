@@ -18,17 +18,17 @@
 #          ▟███▛  ▜███▙       ▜███▙
 #          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
 #
-# » Implemented machines:
-#    • mamba   → Dualboot Thinkpad daily driver
-#    • wsl     → WSL on the daily driver.
-#    • exalt   → Craptop converted for Nix hacking
-#    • brick   → Tower that works as router, 610 NVidia graphics lol
-#
-# » Implemented devices
+# » Implemented devices:
 #    • momento → Live USB stick with configs for amnesiac + installs
 #
+# » Implemented machines:
+#    • brick → Tower that works as router, 610 NVidia graphics lol
+#    • exalt → Craptop converted for Nix hacking
+#    • lambda → Main workstation with nvidia drivers and plex
+#    • mamba → Dualboot Thinkpad daily driver
+#    • wsl → WSL on the daily driver.
+#
 # A fair bit of inspiration from github:srid/nixos-config
-
 {
   description = "⚫⚫⚫s on NixOS";
 
@@ -101,31 +101,42 @@
     rec {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
-      nixosConfigurations = {
-        brick = utils.mkComputer {
-          machineConfig = ./nix/machines/brick.nix;
-          wm = "xmonad";
-          userConfigs = [ ./nix/home/daily-driver.nix ];
+      nixosConfigurations =
+        {
+          "brick" = utils.mkComputer {
+            machineConfig = ./nix/machines/brick.nix;
+            wm = "xmonad";
+            userConfigs = [ ./nix/home/daily-driver.nix ];
+          };
+
+          "exalt" = utils.mkComputer {
+            machineConfig = ./nix/machines/exalt.nix;
+            wm = "fb";
+          };
+
+          "lambda" = utils.mkComputer {
+            machineConfig = ./nix/machines/lambda.nix;
+            wm = "hyprland";
+            userConfigs = [ ];
+          };
+
+          "mamba" = utils.mkComputer {
+            machineConfig = ./nix/machines/mamba.nix;
+            wm = "xmonad";
+            userConfigs = [ ./nix/home/daily-driver.nix ];
+          };
+
+          "momento" = utils.mkComputer {
+            machineConfig = ./nix/machines/momento.nix;
+            wm = utils.maybe sensitive.lib "default_wm" "none";
+            userConfigs = [ ./nix/home/live.nix ];
+          };
+
+          "wsl" = utils.mkComputer {
+            machineConfig = ./nix/machines/wsl.nix;
+            isContainer = true;
+          };
         };
-        mamba = utils.mkComputer {
-          machineConfig = ./nix/machines/mamba.nix;
-          wm = "xmonad";
-          userConfigs = [ ./nix/home/daily-driver.nix ];
-        };
-        exalt = utils.mkComputer {
-          machineConfig = ./nix/machines/exalt.nix;
-          wm = "fb";
-        };
-        wsl = utils.mkComputer {
-          machineConfig = ./nix/machines/wsl.nix;
-          isContainer = true;
-        };
-        momento = utils.mkComputer {
-          machineConfig = ./nix/machines/momento.nix;
-          wm = utils.maybe sensitive.lib "default_wm" "none";
-          userConfigs = [ ./nix/home/live.nix ];
-        };
-      };
 
       # For standalone configurations
       #
