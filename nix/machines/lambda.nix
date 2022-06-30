@@ -1,14 +1,13 @@
-# Machine level configuaration for {{installation_hostname}}
+# Machine level configuaration for lambda
 # See 'dots-help' or 'nixos-help'.
 
 { config, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      /* {{#unless installation_hostname}} */
-      # {{else}} */ ./hardware/{{installation_hostname}}.nix
-      # {{/unless}}
+    [
+      # Include the results of the hardware scan.
+      ./hardware/lambda.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -17,21 +16,21 @@
 
   # Set your time zone.
   # Select internationalisation properties.
-  networking.hostName = "{{installation_hostname}}"; # Define your hostname.
-  networking.hostId = "{{installation_hostid}}";
+  networking.hostName = "lambda"; # Define your hostname.
+  networking.hostId = "001a3bda";
 
   i18n.defaultLocale = "en_US.UTF-8";
   boot.kernel.sysctl = { "net.ipv4.ip_forward" = 1; };
 
-  /* {{#if installation_zfs}}zfs */
+  /* zfs */
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/";
   services.zfs = {
     trim.enable = true;
     autoScrub = {
       enable = true;
-      pools = [ "{{{installation_zfs_pool}}}" ];
+      pools = [ "zoot" ];
     };
   };
-  #{{else}}*/{{/if}}
+  #
 }

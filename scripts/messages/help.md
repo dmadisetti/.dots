@@ -22,6 +22,7 @@ configs. i use this on unprivileged systems all the time. checkout the
 wm | display | cmd
 ----|----|-----
 sway | wayland |`sway`
+hyprland | wayland |`Hyprland`
 xmonad | x | `startx`
 i3 | x | `startx`
 fb | - | `fb`
@@ -41,9 +42,17 @@ command | description
 | | --- |
 `snix` | Switch and rebuild the current NixOS system.
 | | --- |
+`wsl` | Build a WSL tar file for use on windows.
+| | --- |
 `nixos-help` | Run nixos-help but with some fail safes.
 | | --- |
 `dots-help` | Show this readme.
+| | --- |
+`dots-docker` | Build a docker layer of `.dots` and load it.
+| | --- |
+`dots-remove` | Remove a machine from dots.
+| | --- |
+`dots-install` | Run installation from live disk with zfs partitioning.
 | | --- |
 `start-daemon` | For non-NixOS (but root) start nix-daemon.
 | | --- |
@@ -84,7 +93,18 @@ you can run this from github:
 
 ## machine install
 
-{{machine}}
+For auto-installation: run `dots-install` and follow the wizard. This is a
+little brittle, but seems to work in general and provides zfs partitioning.
+
+For manual installation, here's a check list of things to do:
+
+ - [] partition disks and mount them on /mnt
+ - [] move over `.dots` and generated sensitive flake to desired location.
+ - [] generate machine + hardware info (i.e. `nixos-generate-config --root /mnt --show-hardware-config > /mnt/$DOTFILES/nix/machines/hardware/$hostname.nix`, and make a `/mnt/$DOTFILES/nix/machines/$hostname.nix` file too (you can follow `nix/spoof/machine.nix`)
+ - [] run installation: `nixos-install --flake "$DOTFILES#$hostname" --override-input sensitive $DOTFILES/nix/sensitive --cores 0 --no-channel-copy`
+ - [] unmount, reboot and rejoice.
+
+current machine: {{machine}}
 
 ### Other
 

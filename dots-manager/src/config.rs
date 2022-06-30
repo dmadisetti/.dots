@@ -13,9 +13,30 @@ use crate::parse::find_entry;
 use crate::parse::maybe_key;
 use serde::{Deserialize, Serialize};
 
-use crate::commands::template::apply_template;
+use crate::commands::template::apply_nix_template;
 
 use handlebars::JsonValue;
+
+const MAST: &str = "#           ▜███▙       ▜███▙  ▟███▛
+#            ▜███▙       ▜███▙▟███▛
+#             ▜███▙       ▜██████▛
+#      ▟█████████████████▙ ▜████▛     ▟▙
+#     ▟███████████████████▙ ▜███▙    ▟██▙
+#            ▄▄▄▄▖           ▜███▙  ▟███▛
+#           ▟███▛             ▜██▛ ▟███▛
+#          ▟███▛               ▜▛ ▟███▛
+# ▟███████████▛                  ▟██████████▙
+# ▜██████████▛                  ▟███████████▛
+#       ▟███▛ ▟▙               ▟███▛
+#      ▟███▛ ▟██▙             ▟███▛
+#     ▟███▛  ▜███▙           ▝▀▀▀▀
+#     ▜██▛    ▜███▙ ▜██████████████████▛
+#      ▜▛     ▟████▙ ▜████████████████▛
+#            ▟██████▙       ▜███▙
+#           ▟███▛▜███▙       ▜███▙
+#          ▟███▛  ▜███▙       ▜███▙
+#          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
+#";
 
 #[derive(Debug)]
 pub struct System {
@@ -91,7 +112,7 @@ impl System {
         let configs = configs.iter().map(|c| json!(&c)).collect::<Vec<_>>();
 
         let data = json!({
-            "mast": "# ❄️ ",
+            "mast": MAST,
             "categories": categories,
             "configs": configs,
             "template_header": self.template_header,
@@ -108,10 +129,10 @@ impl System {
         # A fair bit of inspiration from github:srid/nixos-config
         {{{template_header}}}
         { {{#each configs as | config |}}
-        \"{{{config.machine}}}\" = {{{config.config}}};
+        {{{config.machine}}} = {{{config.config}}};
         {{/each}} }{{{template_footer}}}"
             .to_string();
-        apply_template(data, content)
+        apply_nix_template(&data, content)
     }
 
     pub fn list_configs(&self) -> Vec<String> {
@@ -155,7 +176,7 @@ impl Config {
         }
     }
 
-    pub fn maybe_new_from_data(data: JsonValue) -> Result<Self, Box<dyn Error>> {
+    pub fn maybe_new_from_data(data: &JsonValue) -> Result<Self, Box<dyn Error>> {
         let machine = data
             .get("installation_hostname")
             .ok_or("Bad hostname")?
@@ -180,7 +201,7 @@ impl Config {
           userConfigs = [ ];
         }"
         .to_string();
-        let config = apply_template(data, content)?.trim().to_string();
+        let config = apply_nix_template(data, content)?.trim().to_string();
         Ok(Self {
             machine,
             config,
@@ -210,10 +231,10 @@ pub fn parse_system(file: PathBuf) -> Result<System, Box<dyn Error>> {
 
     let ast = rnix::parse(&content);
     for error in ast.errors() {
-        println!("error: {}", error);
+        eprintln!("error: {}", error);
     }
     if !ast.errors().is_empty() {
-        println!("potential issues: {}", nixpkgs_fmt::explain(&content));
+        eprintln!("potential issues: {}", nixpkgs_fmt::explain(&content));
         return Err("Please fix template errors.".into());
     }
     let partial_find = |key| move |set| find_entry(key, set);
