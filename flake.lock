@@ -24,7 +24,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-LDJBnue/6JjGVdDbxG3IpaOWLxjSBImrZEQAcq57CmI=",
+        "narHash": "sha256-GJx85eWyPi0IqEnDH8jJns0AMzaZePZQBgu1bP8KJOU=",
         "path": "./dots-manager",
         "type": "path"
       },
@@ -51,11 +51,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1644229661,
-        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
+        "lastModified": 1656065134,
+        "narHash": "sha256-oc6E6ByIw3oJaIyc67maaFcnjYOz1mMcOtHxbEf9NwQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
+        "rev": "bee6a7250dd1b01844a2de7e02e4df7d8a0a206c",
         "type": "github"
       },
       "original": {
