@@ -21,7 +21,6 @@
               lockFileContents = builtins.readFile ./Cargo.lock;
               outputHashes = {
                 "rnix-0.10.1" = "sha256-ZC4v3439hgKpCsBwd/SxkpdHHzhH6mVPdcqdwFJxzD0=";
-                "pgp-0.7.2" = "sha256-zsRtqCYVAsXpoyvXh1CO0tZr8SkG5QipfByFZRNoor0=";
               };
             };
           };

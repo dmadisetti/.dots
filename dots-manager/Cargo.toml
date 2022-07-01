@@ -17,7 +17,7 @@ rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', rev = "41e8090
 
 clap = { version = "3.2.3", features = ["derive"] }
 
-pgp = { git = 'https://github.com/rpgp/rpgp', branch = "master" }
+pgp = "0.8"
 rand = "0.8"
 sha-crypt = "0.4.0"
 
