@@ -286,7 +286,7 @@ pub fn parse_system(file: PathBuf) -> Result<System, Box<dyn Error>> {
                 .split('»')
                 .nth(1)
                 .unwrap()
-                .replace(":", "")
+                .replace(':', "")
                 .replace("Implemented", "")
                 .trim()
                 .to_string();
@@ -297,8 +297,8 @@ pub fn parse_system(file: PathBuf) -> Result<System, Box<dyn Error>> {
         let key = parts
             .next()
             .unwrap()
-            .replace("•", "")
-            .replace("#", "")
+            .replace('•', "")
+            .replace('#', "")
             .trim()
             .to_string();
         let value = parts.next().unwrap().trim().to_string();
