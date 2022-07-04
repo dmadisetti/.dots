@@ -8,7 +8,6 @@
     [
       # Include the results of the hardware scan.
       ./hardware/lambda.nix
-      ./common/plex.nix
 
       (import ./common/fancy-grub.nix {
         splash = ../../dot/backgrounds/grub.jpg;
@@ -39,7 +38,9 @@
           "transmission.${tld}" = { port = "9091"; };
         };
       })
-    ];
+    ] ++ (if
+      self.lib.utils.maybe self.inputs.sensitive.lib "sellout" false
+    then [ ./common/plex.nix ] else [ ]);
 
   boot.loader.efi.canTouchEfiVariables = true;
 

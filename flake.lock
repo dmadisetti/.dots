@@ -15,6 +15,24 @@
         "type": "github"
       }
     },
+    "dots-manager": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-8hvyrZaA1El4NvHYPaEfpX/u3uLakpyFRHq1xK2qVTU=",
+        "path": "./dots-manager",
+        "type": "path"
+      },
+      "original": {
+        "path": "./dots-manager",
+        "type": "path"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -130,17 +148,17 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1656266982,
-        "narHash": "sha256-0Msqe2ErAJvnO1zHoB2k6TkDhTYnHRGkvJrfSG12dTU=",
+        "lastModified": 1656612124,
+        "narHash": "sha256-NPiLaoApGbGw3I6Pp4oJnKh/Q64yCSeokLWRWjAmsu4=",
         "owner": "vaxerski",
         "repo": "Hyprland",
-        "rev": "0b525cdc63b6dbed55d3a618664e059055c3938d",
+        "rev": "4510764f348d1a7c4cca613925ee22acfa38b388",
         "type": "github"
       },
       "original": {
         "owner": "vaxerski",
-        "ref": "v0.6.1beta",
         "repo": "Hyprland",
+        "rev": "4510764f348d1a7c4cca613925ee22acfa38b388",
         "type": "github"
       }
     },
@@ -201,13 +219,27 @@
     "root": {
       "inputs": {
         "declarative-cachix": "declarative-cachix",
+        "dots-manager": "dots-manager",
         "grub2-themes": "grub2-themes",
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sensitive": "sensitive"
+      }
+    },
+    "sensitive": {
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-g8yCcSnx66A3iS14B9tQsmrWEj9N4wfG99euYscDdUs=",
+        "path": "./nix/spoof",
+        "type": "path"
+      },
+      "original": {
+        "path": "./nix/spoof",
+        "type": "path"
       }
     },
     "utils": {
