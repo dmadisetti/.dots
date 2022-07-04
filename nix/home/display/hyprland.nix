@@ -2,6 +2,9 @@
 { pkgs, home, inputs, ... }: {
   imports = [ ];
 
+
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+
   home.packages = with pkgs; [
     # utils
     acpi # hardware states

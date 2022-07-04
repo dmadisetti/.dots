@@ -11,17 +11,17 @@
       # {{/unless}}
     ];
 
+  # Host info
+  networking.hostName = "{{installation_hostname}}";
+  networking.hostId = "{{installation_hostid}}";
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Set your time zone.
-  # Select internationalisation properties.
-  networking.hostName = "{{installation_hostname}}"; # Define your hostname.
-  networking.hostId = "{{installation_hostid}}";
-
-  i18n.defaultLocale = "en_US.UTF-8";
   boot.kernel.sysctl = { "net.ipv4.ip_forward" = 1; };
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
 
   /* {{#if installation_zfs}}zfs */
   boot.supportedFilesystems = [ "zfs" ];
