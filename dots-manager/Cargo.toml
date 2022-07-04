@@ -12,7 +12,7 @@ edition = "2018"
 
 [dependencies]
 nixpkgs-fmt = "1.2.0"
-requestty = "0.3.0"
+requestty = "0.4.0"
 rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', rev = "41e8090" }
 
 clap = { version = "3.2.3", features = ["derive"] }
@@ -24,7 +24,7 @@ sha-crypt = "0.4.0"
 handlebars = "4.3.1"
 regex = "1"
 serde_json = "1.0.81"
-serde = { version = "1.0.137", features = ["derive"] }
+serde = { version = "1.0.138", features = ["derive"] }
 
 qr_code = "1.1.0"
 

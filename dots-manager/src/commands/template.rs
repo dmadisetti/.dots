@@ -43,7 +43,7 @@ fn build_questions(
                                 None => matches!(
                                     requestty::prompt_one(
                                         Question::confirm("enable")
-                                            .message(&format!("Enable {}?", key.replace("_", " ")))
+                                            .message(&format!("Enable {}?", key.replace('_', " ")))
                                             .default(boolean)
                                             .build()
                                     ),

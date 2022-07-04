@@ -64,7 +64,7 @@
     # TODO: Fix grub2-themes so that it can use pngs.
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:vaxerski/Hyprland/v0.6.1beta;
+    hyprland.url = github:vaxerski/Hyprland/4510764f348d1a7c4cca613925ee22acfa38b388;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix for caching!
