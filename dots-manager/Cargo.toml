@@ -11,7 +11,7 @@ categories = ["command-line-utilities"]
 edition = "2018"
 
 [dependencies]
-nixpkgs-fmt = "1.2.0"
+nixpkgs-fmt = "1.3.0"
 requestty = "0.4.1"
 rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', rev = "41e8090" }
 
