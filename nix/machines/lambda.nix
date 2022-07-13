@@ -22,9 +22,9 @@
       (import ./common/nginx.nix rec {
         tld = "ave";
         cert =
-          if (self.inputs.sensitive.lib.certificates ? brick) then {
-            crt = self.inputs.sensitive.lib.certificates.brick.cert;
-            key = self.inputs.sensitive.lib.certificates.brick.key;
+          if (self.inputs.sensitive.lib.certificates ? ave) then {
+            crt = self.inputs.sensitive.lib.certificates.ave.cert;
+            key = self.inputs.sensitive.lib.certificates.ave.key;
           } else null;
         proxies = {
           "notebook.${tld}" = { port = "8000"; };

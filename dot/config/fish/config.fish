@@ -7,7 +7,6 @@ alias icat="kitty +kitten icat"
 
 alias vim=nvim
 alias vi=nvim
-alias d="cd $DOTFILES"
 
 export TEXINPUTS=".:~/.tex/lib:"
 export EDITOR=vim

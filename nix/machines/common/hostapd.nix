@@ -1,6 +1,6 @@
 # Fancy grub and networking
 { dev, ssid }:
-{ pkgs, sensitive, lib, config, ... }:
+{ pkgs, sensitive, lib, config, self, ... }:
 
 lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
 
@@ -10,7 +10,9 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
       interface = "${dev.ap}";
       hwMode = "g";
       ssid = ssid;
-      wpaPassphrase = config.networking.wireless.networks."${ssid}".psk;
+      wpaPassphrase = (self.lib.utils.maybe
+        config.networking.wireless.networks "${ssid}"
+        ({ psk = ""; })).psk;
       extraConfig = ''
         auth_algs=3
         beacon_int=100
