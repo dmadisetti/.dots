@@ -14,7 +14,7 @@ let
     , host ? "127.0.0.1"
     }: {
       locations."/" = {
-        proxyPass = "http://${host}:${port}";
+        proxyPass = "http://${host}:${port}$request_uri";
         proxyWebsockets = true; # needed if you need to use WebSocket
       };
     };
@@ -25,6 +25,11 @@ let
 in
 {
 
+  # TODO: Sub '.' -> '-' and make upstreams. Example:
+  # upstream notes-ave {
+  #  server ${host};
+  #  port ${port};
+  #}
   services.nginx = {
     enable = true;
     virtualHosts = (lib.mapAttrs wrap_proxy proxies) // (if ssl.forceSSL then {
@@ -34,7 +39,7 @@ in
 
       "~^(?<sub>.+)?\\.https.${tld}$" = {
         locations."/" = {
-          proxyPass = "http://$sub.${tld}";
+          proxyPass = "http://$sub.${tld}$request_uri";
           proxyWebsockets = true;
         };
       } // ssl;
