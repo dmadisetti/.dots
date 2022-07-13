@@ -352,19 +352,21 @@ dependencies = [
 
 [[package]]
 name = "crossbeam-channel"
-version = "0.3.9"
+version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c8ec7fcd21571dc78f96cc96243cab8d8f035247c3efd16c687be154c3fa9efa"
+checksum = "b153fe7cbef478c567df0f972e02e6d736db11affe43dfc9c56a9374d1adfb87"
 dependencies = [
- "crossbeam-utils 0.6.6",
+ "crossbeam-utils 0.7.2",
+ "maybe-uninit",
 ]
 
 [[package]]
 name = "crossbeam-utils"
-version = "0.6.6"
+version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04973fa96e96579258a5091af6003abde64af786b860f18622b82e026cca60e6"
+checksum = "c3c7c73a2d1e9fc0886a08b93e98eb643461230d5f1925e4036204d5f2e261a8"
 dependencies = [
+ "autocfg",
  "cfg-if 0.1.10",
  "lazy_static",
 ]
@@ -822,6 +824,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e2e65a1a2e43cfcb47a895c4c8b10d1f4a61097f9f254f183aee60cad9c651d"
 
 [[package]]
+name = "maybe-uninit"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "60302e4db3a61da70c0cb7991976248362f30319e88850c487b9b95bbf059e00"
+
+[[package]]
 name = "md-5"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -870,14 +878,15 @@ dependencies = [
 
 [[package]]
 name = "nixpkgs-fmt"
-version = "1.2.0"
+version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a82272a0eee2fef69a1af311f01ff84edac1f4f1680095b9a86f409cf00bd00"
+checksum = "1f1bdfcb88bb9dc3ae8a6ef55cda89eb33d7c69a98411b4cdb845adf391a7587"
 dependencies = [
  "clap 2.34.0",
  "crossbeam-channel",
  "ignore",
- "rnix 0.9.1",
+ "libc",
+ "rnix 0.10.2",
  "rowan",
  "serde_json",
  "smol_str",
@@ -1259,9 +1268,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.5.6"
+version = "1.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d83f127d94bdbcda4c8cc2e50f6f84f4b611f69c902699ca385a39c3a75f9ff1"
+checksum = "4c4eb3267174b8c6c2f654116623910a0fef09c4753f8dd83db29c48a0df988b"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -1270,9 +1279,9 @@ dependencies = [
 
 [[package]]
 name = "regex-syntax"
-version = "0.6.26"
+version = "0.6.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49b3de9ec5dc0a3417da371aab17d729997c15010e7fd24ff707773a33bddb64"
+checksum = "a3f87b73ce11b1619a3c6332f45341e0047173771e8b8b73f87bfeefb7b56244"
 
 [[package]]
 name = "remove_dir_all"
@@ -1285,9 +1294,9 @@ dependencies = [
 
 [[package]]
 name = "requestty"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "20362058549acfb4b04b014aa182de685d7ded326eaf092db11030431c92693a"
+checksum = "8d06fb394ca73d15ad0c7bbc673459506a851a84586cd90d67d42932a280281e"
 dependencies = [
  "requestty-ui",
  "smallvec",
@@ -1296,9 +1305,9 @@ dependencies = [
 
 [[package]]
 name = "requestty-ui"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7b232b5ca049619df09d10909dfe32020bc0d402fd98cb5207fc1d2aa53633e"
+checksum = "31a4bce6f730d12e36993944036e2f93e88033d8a78734d8734fdb0043662cae"
 dependencies = [
  "bitflags",
  "crossterm",
@@ -1320,9 +1329,8 @@ dependencies = [
 
 [[package]]
 name = "rnix"
-version = "0.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "294becb48f58c496d96c10a12df290266204ca75c9799be4d04222bfaebb6a37"
+version = "0.10.1"
+source = "git+https://github.com/AnotherGroupChat/rnix-parser?rev=41e8090#41e8090c3293c27bbc78e40ca3ccc6aaa7bf9120"
 dependencies = [
  "cbitset",
  "rowan",
@@ -1331,8 +1339,9 @@ dependencies = [
 
 [[package]]
 name = "rnix"
-version = "0.10.1"
-source = "git+https://github.com/AnotherGroupChat/rnix-parser?rev=41e8090#41e8090c3293c27bbc78e40ca3ccc6aaa7bf9120"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8024a523e8836f1a5d051203dc00d833357fee94e351b51348dfaeca5364daa9"
 dependencies = [
  "cbitset",
  "rowan",
@@ -1408,18 +1417,18 @@ checksum = "d29ab0c6d3fc0ee92fe66e2d99f700eab17a8d57d1c1d3b748380fb20baa78cd"
 
 [[package]]
 name = "serde"
-version = "1.0.138"
+version = "1.0.139"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1578c6245786b9d168c5447eeacfb96856573ca56c9d68fdcf394be134882a47"
+checksum = "0171ebb889e45aa68b44aee0859b3eede84c6f5f5c228e6f140c0b2a0a46cad6"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.138"
+version = "1.0.139"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "023e9b1467aef8a10fb88f25611870ada9800ef7e22afce356bb0d2387b6f27c"
+checksum = "dc1d3230c1de7932af58ad8ffbe1d784bd55efd5a9d84ac24f69c72d83543dfb"
 dependencies = [
  "proc-macro2",
  "quote",
