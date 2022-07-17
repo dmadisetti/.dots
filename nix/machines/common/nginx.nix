@@ -16,6 +16,9 @@ let
       locations."/" = {
         proxyPass = "http://${host}:${port}$request_uri";
         proxyWebsockets = true; # needed if you need to use WebSocket
+        extraConfig = ''
+          proxy_set_header Host $host;
+        '';
       };
     };
 
@@ -24,12 +27,6 @@ let
                      }: port_proxy value;
 in
 {
-
-  # TODO: Sub '.' -> '-' and make upstreams. Example:
-  # upstream notes-ave {
-  #  server ${host};
-  #  port ${port};
-  #}
   services.nginx = {
     enable = true;
     virtualHosts = (lib.mapAttrs wrap_proxy proxies) // (if ssl.forceSSL then {
@@ -52,5 +49,10 @@ in
         };
       } // ssl;
     } else { });
+    resolver = {
+      valid = "30s";
+      addresses = [ "[::1]" "127.0.0.1:53" ];
+    };
+    proxyResolveWhileRunning = true;
   };
 }
