@@ -38,7 +38,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/dylan/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/5f43d8b088d3771274bcfb69d3c7435b1121ac88;
+    nixpkgs.url = github:nixos/nixpkgs/8f485713f5e6b6883a9b6959afa98688360a3ecb;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     # Build our own wsl
