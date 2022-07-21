@@ -4,3 +4,5 @@
 (include "./bar.yuck")
 (include "./controls.yuck")
 (include "./music.yuck")
+
+(include "./desktop.yuck")

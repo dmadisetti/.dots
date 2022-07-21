@@ -41,9 +41,13 @@
     nixpkgs.url = github:nixos/nixpkgs/5f43d8b088d3771274bcfb69d3c7435b1121ac88;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
+    # Really just to streamline deps.
+    flake-utils.url = github:numtide/flake-utils;
+
     # Build our own wsl
     nixos-wsl.url = github:nix-community/NixOS-WSL;
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.inputs.flake-utils.follows = "flake-utils";
 
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +62,8 @@
     # dots manager
     dots-manager.url = "path:./dots-manager";
     dots-manager.inputs.nixpkgs.follows = "nixpkgs";
+    dots-manager.inputs.flake-utils.follows = "flake-utils";
+
 
     # Common Grub2 themes
     grub2-themes.url = github:vinceliuice/grub2-themes;
@@ -140,5 +146,8 @@
 
       lib.utils = utils;
       # Import some scripts!
-    } // (import ./scripts/scripts.nix { inherit self nixpkgs pkgs sensitive dots-manager-path; });
+    } // (import ./scripts/scripts.nix {
+      inherit self nixpkgs pkgs sensitive
+        dots-manager-path;
+    });
 }

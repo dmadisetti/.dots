@@ -18,6 +18,9 @@
 (defvar time_rev false)
 (deflisten workspace "scripts/workspace")
 
+(deflisten empty "scripts/empty")
+(deflisten not-empty "scripts/not-empty")
+
 (defvar eww "eww -c $HOME/.config/eww/bar")
 
 

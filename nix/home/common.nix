@@ -11,6 +11,10 @@ in
   # Derived script to pretty print messages.
   home.packages = with self.outputs.pkgs; [ self.outputs._prettyprint ];
 
+  home.sessionVariables = {
+    XDG_DOWNLOAD_DIR = "$HOME/downloads";
+  };
+
   # Make sure flakes work by default..
   home.file."${nix_config}".text = ''
     experimental-features = nix-command flakes ca-derivations
