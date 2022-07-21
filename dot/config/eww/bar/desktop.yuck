@@ -1,0 +1,12 @@
+;; the bar!
+(defwindow desktop
+          :exclusive false
+          :monitor 0
+          :geometry (geometry
+                       :x "200px"
+                       :y "200px"
+                       :width "200px"
+                       :height "200px")
+          :stacking "bg"
+          :windowtype "dock"
+  (desktop))

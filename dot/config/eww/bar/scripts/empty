@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+empty() {
+hyprctl activewindow | head -1 | grep Invalid > /dev/null && echo true || echo false
+}
+empty
+tail -f $(ls -Art /tmp/hypr/*/hyprland.log | tail -1) | grep --line-buffered -P "Cleanup|Changed|Created|New" | while read -r; do
+empty
+done
+
