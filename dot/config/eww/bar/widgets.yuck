@@ -14,7 +14,7 @@
         )))))
 
 (defwidget workspaces []
-  (literal :content workspace))
+  (literal :content workspace :visible not-empty))
 
 (defwidget bat []
     (box :class "bat_module" :vexpand "false" :hexpand "false"
@@ -284,4 +284,25 @@
         (box :class "music_bar" :halign "center" :vexpand "false" :hexpand "false" :space-evenly "false"
           (scale :onscroll "mpc -q seek {}" :min 0 :active "true" :max 100 :value current_status)))))
 
+(defwidget desktop_workspaces []
+  (literal :content workspace :visible empty))
 
+
+(defwidget desktop_left []
+  (box :orientation "h"
+     :space-evenly false
+     ;; :halign "start"
+     :class "left_modules"
+;(launcher)
+;;(sep)
+(desktop_workspaces)
+))
+
+(defwidget desktop []
+  (box :class "bar_class"
+       :orientation "h"
+       :width "1900px"
+  (desktop_left)
+  ;; (center)
+  ;; (right)
+    ))

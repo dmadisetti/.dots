@@ -154,10 +154,10 @@ scale trough {
 }
 
 .works {
-font-size: 27px;
-font-weight: normal;
-margin: 5px 0px 0px 10px;
-background-color: rgba(00, 00, 00, 0.0);
+  font-size: 27px;
+  font-weight: normal;
+  margin: 5px 0px 0px 10px;
+  background-color: rgba(00, 00, 00, 0.0);
 }
 
 .0 , .01, .02, .03, .04, .05, .06,
@@ -167,7 +167,7 @@ background-color: rgba(00, 00, 00, 0.0);
 
 /* Unoccupied */
 .0 {
-color: #606060;
+  color: #606060;
 }
 
 /* Occupied */
@@ -176,8 +176,19 @@ color: #606060;
 }
 
 /* Focused */
-.011, .022, .033, .044, .055, .066, .077, .088, .099{
-  color: #53E2AE;
+.empty {
+  .011, .022, .033, .044, .055, .066, .077, .088, .099{
+    // color: #fc873c;
+    color: #fc873c;
+    // color: #53E2AE;
+  }
+}
+
+.bar {
+  .011, .022, .033, .044, .055, .066, .077, .088, .099{
+    //color: #fc873c;
+    color: #53E2AE;
+  }
 }
 
 
