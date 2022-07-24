@@ -9,7 +9,7 @@ let
   };
 
   # fetchFromGitHub should work too
-  spicetify = fetchTarball https://github.com/pietdevries94/spicetify-nix/archive/master.tar.gz;
+  spicetify = fetchTarball github:pietdevries94/spicetify-nix/archive/master.tar.gz;
 in
 {
   imports = [ (import "${spicetify}/module.nix") ];

@@ -13,9 +13,10 @@ in
   ];
 
   wsl = {
+    inherit defaultUser;
+
     enable = true;
     automountPath = "/mnt";
-    defaultUser = defaultUser;
     tarball.includeConfig = true;
   };
 

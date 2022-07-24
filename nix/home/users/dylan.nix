@@ -1,7 +1,7 @@
 # Home sweet home 🏠
 
 args@{ inputs, self, pkgs, stateVersion, ... }:
-let propagate = f: extra@{ ... }: (import f (args // extra));
+let propagate = f: extra: (import f (args // extra));
 in
 {
   # you can rename this file to your main username;

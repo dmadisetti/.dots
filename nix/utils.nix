@@ -17,13 +17,8 @@
     xmonad = "x";
   };
 
-  # helper
-  maybe = set: attr: default:
-    if set ? "${attr}"
-    then set."${attr}" else default;
-
   maybeUserConfig = user:
-    let personalized_config = (./home/users + "/${user}.nix");
+    let personalized_config = ./home/users + "/${user}.nix";
     in
     if builtins.pathExists personalized_config then
       personalized_config
@@ -81,7 +76,7 @@
       specialArgs = {
         inherit system inputs sensitive user self isContainer stateVersion;
       };
-      modules = ([
+      modules = [
         # System configuration for this host
         machineConfig
         ./common.nix
@@ -103,6 +98,6 @@
         [ ]) ++ (if wms ? "${wm}" then
         [ (./. + ("/display/" + wms."${wm}") + ".nix") ]
       else
-        [ ]));
+        [ ]);
     };
 }

@@ -6,13 +6,15 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
 
   services = {
     hostapd = {
+      inherit ssid;
+
       enable = true;
       interface = "${dev.ap}";
       hwMode = "g";
-      ssid = ssid;
-      wpaPassphrase = (self.lib.utils.maybe
-        config.networking.wireless.networks "${ssid}"
-        ({ psk = ""; })).psk;
+      wpaPassphrase = (
+        config.networking.wireless.networks."${ssid}" or
+          { psk = ""; }
+      ).psk;
       extraConfig = ''
         auth_algs=3
         beacon_int=100
@@ -52,8 +54,7 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
 
     dnsmasq = {
       enable = true;
-      extraConfig =
-        if sensitive.lib ? dnsmasq then sensitive.lib.dnsmasq else "";
+      extraConfig = sensitive.lib.dnsmasq or "";
     };
 
     # Sometimes slow connection speeds are attributed to absence of haveged.

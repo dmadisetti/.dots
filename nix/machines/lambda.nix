@@ -23,8 +23,7 @@
         tld = "ave";
         cert =
           if (self.inputs.sensitive.lib.certificates ? ave) then {
-            crt = self.inputs.sensitive.lib.certificates.ave.cert;
-            key = self.inputs.sensitive.lib.certificates.ave.key;
+            inherit (self.inputs.sensitive.lib.certificates.ave) key cert;
           } else null;
         proxies = {
           "notebook.${tld}" = { port = "8000"; };
@@ -38,8 +37,7 @@
           "transmission.${tld}" = { port = "9091"; };
         };
       })
-    ] ++ (if
-      self.lib.utils.maybe self.inputs.sensitive.lib "sellout" false
+    ] ++ (if self.inputs.sensitive.lib.sellout or false
     then [ ./common/plex.nix ] else [ ]);
 
   boot.loader.efi.canTouchEfiVariables = true;
