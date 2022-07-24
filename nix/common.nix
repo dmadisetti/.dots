@@ -24,9 +24,7 @@
     };
   };
 
-  time.timeZone =
-    self.lib.utils.maybe
-      self.inputs.sensitive.lib "timeZone" "America/New_York";
+  time.timeZone = self.inputs.sensitive.lib.timeZone or "America/New_York";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.mutableUsers = false;

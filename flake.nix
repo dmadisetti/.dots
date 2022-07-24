@@ -88,7 +88,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = import ./nix/overlays.nix { inherit sensitive; };
-        config.allowUnfree = utils.maybe sensitive.lib "sellout" false;
+        config.allowUnfree = sensitive.lib.sellout or false;
         # we are not ready... !
         # config.contentAddressedByDefault = false;
       };
@@ -109,7 +109,7 @@
         {
           momento = utils.mkComputer {
             machineConfig = ./nix/machines/momento.nix;
-            wm = utils.maybe sensitive.lib "default_wm" "none";
+            wm = sensitive.lib.default_wm or "none";
             userConfigs = [ ./nix/home/live.nix ];
           };
 

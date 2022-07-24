@@ -5,7 +5,7 @@ let
   ssl =
     if cert != null then {
       forceSSL = cert ? key && cert.key != null;
-      sslCertificate = cert.crt;
+      sslCertificate = cert.cert;
       sslCertificateKey = cert.key;
     } else { forceSSL = false; };
 

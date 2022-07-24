@@ -2,11 +2,10 @@
 { inputs, ... }: {
   imports = [ ];
   programs.git = {
-    enable = inputs.sensitive.lib.git.enable;
+    inherit (inputs.sensitive.lib.git) enable;
     extraConfig = {
       user = {
-        name = inputs.sensitive.lib.git.name;
-        email = inputs.sensitive.lib.git.email;
+        inherit (inputs.sensitive.lib.git) name email;
         signingKey = inputs.sensitive.lib.git.signing.key;
       };
       commit = { gpgSign = inputs.sensitive.lib.git.signing.enable; };

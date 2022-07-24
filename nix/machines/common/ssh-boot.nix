@@ -1,9 +1,9 @@
-# Fancy grub and networking
+# Stolen from https://nixos.wiki/wiki/ZFS
 { config, pkgs, ... }: {
   boot = {
     initrd.network = {
       # This will use udhcp to get an ip address.
-      # Make sure you have added the kernel module for your network driver to `boot.initrd.availableKernelModules`, 
+      # Make sure you have added the kernel module for your network driver to `boot.initrd.availableKernelModules`,
       # so your initrd can load it!
       # Static ip addresses might be configured using the ip argument in kernel command line:
       # https://www.kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
@@ -15,7 +15,7 @@
         port = 2222;
         # hostKeys paths must be unquoted strings, otherwise you'll run into issues with boot.initrd.secrets
         # the keys are copied to initrd from the path specified; multiple keys can be set
-        # you can generate any number of host keys using 
+        # you can generate any number of host keys using
         # `ssh-keygen -t ed25519 -N "" -f /path/to/ssh_host_ed25519_key`
         hostKeys = [ /path/to/ssh_host_rsa_key ];
         # public ssh key used for login
