@@ -26,7 +26,11 @@
             inherit (self.inputs.sensitive.lib.certificates.ave) key cert;
           } else null;
         proxies = {
-          "notebook.${tld}" = { port = "8000"; };
+          "notebook.${tld}" = {
+            port = "8000";
+            extra = ''
+              proxy_set_header Host $host;'';
+          };
           "~^(?<sub>.+)?\\.notebook.${tld}$" = { port = "800$sub"; };
           "notes.${tld}" = { port = "9000"; };
 

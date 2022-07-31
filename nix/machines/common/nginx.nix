@@ -12,18 +12,18 @@ let
   port_proxy =
     { port
     , host ? "127.0.0.1"
+    , extra ? ""
     }: {
       locations."/" = {
         proxyPass = "http://${host}:${port}$request_uri";
         proxyWebsockets = true; # needed if you need to use WebSocket
-        extraConfig = ''
-          proxy_set_header Host $host;
-        '';
+        extraConfig = extra;
       };
     };
 
   wrap_proxy = name: value@{ port
                      , host ? "127.0.0.1"
+                     , extra ? ""
                      }: port_proxy value;
 in
 {
