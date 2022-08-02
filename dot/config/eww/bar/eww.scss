@@ -154,7 +154,7 @@ scale trough {
 }
 
 .works {
-  font-size: 27px;
+  font-size: 31px;
   font-weight: normal;
   margin: 5px 0px 0px 10px;
   background-color: rgba(00, 00, 00, 0.0);
@@ -176,18 +176,17 @@ scale trough {
 }
 
 /* Focused */
-.empty {
-  .011, .022, .033, .044, .055, .066, .077, .088, .099{
-    // color: #fc873c;
-    color: #fc873c;
-    // color: #53E2AE;
-  }
+.011, .022, .033, .044, .055, .066, .077, .088, .099{
+  // color: #fc873c;
+  color: #fc873c;
+  // color: #53E2AE;
 }
 
 .bar {
   .011, .022, .033, .044, .055, .066, .077, .088, .099{
     //color: #fc873c;
-    color: #53E2AE;
+    color: #fc873c;
+    //color: #53E2AE;
   }
 }
 
@@ -423,9 +422,6 @@ color: #bfc9db;
   margin : 0px 0px 5px 0px;
 }
 
-
-
-
 .mic_icon {
   background-size: cover;
     background-image: url('images/mic.png');
@@ -450,7 +446,7 @@ color: #bfc9db;
 }
 .mic_bar scale trough {
   all: unset;
-    box-shadow: 0 6px 5px 2px #06060b;
+  box-shadow: 0 6px 5px 2px #06060b;
   background-color: #232232;
   border-radius: 24px;
   min-height: 13px;
@@ -459,8 +455,15 @@ color: #bfc9db;
 }
 
 .audio_sep {
-    color: #38384d;
-    font-size: 18;
+  color: #38384d;
+  font-size: 18;
   margin : 0px 0px 0px 0px;
 }
 
+
+.desktop_left {
+  //max-width: 1000px;
+}
+.desktop_right {
+  //float: right;
+}

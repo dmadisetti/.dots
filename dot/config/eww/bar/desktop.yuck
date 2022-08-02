@@ -3,10 +3,10 @@
           :exclusive false
           :monitor 0
           :geometry (geometry
-                       :x "200px"
+                       :x "175px"
                        :y "200px"
-                       :width "200px"
-                       :height "200px")
+                       :width "2850"
+                       :height "0px")
           :stacking "bg"
           :windowtype "dock"
   (desktop))

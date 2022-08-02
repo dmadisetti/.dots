@@ -14,7 +14,7 @@
         )))))
 
 (defwidget workspaces []
-  (literal :content workspace :visible not-empty))
+  (literal :content workspace))
 
 (defwidget bat []
     (box :class "bat_module" :vexpand "false" :hexpand "false"
@@ -93,7 +93,7 @@
 (defwidget bright []
   (eventbox :onhover "${eww} update br_reveal=true" :onhoverlost "${eww} update br_reveal=false"
   (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3"
-    (label :text "" :class "bright_icon" :tooltip "brightness")
+    (label :text "☀️" :class "bright_icon" :tooltip "brightness")
   (revealer :transition "slideleft"
         :reveal br_reveal
         :duration "350ms"
@@ -135,8 +135,9 @@
      :space-evenly false
          :halign "start"
      :class "left_modules"
-(launcher)
-(sep)
+;; (launcher)
+;; (sep)
+(bright)
 (workspaces)
 ))
 
@@ -154,22 +155,21 @@
      :space-evenly false
          :halign "end"
      :class "right_modules"
-(bright)
-(volume)
-(wifi)
+;(volume)
+;(wifi)
 ;(sep)
-;(bat)
 ;(mem)
-(sep)
+;(sep)
 (clock_module)
 ))
 
 (defwidget bar_1 []
   (box :class "bar_class"
        :orientation "h"
-       :width "1900px"
+       :width "1980px"
+       :visible not-empty
   (left)
-  (center)
+  ;;(center)
   (right)
     ))
 
@@ -285,24 +285,27 @@
           (scale :onscroll "mpc -q seek {}" :min 0 :active "true" :max 100 :value current_status)))))
 
 (defwidget desktop_workspaces []
-  (literal :content workspace :visible empty))
+  (literal :content workspace))
 
 
 (defwidget desktop_left []
-  (box :orientation "h"
-     :space-evenly false
-     ;; :halign "start"
-     :class "left_modules"
-;(launcher)
-;;(sep)
-(desktop_workspaces)
+  (box 
+     :space-evenly true
+     :halign "start"
+     :class "desktop_left"
+    (desktop_workspaces)
+))
+
+(defwidget desktop_right []
+  (box 
+     :class "desktop_right"
+    (clock_module)
 ))
 
 (defwidget desktop []
   (box :class "bar_class"
-       :orientation "h"
        :width "1900px"
+       :visible empty
   (desktop_left)
-  ;; (center)
-  ;; (right)
+  (desktop_right)
     ))
