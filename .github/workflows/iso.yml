@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: "provision wsl"
+    - name: "provision home-mananger for wsl"
       uses: ./.github/actions/runner
       id: runner
 
-    - name: "build public iso"
+    - name: "build public wsl tar"
       run: |
         wsl
         dots-help | sed -n 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g;/# default iso/,$p' > README.txt
       shell: fish {0}
 
-    - name: "provide default iso"
+    - name: "provide default wsl tar"
       uses: actions/upload-artifact@v3
       with:
-        name: live-iso
+        name: wsl
         path: |
           result/tarball/*.tar.gz
           README.txt
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: "provision home-mananger"
+    - name: "provision home-mananger for iso"
       uses: ./.github/actions/runner
       id: runner
 
@@ -58,7 +58,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: "provision home-mananger"
+    - name: "provision home-mananger for docker"
       uses: ./.github/actions/runner
       id: runner
       with:
@@ -71,19 +71,19 @@ jobs:
         docker tag dots-docker ghcr.io/${{ github.actor }}/dots
       shell: fish {0}
 
-    - name: Log in to the Container registry
+    - name: "Log in to the Container registry"
       uses: docker/login-action@v2
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GHCR_TOKEN }}
 
-    - name: Docker meta
+    - name: "Tag Docker meta"
       id: docker-meta
       uses: docker/metadata-action@v4
       with:
         images: ghcr.io/${{ github.actor }}/dots
         tags: latest
 
-    - name: Push Docker image
+    - name: "Push Docker image"
       run: docker push ${{ steps.docker-meta.outputs.tags }}
