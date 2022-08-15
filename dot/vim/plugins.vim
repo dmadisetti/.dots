@@ -78,6 +78,9 @@ Plug 'cybrown-zoox/vim-pbtxt'
 " Fish
 Plug 'dag/vim-fish', {'for': 'fish'}
 
+" Why no %
+Plug 'chrisbra/matchit' ", {'for': ['fish', 'bash', 'shell', 'zsh']}
+
 " All hail our AI overlord
 if has('nvim-0.6')
 	Plug 'github/copilot.vim', {'branch': 'release'}
