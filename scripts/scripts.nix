@@ -39,7 +39,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     TEMPLATE=${../nix/spoof/flake.nix}
     REMOTE=${../.github/assets/remote.txt}
     SELF=${self}
-    PATH=${dots-manager-path}:${pkgs.nix}/bin:$PATH
+    PATH=${dots-manager-path}:${pkgs.git}/bin:${pkgs.nix}/bin:$PATH
     WELCOME="$(${self._prettyprint}/bin/prettyprint hello-live)"
     WAIT="$(${self._prettyprint}/bin/prettyprint wait)"
     source ${./utils.sh}
@@ -53,7 +53,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     REMOTE=${../.github/assets/remote.txt}
     SPOOF=${../nix/spoof/flake.nix}
     WELCOME="$(${self._prettyprint}/bin/prettyprint hello-home)"
-    PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
+    PATH=${dots-manager-path}:${pkgs.git}/bin:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
     source ${./utils.sh}
     source ${./create-home.nix.sh}
   '';
@@ -63,7 +63,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     sleep 0.05
     REMOTE=${../.github/assets/remote.txt}
     WELCOME="$(${self._prettyprint}/bin/prettyprint hello-install)"
-    PATH=${dots-manager-path}:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
+    PATH=${dots-manager-path}:${pkgs.git}/bin:${pkgs.nix}/bin:${pkgs.home-manager}/bin:$PATH
     source ${./utils.sh}
     source ${./create-install.nix.sh}
     source ${./run-install.nix.sh}
