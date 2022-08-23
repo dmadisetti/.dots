@@ -107,28 +107,6 @@
         "type": "github"
       }
     },
-    "hyprland": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "wlroots": "wlroots"
-      },
-      "locked": {
-        "lastModified": 1659471645,
-        "narHash": "sha256-rFI6fvMh5DlYGI8gA+M9PEvnMwSTeIajzsx5R+KG8SY=",
-        "owner": "vaxerski",
-        "repo": "Hyprland",
-        "rev": "02fbb3a41736c4fcb962f60c7992c5370050ac26",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vaxerski",
-        "ref": "v0.9.1beta",
-        "repo": "Hyprland",
-        "type": "github"
-      }
-    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1660407119,
@@ -192,7 +170,6 @@
         "grub2-themes": "grub2-themes",
         "grub2-themes-png": "grub2-themes-png",
         "home-manager": "home-manager",
-        "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs"
