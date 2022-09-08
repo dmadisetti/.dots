@@ -1,6 +1,7 @@
-set PHD /opt/phd/notes
+set PHD ~/phd/notes
 function review
-  cd $PHD/reviews;
+  phd
+  cd notes/
   if test (count $argv) -eq 0
     return;
   end
@@ -8,7 +9,7 @@ function review
   set -l core (echo $argv[1] | sed 's/\.[^.]*$//' | sed 's/^.*\///')
 
   set -l file $argv[1]
-  set -l review $PHD/reviews/$core.md
+  set -l review reviews/$core.md
   if test ! -f $file
     cd -;
     echo "File does not exist."
@@ -16,7 +17,7 @@ function review
   end
 
   if test ! -f $review
-    cp review.template $review
+    cp reviews/review.template $review
   end
   vim $review
 end
