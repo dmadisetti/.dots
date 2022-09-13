@@ -1,5 +1,5 @@
-# Fancy grub and networking
-{ config, pkgs, ... }: {
+# 🏴 + 🦜= 💰
+{ config, pkgs, lib, ... }: {
   environment.systemPackages = with pkgs; [ mediainfo ];
   services = {
     plex = {
@@ -28,4 +28,7 @@
       };
     };
   };
+  # A little bit of the personal config coming over. TODO: Create vpn-service
+  # hook in sensitive.
+  systemd.services.transmission.wantedBy = lib.mkForce [ "wg-quick-pm-ny1.service" ];
 }
