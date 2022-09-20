@@ -8,7 +8,11 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
     hostapd = {
       inherit ssid;
 
-      enable = !sensitive.lib.networking.wireless.enable;
+      enable = !(
+        sensitive.lib.networking.wireless or {
+          enable = false;
+        }
+      ).enable;
       interface = "${dev.ap}";
       hwMode = "g";
       wpaPassphrase = (
