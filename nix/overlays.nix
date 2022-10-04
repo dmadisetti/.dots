@@ -48,7 +48,7 @@
         hash = "sha256-1+noph6iXM5OSNMFQyta/ttGyZQ6F7bWDQi8W190G5E=";
       };
 
-      nativeBuildInputs = [ pkgconfig meson ninja cmake ];
+      nativeBuildInputs = [ pkg-config meson ninja cmake ];
 
       buildInputs = [ wayland wayland-protocols mpv wlroots cairo ];
 
