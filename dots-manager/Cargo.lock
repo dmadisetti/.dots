@@ -268,26 +268,24 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "3.2.22"
+version = "4.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86447ad904c7fb335a790c9d7fe3d0d971dc523b8ccd1561a520de9a85302750"
+checksum = "4ed45cc2c62a3eff523e718d8576ba762c83a3146151093283ac62ae11933a73"
 dependencies = [
  "atty",
  "bitflags",
  "clap_derive",
  "clap_lex",
- "indexmap",
  "once_cell",
  "strsim 0.10.0",
  "termcolor",
- "textwrap 0.15.1",
 ]
 
 [[package]]
 name = "clap_derive"
-version = "3.2.18"
+version = "4.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ea0c8bce528c4be4da13ea6fead8965e95b6073585a2f05204bd8f4119f82a65"
+checksum = "db342ce9fda24fb191e2ed4e102055a4d381c1086a06630174cd8da8d5d917ce"
 dependencies = [
  "heck",
  "proc-macro-error",
@@ -298,9 +296,9 @@ dependencies = [
 
 [[package]]
 name = "clap_lex"
-version = "0.2.4"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2850f2f5a82cbf437dd5af4d49848fbdfc27c157c3d010345776f952765261c5"
+checksum = "0d4198f73e42b4936b35b5bb248d81d2b595ecb170da0bac7655c54eedfa8da8"
 dependencies = [
  "os_str_bytes",
 ]
@@ -553,7 +551,7 @@ dependencies = [
 name = "dots-manager"
 version = "0.1.0"
 dependencies = [
- "clap 3.2.22",
+ "clap 4.0.11",
  "handlebars",
  "nixpkgs-fmt",
  "pgp",
@@ -696,12 +694,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d7afe4a420e3fe79967a00898cc1f4db7c8a49a9333a29f8a4bd76a253d5cd04"
 
 [[package]]
-name = "hashbrown"
-version = "0.12.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
-
-[[package]]
 name = "heck"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -744,16 +736,6 @@ dependencies = [
  "thread_local",
  "walkdir",
  "winapi-util",
-]
-
-[[package]]
-name = "indexmap"
-version = "1.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "10a35a97730320ffe8e2d410b5d3b69279b98d2c14bdb8b70ea89ecf7888d41e"
-dependencies = [
- "autocfg",
- "hashbrown 0.12.3",
 ]
 
 [[package]]
@@ -1164,9 +1146,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.40"
+version = "1.0.46"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd96a1e8ed2596c337f8eae5f24924ec83f5ad5ab21ea8e455d3566c69fbcaf7"
+checksum = "94e2ef8dbfc347b10c094890f778ee2e36ca9bb4262e86dc99cd217e35f3470b"
 dependencies = [
  "unicode-ident",
 ]
@@ -1357,7 +1339,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a1b36e449f3702f3b0c821411db1cbdf30fb451726a9456dce5dabcd44420043"
 dependencies = [
  "countme",
- "hashbrown 0.9.1",
+ "hashbrown",
  "memoffset",
  "rustc-hash",
  "serde",
