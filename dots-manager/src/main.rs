@@ -15,49 +15,47 @@ enum Command {
     /// Clean up the configuration file.
     Clean {
         /// The path to the configuration file.
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         config: Option<PathBuf>,
         /// Outfile location
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         outfile: Option<PathBuf>,
         /// The configurations to retain.
-        #[clap(parse(from_str))]
         reserve: Vec<String>,
     },
     /// Remove a machine from configuration file.
     Remove {
         /// The path to the configuration file.
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         config: Option<PathBuf>,
         /// Outfile location
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         outfile: Option<PathBuf>,
         /// The configurations to remove.
-        #[clap(parse(from_str))]
         removed: Option<String>,
     },
     /// Create files for installation.
     PreInstallation {
         /// Location of .dots folder for templating.
-        #[clap(required = true, parse(from_os_str))]
+        #[clap(required = true, value_parser)]
         dots_location: PathBuf,
         /// Output directory location.
-        #[clap(required = true, parse(from_os_str))]
+        #[clap(required = true, value_parser)]
         install_folder: PathBuf,
         /// Default json configuration
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         defaults: Option<PathBuf>,
     },
     /// Template a configuration file.
     Template {
         /// Template path for use
-        #[clap(required = true, parse(from_os_str))]
+        #[clap(required = true, value_parser)]
         template: PathBuf,
         /// Outfile location
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         outfile: Option<PathBuf>,
         /// Default json configuration
-        #[clap(parse(from_os_str))]
+        #[clap(value_parser)]
         defaults: Option<PathBuf>,
     },
 }
