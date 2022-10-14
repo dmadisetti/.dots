@@ -2,11 +2,11 @@
   "nodes": {
     "declarative-cachix": {
       "locked": {
-        "lastModified": 1644208524,
-        "narHash": "sha256-BW43hqKBxNNMrgUnn6D53useE8f4/yz66bvCzwUbueQ=",
+        "lastModified": 1665453509,
+        "narHash": "sha256-jCyxhzN5BuUCaaWzO36L6j1ha4BgsCQoOd3O4ahk0G0=",
         "owner": "jonascarpay",
         "repo": "declarative-cachix",
-        "rev": "b63e9cb0d0962656d08fb4668a5b6b1ba1ca5648",
+        "rev": "1f5245bc245acabc3ec2c5517f39db3d92bea17b",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1664783440,
-        "narHash": "sha256-KlMwR7mUf5h8MPnzV7nGFUAt6ih/euW5xgvZ5x+hwvI=",
+        "lastModified": 1665655007,
+        "narHash": "sha256-34ZMJlgqJb73RY/gJz8B4cjdM5ukas2crMYQpmyRGeQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e4e639dd4dc3e431aa5b5f95325f9a66ac7e0dd9",
+        "rev": "8cbc6500dfca22d907054f68c564019b3b6cf295",
         "type": "github"
       },
       "original": {
@@ -115,27 +115,27 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1663778486,
-        "narHash": "sha256-Gtx7HmpEl7k1PFzZULU5WBRSCCrN5MgZnrpJdaA4kSY=",
+        "lastModified": 1665480816,
+        "narHash": "sha256-FPcO5We1hhUcql4bnes3Q5sIa8E9nfH8y582wieFGQU=",
         "owner": "vaxerski",
         "repo": "Hyprland",
-        "rev": "d3ffccd45ff6d6f7bf8cd08b4c1d9e0c00635ab4",
+        "rev": "8880298f50dcc53b0aa91e13673dbd3391b65170",
         "type": "github"
       },
       "original": {
         "owner": "vaxerski",
-        "ref": "v0.14.0beta",
+        "ref": "v0.15.3beta",
         "repo": "Hyprland",
         "type": "github"
       }
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1664628729,
-        "narHash": "sha256-A1J0ZPhBfZZiWI6ipjKJ8+RpMllzOMu/An/8Tk3t4oo=",
+        "lastModified": 1665734422,
+        "narHash": "sha256-v8DMfRyFdulDyCCoOXak+oue1IgVBJZdSY1eXqdMRwQ=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "3024c67a2e9a35450558426c42e7419ab37efd95",
+        "rev": "c8c54d8f0af9f19ed6e929e60f0e1609b89b1240",
         "type": "github"
       },
       "original": {
@@ -217,11 +217,11 @@
       "flake": false,
       "locked": {
         "host": "gitlab.freedesktop.org",
-        "lastModified": 1663507239,
-        "narHash": "sha256-LISZtkPVe8lQ2N8YwVe+KxCkXWLP9mdw6Q2kG93wE8A=",
+        "lastModified": 1665405587,
+        "narHash": "sha256-lVL48azhjGA/oEIcUSZQNwomNs0EzPxCcjgzyDST0PM=",
         "owner": "wlroots",
         "repo": "wlroots",
-        "rev": "2ad25b1460400e66ea26bd6489b04072be7d9dbb",
+        "rev": "221ee83d440fb7dcbfd141ef3a459a5a973331b6",
         "type": "gitlab"
       },
       "original": {

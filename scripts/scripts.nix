@@ -7,7 +7,11 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
       tag = "latest";
 
       # everything in this is *copied* to the root of the image
-      contents = [ self.live pkgs.coreutils ];
+      copyToRoot = pkgs.buildEnv {
+        name = "image-root";
+        paths = [ self.live pkgs.coreutils ];
+        pathsToLink = [ "/bin" ];
+      };
 
       runAsRoot = ''
         mkdir -p ${home} /etc
