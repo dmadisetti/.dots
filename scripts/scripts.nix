@@ -9,7 +9,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
       # everything in this is *copied* to the root of the image
       copyToRoot = pkgs.buildEnv {
         name = "image-root";
-        paths = [ self.live pkgs.coreutils ];
+        paths = [ self.live pkgs.coreutils pkgs.git ];
         pathsToLink = [ "/bin" ];
       };
 
