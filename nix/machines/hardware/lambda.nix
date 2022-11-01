@@ -53,7 +53,7 @@
     };
 
   fileSystems."/media/external" =
-    { device = "/dev/disk/by-uuid/6334-834B";
+    { device = "/dev/disk/by-uuid/36C9-4CBC";
       fsType = "exfat";
     };
 
