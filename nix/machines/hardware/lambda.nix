@@ -4,7 +4,8 @@
 { config, lib, pkgs, modulesPath, ... }:
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -13,48 +14,79 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "zoot/system/root";
+    {
+      device = "zoot/system/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "zoot/system/nix";
+    {
+      device = "zoot/system/nix";
       fsType = "zfs";
     };
 
   fileSystems."/persist" =
-    { device = "zoot/persist";
+    {
+      device = "zoot/persist";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "zoot/user/home";
+    {
+      device = "zoot/user/home";
       fsType = "zfs";
     };
 
   fileSystems."/root" =
-    { device = "zoot/user/home/root";
+    {
+      device = "zoot/user/home/root";
       fsType = "zfs";
     };
 
   fileSystems."/home/dylan" =
-    { device = "zoot/user/home/dylan";
+    {
+      device = "zoot/user/home/dylan";
       fsType = "zfs";
     };
 
   fileSystems."/media" =
-    { device = "zoot/media";
+    {
+      device = "zoot/media";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/844A-6AD8";
+    {
+      device = "/dev/disk/by-uuid/844A-6AD8";
       fsType = "vfat";
     };
 
   fileSystems."/media/external" =
-    { device = "/dev/disk/by-uuid/36C9-4CBC";
-      fsType = "exfat";
+    {
+      device = "external";
+      fsType = "zfs";
+      options = [ "auto" "nofail" "noatime" ];
+    };
+
+  fileSystems."/media/external/media" =
+    {
+      device = "external/media";
+      fsType = "zfs";
+      options = [ "auto" "nofail" "noatime" ];
+    };
+
+  fileSystems."/media/external/data" =
+    {
+      device = "external/data";
+      fsType = "zfs";
+      options = [ "auto" "nofail" "noatime" ];
+    };
+
+  fileSystems."/media/external/snapshots" =
+    {
+      device = "external/snapshots";
+      fsType = "zfs";
+      options = [ "auto" "nofail" "noatime" ];
     };
 
   swapDevices = [ ];
