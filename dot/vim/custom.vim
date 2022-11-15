@@ -34,6 +34,14 @@ function! Zen()
   :Limelight
   if g:MarkDowned
     :SoftPencil
+    :highlight CursorLineNR ctermbg=236 ctermfg=240
+    :highlight Hidden ctermbg=234 ctermfg=234
+    :highlight LineNum ctermbg=234 ctermfg=238
+    :set signcolumn=yes:5
+    :set cursorline
+    :set number
+    # TODO: Share this plugin with the world.
+    :ParagraphNumberToggle
   endif
 endfunction
 
