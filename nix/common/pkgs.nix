@@ -3,6 +3,7 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     git
+    git-lfs
     fish
     neovim
     nixpkgs-fmt
