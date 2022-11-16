@@ -9,8 +9,14 @@
     driSupport32Bit = true;
   };
 
-  services.xserver.enable = true;
-  services.xserver.libinput.enable = true;
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.desktopManager.xterm.enable = false;
+  services.xserver = {
+    enable = true;
+    libinput.enable = true;
+    displayManager.startx.enable = true;
+    desktopManager.xterm.enable = false;
+  };
+
+  # Enable sound.
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 }

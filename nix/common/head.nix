@@ -7,10 +7,6 @@
   # Programs
   programs.fish.enable = true;
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   # Disable wireguard service out the gate.
   systemd.services."wg-quick-wg0".wantedBy = lib.mkForce [ ];
 }
