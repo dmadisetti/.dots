@@ -65,7 +65,7 @@
     dots-manager.inputs.flake-utils.follows = "flake-utils";
 
     # Common Grub2 themes
-    grub2-themes.url = github:AnotherGroupChat/grub2-themes-png/aa310b3;
+    grub2-themes.url = github:AnotherGroupChat/grub2-themes-png;
     grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland is **such** eye candy
