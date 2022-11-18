@@ -36,7 +36,7 @@
     # https://status.nixos.org/
     #
     # This ensures that we always use the official nix cache.
-    # nixpkgs.url = "/home/dylan/src/nixpkgs-local?cache-bust=4";
+    # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
     nixpkgs.url = github:nixos/nixpkgs/5f588eb4a958f1a526ed8da02d6ea1bea0047b9f;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
@@ -64,16 +64,12 @@
     dots-manager.inputs.nixpkgs.follows = "nixpkgs";
     dots-manager.inputs.flake-utils.follows = "flake-utils";
 
-
     # Common Grub2 themes
-    grub2-themes.url = github:vinceliuice/grub2-themes;
+    grub2-themes.url = github:AnotherGroupChat/grub2-themes-png/aa310b3;
     grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
-    grub2-themes-png.url = github:AnotherGroupChat/grub2-themes-png;
-    grub2-themes-png.inputs.nixpkgs.follows = "nixpkgs";
-    # TODO: Fix grub2-themes so that it can use pngs.
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:vaxerski/Hyprland/v0.17.0beta;
+    hyprland.url = github:vaxerski/Hyprland/v0.18.0beta;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix for caching!

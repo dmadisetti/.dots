@@ -1,4 +1,4 @@
-function phd --wraps='cd /home/dylan/phd'
+function phd --wraps='cd ~/phd'
   _home ~/phd $argv
 end
 

@@ -10,7 +10,8 @@
       ./hardware/lambda.nix
 
       (import ./common/fancy-grub.nix {
-        splash = ../../dot/backgrounds/grub.jpg;
+        splash = ../../dot/backgrounds/lambda-grub.jpg;
+        short = true;
       })
       (import ./common/hostapd.nix {
         dev = {
@@ -32,7 +33,12 @@
               proxy_set_header Host $host;'';
           };
           "~^(?<sub>.+)?\\.notebook.${tld}$" = { port = "800$sub"; };
-          "notes.${tld}" = { port = "9000"; };
+          "notes.${tld}" = {
+            port = "9000";
+            extra = ''
+              add_header Access-Control-Allow-Origin *;
+            '';
+          };
 
           # Plex relevant
           "plex.${tld}" = { port = "32400"; };

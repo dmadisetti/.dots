@@ -1,4 +1,4 @@
-{ cache, pkgs, ... }: {
+{ cache, self, pkgs, ... }: {
   home.packages = with pkgs; [ cachix ];
 
   # Cheers @thiagokokada
