@@ -40,7 +40,7 @@ function! Zen()
     :set signcolumn=yes:5
     :set cursorline
     :set number
-    # TODO: Share this plugin with the world.
+    " TODO: Share this plugin with the world.
     :ParagraphNumberToggle
   endif
 endfunction

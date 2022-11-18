@@ -35,6 +35,14 @@
       };
     };
   })
+  (self: super: {
+    # I don't need it, so turn it off...
+    plexRaw = super.plexRaw.overrideAttrs (_: {
+      postInstall = ''
+        chmod -x "$out/lib/plexmediaserver/Plex Tuner Service"
+      '';
+    });
+  })
   (_: pkgs: {
     # ripped off nur/berbiche
     mpvpaper = with pkgs; stdenv.mkDerivation rec {

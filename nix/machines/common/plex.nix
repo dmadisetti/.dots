@@ -28,6 +28,8 @@
       };
     };
   };
+  systemd.services.plex.serviceConfig.KillSignal = lib.mkForce "SIGKILL";
+
   # A little bit of the personal config coming over. TODO: Create vpn-service
   # hook in sensitive.
   systemd.services.transmission.wantedBy = lib.mkForce [ "wg-quick-pm-ny1.service" ];

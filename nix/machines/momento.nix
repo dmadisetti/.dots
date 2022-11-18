@@ -21,7 +21,7 @@ in
 
     # Let's get it booted in here
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
-    self.inputs.grub2-themes-png.nixosModule
+    self.inputs.grub2-themes.nixosModules.default
 
     # Provide an initial copy of the NixOS channel so that the user
     # doesn't need to run "nix-channel --update" first.
@@ -59,7 +59,7 @@ in
     source = pkgs.writeText "paper${paper_suffix}" sensitive.lib.keybase.paper;
     target = "/paper${paper_suffix}";
   }];
-  # isoFileSystems <- add luks
+  # isoFileSystems <- add luks (see issue dmadisetti/#34)
   boot.loader = rec {
     grub2-theme = {
       enable = true;

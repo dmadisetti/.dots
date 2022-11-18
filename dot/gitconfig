@@ -18,11 +18,13 @@
 
 [credential]
   helper = cache --timeout=86400
+
 [safe]
-	directory = /mnt/home/dylan/.dots
+  directory = ~/.dots
 	directory = /home/runner/work/.dots/.dots
+
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
