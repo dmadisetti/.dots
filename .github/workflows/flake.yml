@@ -22,7 +22,7 @@ jobs:
           experimental-features = nix-command flakes
 
     - run: |
-        systemctl enable nix-daemon.service
+        sudo systemctl enable nix-daemon.service
         systemctl status nix-daemon.service
         echo -en "$(jq -r 'del(.nodes.root.inputs.sensitive) | del(.nodes.sensitive)' flake.lock)" > flake.lock
         echo -en "$(jq -r 'del(.nodes.root.inputs."dots-manager") | del(.nodes."dots-manager")' flake.lock)" > flake.lock
