@@ -16,8 +16,6 @@ jobs:
     # dont' use runner since check won't run if it fails.
     - uses: cachix/install-nix-action@v18
       with:
-        install_url: https://releases.nixos.org/nix/nix-2.11.1/install
-        install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
         extra_nix_config: |
           experimental-features = nix-command flakes
 
