@@ -8,7 +8,7 @@
   # sudo echo "trusted-users = @wheel" >> /etc/nix/nix.conf
   caches.cachix = [{
     name = "nix-community";
-    sha256 = "1955r436fs102ny80wfzy99d4253bh2i1vv1x4d4sh0zx2ssmhrk";
+    sha256 = "1rgbl9hzmpi5x2xx9777sf6jamz5b9qg72hkdn1vnhyqcy008xwg";
   }] ++ cache;
 
   caches.extraCaches = [{
