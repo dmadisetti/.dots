@@ -48,7 +48,15 @@
         };
       })
     ] ++ (if self.inputs.sensitive.lib.sellout or false
-    then [ ./common/plex.nix ] else [ ]);
+    then [ ./common/plex.nix ] else [ ]) ++ (
+      if self.inputs.sensitive.lib ? ssh-boot then
+        [
+          (import ./common/ssh-boot.nix {
+            hostKey = self.inputs.sensitive.lib.ssh-boot.key;
+            authorizedKey = self.inputs.sensitive.lib.ssh-boot.pub;
+          })
+        ] else [ ]
+    );
 
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -76,6 +84,9 @@
   # Don't power up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = false;
   boot.extraModprobeConfig = "options bluetooth disable_ertm=1 ";
+
+  # lambda specific programs
+  programs.singularity.enable = true;
 
   /* zfs */
   boot.supportedFilesystems = [ "zfs" ];
