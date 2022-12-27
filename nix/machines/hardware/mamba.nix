@@ -5,8 +5,8 @@
 
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.kernelModules = [ "r8169" ];
+  boot.kernelModules = [ "r8169" "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.extraModprobeConfig = "options bluetooth disable_ertm=1 ";
 
