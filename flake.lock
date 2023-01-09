@@ -15,26 +15,6 @@
         "type": "github"
       }
     },
-    "dots-manager": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-VnBrNkNbLV7SNPzj6prfgVQkraqoTTU/L6C9AqfluiQ=",
-        "path": "./dots-manager",
-        "type": "path"
-      },
-      "original": {
-        "path": "./dots-manager",
-        "type": "path"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -94,11 +74,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1673211936,
-        "narHash": "sha256-ba7jhl5BhLtpSooDHllgC0Y29vc0AiYWWsxQVtjlc7o=",
+        "lastModified": 1673263826,
+        "narHash": "sha256-t3UW/DRUMJGYRi4Dh3auwsM13n9nbQvLalvWQ2cvykw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "684bdb386cec7d4f16e0da9f694c8ab50ad2cf2a",
+        "rev": "4f0c1afba75e2c3910cf4037f2b51025902cab24",
         "type": "github"
       },
       "original": {
@@ -205,44 +185,30 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1672350804,
-        "narHash": "sha256-jo6zkiCabUBn3ObuKXHGqqORUMH27gYDIFFfLq5P4wg=",
+        "lastModified": 1673134516,
+        "narHash": "sha256-mAZQKqkNQbBmJnmUU0blOfkKlgMSSVyPHdeWeuKad8U=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "677ed08a50931e38382dbef01cba08a8f7eac8f6",
+        "rev": "f6f44561884c3470e2b783683d5dbac42dfc833b",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "677ed08a50931e38382dbef01cba08a8f7eac8f6",
+        "rev": "f6f44561884c3470e2b783683d5dbac42dfc833b",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
         "declarative-cachix": "declarative-cachix",
-        "dots-manager": "dots-manager",
         "flake-utils": "flake-utils",
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs",
-        "sensitive": "sensitive"
-      }
-    },
-    "sensitive": {
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-4QCg89rB/rbW10AxfAlIJoojPfeIryYV/8W7+rv+nEg=",
-        "path": "./nix/spoof",
-        "type": "path"
-      },
-      "original": {
-        "path": "./nix/spoof",
-        "type": "path"
+        "nixpkgs": "nixpkgs"
       }
     },
     "utils": {
