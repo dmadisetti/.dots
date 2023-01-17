@@ -2,17 +2,24 @@ name: test
 on:
   push:
   pull_request:
-    types: [opened, reopened]
+
+permissions:
+  checks: write
+
 jobs:
   test:
+    permissions:
+      contents: read
+      checks: write
     runs-on: ubuntu-latest
-    env:
-      HOME: /home/nemo
-    container: ohmyfish/ohmyfish
     steps:
-      - name: Change current working directory owner and group
-        run: sudo chown -R nemo:nemo .
-      - uses: actions/checkout@v2
+      - name: Install Fish Shell
+        run: sudo apt update -y && sudo apt install -y fish
+      - uses: actions/checkout@v3
+      - name: Download Oh-My-Fish installer
+        run: curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+      - name: Install Oh-My-Fish
+        run: fish install --noninteractive
       - name: Install plugin from current working directory
         run: fish -c "omf install (pwd)"
       - name: Run tests

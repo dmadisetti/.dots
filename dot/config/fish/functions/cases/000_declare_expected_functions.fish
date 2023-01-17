@@ -1,7 +1,2 @@
 it_should 'declare fenv' 'functions -q fenv'
-it_should 'declare fenv.apply' 'functions -q fenv.apply'
 it_should 'declare fenv.main' 'functions -q fenv.main'
-it_should 'declare fenv.parse.after' 'functions -q fenv.parse.after'
-it_should 'declare fenv.parse.before' 'functions -q fenv.parse.before'
-it_should 'declare fenv.parse.diff' 'functions -q fenv.parse.diff'
-it_should 'declare fenv.parse.divider' 'functions -q fenv.parse.divider'

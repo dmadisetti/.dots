@@ -16,7 +16,8 @@ function it_should
   set -q duty; and printf '\n  x> It should %s: ' $duty
   isatty stdout; and printf "$progress"
 
-  if eval "$commands" >/dev/null 2>/dev/null
+  # Run in a separate shell to ensure that test variables are cleared after every test
+  if fish -c "set fish_function_path -p ./functions; $commands" >/dev/null 2>/dev/null
     set_color green
     isatty stdout; and printf '\b\b\b\b'
     printf 'PASS'
