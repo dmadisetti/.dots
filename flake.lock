@@ -87,30 +87,6 @@
         "type": "github"
       }
     },
-    "hyprland": {
-      "inputs": {
-        "hyprland-protocols": "hyprland-protocols",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "wlroots": "wlroots",
-        "xdph": "xdph"
-      },
-      "locked": {
-        "lastModified": 1673095759,
-        "narHash": "sha256-60efSiA7BmaX9j6hTbWVi4Tk7ZdeEWGlF0ntWYS8zmI=",
-        "owner": "vaxerski",
-        "repo": "Hyprland",
-        "rev": "af4b9700b7a1a1b36439dc51334b9aeaadcfcd41",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vaxerski",
-        "ref": "v0.20.1beta",
-        "repo": "Hyprland",
-        "type": "github"
-      }
-    },
     "hyprland-protocols": {
       "flake": false,
       "locked": {
@@ -205,7 +181,6 @@
         "flake-utils": "flake-utils",
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",
-        "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs"
