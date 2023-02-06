@@ -13,8 +13,10 @@
       inherit (sensitive.lib.sshd) enable;
 
       ports = [ sensitive.lib.sshd.port ];
-      permitRootLogin = "prohibit-password"; # distributed-build.nix requires it
-      passwordAuthentication = false;
+      settings = {
+        PermitRootLogin = "prohibit-password"; # distributed-build.nix requires it
+        PasswordAuthentication = false;
+      };
       allowSFTP = false;
     };
     fail2ban = { enable = true; };
