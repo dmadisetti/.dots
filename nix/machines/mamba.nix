@@ -1,6 +1,6 @@
 # Fancy grub and networking
 
-{ self, ... }:
+{ self, pkgs, ... }:
 
 {
   imports = [
@@ -22,4 +22,8 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s31f6.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
+
+  # I hate printers
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.hplip ];
 }
