@@ -45,6 +45,7 @@
           "sonarr.${tld}" = { port = "8989"; };
           "radarr.${tld}" = { port = "7878"; };
           "transmission.${tld}" = { port = "9091"; };
+          "tensorboard.${tld}" = { port = "6006"; };
         };
       })
     ] ++ (if self.inputs.sensitive.lib.sellout or false
