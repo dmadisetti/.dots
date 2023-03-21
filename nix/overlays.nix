@@ -47,13 +47,13 @@
     # ripped off nur/berbiche
     mpvpaper = with pkgs; stdenv.mkDerivation rec {
       pname = "mpvpaper";
-      version = "1.3";
+      version = "786f3ffe275195439f6c02a695845c3bcf2ba784";
 
       src = fetchFromGitHub {
         owner = "GhostNaN";
         repo = "mpvpaper";
         rev = version;
-        hash = "sha256-0LjIwOY2hBUb0nziD3HLP2Ek5+8v3ntssRFD9eQgWkc=";
+        hash = "sha256-dBxfjXBUkxYxjELiFby/lH3Lz05vFKr7sgUK6rgpV4Q=";
       };
 
       nativeBuildInputs = [ pkg-config meson ninja cmake ];
