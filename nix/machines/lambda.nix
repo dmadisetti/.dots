@@ -71,7 +71,7 @@
   # nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package =
-    pkgs.linuxKernel.packages.linux_5_15.nvidia_x11;
+    pkgs.linuxKernel.packages.linux_6_1.nvidia_x11;
   hardware.nvidia.modesetting.enable = true;
   # hardware.nvidia.prime.offload.enable = true;
   environment.systemPackages = with pkgs; [ nvidia-docker ];
