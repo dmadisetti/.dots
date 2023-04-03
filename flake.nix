@@ -35,7 +35,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/5f9d1bb572e08ec432ae46c78581919d837a90f6;
+    nixpkgs.url = github:nixos/nixpkgs/e3652e0735fbec227f342712f180f4f21f0594f2;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     # Really just to streamline deps.
@@ -68,6 +68,11 @@
     # Hyprland is **such** eye candy
     hyprland.url = github:vaxerski/Hyprland/v0.23.0beta;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Pretty spotify
+    # spicetify-nix.url = github:the-argus/spicetify-nix;
+    # spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    # spicetify-nix.inputs.flake-utils.follows = "flake-utils";
 
     # Cachix for caching!
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
