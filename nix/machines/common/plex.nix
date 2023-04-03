@@ -4,13 +4,24 @@ let
   pirateInterface = config.networking.wg-quick.interfaces ? pirate;
   interface =
     if pirateInterface then rec {
-      endpoint = (lib.last config.networking.wg-quick.interfaces.pirate.address);
-      ipv6 = "";
-      ipv4 =  builtins.elemAt (lib.splitString "/" endpoint) 0;
+      # For IP
+      endpoint = (lib.last config.networking.wg-quick.interfaces.pirate.peers).endpoint;
+      announced = builtins.elemAt (lib.splitString ":" endpoint) 0;
+
+      address = (lib.last config.networking.wg-quick.interfaces.pirate.address);
+      ipv4 =  builtins.elemAt (lib.splitString "/" address) 0;
+      # Private block
+      ipv6 = ""; # "fe80::";
     } else { };
 in
 {
   environment.systemPackages = with pkgs; [ mediainfo ];
+
+  # Set group on the services to allow for file movement
+  users.users.sonarr.extraGroups = [ "plex" "transmission" ];
+  users.users.radarr.extraGroups = [ "plex" "transmission" ];
+  users.users.transmission.extraGroups = [ "plex" ];
+
   services = {
     plex = {
       enable = true;
@@ -39,6 +50,8 @@ in
         # rpc-bind-address = lib.mkForce interface.ipv4;
         bind-address-ipv4 = lib.mkForce interface.ipv4;
         bind-address-ipv6 = lib.mkForce interface.ipv6;
+        announce-ip = lib.mkForce interface.announced;
+        announce-ip-enabled = true;
       };
     };
   };
