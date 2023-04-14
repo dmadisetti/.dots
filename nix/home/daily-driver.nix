@@ -6,9 +6,6 @@
     jq # of course
     ripgrep # gotta go fast
 
-    zathura # pdfs
-    zotero # research
-
     ormolu # isn't tweag the best
   ];
 }
