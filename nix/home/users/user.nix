@@ -15,6 +15,7 @@ in
     ../programs/nvim.nix
     (propagate ../programs/git.nix)
     (propagate ../programs/fish.nix)
+    (propagate ../programs/zotero.nix)
   ] ++ (if inputs.sensitive.lib ? cachix then [
     inputs.declarative-cachix.homeManagerModules.declarative-cachix
     (propagate ../programs/cachix.nix { cache = inputs.sensitive.lib.cachix; })

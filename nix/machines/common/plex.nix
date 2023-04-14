@@ -18,9 +18,11 @@ in
   environment.systemPackages = with pkgs; [ mediainfo ];
 
   # Set group on the services to allow for file movement
-  users.users.sonarr.extraGroups = [ "plex" "transmission" ];
-  users.users.radarr.extraGroups = [ "plex" "transmission" ];
-  users.users.transmission.extraGroups = [ "plex" ];
+  users.users.transmission.extraGroups = [ "plex" "sonarr" "radarr" ];
+
+  # Testing. Is it transmission that does the moving?
+  # users.users.sonarr.extraGroups = [ "plex" "transmission" ];
+  # users.users.radarr.extraGroups = [ "plex" "transmission" ];
 
   services = {
     plex = {
