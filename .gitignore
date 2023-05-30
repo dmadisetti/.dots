@@ -3,3 +3,4 @@ dot/config/fish/functions/fenv.*
 dot/config/fish/fishd.*
 result
 req.cnf
+*.iso
