@@ -1,4 +1,6 @@
 # Jazz hands
+# Note, you'll have to set either:
+# sensitive.lib.unfree = ["spotify"] or sensitive.lib.sellout = true
 { inputs, pkgs, ... }: 
 let
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
@@ -11,8 +13,9 @@ in
   programs.spicetify =
     {
       enable = true;
-      theme = spicePkgs.themes.Dribbblish;
-      colorScheme = "flamingo";
+      # Just the default, but works pretty nicely
+      theme = spicePkgs.themes.catppuccin-mocha;
+      colorScheme = "dracula";
 
       enabledExtensions = with spicePkgs.extensions; [
         fullAppDisplay

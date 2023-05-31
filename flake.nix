@@ -97,8 +97,11 @@
         inherit system;
         # overlays = import ./nix/overlays.nix { inherit sensitive; };
         config.allowUnfree = sensitive.lib.sellout or false;
+        # allow X to be installed if you don't have unfree enabled already
+        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
+          (if sensitive.lib ? unfree then sensitive.lib.unfree else []);
         # Does it work ?!
-        # config.contentAddressedByDefault = true;
+        config.contentAddressedByDefault = false;
       };
 
       utils = import ./nix/utils.nix
