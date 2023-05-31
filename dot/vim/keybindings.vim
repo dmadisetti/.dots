@@ -41,6 +41,15 @@ tmap <C-w> <esc><C-w>
 " Buffers
 map <C-b> :bp<Cr>
 
+" AirLatex Keybinds
+nnoremap <F2> :call AirLatexToggleTracking()<CR>
+nnoremap <space>n :call AirLatex_NextCommentPosition()<CR>
+nnoremap <space>p :call AirLatex_PrevCommentPosition()<CR>
+
+" NerdTree
+nmap <C-x> :call ToggleAirLatexOrNERDTree()<CR>
+nmap X :call AirLatexToggleComments()<CR>
+
 " Binds to custom.vim
 nnoremap <F5> :call TrimWhitespace()<CR>:retab<CR>
 nnoremap <C-s> :call SpellToggle()<cr>

@@ -44,7 +44,10 @@
           "plex.${tld}" = { port = "32400"; };
           "sonarr.${tld}" = { port = "8989"; };
           "radarr.${tld}" = { port = "7878"; };
+          "prowlarr.${tld}" = { port = "9696"; };
           "transmission.${tld}" = { port = "9091"; };
+
+          # Misc
           "tensorboard.${tld}" = { port = "6006"; };
         };
       })

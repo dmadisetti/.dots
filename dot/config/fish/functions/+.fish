@@ -29,8 +29,8 @@ function +
     end
   else
     # echo nix shell "nixpkgs#$pkgs"
-    #nix shell --impure nixpkgs#$pkgs
-    nix-shell -p $pkgs
+    nix shell --impure nixpkgs#$pkgs
+    # nix-shell -p $pkgs
   end
 end
 

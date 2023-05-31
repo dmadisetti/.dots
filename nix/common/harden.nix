@@ -12,7 +12,7 @@
     openssh = {
       inherit (sensitive.lib.sshd) enable;
 
-      ports = [ 22 ];
+      ports = [ sensitive.lib.sshd.port ];
       settings = {
         PermitRootLogin = "prohibit-password"; # distributed-build.nix requires it
         PasswordAuthentication = false;

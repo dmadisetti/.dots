@@ -121,7 +121,7 @@
 
           lambda = utils.mkComputer {
             machineConfig = ./nix/machines/lambda.nix;
-            wm = "xmonad";
+            wm = "hyprland";
             userConfigs = [ ./nix/home/daily-driver.nix ];
           };
 
@@ -142,10 +142,6 @@
             isContainer = true;
           };
 
-          aws = utils.mkComputer {
-            machineConfig = ./nix/machines/aws.nix;
-            isContainer = true;
-          };
           gce = utils.mkComputer {
             machineConfig = ./nix/machines/gce.nix;
           };
