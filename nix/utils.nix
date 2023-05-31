@@ -15,6 +15,7 @@
     i3 = "x";
     sway = "wayland";
     xmonad = "x";
+    xvfb = "none";
   };
 
   maybeUserConfig = user:

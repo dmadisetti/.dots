@@ -12,7 +12,7 @@
     openssh = {
       inherit (sensitive.lib.sshd) enable;
 
-      ports = [ sensitive.lib.sshd.port ];
+      ports = [ 22 ];
       settings = {
         PermitRootLogin = "prohibit-password"; # distributed-build.nix requires it
         PasswordAuthentication = false;
@@ -23,6 +23,9 @@
   };
   nix.settings.allowed-users = [ "root" "${user}" ];
   nix.settings.trusted-users = [ "root" "${user}" ];
+  # users.users."dylan".openssh.authorizedKeys.keyFiles = [
+  #   /home/dylan/.ssh/authorized_keys
+  # ];
 
   security.pki.certificateFiles = lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates);
 }

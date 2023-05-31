@@ -23,6 +23,7 @@
 #
 # » Implemented machines:
 #    • exalt → Craptop converted for Nix hacking
+#    • gce → Google Compute Engine image for server
 #    • lambda → Main workstation with nvidia drivers and plex
 #    • mamba → Dualboot Thinkpad daily driver
 #    • wsl → WSL on the daily driver.
@@ -54,8 +55,11 @@
 
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
-    # Cache invalidation is hard. Just increment/decrement around
-    # or run the fish command `unlock`, which will scrub flake.lock
+    # You can set this to sensitive manually with /path?cache-bush=0 but cache
+    # invalidation is hard. Just increment/decrement around or run the fish
+    # command `unlock`, which will scrub flake.lock
+    # Alternatively pointing to spoof and overriding the flake seems to work
+    # best.
     sensitive.url = "path:./nix/spoof";
     sensitive.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -73,9 +77,9 @@
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Pretty spotify
-    # spicetify-nix.url = github:the-argus/spicetify-nix;
-    # spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
-    # spicetify-nix.inputs.flake-utils.follows = "flake-utils";
+    spicetify-nix.url = github:the-argus/spicetify-nix;
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    spicetify-nix.inputs.flake-utils.follows = "flake-utils";
 
     # Cachix for caching!
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
@@ -84,17 +88,17 @@
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
     let
       system = "x86_64-linux";
-      stateVersion = "22.11";
+      stateVersion = "23.05";
 
       dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";
 
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
-        overlays = import ./nix/overlays.nix { inherit sensitive; };
+        # overlays = import ./nix/overlays.nix { inherit sensitive; };
         config.allowUnfree = sensitive.lib.sellout or false;
-        # we are not ready... !
-        # config.contentAddressedByDefault = false;
+        # Does it work ?!
+        # config.contentAddressedByDefault = true;
       };
 
       utils = import ./nix/utils.nix
@@ -136,6 +140,14 @@
           wsl = utils.mkComputer {
             machineConfig = ./nix/machines/wsl.nix;
             isContainer = true;
+          };
+
+          aws = utils.mkComputer {
+            machineConfig = ./nix/machines/aws.nix;
+            isContainer = true;
+          };
+          gce = utils.mkComputer {
+            machineConfig = ./nix/machines/gce.nix;
           };
         };
 

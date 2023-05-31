@@ -38,9 +38,9 @@ function show_ssh_status -d "Function to show the ssh tag"
   if test "$THEME_EDEN_HIDE_SSH_TAG" != 'yes'
     if [ -n "$SSH_CLIENT" ]
       if [ (id -u) = "0" ]
-        _prompt_segment red normal (hostname) ' '
+        _prompt_segment red normal (hostname | cut -d . -f1) ' '
       else
-        _prompt_segment normal cyan (hostname) ' '
+        _prompt_segment normal cyan (hostname | cut -d . -f1) ' '
       end
     end
   end
@@ -54,7 +54,7 @@ function show_host -d "Show host & user name"
     else
       echo -n (set_color blue)
     end
-    echo -n ''(hostname|cut -d . -f 1)ˇ$USER' ' (set color normal)
+    echo -n ''(hostname | cut -d . -f 1)ˇ$USER' ' (set color normal)
   end
 end
 

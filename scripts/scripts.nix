@@ -74,7 +74,6 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     echo 'You can reboot now (:'
   '';
 
-
   # Flake outputs used by hooks.
   _prettyprint =
     let
@@ -100,6 +99,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
     (builtins.attrNames self.nixosConfigurations);
   _live = self.nixosConfigurations.momento.config.system.build.isoImage;
   _wsl = self.nixosConfigurations.wsl.config.system.build.installer;
+  _gce = self.nixosConfigurations.gce.config.system.build.googleComputeImage;
   _clean = pkgs.writeShellScriptBin "clean-dots" ''
     FLAKE=${../flake.nix}
     PATH=${dots-manager-path}:${pkgs.jq}/bin:$PATH

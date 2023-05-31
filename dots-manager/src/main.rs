@@ -78,7 +78,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             reserve,
         } => {
             let reserve = if reserve.is_empty() {
-                vec!["momento".to_string(), "wsl".to_string()]
+                vec!["momento".to_string(), "wsl".to_string(), "gce".to_string()]
             } else {
                 reserve
             };

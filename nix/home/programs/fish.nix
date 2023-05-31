@@ -5,7 +5,9 @@
     enable = true;
     shellInit = ''
       set DOTFILES ${inputs.sensitive.lib.dots}
-      if not test -d $DOTFILES
+      if set -q IS_GCE
+        ln -sf ${../../../.} $DOTFILES;
+      else if not test -d $DOTFILES
         cp -R ${../../../.} $DOTFILES;
         chmod -R u+rw $DOTFILES;
       end
