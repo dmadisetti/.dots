@@ -22,6 +22,7 @@
 #    • momento → Live USB stick with configs for amnesiac + installs
 #
 # » Implemented machines:
+#    • gce → Google Compute Engine image for server
 #    • wsl → WSL on the daily driver.
 #
 # A fair bit of inspiration from github:srid/nixos-config
@@ -51,8 +52,11 @@
 
     # TODO: Wait for internal submodules
     # see: NixOS/nix/issues/5497
-    # Cache invalidation is hard. Just increment/decrement around
-    # or run the fish command `unlock`, which will scrub flake.lock
+    # You can set this to sensitive manually with /path?cache-bush=0 but cache
+    # invalidation is hard. Just increment/decrement around or run the fish
+    # command `unlock`, which will scrub flake.lock
+    # Alternatively pointing to spoof and overriding the flake seems to work
+    # best.
     sensitive.url = "path:./nix/spoof";
     sensitive.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -70,9 +74,9 @@
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Pretty spotify
-    # spicetify-nix.url = github:the-argus/spicetify-nix;
-    # spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
-    # spicetify-nix.inputs.flake-utils.follows = "flake-utils";
+    spicetify-nix.url = github:the-argus/spicetify-nix;
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    spicetify-nix.inputs.flake-utils.follows = "flake-utils";
 
     # Cachix for caching!
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
@@ -81,17 +85,20 @@
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
     let
       system = "x86_64-linux";
-      stateVersion = "22.11";
+      stateVersion = "23.05";
 
       dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";
 
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
-        overlays = import ./nix/overlays.nix { inherit sensitive; };
+        # overlays = import ./nix/overlays.nix { inherit sensitive; };
         config.allowUnfree = sensitive.lib.sellout or false;
-        # we are not ready... !
-        # config.contentAddressedByDefault = false;
+        # allow X to be installed if you don't have unfree enabled already
+        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
+          (if sensitive.lib ? unfree then sensitive.lib.unfree else [ ]);
+        # Does it work ?!
+        config.contentAddressedByDefault = false;
       };
 
       utils = import ./nix/utils.nix
@@ -108,6 +115,10 @@
 
 
         {
+          gce = utils.mkComputer {
+            machineConfig = ./nix/machines/gce.nix;
+          };
+
           momento = utils.mkComputer {
             machineConfig = ./nix/machines/momento.nix;
             wm = sensitive.lib.default_wm or "none";

@@ -150,7 +150,8 @@ def loop(stdscr):
         if attachment and not prompted:
           tmp = title = ''.join(
               re.sub(r'[^a-zA-Z0-9]', '', item['data']['title']))[:15].lower()
-          prompt = f"Title {item['data']['title']} (suggested: {title}) {item['data']['url']} > "
+          prompt = f"Title {item['data']['title']} (suggested: {title}) {item['data']['url']}"
+          prompt = f"{prompt[:80]} > "
           prompted = item
         else:
           # print(attachment)

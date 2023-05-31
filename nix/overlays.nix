@@ -50,11 +50,21 @@
     };
   })
   (self: super: {
-    # I don't need it, so turn it off...
-    plexRaw = super.plexRaw.overrideAttrs (_: {
+    plexRaw = super.plexRaw.overrideAttrs (_: rec {
+      # Pin because something is weird with the transcoder of 699
+      # version = "1.32.2.7100-248a2daf0";
+      # version = "1.32.1.6999-91e1e2e2c";
+      version = "1.32.0.6973-a787c5a8e";
+      # I don't need it, so turn it off...
       postInstall = ''
         chmod -x "$out/lib/plexmediaserver/Plex Tuner Service"
       '';
+      # Fetch the source
+      src = super.fetchurl {
+        url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
+        sha256 = "sha256-fwMD/vYdwMrUvDB7JmMmVCt47ZtD17zk3bfIuO91dH8=";
+        # sha256 = "sha256-sXIK72mjYvmn5k6g4nxdR794ie78F8bSnRA2oLkF2Vc=";
+      };
     });
   })
   (_: pkgs: {

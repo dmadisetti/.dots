@@ -4,6 +4,15 @@ augroup autoformat_settings
 augroup END
 autocmd FileType cuda let b:codefmt_formatter = 'clang-format'
 
+" Nerdtree / Airlatex sidebar
+function! ToggleAirLatexOrNERDTree()
+  if exists("g:AirLatexIsActive") && g:AirLatexIsActive
+    call AirLatexToggle()
+  else
+    NERDTreeToggle
+  endif
+endfunction
+
 " Spell checking
 function! SpellToggle()
   if g:spell_checking

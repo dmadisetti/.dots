@@ -18,7 +18,9 @@ let g:airline_theme='base16_ashes'
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='-'
-nmap <C-x> :NERDTreeToggle<CR>
+
+" Goyo
+let g:goyo_width = 160
 
 " ctrlp
 let g:ctrlp_show_hidden = 1
@@ -45,6 +47,10 @@ let g:UltiSnipsSnippetDirectories = ["ulties"]
 let g:citation_vim_bibtex_file="~/phd/notes/bibtex.bib"
 let g:citation_vim_mode="bibtex"
 let g:citation_vim_cache_path="~/.vim/citation.cache"
+
+" Air Latex
+let g:AirLatexCookieDB="~/.mozilla/firefox/*.default/cookies.sqlite"
+let g:AirLatexLogLevel="DEBUG"
 
 " Linters
 let g:ale_sign_column_always = 1

@@ -3,7 +3,7 @@
 let
   # Work around to allow overloading
   base_config = ".config/nix/nix.conf";
-  nix_config = if config ? "caches" then "nixConf" else "${base_config}";
+  nix_config = if config ? "caches" then ".nixConf" else "${base_config}";
 in
 {
   imports = [ ];

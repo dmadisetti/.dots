@@ -23,6 +23,9 @@
   };
   nix.settings.allowed-users = [ "root" "${user}" ];
   nix.settings.trusted-users = [ "root" "${user}" ];
+  # users.users."dylan".openssh.authorizedKeys.keyFiles = [
+  #   /home/dylan/.ssh/authorized_keys
+  # ];
 
   security.pki.certificateFiles = lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates);
 }

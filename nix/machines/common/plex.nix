@@ -9,7 +9,7 @@ let
       announced = builtins.elemAt (lib.splitString ":" endpoint) 0;
 
       address = (lib.last config.networking.wg-quick.interfaces.pirate.address);
-      ipv4 =  builtins.elemAt (lib.splitString "/" address) 0;
+      ipv4 = builtins.elemAt (lib.splitString "/" address) 0;
       # Private block
       ipv6 = ""; # "fe80::";
     } else { };
@@ -21,8 +21,8 @@ in
   users.users.transmission.extraGroups = [ "plex" "sonarr" "radarr" ];
 
   # Testing. Is it transmission that does the moving?
-  # users.users.sonarr.extraGroups = [ "plex" "transmission" ];
-  # users.users.radarr.extraGroups = [ "plex" "transmission" ];
+  users.users.sonarr.extraGroups = [ "plex" "transmission" ];
+  users.users.radarr.extraGroups = [ "plex" "transmission" ];
 
   services = {
     plex = {
@@ -39,6 +39,10 @@ in
       enable = true;
       openFirewall = true;
       group = "plex";
+    };
+    prowlarr = {
+      enable = true;
+      openFirewall = true;
     };
 
     transmission = {
@@ -58,6 +62,13 @@ in
     };
   };
   systemd.services.plex.serviceConfig.KillSignal = lib.mkForce "SIGKILL";
+  # We have to hook in to set binds paths, since (undocumented), everything is
+  # RO except for a few whitelisted dirs. Fair, but frustrating without
+  # knowledge.
+  systemd.services.transmission.serviceConfig.BindPaths = [
+    "/media/downloads/shows"
+    "/media/downloads/movies"
+  ];
 
   # A little bit of the personal config coming over. TODO: Create vpn-service
   # hook in sensitive.
