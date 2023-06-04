@@ -11,7 +11,7 @@ let
       address = (lib.last config.networking.wg-quick.interfaces.pirate.address);
       ipv4 = builtins.elemAt (lib.splitString "/" address) 0;
       # Private block
-      ipv6 = ""; # "fe80::";
+      ipv6 = "fe80::";
     } else { };
 in
 {
