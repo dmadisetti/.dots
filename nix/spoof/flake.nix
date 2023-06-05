@@ -47,6 +47,11 @@
         #{{{certificates}}}
       };
 
+      # Specific programs that are unfree
+      unfree = [ ];
+      # Allow all unfree programs
+      sellout = false;
+
       # getty can be just as pretty as lightdm imho.
       # example getty response
       #  ▄▄▄▄▄▄▄   ▄ ▄▄ ▄  ▄▄▄ ▄▄▄▄▄▄▄  Linux \r (\m)
