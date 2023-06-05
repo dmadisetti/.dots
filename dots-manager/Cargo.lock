@@ -1696,10 +1696,11 @@ dependencies = [
 
 [[package]]
 name = "sha-crypt"
-version = "0.4.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0193e80e8a92aa7173dad160cfd5f5eda57ba146aac9826ea5c9dc3d5492072"
+checksum = "88e79009728d8311d42d754f2f319a975f9e38f156fd5e422d2451486c78b286"
 dependencies = [
+ "base64ct",
  "rand",
  "sha2",
  "subtle",
