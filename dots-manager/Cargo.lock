@@ -1414,9 +1414,9 @@ dependencies = [
 
 [[package]]
 name = "qr_code"
-version = "1.1.0"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5520fbcd7da152a449261c5a533a1c7fad044e9e8aa9528cfec3f464786c7926"
+checksum = "43d2564aae5faaf3acb512b35b8bcb9a298d9d8c72d181c598691d800ee78a00"
 
 [[package]]
 name = "quote"
