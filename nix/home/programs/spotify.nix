@@ -1,7 +1,7 @@
 # Jazz hands
 # Note, you'll have to set either:
 # sensitive.lib.unfree = ["spotify"] or sensitive.lib.sellout = true
-{ inputs, pkgs, ... }: 
+{ inputs, pkgs, ... }:
 let
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
 in
