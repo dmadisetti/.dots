@@ -1,7 +1,14 @@
 # Home sweet home 🏠
 
 args@{ inputs, self, pkgs, stateVersion, ... }:
-let propagate = f: extra: (import f (args // extra));
+let
+  propagate = f: extra: (import f (args // extra));
+  propagateUnfree = pkg: f:
+    if
+      inputs.sensitive.lib.sellout || (builtins.elem pkg inputs.sensitive.lib.unfree)
+    then
+      [ (propagate f) ]
+    else [ ];
 in
 {
   # you can rename this file to your main username;
@@ -15,9 +22,10 @@ in
     ../programs/nvim.nix
     (propagate ../programs/git.nix)
     (propagate ../programs/fish.nix)
-    (propagate ../programs/spotify.nix)
     (propagate ../programs/zotero.nix)
-  ] ++ (if inputs.sensitive.lib ? cachix then [
+  ] ++ (
+    propagateUnfree "spotify" ../programs/spotify.nix
+  ) ++ (if inputs.sensitive.lib ? cachix then [
     inputs.declarative-cachix.homeManagerModules.declarative-cachix
     (propagate ../programs/cachix.nix { cache = inputs.sensitive.lib.cachix; })
   ] else
@@ -29,10 +37,8 @@ in
   home.packages = with pkgs; [
     # security
     wireguard-tools
-
     # all ya really need
     tmux
-
     # cool little extensions
     any-nix-shell
   ];

@@ -31,6 +31,8 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
         "dots" => context["user"]
             .as_str()
             .map(|u| format!("/home/{}/.dots", u)),
+        "sellout" => Some("".to_string()),
+        "unfree" => Some("".to_string()),
         "getty" => getty_qr(
             context["user"].as_str().map(|x| x.to_string()),
             context["git_email"].as_str().map(|x| x.to_string()),
