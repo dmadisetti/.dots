@@ -24,7 +24,7 @@ sha-crypt = "0.5.0"
 handlebars = "4.3.7"
 regex = "1"
 serde_json = "1.0.96"
-serde = { version = "1.0.163", features = ["derive"] }
+serde = { version = "1.0.164", features = ["derive"] }
 
 qr_code = "2.0.0"
 
