@@ -20,6 +20,7 @@ jobs:
     - name: "update system"
       run: |
         update
+        # Purge needed for merge.
         rm -rf nix/sensitive/.git nix/home/users/user.nix
       shell: fish {0}
 
@@ -50,6 +51,9 @@ jobs:
         unlock dots-manager
         nix flake check .
         unlock
+        unlock dots-manager
+        # Purge needed for merge.
+        rm -rf nix/sensitive/.git nix/home/users/user.nix
       shell: fish {0}
 
     - name: "create pr"
