@@ -49,6 +49,7 @@ jobs:
         prs rust
         unlock dots-manager
         nix flake check .
+        unlock
       shell: fish {0}
 
     - name: "create pr"
