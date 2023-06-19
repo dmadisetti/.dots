@@ -1,0 +1,9 @@
+$full_text="";
+if ($status eq 'Discharging') {
+  $full_text.="⚡ $percent%";
+} elsif ($status eq 'Charging') {
+  $full_text.=" $percent%";
+}
+ elsif ($status eq 'Unknown' || $status eq 'Full') {
+  $full_text.="⚡ $percent%";
+}

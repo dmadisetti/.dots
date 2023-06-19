@@ -13,6 +13,7 @@
     fb = "none";
     hyprland = "wayland";
     i3 = "x";
+    openbox = "x";
     sway = "wayland";
     xmonad = "x";
     xvfb = "none";

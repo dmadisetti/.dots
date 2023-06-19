@@ -7,8 +7,8 @@
       src = super.fetchFromGitHub {
         owner = "transmission";
         repo = "transmission";
-        rev = "4.0.2";
-        hash = "sha256-DaaJnnWEZOl6zLVxgg+U8C5ztv7Iq0wJ9yle0Gxwybc=";
+        rev = "4.0.3";
+        hash = "sha256-P7omd49xLmReo9Zrg0liO1msUVzCa5CxH7PGmH4oPzg=";
         fetchSubmodules = true;
       };
     });
@@ -61,11 +61,8 @@
         rev = version;
         hash = "sha256-h+YJ4YGVGGgInVgm3NbXQIbrxkMOD/HtBnCzkTcRXH8=";
       };
-
       nativeBuildInputs = [ pkg-config meson ninja cmake ];
-
       buildInputs = [ wayland wayland-protocols mpv wlroots cairo ];
-
       meta = {
         description = ''
           A wallpaper program for wlroots based Wayland compositors that

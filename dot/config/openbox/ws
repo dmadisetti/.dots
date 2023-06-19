@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+
+# from: https://github.com/benkaiser/i3-wm-config
+
+import subprocess
+import sys
+import json
+import math
+import os
+from os.path import expanduser
+from tempfile import TemporaryFile
+
+def get_workspace():
+  handle = subprocess.Popen(["i3-msg","-t","get_workspaces"], stdout=subprocess.PIPE)
+  output = handle.communicate()[0]
+  data = json.loads(output.decode())
+  data = sorted(data, key=lambda k: k['name'])
+  for i in data:
+    if(i['focused']):
+      return i['name']
+
+def print_usage():
+  prog = os.path.basename(sys.argv[0])
+  print(prog, "[up|down|next|prev]")
+
+def fresh(*args):
+  output = subprocess.check_output(['i3-msg', '-t', 'get_workspaces'])
+  workspaces = json.loads(output)
+
+  # Wow. Such a beautiful use of a generator.
+  num = next(i for i in range(*args) if not [ws for ws in workspaces if ws['num'] == i])
+
+  subprocess.call(["i3-msg","move container to workspace %i" % num])
+  subprocess.call(["i3-msg","workspace %i" % num])
+
+if len(sys.argv) < 2:
+  print("Error not enough arguments")
+  print_usage()
+  exit(1)
+
+command = sys.argv[1]
+
+if command == '-h' or command == '--help':
+  print_usage()
+  exit(0)
+
+# handle the commands
+workspace = int(get_workspace())
+if command == 'next':
+  fresh(workspace, 100, 1)
+elif command == 'prev':
+  fresh(workspace, 0, -1)
+else:
+  print_usage()
+  exit(1)
+
+#  Local Variables:
+#  eval: (add-hook (make-local-variable 'after-save-hook) 'bh:ensure-in-vc-or-check-in t))
+#  End:

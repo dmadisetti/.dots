@@ -17,6 +17,9 @@
 
     # The default is 03:15 for when these run.
     gc.automatic = true;
+    # Note, this isn't enough. I'm OK with this, but look at this for more details
+    # https://www.reddit.com/r/NixOS/comments/140z3hd
+
     optimise.automatic = true;
     settings = {
       trusted-users = [ "root" "${user}" ];
