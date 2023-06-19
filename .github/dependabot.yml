@@ -11,5 +11,9 @@ updates:
     directory: "/dots-manager"
     schedule:
       interval: "weekly"
+      # UTC
+      time: "09:00"
+    # Note, we don't use target branch here, because that will try to move all
+    # the template changes into main- which is NOT what we want.
     commit-message:
-      prefix: "🤖: "
+      prefix: "🤖 (defer to 🦀): "

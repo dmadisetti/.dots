@@ -6,7 +6,7 @@ on:
     - cron: "30 11 * * 1"
 
 jobs:
-  build:
+  flake:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -20,6 +20,7 @@ jobs:
     - name: "update system"
       run: |
         update
+        # Purge needed for merge.
         rm -rf nix/sensitive/.git nix/home/users/user.nix
       shell: fish {0}
 
@@ -30,5 +31,37 @@ jobs:
         git commit -am "❄️: flake update"
         git push -f origin main:flake-update
         gh pr create --title "❄️" --base main --head flake-update --body ":tada:" || echo pr already exists
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
+
+  dots-flake:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+        fetch-depth: 0
+    - name: "provision home-mananger"
+      uses: ./.github/actions/runner
+      id: runner
+
+    - name: "update cargo"
+      run: |
+        prs rust
+        unlock dots-manager
+        nix flake check .
+        unlock
+        unlock dots-manager
+        # Purge needed for merge.
+        rm -rf nix/sensitive/.git nix/home/users/user.nix
+      shell: fish {0}
+
+    - name: "create pr"
+      run: |
+        git config user.name '${{ github.actor }}'
+        git config user.email '${{ github.actor }}@users.noreply.github.com'
+        git commit -am "🦀: cargo update"
+        git push -f origin main:cargo-update
+        gh pr create --title "🦀" --base main --head flake-update --body ":tada:" || echo pr already exists
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
