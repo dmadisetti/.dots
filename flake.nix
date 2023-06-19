@@ -129,6 +129,10 @@
             machineConfig = ./nix/machines/wsl.nix;
             isContainer = true;
           };
+
+          gce = utils.mkComputer {
+            machineConfig = ./nix/machines/gce.nix;
+          };
         };
 
       # For standalone configurations
