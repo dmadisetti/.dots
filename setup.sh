@@ -15,7 +15,7 @@ setup() {
   rm -rf ~/.vimrc ~/.config/nvim/user.vim ~/.config/nvim/ulties ~/.vim/ulties \
     ~/.vim/config ~/.config/fish/functions ~/.config/i3 ~/.config/kitty ~/.config/yapf \
     ~/.gitconfig ~/.tmux.conf ~/.backgrounds ~/.config/compton.cfg ~/.config/eww \
-    ~/.config/dunst ~/.config/rofi ~/.config/hypr ~/.dots-installed
+    ~/.config/dunst ~/.config/rofi ~/.config/hypr ~/.config/openbox ~/.dots-installed
 
   mkdir -p ~/.config/fish
   mkdir -p ~/.zotero/data
@@ -82,6 +82,9 @@ setup() {
 
   # hypr
   ln -s $configpath/hypr ~/.config
+
+  # openbox
+  ln -s $configpath/openbox ~/.config
 
   # eww
   ln -s $configpath/eww ~/.config
