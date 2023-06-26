@@ -48,6 +48,12 @@ jobs:
     - name: "update cargo"
       run: |
         prs rust
+      shell: fish {0}
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
+
+    - name: "flake cleanup"
+      run: |
         unlock dots-manager
         nix flake check .
         unlock
