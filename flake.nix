@@ -130,7 +130,7 @@
 
           mamba = utils.mkComputer {
             machineConfig = ./nix/machines/mamba.nix;
-            wm = "xmonad";
+            wm = "openbox";
             userConfigs = [ ./nix/home/daily-driver.nix ];
           };
 

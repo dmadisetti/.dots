@@ -39,7 +39,7 @@ setup() {
   # if managed by nixos, be careful with fish_variables since must be writeable.
   test $isnix -eq 1 && {
     ln -s $configpath/fish/functions ~/.config/fish/
-    ln -s $configpath/fish/config.fish ~/.config/fish/user.fish
+    ln -sf $configpath/fish/config.fish ~/.config/fish/user.fish
     cp $configpath/fish/fish_variables ~/.config/fish/
     chmod +w ~/.config/fish/fish_variables
 
