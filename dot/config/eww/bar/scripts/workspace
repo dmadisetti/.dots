@@ -35,7 +35,7 @@ echo  "(box :class \"works\"  :orientation \"h\" :spacing 5 :space-evenly \"true
   (button :onclick \"hyprctl dispatch workspace 9\" :class \"0$o9$f9\" \"${ic[9]}\"))"
 }
 workspaces
-tail -f $(ls -Art /tmp/hypr/*/hyprland.log | tail -1) | grep --line-buffered "Changed to workspace" | while read -r; do
+tail -f $(ls -Art /tmp/hypr/*/hyprland.log | tail -1) | grep --line-buffered "Destroying workspace ID" | while read -r; do
 workspaces
 done
 

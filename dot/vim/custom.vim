@@ -52,6 +52,18 @@ function! Zen()
     " TODO: Share this plugin with the world.
     :ParagraphNumberToggle
   endif
+  " AirLatex Keybinds
+  if exists("g:AirLatexIsActive") && g:AirLatexIsActive
+    nnoremap <F2> :call AirLatexToggleTracking()<CR>
+    nnoremap <F3> :call AirLatexToggleShowTracking()<CR>
+    nnoremap <space>n :call AirLatex_NextCommentPosition()<CR>
+    nnoremap <space>p :call AirLatex_PrevCommentPosition()<CR>
+
+    iunmap jk
+    iunmap kj
+    inoremap jk <Esc>:call AirLatex_SyncPDF()<CR>
+    inoremap kj <Esc>:call AirLatex_SyncPDF()<CR>
+  endif
 endfunction
 
 command Zen :call Zen()
@@ -62,3 +74,4 @@ imap <silent><script><expr> <C-F> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 " Suggestion color really needs to change because of Zen mode
 highlight CopilotSuggestion guifg=#000000 ctermfg=8
+

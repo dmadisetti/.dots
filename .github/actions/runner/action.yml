@@ -27,15 +27,15 @@ branding:
 runs:
   using: "composite"
   steps:
-    - uses: cachix/install-nix-action@v18
+    - uses: cachix/install-nix-action@v22
       with:
         install_url: https://releases.nixos.org/nix/nix-2.11.1/install
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
           experimental-features = nix-command flakes
           system-features = ${{inputs.nix-features}}
-
-    - uses: cachix/cachix-action@v10
+    - uses: DeterminateSystems/magic-nix-cache-action@v1
+    - uses: cachix/cachix-action@v12
       # if cache isn't configured continue
       continue-on-error: true
       with:
