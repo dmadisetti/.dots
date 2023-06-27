@@ -41,19 +41,6 @@ tmap <C-w> <esc><C-w>
 " Buffers
 map <C-b> :bp<Cr>
 
-" AirLatex Keybinds
-"if exists("g:AirLatexIsActive") && g:AirLatexIsActive
-nnoremap <F2> :call AirLatexToggleTracking()<CR>
-nnoremap <F3> :call AirLatexToggleShowTracking()<CR>
-nnoremap <space>n :call AirLatex_NextCommentPosition()<CR>
-nnoremap <space>p :call AirLatex_PrevCommentPosition()<CR>
-
-iunmap jk
-iunmap kj
-inoremap jk <Esc>:call AirLatex_SyncPDF()<CR>
-inoremap kj <Esc>:call AirLatex_SyncPDF()<CR>
-"endif
-
 " NerdTree
 nmap <C-x> :call ToggleAirLatexOrNERDTree()<CR>
 nmap X :call AirLatexToggleComments()<CR>

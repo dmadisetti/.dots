@@ -101,6 +101,8 @@
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
           (if sensitive.lib ? unfree then sensitive.lib.unfree else []);
         # Does it work ?!
+        # Standard cache is NOT set.
+        # Maybe will finish compiling by the heat death of universe.
         config.contentAddressedByDefault = false;
       };
 
