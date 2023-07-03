@@ -40,7 +40,7 @@ Plug 'preservim/vim-pencil', { 'for': ['tex', 'markdown'] }
 Plug 'rhysd/vim-grammarous', { 'for': ['tex', 'markdown'] }
 Plug 'AnotherGroupChat/citation.vim', { 'for': ['tex', 'markdown'], 'branch': 'denite'}
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins',  'for': ['markdown', 'tex'] }
-" Plug 'dmadisetti/paragraph-number.vim', { 'do': ':UpdateRemotePlugins',  'for': ['markdown', 'tex'] }
+Plug 'dmadisetti/paragraph-number.vim', { 'do': ':UpdateRemotePlugins' }
 
 " Zen
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
