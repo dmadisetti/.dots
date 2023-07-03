@@ -102,5 +102,7 @@
       pools = [ "zoot" ];
     };
   };
-  #
+  # Boo printing
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.cnijfilter2 ];
 }

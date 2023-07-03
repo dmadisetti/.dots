@@ -166,8 +166,8 @@
 (defwidget bar_1 []
   (box :class "bar_class"
        :orientation "h"
-       :width "1980px"
        :visible not-empty
+       ;; :width 1980
   (left)
   ;;(center)
   (right)

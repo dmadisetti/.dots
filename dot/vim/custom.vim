@@ -40,7 +40,6 @@ endfun
 " Such peace, much wow
 function! Zen()
   :Goyo
-  :Limelight
   if g:MarkDowned
     :SoftPencil
     :highlight CursorLineNR ctermbg=236 ctermfg=240
@@ -58,11 +57,17 @@ function! Zen()
     nnoremap <F3> :call AirLatexToggleShowTracking()<CR>
     nnoremap <space>n :call AirLatex_NextCommentPosition()<CR>
     nnoremap <space>p :call AirLatex_PrevCommentPosition()<CR>
+    nnoremap <left> :call AirLatex_PrevCommentPosition()<CR>
+    nnoremap <right> :call AirLatex_NextCommentPosition()<CR>
+    nnoremap <S-left> :call AirLatex_PrevChangePosition()<CR>
+    nnoremap <S-right> :call AirLatex_NextChangePosition()<CR>
 
     iunmap jk
     iunmap kj
     inoremap jk <Esc>:call AirLatex_SyncPDF()<CR>
     inoremap kj <Esc>:call AirLatex_SyncPDF()<CR>
+  else
+    :Limelight
   endif
 endfunction
 
