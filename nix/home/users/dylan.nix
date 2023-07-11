@@ -35,6 +35,7 @@ in
     [ ]);
 
   home.packages = with pkgs; [
+    yuzu
     # security
     wireguard-tools
     # all ya really need

@@ -105,4 +105,9 @@
   # Boo printing
   # services.printing.enable = true;
   # services.printing.drivers = [ pkgs.cnijfilter2 ];
+
+  # For Gyro switch controllers
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="plugdev"
+  '';
 }
