@@ -7,7 +7,6 @@
     grub = {
       enable = true;
       efiSupport = true;
-      version = 2;
       device = "nodev";
       configurationLimit = 5;
       # Allow for dualboot

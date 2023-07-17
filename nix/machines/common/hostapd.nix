@@ -21,7 +21,7 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
             mode = "wpa2-sha256";
             wpaPassword = (
               config.networking.wireless.networks."${ssid}" or
-                { psk = ""; }
+                { psk = "12345678"; }
             ).psk;
           };
           settings = {

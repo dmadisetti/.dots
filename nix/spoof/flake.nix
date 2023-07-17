@@ -48,7 +48,9 @@
       };
 
       # Specific programs that are unfree
-      unfree = [ ];
+      # nvidia in here for testing purposes with my hardware.
+      # Remove or change for your systems.
+      unfree = [ "nvidia-x11" "nvidia-settings" ];
       # Allow all unfree programs
       sellout = false;
 
