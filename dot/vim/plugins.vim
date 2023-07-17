@@ -50,8 +50,12 @@ Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
 " View registers before usage
 Plug 'junegunn/vim-peekaboo'
 
+" More extension to base nix
+Plug 'rhysd/clever-f.vim'
+
 " Overleaf in vim!
 " Plug 'da-h/AirLatex.vim'
+" replaced with 'dmadisetti/AirLatex.vim' and launch through nix.
 
 " Cpp
 Plug 'gilligan/vim-lldb', { 'on': 'Lattach' }
@@ -64,7 +68,7 @@ Plug 'kuon/rhai.vim', { 'for': 'rhai', 'branch': 'main'}
 " Plug 'tpope/vim-fugitive'
 
 " Nix'ed
-Plug 'LnL7/vim-nix'
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
 " Elixir
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }

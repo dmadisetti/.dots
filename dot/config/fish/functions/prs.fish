@@ -4,18 +4,20 @@ function prs
 
   if test -z $argv[1]
     # If no label is provided, list all PRs without filtering by label
-    echo "Right"
     set query "(.[] | .url)"
-    echo $query
   else
     # If a label is provided, filter PRs by that label
     set -l label $argv[1]
     set query "(.[] | select(.labels[] | .name == \"$label\") | .url)"
   end
-  echo $argv[1]
-  echo $query
   for url in ($gh pr list --author "" --json url,labels -q $query)
-    echo $url
-    git apply --3way (curl -sL $url.diff | psub);
+      set temp_diff (mktemp)
+      curl -sL $url.diff > $temp_diff
+      if not git apply --3way --check $temp_diff
+          echo "Skipping $url due to merge conflicts"
+          continue
+      end
+      git apply --3way $temp_diff
+      rm $temp_diff
   end
 end

@@ -37,10 +37,15 @@
       isNormalUser = true;
       uid = 1337;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "docker" "tty" "audio" "video" ];
+      extraGroups = [ "wheel" "tty" "audio" "video" "plugdev" "docker" ];
     } else {
       isNormalUser = true;
     };
+  # Make plugdev and docker if they do not exist
+  users.groups = {
+    plugdev = { };
+    docker = { };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

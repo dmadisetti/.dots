@@ -16,6 +16,7 @@ set_sensitive
 
 NIX_CONFIG="experimental-features = nix-command flakes" \
 home-manager switch \
+  --show-trace \
   --override-input sensitive \
   "$DOTFILES"/nix/sensitive \
   --flake "$DOTFILES#${nix_user:-$USER}" -j auto
