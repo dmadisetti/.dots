@@ -16,10 +16,15 @@ jobs:
         fetch-depth: 0
     - name: sync
       run: |
-        cp ./.github/workflows/sync.yml ~
+        echo "::group::Setup Git"
+        echo ">> Actor:${{ github.actor }}"
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+        echo "::endgroup::"
+        
         # Aggressively resolve merge.
+        echo "::group::Merge"
+        cp ./.github/workflows/sync.yml ~
         git fetch
         git merge -s recursive -X ours origin/main || echo "merge failed (no branch?)"
         git status | grep -P 'deleted by us|added by them' | awk '{print $4}' | xargs git rm || echo fine
@@ -34,6 +39,9 @@ jobs:
         find .github/ -type f | xargs sed -i "s@$previous_user@$updated_user@g"
         # Commit sync or open pr. Overwrite any changes made to sync.yml!
         cp ~/sync.yml ./.github/workflows/sync.yml
+        echo "::endgroup::"
+
+        echo "::group::Sync"
         # Check if this is a new template
         git rev-parse --verify origin/main || {
           sed -i '/#examples\s*-/,/\/examples\s*-/{/^#/!{/^\$/!d;};}' ./.github/README.md
@@ -45,8 +53,20 @@ jobs:
         # if main doesn't exist we should make it (new template)
         git rev-parse --verify origin/main || {
           git checkout -b main && git push origin main;
-          gh issue create -a '${{ github.actor }}' -t "finish setting up template" -F ./.github/template_todo.md;
+          ERROR=$(gh issue create -a '${{ github.actor }}' -t "finish setting up template" -F ./.github/template_todo.md 2>&1)
+          # Check if the command succeeded or failed
+          if [[ $? -ne 0 ]]; then  # if the command failed
+              # If a "403" is in the output, then perform the following commands
+              if [[ -n "$ERROR" ]] && echo "$ERROR" | grep -q "403"; then
+                  # cat .github/workflow-setup.md >> $GITHUB_STEP_SUMMARY
+                  echo "# Auth probz" >> $GITHUB_STEP_SUMMARY
+              fi
+              echo "\n---" >> $GITHUB_STEP_SUMMARY
+              echo "the raw error: $ERROR" >> $GITHUB_STEP_SUMMARY
+              exit 1  # make the script fail
+          fi        
         }
+        echo "::endgroup::"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: sync-back
