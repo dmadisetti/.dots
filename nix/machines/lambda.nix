@@ -49,6 +49,7 @@
 
           # Misc
           "tensorboard.${tld}" = { port = "6006"; };
+          "home.${tld}" = { port = "8123"; };
         };
       })
     ] ++ (if self.inputs.sensitive.lib.sellout or false
@@ -102,5 +103,38 @@
       pools = [ "zoot" ];
     };
   };
-  #
+  # Boo printing
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.cnijfilter2 ];
+
+  # For Gyro switch controllers
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="plugdev"
+  '';
+
+  # TODO: Move to common/home.nix
+  # or maybe hass/default?
+  # idk, we need to think about HACs projects too
+  services.home-assistant = {
+    enable = true;
+    extraComponents = [
+      # Components required to complete the onboarding
+      "esphome"
+      "met"
+      "hue"
+      "govee_ble"
+      "spotify"
+      "plex"
+      "radarr"
+      "sonarr"
+
+      "systemmonitor"
+      "transmission"
+    ];
+    config = {
+      # Includes dependencies for a basic setup
+      # https://www.home-assistant.io/integrations/default_config/
+      default_config = {};
+    };
+  };
 }

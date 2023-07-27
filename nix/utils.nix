@@ -54,6 +54,8 @@
 
         # Set home directory
         {
+          # Annoying. Not sure when this started beign required.
+          nix.package = pkgs.nix;
           home = {
             inherit stateVersion username;
             homeDirectory = "/home/${username}";

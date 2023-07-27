@@ -2,7 +2,14 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github/**"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "🤖: "
+  # We have to explicitly set runner location.
+  - package-ecosystem: "github-actions"
+    directory: "/.github/actions/runner/"
     schedule:
       interval: "weekly"
     commit-message:

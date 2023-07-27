@@ -14,25 +14,29 @@ unset -v \
 
 # check if Occupied
 for num in $(hyprctl workspaces | grep ID | sed 's/()/(1)/g' | sort | awk 'NR>1{print $1}' RS='(' FS=')'); do
-  export o"$num"="$num"
+  var="o$num"
+  export "$var=$num"
+  # echo "$var"
+  # echo "${!var}"
 done
 
 
 #check if Focused
 for num in $(hyprctl monitors | grep active | sed 's/()/(1)/g' | sort | awk 'NR>1{print $1}' RS='(' FS=')'); do
-  export f"$num"="$num"
+  var="f$num"
+  export "$var=$num"
 done
 
 echo  "(box :class \"works\"  :orientation \"h\" :spacing 5 :space-evenly \"true\"\
-  (button :onclick \"hyprctl dispatch workspace 1\" :class \"0$o1$f1\" \"${ic[1]}\")\
-  (button :onclick \"hyprctl dispatch workspace 2\" :class \"0$o2$f2\" \"${ic[2]}\")\
-  (button :onclick \"hyprctl dispatch workspace 3\" :class \"0$o3$f3\" \"${ic[3]}\")\
-  (button :onclick \"hyprctl dispatch workspace 4\" :class \"0$o4$f4\" \"${ic[4]}\")\
-  (button :onclick \"hyprctl dispatch workspace 5\" :class \"0$o5$f5\" \"${ic[5]}\")\
-  (button :onclick \"hyprctl dispatch workspace 6\" :class \"0$o6$f6\" \"${ic[6]}\")\
-  (button :onclick \"hyprctl dispatch workspace 7\" :class \"0$o7$f7\" \"${ic[7]}\")\
-  (button :onclick \"hyprctl dispatch workspace 8\" :class \"0$o8$f8\" \"${ic[8]}\")\
-  (button :onclick \"hyprctl dispatch workspace 9\" :class \"0$o9$f9\" \"${ic[9]}\"))"
+  (button :onclick \"hyprctl dispatch workspace 1\" :class \"x0$o1$f1\" \"${ic[1]}\")\
+  (button :onclick \"hyprctl dispatch workspace 2\" :class \"x0$o2$f2\" \"${ic[2]}\")\
+  (button :onclick \"hyprctl dispatch workspace 3\" :class \"x0$o3$f3\" \"${ic[3]}\")\
+  (button :onclick \"hyprctl dispatch workspace 4\" :class \"x0$o4$f4\" \"${ic[4]}\")\
+  (button :onclick \"hyprctl dispatch workspace 5\" :class \"x0$o5$f5\" \"${ic[5]}\")\
+  (button :onclick \"hyprctl dispatch workspace 6\" :class \"x0$o6$f6\" \"${ic[6]}\")\
+  (button :onclick \"hyprctl dispatch workspace 7\" :class \"x0$o7$f7\" \"${ic[7]}\")\
+  (button :onclick \"hyprctl dispatch workspace 8\" :class \"x0$o8$f8\" \"${ic[8]}\")\
+  (button :onclick \"hyprctl dispatch workspace 9\" :class \"x0$o9$f9\" \"${ic[9]}\"))"
 }
 workspaces
 tail -f $(ls -Art /tmp/hypr/*/hyprland.log | tail -1) | grep --line-buffered "Destroying workspace ID" | while read -r; do
