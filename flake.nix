@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/1c9db9710cb23d60570ad4d7ab829c2d34403de3;
+    nixpkgs.url = github:nixos/nixpkgs/e18dc963075ed115afb3e312b64643bf8fd4b474;
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     # Really just to streamline deps.
@@ -132,7 +132,7 @@
 
           mamba = utils.mkComputer {
             machineConfig = ./nix/machines/mamba.nix;
-            wm = "openbox";
+            wm = "xmonad";
             userConfigs = [ ./nix/home/daily-driver.nix ];
           };
 
