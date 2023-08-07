@@ -121,6 +121,8 @@
       # Components required to complete the onboarding
       "esphome"
       "met"
+      "radio_browser"
+
       "hue"
       "govee_ble"
       "spotify"
@@ -131,10 +133,38 @@
       "systemmonitor"
       "transmission"
     ];
+    extraPackages = python3Packages: with python3Packages; [
+      # recorder postgresql support
+      pyatv
+      gtts
+      ibeacon-ble
+      getmac
+    ];
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
       default_config = {};
+      # See https://www.home-assistant.io/integrations/systemmonitor
+      sensor = [
+        {
+          platform = "systemmonitor";
+          resources = [
+            {
+              type = "memory_use_percent";
+            }
+            {
+              type = "processor_use";
+            }
+            {
+              type = "last_boot";
+            }
+            {
+              type = "disk_use";
+              arg = "/media/external";
+            }
+          ];
+        }
+      ];
     };
   };
 }
