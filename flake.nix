@@ -70,7 +70,7 @@
     grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:vaxerski/Hyprland/v0.28.0;
+    hyprland.url = github:vaxerski/Hyprland/v0.29.1;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Pretty spotify
