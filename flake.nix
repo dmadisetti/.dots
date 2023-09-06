@@ -29,7 +29,7 @@
 {
   description = "⚫⚫⚫s on NixOS";
 
-  inputs = {
+  inputs = rec {
     # To update nixpkgs (and thus NixOS), pick the nixos-unstable rev from
     # https://status.nixos.org/
     #
@@ -40,7 +40,9 @@
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
     # Really just to streamline deps.
+    systems.url = github:nix-systems/default;
     flake-utils.url = github:numtide/flake-utils;
+    flake-utils.inputs.systems.follows = "systems";
 
     # Build our own wsl
     nixos-wsl.url = github:nix-community/NixOS-WSL;
@@ -72,6 +74,7 @@
     # Hyprland is **such** eye candy
     hyprland.url = github:vaxerski/Hyprland/v0.29.1;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.inputs.systems.follows = "systems";
 
     # Pretty spotify
     spicetify-nix.url = github:the-argus/spicetify-nix;
