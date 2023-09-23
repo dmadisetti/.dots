@@ -1,7 +1,7 @@
 { self, pkgs, ... }: {
   home.packages = [
     pkgs.zotero
-    (import ./zotero_poll/zotero_poll.nix (pkgs))
+    # (import ./zotero_poll/zotero_poll.nix (pkgs))
   ];
   systemd.user.services.zotero =
     {

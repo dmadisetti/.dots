@@ -92,6 +92,9 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 " Why no %
 Plug 'chrisbra/matchit' ", {'for': ['fish', 'bash', 'shell', 'zsh']}
 
+" Sure, why not
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " All hail our AI overlord
 if has('nvim-0.6')
 	Plug 'github/copilot.vim', {'branch': 'release'}
