@@ -52,6 +52,21 @@
           "home.${tld}" = { port = "8123"; };
         };
       })
+      (import ./common/home-assistant.nix {
+        extraComponents = [
+          # Having hue forces port 80
+          "hue"
+          "govee_ble"
+          "spotify"
+          "plex"
+          "radarr"
+          "sonarr"
+          # Somehow including it twice does something.
+          "transmission"
+          "transmission"
+        ];
+        disks = [ "/media/external" ];
+      })
     ] ++ (if self.inputs.sensitive.lib.sellout or false
     then [ ./common/plex.nix ] else [ ]) ++ (
       if self.inputs.sensitive.lib ? ssh-boot then
@@ -111,60 +126,4 @@
   services.udev.extraRules = ''
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="plugdev"
   '';
-
-  # TODO: Move to common/home.nix
-  # or maybe hass/default?
-  # idk, we need to think about HACs projects too
-  services.home-assistant = {
-    enable = true;
-    extraComponents = [
-      # Components required to complete the onboarding
-      "esphome"
-      "met"
-      "radio_browser"
-
-      "hue"
-      "govee_ble"
-      "spotify"
-      "plex"
-      "radarr"
-      "sonarr"
-
-      "systemmonitor"
-      "transmission"
-    ];
-    extraPackages = python3Packages: with python3Packages; [
-      # recorder postgresql support
-      pyatv
-      gtts
-      ibeacon-ble
-      getmac
-    ];
-    config = {
-      # Includes dependencies for a basic setup
-      # https://www.home-assistant.io/integrations/default_config/
-      default_config = {};
-      # See https://www.home-assistant.io/integrations/systemmonitor
-      sensor = [
-        {
-          platform = "systemmonitor";
-          resources = [
-            {
-              type = "memory_use_percent";
-            }
-            {
-              type = "processor_use";
-            }
-            {
-              type = "last_boot";
-            }
-            {
-              type = "disk_use";
-              arg = "/media/external";
-            }
-          ];
-        }
-      ];
-    };
-  };
 }
