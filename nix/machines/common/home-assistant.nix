@@ -5,7 +5,7 @@
 , config-files ? { }
 , static-content ? { }
 }:
-{ lib, ... }:
+{ lib, config, ... }:
 let
   cfg = config.services.home-assistant;
 
@@ -14,7 +14,7 @@ let
   linkCommand = config-path: file: ''
     rm -f ${cfg.configDir}/${config-path} && ln -s ${file} ${cfg.configDir}/${config-path}
   '';
-  customComponentFiles = lib.mapAttrs' (k: v: (nameValuePair "custom_components/${k}" "${v}/custom_components/${k}")) custom-components;
+  customComponentFiles = lib.mapAttrs' (k: v: (builtins.nameValuePair "custom_components/${k}" "${v}/custom_components/${k}")) custom-components;
   configFilesPreStart = lib.concatStrings (lib.mapAttrsToList linkCommand config-files);
   customComponentsPreStart = lib.optionalString (custom-components != { }) (''
     # custom components
@@ -34,7 +34,7 @@ in
   # idk, we need to think about HACs projects too
   services.home-assistant = {
     enable = true;
-    preStart = configFilesPreStart + customComponentsPreStart + staticContentPreStart;
+    # preStart = configFilesPreStart + customComponentsPreStart + staticContentPreStart;
     extraComponents = [
       # Components required to complete the onboarding
       "esphome"
@@ -42,7 +42,7 @@ in
       "radio_browser"
 
       "systemmonitor"
-    ] ++ builtins.trace extraComponents extraComponents;
+    ] ++ extraComponents;
     extraPackages = python3Packages: with python3Packages; [
       # recorder postgresql support
       pyatv

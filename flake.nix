@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/5ba549eafcf3e33405e5f66decd1a72356632b96;
+    nixpkgs.url = github:nixos/nixpkgs/f99e5f03cc0aa231ab5950a15ed02afec45ed51a;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -49,8 +49,8 @@
 
     # Build our own wsl
     nixos-wsl.url = github:nix-community/NixOS-WSL;
-    #nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    #nixos-wsl.inputs.flake-utils.follows = "flake-utils";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.inputs.flake-utils.follows = "flake-utils";
 
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -119,9 +119,7 @@
     rec {
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
-      nixosConfigurations =
-
-        {
+      nixosConfigurations = {
           exalt = utils.mkComputer {
             machineConfig = ./nix/machines/exalt.nix;
             wm = "fb";
@@ -129,7 +127,7 @@
 
           lambda = utils.mkComputer {
             machineConfig = ./nix/machines/lambda.nix;
-            wm = "xmonad";
+            wm = "hyprland";
             userConfigs = [ ./nix/home/daily-driver.nix ];
           };
 
