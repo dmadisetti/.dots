@@ -98,7 +98,7 @@ inputs@{ self, nixpkgs, pkgs, sensitive, dots-manager-path, ... }: {
   _configs = nixpkgs.lib.strings.concatStringsSep " "
     (builtins.attrNames self.nixosConfigurations);
   _live = self.nixosConfigurations.momento.config.system.build.isoImage;
-  _wsl = self.nixosConfigurations.wsl.config.system.build.installer;
+  _wsl = self.nixosConfigurations.wsl.config.system.build.tarballBuilder;
   _gce = self.nixosConfigurations.gce.config.system.build.googleComputeImage;
   _clean = pkgs.writeShellScriptBin "clean-dots" ''
     FLAKE=${../flake.nix}
