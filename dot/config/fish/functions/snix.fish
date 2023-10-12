@@ -14,7 +14,7 @@ function snix
     nixos-rebuild --use-remote-sudo switch \
       --override-input sensitive \
       $DOTFILES/nix/sensitive \
-      -j auto --flake ".#"
+      -j auto --show-trace --flake ".#"
   else
     sudo nixos-rebuild $argv[1..-1] -j auto --flake ".#"
   end

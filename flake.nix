@@ -36,7 +36,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/e35dcc04a3853da485a396bdd332217d0ac9054f;
+    nixpkgs.url = github:nixos/nixpkgs/f99e5f03cc0aa231ab5950a15ed02afec45ed51a;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -117,8 +117,6 @@
       # The "name" in nixosConfigurations.${name} should match the `hostname`
       #
       nixosConfigurations =
-
-
         {
           gce = utils.mkComputer {
             machineConfig = ./nix/machines/gce.nix;

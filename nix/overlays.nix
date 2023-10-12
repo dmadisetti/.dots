@@ -1,19 +1,5 @@
 { sensitive }: [
   (self: super: {
-    # Until nixpkgs#215316 is resolved
-    transmission = super.transmission.overrideAttrs (old: {
-      patches = [ ];
-      nativeBuildInputs = old.nativeBuildInputs ++ [ super.python3 ];
-      src = super.fetchFromGitHub {
-        owner = "transmission";
-        repo = "transmission";
-        rev = "4.0.3";
-        hash = "sha256-P7omd49xLmReo9Zrg0liO1msUVzCa5CxH7PGmH4oPzg=";
-        fetchSubmodules = true;
-      };
-    });
-  })
-  (self: super: {
     picom = super.picom.overrideAttrs (old: {
       src = super.fetchFromGitHub {
         owner = "jonaburg";
