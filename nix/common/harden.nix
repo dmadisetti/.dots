@@ -31,5 +31,6 @@
     sudo.u2fAuth = true;
   };
 
-  security.pki.certificateFiles = lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates);
+  security.pki.certificateFiles = (if (sensitive.lib ? "certificates") then
+  (lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates)) else []);
 }
