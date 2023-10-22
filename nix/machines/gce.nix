@@ -13,7 +13,6 @@ rec {
   users.users."${user}".initialHashedPassword = sensitive.lib.hashed;
   environment.sessionVariables = { IS_GCE = "1"; };
 
-
   # Great idea from cole-h/nixos-config, meaning we don't have to provide root
   # to anyone, and can deploy remotely.
   security.sudo.extraRules = [
