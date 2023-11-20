@@ -67,8 +67,9 @@ jobs:
       run: |
         git config user.name '${{ github.actor }}'
         git config user.email '${{ github.actor }}@users.noreply.github.com'
-        git commit -am "🦀: cargo update"
-        git push -f origin main:cargo-update
-        gh pr create --title "🦀" --base main --head cargo-update --body ":tada:" || echo pr already exists
+        git commit -am "🦀: cargo update" && {
+          git push -f origin main:cargo-update
+          gh pr create --title "🦀" --base main --head cargo-update --body ":tada:" || echo pr already exists
+        } || echo Nothing to commit?\n $(git status)
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
