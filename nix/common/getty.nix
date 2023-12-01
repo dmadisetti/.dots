@@ -6,7 +6,7 @@
       pkgs_rev = self.inputs.nixpkgs.shortRev or "dirty";
       dots_rev = self.shortRev or "dirty";
     in
-    lib.mkForce ''${sensitive.lib.getty pkgs_rev dots_rev}
+    lib.mkForce ''${if (sensitive.lib ? getty) then (sensitive.lib.getty pkgs_rev dots_rev) else ""}
 
 Run 'dots-help' or 'nixos-help' for more information.'';
 }

@@ -10,7 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "r8169" ];
-  boot.kernelModules = [ "r8169" "kvm-intel" ];
+  boot.kernelModules = [ "r8169" "kvm-intel" "kvm" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -101,4 +101,5 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.opengl.driSupport32Bit = true;
 }

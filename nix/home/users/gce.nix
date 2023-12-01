@@ -18,6 +18,7 @@ in
 
   imports = [
     (propagate ../common.nix)
+    ../programs/gpg.nix
     ../programs/nvim.nix
     (propagate ../programs/fish.nix)
   ] ++ (if inputs.sensitive.lib ? cachix then [

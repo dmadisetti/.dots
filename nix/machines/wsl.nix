@@ -17,7 +17,6 @@ in
 
     enable = true;
     wslConf.automount.root = "/mnt";
-    tarball.includeConfig = true;
   };
 
   # WSL is closer to a container than anything else
