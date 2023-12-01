@@ -27,13 +27,13 @@
 (defwidget sliders_side []
   (box :orientation "v" :space-evenly "false" :class "sliders-side"
     (box :orientation "h" :class "slider-vol-side" :space-evenly "false"
-      (box :class "label-vol-side" "")
+      (box :class "label-vol-side" "•")
       (scale :min 0 :max 101 :value volume :onchange "amixer -D pulse sset Master {}%"))
     (box :orientation "h" :class "slider-bright-side" :space-evenly "false"
-      (box :class "label-bright-side" "")
+      (box :class "label-bright-side" "•")
       (scale :min 0 :max 101 :value bright :onchange "brightnessctl s {}%"))
     (box :orientation "h" :class "slider-ram-side" :space-evenly "false"
-      (box :class "label-ram-side" "")
+      (box :class "label-ram-side" "•")
       (scale :min 0 :active "false" :max 101 :value ram-used))
     (box :orientation "h" :class "slider-battery-side" :space-evenly "false"
       (box :class "label-battery-side" bat-icon)

@@ -32,5 +32,5 @@
   };
 
   security.pki.certificateFiles = (if (sensitive.lib ? "certificates") then
-  (lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates)) else []);
+    (lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates)) else [ ]);
 }
