@@ -33,13 +33,19 @@
   # users.mutableUsers = false;
   boot.isContainer = isContainer;
   users.users."${user}" =
-    if !config.boot.isContainer then {
+    (if !config.boot.isContainer then {
       isNormalUser = true;
       uid = 1337;
       shell = pkgs.fish;
       extraGroups = [ "wheel" "tty" "audio" "video" "plugdev" "docker" ];
     } else {
       isNormalUser = true;
+    }) // {
+      # If provided then provision.
+      openssh.authorizedKeys.keys =
+        if self.inputs.sensitive.lib ? "ssh-keys" then
+          self.inputs.sensitive.lib.ssh-keys
+        else [ ];
     };
   # Make plugdev and docker if they do not exist
   users.groups = {
