@@ -19,7 +19,12 @@
       };
       allowSFTP = false;
     };
-    fail2ban = { enable = true; };
+    fail2ban = {
+      enable = true;
+      # Set as default upstream,
+      # but put it here explicitly.
+      bantime = "10m";
+    };
   };
   nix.settings.allowed-users = [ "root" "${user}" ];
   nix.settings.trusted-users = [ "root" "${user}" ];
@@ -32,5 +37,5 @@
   };
 
   security.pki.certificateFiles = (if (sensitive.lib ? "certificates") then
-  (lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates)) else []);
+    (lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates)) else [ ]);
 }
