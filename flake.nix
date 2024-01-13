@@ -36,7 +36,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/46ae0210ce163b3cba6c7da08840c1d63de9c701;
+    nixpkgs.url = github:nixos/nixpkgs/317484b1ead87b9c1b8ac5261a8d2dd748a0492d;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -88,7 +88,7 @@
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
     let
       system = "x86_64-linux";
-      stateVersion = "23.11";
+      stateVersion = "24.05";
 
       dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";
 

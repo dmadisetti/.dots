@@ -22,7 +22,7 @@
     playerctl # Control audio
 
     (inputs.hyprland.packages."x86_64-linux".hyprland.override {
-      enableNvidiaPatches = true;
+      # enableNvidiaPatches = true;
     })
     eww-wayland
     wl-clipboard
