@@ -1,10 +1,9 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, home-assistant
 }:
 
-with stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "transmission-card";
   version = "0.15.3";
 
@@ -12,15 +11,15 @@ with stdenv.mkDerivation rec {
     # https://github.com/AnotherGroupChat/transmission-card
     owner = "amaximus";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-HLY9+eXzfVasO1EVZQ46mooJ4beID01RvYo4BfjHfnc=";
+    rev = version;
+    sha256 = "sha256-a4YdZb9p+NhTq4s1PdrlhC2f5Vk6jRKRIbb7b8E9A4s=";
   };
 
   installPhase = ''
-    mkdir -p $out/custom_components
-    cp *.js* $out/custom_components/
-    cp *.md $out/custom_components/
-    cp LICENSE $out/custom_components/
+    mkdir -p $out/custom_components/transmission-card
+    cp *.js* $out/custom_components/transmission-card/
+    cp *.md $out/custom_components/transmission-card/
+    cp LICENSE $out/custom_components/transmission-card/
   '';
 
   meta = with lib; {

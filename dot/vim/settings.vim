@@ -1,4 +1,4 @@
-" Plugin Tweaks
+" General and Plugin Tweaks
 
 " Airline
 let g:airline_powerline_fonts = 1

@@ -44,11 +44,17 @@
           "plex.${tld}" = { port = "32400"; };
           "sonarr.${tld}" = { port = "8989"; };
           "radarr.${tld}" = { port = "7878"; };
+          "readarr.${tld}" = { port = "8787"; };
+          "kavita.${tld}" = { port = "5000"; };
           "prowlarr.${tld}" = { port = "9696"; };
           "transmission.${tld}" = { port = "9091"; };
 
           # Misc
-          "tensorboard.${tld}" = { port = "6006"; };
+          "tensorboard.${tld}" = {
+            port = "6006";
+            extra = ''
+            '';
+          };
           "home.${tld}" = { port = "8123"; };
         };
       })
@@ -61,10 +67,12 @@
           "plex"
           "radarr"
           "sonarr"
-          # Somehow including it twice does something.
-          "transmission"
           "transmission"
         ];
+        custom-components = {
+          "transmission-card" = pkgs.callPackage ./common/hass-pkgs/transmission-card.nix { };
+          "hacs-govee" = pkgs.callPackage ./common/hass-pkgs/hacs-govee.nix { };
+        };
         disks = [ "/media/external" ];
       })
     ] ++ (if self.inputs.sensitive.lib.sellout or false
@@ -118,6 +126,7 @@
       pools = [ "zoot" ];
     };
   };
+
   # Boo printing
   # services.printing.enable = true;
   # services.printing.drivers = [ pkgs.cnijfilter2 ];

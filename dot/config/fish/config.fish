@@ -7,6 +7,7 @@ alias icat="kitty +kitten icat"
 
 alias vim=nvim
 alias vi=nvim
+alias vio "nvim -O"
 alias dev=develop
 
 export TEXINPUTS=".:~/.tex/lib:"

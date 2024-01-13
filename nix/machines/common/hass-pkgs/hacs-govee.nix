@@ -5,24 +5,25 @@
 
 stdenv.mkDerivation rec {
   pname = "hacs-govee";
+  version = "1.0";
 
   src = fetchFromGitHub {
     # https://github.com/AnotherGroupChat/transmission-card
     owner = "LaggAt";
     repo = pname;
     rev = "c6d28fbfc06f2650cbc4a478a028f0a922376f4b";
-    sha256 = "sha256-a4YdZb9p+NhTq5s1PdrlhC2f5Vk6jRKRIbb7b8E9A4s=";
+    sha256 = "sha256-1fHML665KwJrnLiQee0m/v+pKL4X5B6vGwPj0AYFhac=";
   };
 
   installPhase = ''
     mkdir -p $out/custom_components
-    cp -R $out/custom_components/govee $out/custom_components
+    cp -R ./custom_components/govee $out/custom_components/hacs-govee
   '';
 
   meta = with lib; {
     homepage = "https://github.com/amaximus/transmission-card";
     license = licenses.mit;
-    description = "Custom Transmission card for Home Assistant/Lovelace";
+    description = "A HACS repository for Govee light integration";
     maintainers = with maintainers; [ dmadisetti ];
   };
 }

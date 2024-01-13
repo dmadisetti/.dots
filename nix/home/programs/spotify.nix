@@ -14,7 +14,7 @@ in
     {
       enable = true;
       # Just the default, but works pretty nicely
-      theme = spicePkgs.themes.catppuccin-mocha;
+      # theme = spicePkgs.themes.catppuccin-mocha;
       colorScheme = "dracula";
 
       enabledExtensions = with spicePkgs.extensions; [
