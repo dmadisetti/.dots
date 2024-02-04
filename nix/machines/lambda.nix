@@ -33,6 +33,7 @@
               proxy_set_header Host $host;'';
           };
           "~^(?<sub>.+)?\\.notebook.${tld}$" = { port = "800$sub"; };
+          "~^(?<port>[0-9]{4})?\\.port.${tld}$" = { port = "$port"; };
           "notes.${tld}" = {
             port = "9000";
             extra = ''

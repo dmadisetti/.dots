@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/9b19f5e77dd906cb52dade0b7bd280339d2a1f3d;
+    nixpkgs.url = github:nixos/nixpkgs/e92b6015881907e698782c77641aa49298330223;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -103,6 +103,7 @@
         # allow X to be installed if you don't have unfree enabled already
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
           (if sensitive.lib ? unfree then sensitive.lib.unfree else []);
+
         # Does it work ?!
         # Standard cache is NOT set.
         # Maybe will finish compiling by the heat death of universe.
