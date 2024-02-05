@@ -34,7 +34,7 @@ runs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           system-features = ${{inputs.nix-features}}
-    - uses: DeterminateSystems/magic-nix-cache-action@v2
+    - uses: DeterminateSystems/magic-nix-cache-action@v3
     - uses: cachix/cachix-action@v14
       # if cache isn't configured continue
       continue-on-error: true
