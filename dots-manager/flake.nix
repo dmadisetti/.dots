@@ -38,7 +38,6 @@
               cargo
               clippy
               rustup
-              openssl
               pkg-config
             ];
           };

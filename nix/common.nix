@@ -25,7 +25,19 @@
       trusted-users = [ "root" "${user}" ];
       auto-optimise-store = true;
     };
+
+    # Registry should be consistent
+    # see:
+    #  https://dataswamp.org/~solene/2022-07-20-nixos-flakes-command-sync-with-system.html
+    registry.nixpkgs.flake = self.inputs.nixpkgs;
+    # Likewise for legacy, keep channels synced.
+    nixPath = [
+      "nixpkgs=/etc/channels/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
   };
+  environment.etc."channels/nixpkgs".source = self.inputs.nixpkgs.outPath;
 
   time.timeZone = self.inputs.sensitive.lib.timeZone or "America/New_York";
 

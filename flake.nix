@@ -36,7 +36,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/612f97239e2cc474c13c9dafa0df378058c5ad8d;
+    nixpkgs.url = github:nixos/nixpkgs/f8e2ebd66d09;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -72,7 +72,7 @@
     grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:hyprwm/Hyprland/v0.34.0;
+    hyprland.url = github:hyprwm/Hyprland/v0.35.0;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.inputs.systems.follows = "systems";
 
@@ -100,6 +100,11 @@
         # allow X to be installed if you don't have unfree enabled already
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
           (if sensitive.lib ? unfree then sensitive.lib.unfree else [ ]);
+
+        # Hopefully empty, but needed sometimes.
+        config.permittedInsecurePackages =
+          (if sensitive.lib ? insecure then sensitive.lib.insecure else [ ]);
+
         # Does it work ?!
         # Standard cache is NOT set.
         # Maybe will finish compiling by the heat death of universe.

@@ -8,7 +8,7 @@ let
       inputs.sensitive.lib.sellout || (builtins.elem pkg inputs.sensitive.lib.unfree)
     then
       [ (propagate f) ]
-    else [ ];
+    else pkgs.lib.warn "Skipping ${f} because marked as unfree." [ ];
 in
 {
   # you can rename this file to your main username;
@@ -35,7 +35,6 @@ in
     [ ]);
 
   home.packages = with pkgs; [
-    yuzu
     # security
     wireguard-tools
     # all ya really need

@@ -8,7 +8,6 @@ stdenv.mkDerivation rec {
   version = "1.0";
 
   src = fetchFromGitHub {
-    # https://github.com/AnotherGroupChat/transmission-card
     owner = "LaggAt";
     repo = pname;
     rev = "c6d28fbfc06f2650cbc4a478a028f0a922376f4b";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/amaximus/transmission-card";
+    homepage = "https://github.com/LaggAt/hacs-govee";
     license = licenses.mit;
     description = "A HACS repository for Govee light integration";
     maintainers = with maintainers; [ dmadisetti ];

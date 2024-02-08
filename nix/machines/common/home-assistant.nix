@@ -71,6 +71,9 @@ in
       dacite
 
       opower
+
+      # govee-hacs
+      pexpect
     ];
     config = {
       # Includes dependencies for a basic setup

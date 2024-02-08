@@ -15,8 +15,12 @@
                 aiohttp
                 certifi
                 pygatt
+                pexpect
               ];
-              postPatch = "cd ./.git-subtree/python-govee-api";
+              postPatch = ''
+                cd ./.git-subtree/python-govee-api
+                sed -i 's/"bios>=0.1.2",//g' setup.py
+              '';
               src = super.fetchFromGitHub {
                 owner = "LaggAt";
                 repo = "hacs-govee";
@@ -35,6 +39,7 @@
                 voluptuous
                 aiohttp
                 bitstruct
+                cryptography
               ];
               src = super.fetchFromGitHub {
                 owner = "home-assistant-libs";
