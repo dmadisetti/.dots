@@ -2,13 +2,14 @@
 
 args@{ inputs, self, pkgs, stateVersion, ... }:
 let
+  warn = inputs.nixpkgs.lib.warn;
   propagate = f: extra: (import f (args // extra));
   propagateUnfree = pkg: f:
     if
       inputs.sensitive.lib.sellout || (builtins.elem pkg inputs.sensitive.lib.unfree)
     then
       [ (propagate f) ]
-    else pkgs.lib.warn "Skipping ${f} because marked as unfree." [ ];
+    else (warn "Skipping ${f} because marked as unfree." [ ]);
 in
 {
   # you can rename this file to your main username;
