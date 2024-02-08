@@ -1,5 +1,5 @@
 # 🐡🐠🐟🦈
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
   imports = [ ];
   programs.fish = {
     enable = true;
@@ -19,4 +19,7 @@
       end
     '';
   };
+  home.packages = [
+    pkgs.sqlite # for the `+` program. Makes life so sweet.
+  ];
 }
