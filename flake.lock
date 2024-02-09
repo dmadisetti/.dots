@@ -215,8 +215,8 @@
       },
       "original": {
         "owner": "nixos",
-        "ref": "f8e2ebd66d09",
         "repo": "nixpkgs",
+        "rev": "f8e2ebd66d097614d51a56a755450d4ae1632df1",
         "type": "github"
       }
     },
