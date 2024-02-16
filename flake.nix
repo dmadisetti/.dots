@@ -98,7 +98,7 @@
       # Add nixpkgs overlays and config here. They apply to system and home-manager builds.
       pkgs = import nixpkgs {
         inherit system;
-        overlays = import ./nix/overlays.nix { inherit sensitive; };
+        overlays = import ./nix/overlays.nix { inherit sensitive inputs; };
         config.allowUnfree = sensitive.lib.sellout or false;
         # allow X to be installed if you don't have unfree enabled already
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
