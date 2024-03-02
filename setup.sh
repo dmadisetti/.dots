@@ -2,6 +2,7 @@
 
 # Managing symlinks over home-manager or nix means we can use this on all
 # platforms :), also it means we don't end up with those terrible ro links.
+# Why use GNU stow when I can use ln for the same amount of effort 🐂🐑?
 setup() {
   local scriptpath="$(
     cd "$(dirname "$0")" > /dev/null 2>&1

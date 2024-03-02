@@ -24,6 +24,7 @@ in
     (propagate ../programs/git.nix)
     (propagate ../programs/fish.nix)
     (propagate ../programs/zotero.nix)
+    (propagate ../programs/zoxidize.nix)
   ] ++ (
     propagateUnfree "spotify" ../programs/spotify.nix
   ) ++ (if inputs.sensitive.lib ? cachix then [
