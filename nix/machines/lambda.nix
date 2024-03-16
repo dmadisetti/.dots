@@ -46,7 +46,14 @@
           "sonarr.${tld}" = { port = "8989"; };
           "radarr.${tld}" = { port = "7878"; };
           "readarr.${tld}" = { port = "8787"; };
-          "kavita.${tld}" = { port = "5000"; };
+          "kavita.${tld}" = {
+            port = "5000";
+            # Annoyingly requires header to be set, even though there are
+            # options to change the host.
+            extra = ''
+              proxy_set_header Host $host;
+            '';
+          };
           "prowlarr.${tld}" = { port = "9696"; };
           "transmission.${tld}" = { port = "9091"; };
 
