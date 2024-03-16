@@ -17,14 +17,14 @@ rnix = { git = 'https://github.com/AnotherGroupChat/rnix-parser', rev = "41e8090
 
 clap = { version = "4.5.1", features = ["derive"] }
 
-pgp = "0.10"
+pgp = "0.11"
 rand = "0.8"
 sha-crypt = "0.5.0"
 
 handlebars = "5.1.1"
 regex = "1"
 serde_json = "1.0.111"
-serde = { version = "1.0.196", features = ["derive"] }
+serde = { version = "1.0.197", features = ["derive"] }
 
 qr_code = "2.0.0"
 
