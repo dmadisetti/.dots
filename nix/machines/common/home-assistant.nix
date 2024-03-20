@@ -64,7 +64,7 @@ in
 
       rokuecp
 
-      govee-api-laggat
+      # govee-api-laggat
       pyvizio
       aiohomekit
       python_otbr_api

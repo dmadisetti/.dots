@@ -2,8 +2,6 @@
 { home, pkgs, ... }: {
   imports = [ ];
 
-  home.packages = with pkgs; [ python38Packages.pynvim ];
-
   programs.neovim = {
     enable = true;
     viAlias = true;
