@@ -14,7 +14,7 @@
                 events
                 aiohttp
                 certifi
-                pygatt
+                # pygatt
                 pexpect
               ];
               postPatch = ''

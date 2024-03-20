@@ -24,7 +24,7 @@
     (inputs.hyprland.packages."x86_64-linux".hyprland.override {
       # enableNvidiaPatches = true;
     })
-    eww-wayland
+    eww
     wl-clipboard
     rofi
     grim
