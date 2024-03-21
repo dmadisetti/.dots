@@ -70,18 +70,19 @@
         extraComponents = [
           # Having hue forces port 80
           "hue"
-          "govee_ble"
           "spotify"
           "plex"
           "radarr"
           "sonarr"
           "transmission"
         ];
-        custom-components = {
-          "transmission-card" = pkgs.callPackage ./common/hass-pkgs/transmission-card.nix { };
-          "hacs-govee" = pkgs.callPackage ./common/hass-pkgs/hacs-govee.nix { };
-        };
-        disks = [ "/media/external" ];
+        customComponents = [
+          pkgs.home-assistant-custom-components.govee-lan
+        ];
+        customModules = [
+          (pkgs.callPackage ./common/hass-pkgs/transmission-card.nix { })
+          pkgs.home-assistant-custom-lovelace-modules.mushroom
+        ];
       })
     ] ++ (if self.inputs.sensitive.lib.sellout or false
     then [ ./common/plex.nix ] else [ ]) ++ (
@@ -105,8 +106,7 @@
 
   # nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.package =
-    pkgs.linuxKernel.packages.linux_6_6.nvidia_x11;
+  hardware.nvidia.package = pkgs.linuxKernel.packages.linux_6_6.nvidia_x11;
   hardware.nvidia.modesetting.enable = true;
   # hardware.nvidia.prime.offload.enable = true;
   environment.systemPackages = with pkgs; [ nvidia-docker ];

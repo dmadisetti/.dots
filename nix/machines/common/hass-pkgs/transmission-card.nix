@@ -16,10 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    mkdir -p $out/custom_components/transmission-card
-    cp *.js* $out/custom_components/transmission-card/
-    cp *.md $out/custom_components/transmission-card/
-    cp LICENSE $out/custom_components/transmission-card/
+    mkdir -p $out/transmission-card
+    cp *.js* $out/transmission-card/
+    cp *.md $out/transmission-card/
+    cp LICENSE $out/transmission-card/
   '';
 
   meta = with lib; {
