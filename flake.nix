@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/ff0dbd94265ac470dda06a657d5fe49de93b4599;
+    nixpkgs.url = github:nixos/nixpkgs/cfd6b5fc90b15709b780a5a1619695a88505a176;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -75,7 +75,7 @@
     grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:hyprwm/Hyprland/v0.38.1;
+    hyprland.url = github:hyprwm/Hyprland/v0.39.0;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.inputs.systems.follows = "systems";
 
