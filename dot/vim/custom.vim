@@ -4,12 +4,35 @@ augroup autoformat_settings
 augroup END
 autocmd FileType cuda let b:codefmt_formatter = 'clang-format'
 
-" Nerdtree / Airlatex sidebar
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+  if g:NetrwIsOpen
+    let i = bufnr("$")
+    while (i >= 1)
+      if (getbufvar(i, "&filetype") == "oil")
+        silent exe "bwipeout " . i
+      endif
+      let i-=1
+    endwhile
+    let g:NetrwIsOpen=0
+  else
+    let g:NetrwIsOpen=1
+    " Doesn't exist? Open it
+    " Calculate 32% of the width of the window
+    let width = float2nr(winwidth(0) * 0.16)
+    " Open a vertical split and resize it
+    execute 'vsplit | vertical resize' width '| Oil'
+  endif
+endfunction
+
+" Played with a few things, but typically, I just use ctrl-P
+" So better to have a useful utility than a file navigator.
 function! ToggleAirLatexOrNERDTree()
   if exists("g:AirLatexIsActive") && g:AirLatexIsActive
     call AirLatexToggle()
   else
-    NERDTreeToggle
+    call ToggleNetrw()
   endif
 endfunction
 
@@ -40,8 +63,8 @@ endfun
 " Such peace, much wow
 function! Zen()
   :Goyo
+  :SoftPencil
   if g:MarkDowned
-    :SoftPencil
     :highlight CursorLineNR ctermbg=236 ctermfg=240
     :highlight Hidden ctermbg=234 ctermfg=234
     :highlight LineNum ctermbg=234 ctermfg=238
@@ -59,8 +82,8 @@ function! Zen()
     nnoremap <space>p :call AirLatex_PrevCommentPosition()<CR>
     nnoremap <left> :call AirLatex_PrevCommentPosition()<CR>
     nnoremap <right> :call AirLatex_NextCommentPosition()<CR>
-    nnoremap <S-left> :call AirLatex_PrevChangePosition()<CR>
-    nnoremap <S-right> :call AirLatex_NextChangePosition()<CR>
+    nnoremap <S-up> :call AirLatex_PrevChangePosition()<CR>
+    nnoremap <S-down> :call AirLatex_NextChangePosition()<CR>
 
     iunmap jk
     iunmap kj

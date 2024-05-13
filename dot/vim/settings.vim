@@ -35,6 +35,7 @@ let g:tex_flavor = 'lualatex'
 set conceallevel=2
 let g:tex_conceal="abdgm"
 let g:pencil#conceallevel = 0
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-u>"
@@ -50,7 +51,8 @@ let g:citation_vim_cache_path="~/.vim/citation.cache"
 
 " Air Latex
 let g:AirLatexCookieDB="~/.mozilla/firefox/*.default/cookies.sqlite"
-let g:AirLatexLogLevel="DEBUG"
+let g:AirLatexUseDropbox = 1
+" let g:AirLatexLogLevel="DEBUG"
 
 " Linters
 let g:ale_sign_column_always = 1
@@ -61,6 +63,11 @@ let g:do_auto_show_process_window = 0
 " Custom flags
 let g:spell_checking = 0
 let g:MarkDowned = 0
+
+" Played around with trying to get this to work with tree sitters, but didn't
+" like it.
+let g:markdown_fenced_languages = ['python', 'javascript', 'bash=sh',
+      \ '{python}=python', '{.python.marimo}=python']
 
 " General styling
 set guifont=RobotoMono\ Nerd\ Font\ Medium:h15
@@ -82,6 +89,9 @@ set shiftwidth=2    " Indents will have a width of 2
 set softtabstop=2   " Sets the number of columns for a TAB
 set expandtab       " Expand TABs to spaces
 set tw=80
+
+" 'Fix' <C-a> to increment
+set nrformats+=unsigned
 
 " Persistent undo is great
 set undofile
