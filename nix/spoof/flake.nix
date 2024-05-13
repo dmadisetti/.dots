@@ -55,12 +55,7 @@
       sellout = false;
 
       # Hopefully this is normally empty.
-      insecure = [
-          # Annoying. See github.com/NixOS/nixpkgs#269713
-          # for resolution. Homeassistant problem so could restrict to lambda, but
-          # CI on github needs to pass.
-          "openssl-1.1.1w"
-      ];
+      insecure = [ ];
 
       # getty can be just as pretty as lightdm imho.
       # example getty response
