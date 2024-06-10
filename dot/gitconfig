@@ -12,6 +12,8 @@
 
 [alias]
   l = log --graph --pretty=format:\"%C(auto)%h%<(3)%d %s %C(bold blue)(%cr, %an)%Creset\" --abbrev-commit --all
+  sync = "!f() { git fetch; git checkout origin/$1; git branch -f $1; git checkout $1; }; f"
+  squash = "!f() { git merge --squash $1; }; f"
 
 [init]
   defaultBranch = main

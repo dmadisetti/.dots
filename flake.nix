@@ -36,7 +36,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/57610d2f8f0937f39dbd72251e9614b1561942d8;
+    nixpkgs.url = github:nixos/nixpkgs/051f920625ab5aabe37c920346e3e69d7d34400e;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -72,7 +72,7 @@
     grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:hyprwm/Hyprland/v0.40.0;
+    hyprland.url = github:hyprwm/Hyprland/v0.41.0;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.inputs.systems.follows = "systems";
 
@@ -98,6 +98,8 @@
         overlays = import ./nix/overlays.nix { inherit sensitive inputs; };
         config.allowUnfree = sensitive.lib.sellout or false;
         # allow X to be installed if you don't have unfree enabled already
+        # You may have to flush sensitive from lock for this to work with
+        # changes.
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
           (if sensitive.lib ? unfree then sensitive.lib.unfree else [ ]);
 
