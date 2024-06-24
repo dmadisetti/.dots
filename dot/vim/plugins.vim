@@ -113,3 +113,4 @@ call glaive#Install()
 
 luafile ~/.dots/dot/vim/plugins/nvim-tree.lua
 luafile ~/.dots/dot/vim/plugins/copilot.lua
+luafile ~/.dots/dot/vim/plugins/headlines.lua

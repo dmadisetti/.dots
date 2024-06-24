@@ -80,7 +80,8 @@
           pkgs.home-assistant-custom-components.govee-lan
         ];
         customModules = [
-          (pkgs.callPackage ./common/hass-pkgs/transmission-card.nix { })
+          # (pkgs.callPackage ./common/hass-pkgs/transmission-card.nix { })
+          (pkgs.callPackage ./common/hass-pkgs/garmin.nix { })
           pkgs.home-assistant-custom-lovelace-modules.mushroom
         ];
       })

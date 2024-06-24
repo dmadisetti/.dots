@@ -52,7 +52,7 @@ let g:citation_vim_cache_path="~/.vim/citation.cache"
 " Air Latex
 let g:AirLatexCookieDB="~/.mozilla/firefox/*.default/cookies.sqlite"
 let g:AirLatexUseDropbox = 1
-" let g:AirLatexLogLevel="DEBUG"
+let g:AirLatexLogLevel="DEBUG"
 
 " Linters
 let g:ale_sign_column_always = 1

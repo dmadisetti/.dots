@@ -26,6 +26,7 @@ function +
   set -l command
   set -l direct_shell 0
   set -l command_mode 0 # 0: None, 1: --, 2: +
+  set -l pkgs "nixpkgs"
 
   if test (count $argv) -eq 0
     set packages $packages (get-pkgs | head -1)
@@ -41,6 +42,8 @@ function +
       case '+'
         set command_mode 2
         set command
+      case '--pkgs*'
+        set pkgs (string replace -r -- '--pkgs=(.*)' '$1' $arg)
       case '--py*'
         set -l python_version (string replace -r -- '--py(\w+)=.*' '$1' $arg)
         set -l python_pkgs (string replace -r -- '--py\w+=(.*)' '$1' $arg)
@@ -65,7 +68,7 @@ function +
   if test $direct_shell -eq 1
     set nix_cmd "nix-shell -p $packages $extra_packages"
   else
-    set formatted_packages "nixpkgs#"(string join ' nixpkgs#' $packages)
+    set formatted_packages "$pkgs#"(string join " $pkgs#" $packages)
     set nix_cmd "nix shell --impure $formatted_packages $extra_packages"
   end
 

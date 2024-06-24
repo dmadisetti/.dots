@@ -1,6 +1,6 @@
-{ pkgs }:
+{ pkgs, ... }:
     let
-      ps = pkgs.python311Packages;
+      ps = pkgs.python38Packages;
       zotero-cli = ps.buildPythonPackage rec {
         pname = "zotero-cli";
         version = "0.3.0";
@@ -45,6 +45,7 @@
         doCheck = false;
         propagatedBuildInputs = [ ps.pybtex pyzotero ps.requests ps.prettytable zotero-cli ];
       };
+      # TODO: Use agenix or move to sensitive. Ideally both
       wrapper = ''
         #!/usr/bin/env sh
         set

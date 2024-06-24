@@ -38,7 +38,7 @@ BIBTEX = environ.get("BIBTEX", f"{NOTES}/references/references.bib")
 
 zotcli.storage_dir = STORAGE
 
-DEBUG = True # environ.get("ZPOLL_DEBUG", False)
+DEBUG = environ.get("ZPOLL_DEBUG", False)
 
 from prettytable import PrettyTable
 

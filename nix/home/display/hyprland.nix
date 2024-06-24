@@ -16,20 +16,29 @@
     NIXOS_OZONE_WL = 1;
   };
 
+  wayland.windowManager.hyprland= {
+    enable = true;
+    # plugins = [
+    #   inputs.hyprland-plugins.packages.${pkgs.system}.Hyprspace
+    # ];
+    extraConfig =''
+      source=~/.config/hypr/user.conf
+    '';
+  };
+
   home.packages = with pkgs; [
     # utils
     acpi # hardware states
     brightnessctl # Control background
     playerctl # Control audio
 
-    (inputs.hyprland.packages."x86_64-linux".hyprland.override {
-      # enableNvidiaPatches = true;
-    })
     eww
     wl-clipboard
-    rofi
+    rofi-wayland
     grim
     # from overlay
     mpvpaper
+
+    waybar
   ];
 }

@@ -35,7 +35,8 @@
         ./home/display/display.nix
         (./home/display + "/${wm}.nix")
       ] else
-        [ ]);
+        [ ]) ++ (if wm == "hyprland" then
+        [ inputs.hyprland.homeManagerModules.default ] else [ ]);
     };
 
   # for raw home-manager configurations
