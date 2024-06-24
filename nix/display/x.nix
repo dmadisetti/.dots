@@ -3,18 +3,17 @@
   imports = [ ];
   environment.pathsToLink =
     [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   services.xserver = {
     enable = true;
-    libinput.enable = true;
     displayManager.startx.enable = true;
     desktopManager.xterm.enable = false;
   };
+  services.libinput.enable = true;
 
   # Enable sound.
   sound.enable = true;
