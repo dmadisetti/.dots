@@ -50,7 +50,7 @@
       # Specific programs that are unfree
       # nvidia in here for testing purposes with my hardware.
       # Remove or change for your systems.
-      unfree = [ "nvidia-x11" "nvidia-settings" ];
+      unfree = [ "nvidia-x11" "libXNVCtrl" "nvidia-settings" ];
       # Allow all unfree programs
       sellout = false;
 
