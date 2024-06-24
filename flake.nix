@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/e9ee548d90ff586a6471b4ae80ae9cfcbceb3420;
+    nixpkgs.url = github:nixos/nixpkgs/a71e967ef3694799d0c418c98332f7ff4cc5f6af;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
