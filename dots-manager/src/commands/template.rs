@@ -34,21 +34,33 @@ fn build_questions(
                 if let Some(enable_value) = rnix::types::Value::cast(enable_node) {
                     match enable_value.to_value() {
                         Ok(rnix::value::Value::Boolean(boolean)) => {
+                            // Backfill if prescribed in defaults
                             let maybe_default = defaults
                                 .get(&key)
                                 .and_then(|v| v.get("enable"))
                                 .and_then(|v| v.as_bool());
+
                             let maybe_enabled = match maybe_default {
                                 Some(value) => value,
-                                None => matches!(
-                                    requestty::prompt_one(
-                                        Question::confirm("enable")
-                                            .message(&format!("Enable {}?", key.replace('_', " ")))
-                                            .default(boolean)
-                                            .build()
-                                    ),
-                                    Ok(Answer::Bool(true))
-                                ),
+                                None => {
+                                    // Check to see if a prompt explicitly handles it
+                                    match prompts(key.clone(), &data) {
+                                        Some(x) => x == "true",
+                                        // If not, prompt the user
+                                        _ => matches!(
+                                            requestty::prompt_one(
+                                                Question::confirm("enable")
+                                                    .message(&format!(
+                                                        "Enable {}?",
+                                                        key.replace('_', " ")
+                                                    ))
+                                                    .default(boolean)
+                                                    .build()
+                                            ),
+                                            Ok(Answer::Bool(true))
+                                        ),
+                                    }
+                                }
                             };
                             if maybe_enabled {
                                 let prefix = key.clone() + "_";
@@ -139,9 +151,7 @@ pub fn apply_nix_template(data: &JsonValue, content: String) -> Result<String, B
     Ok(reformat_string(&attempt))
 }
 
-pub fn load_ast(
-    file: PathBuf,
-) -> Result<AST, Box<dyn Error>> {
+pub fn load_ast(file: PathBuf) -> Result<AST, Box<dyn Error>> {
     let content = match read_to_string(file) {
         Ok(content) => content,
         Err(err) => {
@@ -160,10 +170,7 @@ pub fn load_ast(
     Ok(ast)
 }
 
-
-pub fn load_defaults(
-    defaults: Option<PathBuf>,
-) -> Result<JsonValue, Box<dyn Error>> {
+pub fn load_defaults(defaults: Option<PathBuf>) -> Result<JsonValue, Box<dyn Error>> {
     match defaults {
         Some(path) => match read_to_string(path) {
             Ok(x) => match serde_json::from_str(&x) {

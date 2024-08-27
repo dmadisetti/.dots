@@ -39,6 +39,7 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
             context["git_email"].as_str().map(|x| x.to_string()),
         ),
 
+        // install
         "installation_hostname" => user("Enter system hostname".to_string()),
         "installation_hostid" => hex(
             "Enter a 8 byte (hex) hostid, see gist.github.com/a8962d61a54631cd72cff16d3292cc69 for ideas"
@@ -48,6 +49,16 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
         "installation_description" => free("Enter system description".to_string()),
         "installation_category" => Some("machines".to_string()),
 
+        // disko
+
+
+        // zfs legacy
+        "installation_zfs_enabled" => {
+            if context["installation_disko_enabled"].as_bool().unwrap_or(false) {
+                Some("false".to_string())
+            } else{
+                confirm("Install with legacy zfs?".to_string())
+            }},
         "installation_zfs_encrypted" => confirm("Encrypt partitions?".to_string()),
         "installation_zfs_pool" => {
             user("What should we name your zfs pool? (e.g. zoot)".to_string())
