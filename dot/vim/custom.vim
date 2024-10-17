@@ -96,6 +96,56 @@ endfunction
 
 command Zen :call Zen()
 
+function! ConfirmOverwrite(confirm, temp_bib, output_bib)
+  if a:confirm
+    " Overwrite the existing .bib file
+    execute '!cp ' . a:temp_bib . ' "' . a:output_bib . '"'
+    call AirLatex_DropboxSync()
+  else
+    " Remove the temporary file
+    execute '!rm ' . a:temp_bib
+    echo "Operation cancelled."
+  endif
+  " Close the diff buffer
+  bd!
+endfunction
+function! CreateBibFile()
+  call AirLatex_DropboxSync()
+  " Get the current buffer name
+  let l:current_buffer = expand('%:p')
+  " Define the output .bib file name
+  let l:output_bib = '"' . fnamemodify(l:current_buffer, ':h') . '/bibtex.bib"'
+  let l:current_buffer = '"' . l:current_buffer . '"'
+  " Define a temporary file for the new .bib content
+  let l:temp_bib = '/run/user/1337/airlatex/tmp.bib'
+  " Define the command to run
+  let l:command = '!cat ' . l:current_buffer . ' | /home/dylan/phd/writings/bibfilter.py /home/dylan/phd/notes/bibtex.bib - > ' . l:temp_bib
+  " Execute the command
+  execute l:command
+  " Perform a diff with the existing file
+  let l:diff_command = 'diff ' . l:output_bib . ' ' . l:temp_bib
+  let l:diff_output = system(l:diff_command)
+  " Check if there are differences
+  if !empty(l:diff_output)
+    " Open a new buffer and display the diff
+    execute 'new'
+    call setline(1, split(l:diff_output, "\n"))
+    setlocal buftype=nofile
+    setlocal bufhidden=wipe
+    setlocal noswapfile
+    " Map ZZ to confirm and ZQ to cancel
+    execute 'nnoremap <buffer> ZZ :call ConfirmOverwrite(1, "' . l:temp_bib . '", ' . l:output_bib . ')<CR>'
+    execute 'nnoremap <buffer> ZQ :call ConfirmOverwrite(0, "' . l:temp_bib . '", ' . l:output_bib . ')<CR>'
+  else
+    " No differences, remove the temporary file
+    execute '!rm ' . l:temp_bib
+    echo "No differences found. Bib file not updated."
+  endif
+endfunction
+
+command! CreateBibFile call CreateBibFile()
+
+
 " copilot tweaks
 " ctrl-F classic emacs forwards
 imap <silent><script><expr> <C-F> copilot#Accept("\<CR>")

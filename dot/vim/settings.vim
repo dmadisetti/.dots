@@ -47,7 +47,8 @@ let g:UltiSnipsSnippetDirectories = ["ulties"]
 " Citation for PhD work
 let g:citation_vim_bibtex_file="~/phd/notes/bibtex.bib"
 let g:citation_vim_mode="bibtex"
-let g:citation_vim_cache_path="~/.vim/citation.cache"
+let g:citation_vim_cache_path="~/.vim" " must be exisiting directory.
+let g:citation_vim_review_directory="/home/dylan/phd/notes/reviews/"
 
 " Air Latex
 let g:AirLatexCookieDB="~/.mozilla/firefox/*.default/cookies.sqlite"

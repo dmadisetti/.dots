@@ -35,8 +35,10 @@ Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'markdown'] }
  " , { 'for': ['tex', 'markdown'] } " nav break lines
 Plug 'preservim/vim-pencil'
 Plug 'rhysd/vim-grammarous', { 'for': ['tex', 'markdown'] }
-Plug 'AnotherGroupChat/citation.vim', { 'for': ['tex', 'markdown'], 'branch': 'denite'}
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins',  'for': ['markdown', 'tex'] }
+Plug 'AnotherGroupChat/citation.vim', {'branch': 'denite', 'for': ['tex', 'markdown']}
+" Something weird with denite where UpdateRemotePlugins doesn't pick it up.
+" Note denite is also retired, but whatever for now.
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' } ",  'for': ['markdown', 'tex'] }
 Plug 'dmadisetti/paragraph-number.vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lervag/vimtex'
 

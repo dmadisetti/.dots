@@ -49,6 +49,9 @@ nmap X :call AirLatexToggleComments()<CR>
 nnoremap <F5> :call TrimWhitespace()<CR>:retab<CR>
 nnoremap <C-s> :call SpellToggle()<cr>
 
+" Yank to clipboard
+vnoremap Y "+y
+
 " Clever F reset
 nmap <C-f> <Plug>(clever-f-reset)
 " Yeah between H, L, C-h, C-l I guess I'm not really a fan of shifting the
