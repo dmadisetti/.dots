@@ -90,7 +90,7 @@
 
   outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
     let
-      system = "x86_64-linux";
+      system = (if sensitive.lib ? system then sensitive.lib.system else "x86_64-linux");
       stateVersion = "24.05";
 
       dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";

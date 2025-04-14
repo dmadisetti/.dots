@@ -58,7 +58,11 @@
           nix.package = pkgs.nix;
           home = {
             inherit stateVersion username;
-            homeDirectory = "/home/${username}";
+            # home if string contains linux, Users if darwin
+            homeDirectory = if builtins.hasInfix "linux" system then
+              "/home/${username}"
+            else
+              "/Users/${username}";
           };
         }
       ];

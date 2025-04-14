@@ -74,19 +74,14 @@ set guifont=RobotoMono\ Nerd\ Font\ Medium:h15
 set t_Co=256   " This is may or may not needed.
 set encoding=utf-8 "
 
-set background=dark
-colorscheme PaperColor
-set number
-set laststatus=2
-
 " Force tabs to be 2 spaces in python as well.
 let g:python_recommended_style = 0
-set tabstop=2       " The width of a TAB is set to 2.
+set tabstop=4       " The width of a TAB is set to 4.
                     " Still it is a \t. It is just that
                     " Vim will interpret it to be having
                     " a width of 2.
-set shiftwidth=2    " Indents will have a width of 2
-set softtabstop=2   " Sets the number of columns for a TAB
+set shiftwidth=4    " Indents will have a width of 2
+set softtabstop=4   " Sets the number of columns for a TAB
 set expandtab       " Expand TABs to spaces
 set tw=80
 
@@ -99,3 +94,9 @@ set undodir=~/.vim
 
 " No mouse!
 set mouse=
+
+" color
+set background=dark
+colorscheme PaperColor
+set number
+set laststatus=2
