@@ -59,7 +59,7 @@
           home = {
             inherit stateVersion username;
             # home if string contains linux, Users if darwin
-            homeDirectory = if lib.strings.hasInfix "linux" system then
+            homeDirectory = if nixpkgs.lib.strings.hasInfix "linux" system then
               "/home/${username}"
             else
               "/Users/${username}";
