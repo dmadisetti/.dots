@@ -39,7 +39,7 @@
     # This ensures that we always use the official nix cache.
     # nixpkgs.url = "/home/user/src/nixpkgs-local?cache-bust=4";
     # TODO: Change to patch system NixOs/nix/issues#3920
-    nixpkgs.url = github:nixos/nixpkgs/7e7c39ea35c5cdd002cd4588b03a3fb9ece6fad9;
+    nixpkgs.url = github:nixos/nixpkgs/68d8aa3d661f0e6bd5862291b5bb263b2a6595c9;
     nixos-hardware.url = github:NixOS/nixos-hardware;
 
     # Really just to streamline deps.
@@ -50,7 +50,6 @@
     # Build our own wsl
     nixos-wsl.url = github:nix-community/NixOS-WSL;
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-wsl.inputs.flake-utils.follows = "flake-utils";
 
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -70,28 +69,38 @@
     dots-manager.inputs.nixpkgs.follows = "nixpkgs";
     dots-manager.inputs.flake-utils.follows = "flake-utils";
 
+    # Agent harness monorepo. For local dev against ~/src/cowboy, override:
+    #   nix flake lock --override-input cowboy /home/dylan/src/cowboy
+    cowboy.url = "github:dmadisetti/cowboy";
+    cowboy.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Secrets management. Activated only when sensitive.lib.secrets is set
+    # (see nix/utils.nix conditional and nix/common/age.nix).
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+
     # Common Grub2 themes
-    grub2-themes.url = github:AnotherGroupChat/grub2-themes-png;
-    grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
+    # grub2-themes.url = github:AnotherGroupChat/grub2-themes-png;
+    # grub2-themes.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland is **such** eye candy
-    hyprland.url = github:hyprwm/Hyprland/v0.41.2;
+    hyprland.url = github:hyprwm/Hyprland/v0.54.3;
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.inputs.systems.follows = "systems";
 
     # Pretty spotify
-    spicetify-nix.url = github:the-argus/spicetify-nix;
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
-    spicetify-nix.inputs.flake-utils.follows = "flake-utils";
+    # spicetify-nix.url = github:Gerg-L/spicetify-nix;
+    # spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    # spicetify-nix.inputs.flake-utils.follows = "flake-utils";
 
     # Cachix for caching!
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, ... }:
+  outputs = inputs@{ self, home-manager, nixpkgs, sensitive, dots-manager, cowboy, ... }:
     let
       system = "x86_64-linux";
-      stateVersion = "24.05";
+      stateVersion = "26.05";
 
       dots-manager-path = "${dots-manager.dots-manager."${system}"}/bin";
 
@@ -164,6 +173,7 @@
       #
       homeConfigurations = nixpkgs.lib.foldr (a: b: a // b) { } (map utils.mkHome [
         "${sensitive.lib.user}"
+        "agent"
       ]);
 
       lib.utils = utils;

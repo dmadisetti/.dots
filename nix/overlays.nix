@@ -7,9 +7,9 @@
     in
     {
       zotero = super.zotero.overrideAttrs (old: {
-        postPatch = old.postPatch + ''
-          sed -i '/pref("${pref}", .*);/c\pref("${pref}", "${path}");' defaults/preferences/zotero.js
-          sed -i '/pref("${pref2}", .*);/c\pref("${pref2}", true);' defaults/preferences/zotero.js
+        postPatch = (if old ? postPatch then old.postPatch else "") + ''
+          # sed -i '/pref("${pref}", .*);/c\pref("${pref}", "${path}");' defaults/preferences/zotero.js
+          # sed -i '/pref("${pref2}", .*);/c\pref("${pref2}", true);' defaults/preferences/zotero.js
         '';
       });
     })

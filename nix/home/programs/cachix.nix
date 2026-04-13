@@ -20,5 +20,9 @@
       url = "https://cuda-maintainers.cachix.org";
       key = "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=";
     }
+    {
+      url = "https://ploop.cachix.org";
+      key = "ploop.cachix.org-1:i6+Fqarsbf5swqH09RXOEDvxy7Wm7vbiIXu4A9HCg1g=";
+    }
   ];
 }

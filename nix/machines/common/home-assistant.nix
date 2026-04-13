@@ -39,6 +39,7 @@ in
       # homekit_controller
       # python_otbr_api
       # dacite
+      oralb-ble
 
       opower
       pexpect
@@ -53,5 +54,8 @@ in
         server_port = 8123;
       };
     };
+  };
+  systemd.services.home-assistant.environment = {
+    GARMINTOKENS = "/var/lib/hass/garth";
   };
 }

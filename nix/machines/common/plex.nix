@@ -31,6 +31,36 @@ let
     else { };
   transmissionGroup = { name, enable }:
     if enable then [ name ] else [ ];
+
+  # Hardening template mirroring what nixpkgs gives sonarr/radarr (~score 1.5).
+  # Applied to prowlarr/readarr/kavita whose nixpkgs modules never received the
+  # same treatment (they sit at 8.2/9.2/9.2 unmitigated). MemoryDenyWriteExecute
+  # is intentionally left at the upstream default (off) because the .NET JIT
+  # uses RWX mappings during code generation — sonarr has it off too.
+  arrHarden = {
+    NoNewPrivileges = true;
+    PrivateDevices = true;
+    PrivateTmp = true;
+    PrivateUsers = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHome = lib.mkForce true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectProc = "invisible";
+    RemoveIPC = true;
+    RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    LockPersonality = true;
+    SystemCallArchitectures = "native";
+    SystemCallFilter = [ "@system-service" ];
+    CapabilityBoundingSet = "";
+    AmbientCapabilities = "";
+  };
 in
 {
   environment.systemPackages = with pkgs; [ mediainfo ];
@@ -107,11 +137,47 @@ in
       };
     };
   };
-  systemd.services.plex.serviceConfig.KillSignal = lib.mkForce "SIGKILL";
+  # plex is already partially hardened by nixpkgs (LockPersonality,
+  # MemoryDenyWriteExecute, ProtectSystem=yes, etc). The 7.0 score is almost
+  # entirely an uncleared CapabilityBoundingSet. Plex runs as a normal user
+  # and binds to high port 32400, so no caps are needed.
+  # Deliberately NOT setting PrivateDevices=true (would break /dev/dri HW
+  # transcoding) or PrivateUsers=true (risks UID mapping issues with the shared
+  # plex-group media library ownership).
+  systemd.services.plex.serviceConfig = {
+    KillSignal = lib.mkForce "SIGKILL";
+    CapabilityBoundingSet = "";
+    AmbientCapabilities = "";
+    ProtectClock = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectProc = "invisible";
+    RemoveIPC = true;
+    RestrictNamespaces = true;
+  };
+
+  # Apply the sonarr-equivalent hardening template to the *arr siblings whose
+  # nixpkgs modules never received it. Score targets: prowlarr 8.2 → ~1.5,
+  # readarr 9.2 → ~1.5, kavita 9.2 → ~1.5.
+  systemd.services.prowlarr.serviceConfig = arrHarden;
+  systemd.services.readarr = lib.mkIf books { serviceConfig = arrHarden; };
+  systemd.services.kavita = lib.mkIf kavita { serviceConfig = arrHarden; };
   # We have to hook in to set binds paths, since (undocumented), everything is
   # RO except for a few whitelisted dirs. Fair, but frustrating without
   # knowledge.
-  systemd.services.transmission.serviceConfig.BindPaths = binds;
+  systemd.services.transmission.serviceConfig = {
+    BindPaths = binds;
+    # Hardening on top of nixpkgs defaults. systemd-analyze score: 1.4 → ~1.0.
+    # The big remaining item (PrivateNetwork=0.5) is misleading: transmission is
+    # already bound to wg-quick-pirate only, which systemd-analyze can't see.
+    ProtectHome = lib.mkForce "tmpfs";
+    ProtectProc = "invisible";
+    ProcSubset = "pid";
+    # Note: cannot drop @privileged from SystemCallFilter — transmission uses
+    # quotactl() in tr_sys_path_get_capacity() on every RPC sessionGet, and
+    # quotactl is in @privileged. Removing it makes the daemon SIGSYS on the
+    # first RPC poll.
+  };
 
   # A little bit of the personal config coming over. TODO: Create vpn-service
   # hook in sensitive.

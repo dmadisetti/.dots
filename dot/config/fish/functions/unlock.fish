@@ -8,9 +8,19 @@ function unlock
         return 1
     end
     pushd $DOTFILES
-    set -l listing ".nodes.root.inputs.\\\"$inputs\\\""
-    set -l input ".nodes.\\\"$inputs\\\""
-    set -l compressed \'(+ jq -- jq -c "\"del($input) | del($listing)\"" flake.lock)\'
-    test -f flake.lock && + jq -- echo "$compressed" \| jq >flake.lock
+    set -l listing .nodes.root.inputs.\"$inputs\"
+    set -l input .nodes.\"$inputs\"
+    set -l compressed (jq -c "del($input) | del($listing)" flake.lock)
+    if test -f flake.lock
+        if test $status -eq 0
+            if test -n "$compressed"
+                echo "$compressed" | jq > flake.lock
+            else
+                echo "Error: output is empty" 1>&2
+            end
+        else
+            echo "Error processing flake.lock with jq" 1>&2
+        end
+    end
     popd
 end

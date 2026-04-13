@@ -11,15 +11,19 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr>  <Esc>    denite#do_map('quit')
 endfunction
 
-"   let plugins = remote#host#PluginsForHost(a:host)
-"   for plugin in plugins
-"     if plugin.path == a:path " comparision should just be updated to check denite in the name
-"       throw 'Plugin "'.a:path.'" is already registered'
-"     endif
-"   endfor
-"   call remote#host#RegisterPlugin('python3', '~/.vim/plugged/denite.nvim/rplugin/python3/denite', [
+" let plugins = remote#host#PluginsForHost('python3')
+" let continue = 1
+" for plugin in plugins
+"   if plugin.path =~ 'denite' " comparison updated to check 'denite' in the name
+"     let continue = 0 " Skip registration if 'denite' is already registered
+"     break
+"   endif
+" endfor
+" if continue
+"   call remote#host#RegisterPlugin('python3', '/home/dylan/.vim/plugged/denite.nvim/rplugin/python3/denite', [
 "         \ {'sync': v:true, 'name': '_denite_init', 'type': 'function', 'opts': {'nargs': '*'}},
 "        \ ])
+" endif
 
 nnoremap <C-q> :Denite -buffer-name=citation-start-insert  -vertical-preview citation_collection<cr>
 inoremap <C-q> <C-c>:Denite -buffer-name=citation-start-insert  -vertical-preview citation_collection<cr>

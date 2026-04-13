@@ -85,7 +85,15 @@
         # System configuration for this host
         machineConfig
         ./common.nix
-
+      ]
+      # Secrets management — only activates if sensitive provides a secrets
+      # block (see nix/common/age.nix). Other machines without secrets in
+      # their sensitive branch are unaffected.
+      ++ (if sensitive.lib ? secrets then [
+        inputs.agenix.nixosModules.default
+        ./common/age.nix
+      ] else [ ])
+      ++ [
         # home-manager configuration
         home-manager.nixosModules.home-manager
         {

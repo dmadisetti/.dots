@@ -15,7 +15,7 @@ function add_language_packages
   else
     # For nix shell, format packages with nixpkgs# prefix
     echo --expr
-    echo "'with builtins.getFlake \"nixpkgs\"; with legacyPackages.x86_64-linux; \
+    echo "'with builtins.getFlake \"github:nixos/nixpkgs/6313551cd05425cd5b3e63fe47dbc324eabb15e4\"; with legacyPackages.x86_64-linux; \
       $ecosystem.withPackages (ps: with ps; [ $pkg_list ])'"
   end
 end

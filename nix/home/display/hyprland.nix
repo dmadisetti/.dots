@@ -34,7 +34,7 @@
 
     eww
     wl-clipboard
-    rofi-wayland
+    rofi
     grim
     # from overlay
     mpvpaper

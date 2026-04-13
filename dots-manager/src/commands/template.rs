@@ -15,7 +15,9 @@ use serde_json::json;
 
 use crate::parse::*;
 use crate::prompts::prompts;
+use crate::helpers::helper;
 use crate::utils::{maybe_write, merge};
+
 
 fn build_questions(
     defaults: JsonValue,
@@ -28,9 +30,19 @@ fn build_questions(
         if key == "enable" {
             continue;
         }
+        let is_block = key == "block";
         let key = format!("{}{}", prefix, key);
         if let Some(body) = maybe_body(&entry) {
-            if let Some(enable_node) = find_entry("enable", body.clone()) {
+            if is_block {
+                let block = body.node().text().to_string();
+                let block_template = format!("{}_template", key);
+                let mut reg = Handlebars::new();
+                reg.register_template_string(&block_template, block)?;
+                reg.register_helper("hook", Box::new(helper));
+                let mut context = defaults.clone();
+                merge(&mut context, data.clone());
+                data[&block_template] = json!(reformat_string(&reg.render(&block_template, &context)?));
+            } else if let Some(enable_node) = find_entry("enable", body.clone()) {
                 if let Some(enable_value) = rnix::types::Value::cast(enable_node) {
                     match enable_value.to_value() {
                         Ok(rnix::value::Value::Boolean(boolean)) => {
@@ -44,7 +56,9 @@ fn build_questions(
                                 Some(value) => value,
                                 None => {
                                     // Check to see if a prompt explicitly handles it
-                                    match prompts(key.clone(), &data) {
+                                    let mut context = defaults.clone();
+                                    merge(&mut context, data.clone());
+                                    match prompts(key.clone(), &context) {
                                         Some(x) => x == "true",
                                         // If not, prompt the user
                                         _ => matches!(
@@ -64,10 +78,11 @@ fn build_questions(
                             };
                             if maybe_enabled {
                                 let prefix = key.clone() + "_";
-                                let inner_default = match defaults.get(key.clone()) {
+                                let mut inner_default = match defaults.get(key.clone()) {
                                     Some(inner) => inner.clone(),
                                     None => json!({}),
                                 };
+                                merge(&mut inner_default, data.clone());
                                 data[key] = json!(true);
                                 for (key, value) in build_questions(inner_default, prefix, body)?
                                     .as_object()
@@ -90,8 +105,8 @@ fn build_questions(
         let maybe_json = match defaults.get(&key) {
             Some(x) => x.clone(),
             None => {
-                let mut context = data.clone();
-                merge(&mut context, defaults.clone());
+                let mut context = defaults.clone();
+                merge(&mut context, data.clone());
                 let tmp =
                     prompts(key.clone(), &context).ok_or(format!("Unmanaged entry: {}", &key))?;
                 json!(tmp)

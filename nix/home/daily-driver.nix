@@ -3,7 +3,6 @@
   imports = [ ];
 
   home.packages = with pkgs; [
-    jq # of course
     fd # pretty standard
     ripgrep # gotta go fast
 

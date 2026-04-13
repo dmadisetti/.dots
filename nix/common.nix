@@ -12,8 +12,10 @@
   nix = {
     package = pkgs.nixVersions.stable;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-derivations
-    '';
+      experimental-features = nix-command flakes ''
+    + (
+      if pkgs.config.contentAddressedByDefault then "" else " ca-derivations"
+    );
 
     # The default is 03:15 for when these run.
     gc.automatic = true;

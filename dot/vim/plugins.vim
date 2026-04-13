@@ -39,7 +39,7 @@ Plug 'AnotherGroupChat/citation.vim', {'branch': 'denite', 'for': ['tex', 'markd
 " Something weird with denite where UpdateRemotePlugins doesn't pick it up.
 " Note denite is also retired, but whatever for now.
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' } ",  'for': ['markdown', 'tex'] }
-Plug 'dmadisetti/paragraph-number.vim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'dmadisetti/paragraph-number.vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lervag/vimtex'
 
 " Zen

@@ -15,4 +15,9 @@ function phd --wraps='cd ~/phd'
   _home ~/phd $argv
 end
 
+function work
+  cd ~/phd/
+  nix run github:dmadisetti/AirLatex.vim
+end
+
 complete -f -c phd -a '(_complete ~/phd)'

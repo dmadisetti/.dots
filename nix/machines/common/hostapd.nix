@@ -2,6 +2,52 @@
 { dev, ssid }:
 { pkgs, sensitive, lib, config, self, ... }:
 
+let
+  # dnsmasq starts as root, binds to ports 53/67, then drops to the dnsmasq
+  # user. This shapes the hardening: we can't use PrivateUsers (would prevent
+  # CAP_NET_BIND_SERVICE on the host netns) and we have to keep a small cap
+  # set rather than clearing it entirely. Score target: 9.0 → ~1.5.
+  dnsmasqHarden = {
+    NoNewPrivileges = true;
+    PrivateDevices = true;
+    PrivateTmp = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectProc = "invisible";
+    RemoveIPC = true;
+    # AF_NETLINK for interface enumeration; AF_PACKET for ICMP probes that
+    # check DHCP lease availability before assigning.
+    RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" "AF_PACKET" ];
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    LockPersonality = true;
+    SystemCallArchitectures = "native";
+    SystemCallFilter = [ "@system-service" ];
+    CapabilityBoundingSet = [
+      "CAP_NET_BIND_SERVICE" # bind ports 53/67
+      "CAP_NET_ADMIN"        # SO_BINDTODEVICE, multicast group ops
+      "CAP_NET_RAW"          # ICMP probes for DHCP lease availability
+      "CAP_SETUID"           # drop root after bind
+      "CAP_SETGID"           # drop root after bind
+      "CAP_CHOWN"            # lease file ownership
+      "CAP_DAC_OVERRIDE"     # config and lease file access
+    ];
+  };
+
+  # hostapd is already heavily hardened upstream — the 4.4 score is almost
+  # entirely the uncleared cap bounding set. It only needs CAP_NET_ADMIN
+  # (interface config) and CAP_NET_RAW (802.11 mgmt frames). Same PrivateUsers
+  # caveat as dnsmasq. Score target: 4.4 → ~2.0.
+  hostapdHarden = {
+    CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+    AmbientCapabilities = "";
+  };
+in
 # So this isn't working.....
 # TODO: Investigate
 lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
@@ -70,7 +116,7 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
 
     dnsmasq = {
       enable = true;
-      extraConfig = sensitive.lib.dnsmasq or "";
+      settings.conf-file = "${sensitive.lib.dnsmasq}";
     };
 
     # Sometimes slow connection speeds are attributed to absence of haveged.
@@ -90,4 +136,7 @@ lib.mkIf (config.networking.interfaces ? "${dev.ap}") {
         ${tables} -P FORWARD ACCEPT
       '';
     };
+
+  systemd.services.dnsmasq.serviceConfig = dnsmasqHarden;
+  systemd.services.hostapd.serviceConfig = hostapdHarden;
 }

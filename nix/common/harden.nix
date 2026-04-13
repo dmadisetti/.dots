@@ -1,4 +1,21 @@
-{ config, user, sensitive, lib, ... }: {
+{ config, user, sensitive, lib, ... }:
+let
+  # fail2ban already has minimized caps upstream (cap_dac_read_search
+  # cap_net_admin cap_net_raw cap_audit_read). The 5.8 score is from missing
+  # the cheap boolean knobs. Not adding SystemCallFilter (Python uses many
+  # obscure syscalls) or PrivateUsers (would break iptables manipulation).
+  # Score target: 5.8 → ~2.5.
+  fail2banHarden = {
+    LockPersonality = true;
+    ProtectClock = true;
+    ProtectKernelLogs = true;
+    ProtectProc = "invisible";
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+  };
+in
+{
   networking.firewall.enable = true;
   security.sudo.execWheelOnly = true;
 
@@ -38,4 +55,6 @@
 
   security.pki.certificateFiles = (if (sensitive.lib ? "certificates") then
     (lib.catAttrs "cert" (lib.attrValues sensitive.lib.certificates)) else [ ]);
+
+  systemd.services.fail2ban.serviceConfig = fail2banHarden;
 }

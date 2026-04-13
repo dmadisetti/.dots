@@ -17,8 +17,25 @@
       dots = "{{dots}}";
 
       default_wm = "{{default_wm}}";
-      networking = /*Networking 📡📡📡{{#unless networking}}*/ { };
-      #{{else}}*/{{{networking}}};{{/unless}}
+      networking = /*Networking 📡📡📡{{#unless networking_block}}*/ {
+        enable = true;
+        interface = "{{networking_interface}}";
+        block = {
+          wireless = {
+            enable = true;
+            userControlled.enable = true;
+            interfaces = [ "{{networking_interface}}" ];
+            # Consider examining /run/wpa_supplicant/wpa_supplicant.conf
+            # if provisioning from a live image.
+            networks = {
+              "my_ssid" = {
+                "psk" = "my passphrase";
+              };
+            };
+          };
+        };
+      };
+      #{{else}}*/{{{networking_block}}};{{/unless}}
 
       sshd = {
         enable = /*Disabled for live images.{{#if sshd}}*/ true;
@@ -76,7 +93,7 @@
       #  █▄▄▄▄▄█ █ ▄ █▀▄▀ ▄ ▄▀█ █ ▀▄▀
       #
       getty = pkgs_rev: dots_rev: ''
-{{getty}}
+        {{getty}}
       '';
     };
   };

@@ -30,4 +30,5 @@ nix build --out-link $out \
   --extra-experimental-features flakes \
   --no-write-lock-file -j auto "$SELF#_live" || exit 1
 
+mv $(dirname $out)/live.iso $(dirname $out)/live.iso.bak 2> /dev/null
 cp $out/iso/*.iso $(dirname $out)/live.iso

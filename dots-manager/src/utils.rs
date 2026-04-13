@@ -18,6 +18,7 @@ pub fn maybe_write(outfile: Option<PathBuf>, attempt: String) -> Result<(), Box<
             let mut file = File::create(outfile)?;
             file.write_all(attempt.as_bytes())?;
         }
+        // stdout if no outfile
         None => println!("{}", attempt),
     };
 
@@ -33,6 +34,23 @@ pub fn merge(a: &mut Value, b: Value) {
             }
         }
         (a, b) => *a = b,
+    }
+}
+
+pub fn wireless_device() -> Result<String, Box<dyn Error>> {
+    let output = std::process::Command::new("ls")
+        .arg("/sys/class/net")
+        .output()
+        .expect("failed to execute process");
+    let devices : Vec<_> = std::str::from_utf8(&output.stdout)?
+        .split_whitespace()
+        .map(|s| s.to_string())
+        .filter(|s| s.starts_with("wlo"))
+        .collect();
+    if devices.len() == 0 {
+        Ok("wlp0s0".to_string())
+    } else {
+        Ok(devices[0].clone())
     }
 }
 

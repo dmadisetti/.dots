@@ -12,6 +12,7 @@ use handlebars::JsonValue;
 use requestty::{Answer, Choice, DefaultSeparator, OnEsc, Question};
 
 use crate::commands::template::apply_template;
+use crate::utils::wireless_device;
 
 pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
     match key.as_str() {
@@ -24,7 +25,11 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
         "hashed" => password("system password".to_string(), true),
         "keybase_paper" => paper(),
         "keybase_username" => user("Enter your keybase username (https://keybase.io/)".to_string()),
-        "networking" => networking(),
+        "networking" => Some("true".to_string()),
+        "networking_interface" => Some(wireless_device().unwrap()),
+        "networking_block" => nix_block(
+            "Specify network configuration".into(),
+            &context["networking_block_template"]),
         "pkgs" => pkgs(),
         "user" => user("Enter your username".to_string()),
         // context dependent
@@ -50,21 +55,44 @@ pub fn prompts(key: String, context: &JsonValue) -> Option<String> {
         "installation_category" => Some("machines".to_string()),
 
         // disko
+        "installation_disko_home" => choose_disk("Select a disk for home.".into(), context["installation_disko_available"].clone()),
+        "installation_disko_tmpfs" => number("Number of gigs for the tmpfs root (You can change or remove this later).".to_string()),
+        "installation_block" => {
+            if context["installation_disko"].clone().as_bool().unwrap_or(false) {
+                nix_block("Specify disko configuration".to_string(), &context["installation_block_template"])
+            } else {
+                Some("".to_string())
+            }
+        },
 
-
-        // zfs legacy
-        "installation_zfs_enabled" => {
-            if context["installation_disko_enabled"].as_bool().unwrap_or(false) {
-                Some("false".to_string())
+        // zfs legacy, still used for disko
+        "installation_zfs" => {
+            if context["installation_disko"].clone().as_bool().unwrap_or(false) {
+                Some("true".to_string())
             } else{
                 confirm("Install with legacy zfs?".to_string())
             }},
-        "installation_zfs_encrypted" => confirm("Encrypt partitions?".to_string()),
+        // TODO: add encryption to disko
+        "installation_zfs_encrypted" => {
+            if context["installation_disko"].clone().as_bool().unwrap_or(false) {
+                Some("false".to_string())
+            } else {
+                confirm("Encrypt partitions?".to_string())
+            }
+        },
         "installation_zfs_pool" => {
             user("What should we name your zfs pool? (e.g. zoot)".to_string())
         }
         "installation_zfs_disks" => select_disks(context["installation_zfs_available"].clone()),
-        "installation_zfs_bootable" => choose_disk(context["installation_zfs_available"].clone()),
+        "installation_zfs_bootable" => choose_disk("Select bootable disk.".into(), context["installation_zfs_available"].clone()),
+        "installation_zfs_cache" => {
+            // Never back ported to legacy zfs.
+            if context["installation_disko"].clone().as_bool().unwrap_or(false) {
+                choose_disk("Select a disk for cache.".into(), context["installation_zfs_available"].clone())
+            } else {
+                Some("".to_string())
+            }
+        },
         _ => None,
     }
 }
@@ -110,7 +138,10 @@ fn hex(prompt: String, length: u32) -> Option<String> {
 fn confirm(prompt: String) -> Option<String> {
     requestty::prompt_one(Question::confirm("confirm").message(prompt).build())
         .ok()
-        .and_then(|u| u.as_bool().map(|u| if u { "true" } else { "false" }.to_string()))
+        .and_then(|u| {
+            u.as_bool()
+                .map(|u| if u { "true" } else { "false" }.to_string())
+        })
 }
 
 fn password(prompt: String, hashed: bool) -> Option<String> {
@@ -202,26 +233,8 @@ fn default_wm() -> Option<String> {
     })
 }
 
-fn networking() -> Option<String> {
-    nix_block(
-        "Specify network configuration".into(),
-        r#"{
-    wireless = {
-        enable = true;
-        userControlled.enable = true;
-        interfaces = [ "wlp4s0" ];
-        networks = {
-            "my_ssid" = {
-                "psk" = "my passphrase";
-            };
-        };
-    };
-}"#
-        .into(),
-    )
-}
-
-fn nix_block(message: String, block: String) -> Option<String> {
+fn nix_block(message: String, block: &JsonValue) -> Option<String> {
+    let block = serde_json::from_str(&block.to_string()).unwrap_or("".to_string());
     requestty::prompt_one(
         Question::editor("block")
             .message(message)
@@ -275,10 +288,10 @@ fn select_disks(disks: serde_json::Value) -> Option<String> {
     })
 }
 
-fn choose_disk(disks: serde_json::Value) -> Option<String> {
+fn choose_disk(message: String, disks: serde_json::Value) -> Option<String> {
     requestty::prompt_one(
         Question::select("disks")
-            .message("Select bootable disk.")
+            .message(message)
             .choices(format_disk_strings(&disks))
             .build(),
     )

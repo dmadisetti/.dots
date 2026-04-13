@@ -18,7 +18,6 @@
     acpi # hardware states
     brightnessctl # Control background
     playerctl # Control audio
-    jq # parse json
 
     # rice
     betterlockscreen # ok lockscreen
@@ -29,7 +28,7 @@
     # nice
     maim # Screenshot
     rofi # quick start
-    clipcat # Clipboard
+    # clipcat # Clipboard
   ];
 
   home.file.".xinitrc".source = ../../../dot/xmonad/xinitrc;

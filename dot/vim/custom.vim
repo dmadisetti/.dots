@@ -72,7 +72,7 @@ function! Zen()
     :set cursorline
     :set number
     " TODO: Share this plugin with the world.
-    :ParagraphNumberToggle
+    " :ParagraphNumberToggle
   endif
   " AirLatex Keybinds
   if exists("g:AirLatexIsActive") && g:AirLatexIsActive

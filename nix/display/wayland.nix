@@ -1,7 +1,7 @@
 # Common Nix
 { ... }: {
   imports = [ ];
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -12,5 +12,6 @@
     jack.enable = true;
   };
   xdg.portal.wlr.enable = true;
+  xdg.portal.config.common.default = "*";
   services.dbus.enable = true;
 }

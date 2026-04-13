@@ -74,6 +74,9 @@ in
   isoImage.splashImage = config.boot.loader.grub.splashImage;
   isoImage.efiSplashImage = config.boot.loader.grub.splashImage;
 
+  # For disk creation
+  boot.supportedFilesystems = [ "zfs" "nilfs2" ];
+
   # Add Memtest86+ to the ISO.
   boot.loader.grub.memtest86.enable = true;
 

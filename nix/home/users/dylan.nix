@@ -23,7 +23,7 @@ in
     ../programs/nvim.nix
     (propagate ../programs/git.nix)
     (propagate ../programs/fish.nix)
-    (propagate ../programs/zotero.nix)
+    # (propagate ../programs/zotero.nix)
     (propagate ../programs/zoxidize.nix)
   ] ++ (
     propagateUnfree "spotify" ../programs/spotify.nix
@@ -43,5 +43,7 @@ in
     tmux
     # cool little extensions
     any-nix-shell
+
+    rsync
   ];
 }

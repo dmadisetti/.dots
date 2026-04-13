@@ -3,7 +3,7 @@
   imports = [ ];
   programs.git = {
     inherit (inputs.sensitive.lib.git) enable;
-    extraConfig = {
+    settings = {
       user = {
         inherit (inputs.sensitive.lib.git) name email;
         signingKey = inputs.sensitive.lib.git.signing.key;

@@ -20,11 +20,17 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "net.ipv4.ip_forward" = 1; };
 
+  /* {{#if installation_disko}}disko */
+  # Disko does tmpfs root by default, requiring this such that we aren't locked
+  # out.
+  users.mutableUsers = false;
+  #{{else}}*/{{/if}}
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   /* {{#if installation_zfs}}zfs */
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = [ "zfs" "nilfs2" ];
   boot.zfs.devNodes = "/dev/";
   services.zfs = {
     trim.enable = true;
