@@ -201,7 +201,7 @@
 
       rebuild = {
         enable = true;                                                                # agent proposes rebuild, dylan approves via Discord
-        repo = "dmadisetti/.dots";
+        repo = "claughd/config";
         env = "/run/agenix/github-token-env";                                         # GITHUB_TOKEN=... (dedicated secret, owned by agent group)
         overrides = [
           { name = "cowboy";    path = "github:dmadisetti/cowboy"; }
