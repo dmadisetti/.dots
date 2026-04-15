@@ -153,7 +153,8 @@ in
     ProtectKernelLogs = true;
     ProtectProc = "invisible";
     RemoveIPC = true;
-    RestrictNamespaces = true;
+    # RestrictNamespaces breaks Plex — it uses bubblewrap internally
+    # which needs user namespaces for sandboxing
   };
 
   # Apply the sonarr-equivalent hardening template to the *arr siblings whose

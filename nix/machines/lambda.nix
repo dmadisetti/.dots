@@ -180,6 +180,10 @@
       "sonarr.ave" = { secretPath = "/run/agenix/sonarr-key"; headerName = "X-Api-Key"; };
       "radarr.ave" = { secretPath = "/run/agenix/radarr-key"; headerName = "X-Api-Key"; };
     };
+    secretsProxy.allowedPostDomains = [
+      "home.https.ave"
+      "*.https.ave"
+    ];
 
     pubsub = {
       redisAcl.enable = true;                    # restricts agent's redis user to xread/xack/xadd on *:inbox/*:outbox; bridges (broker) still get full Redis

@@ -1,4 +1,5 @@
 { sensitive, inputs }: [
+  inputs.cowboy.overlays.default
   (self: super:
     let
       pref = "extensions.zotero.dataDir";
