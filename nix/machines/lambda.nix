@@ -178,10 +178,11 @@
     # Media stack API keys — proxy injects X-Api-Key header
     secretsProxy.domainMappings = {
       "sonarr.ave" = { secretPath = "/run/agenix/sonarr-key"; headerName = "X-Api-Key"; };
+      "sonarr.https.ave" = { secretPath = "/run/agenix/sonarr-key"; headerName = "X-Api-Key"; };
       "radarr.ave" = { secretPath = "/run/agenix/radarr-key"; headerName = "X-Api-Key"; };
+      "radarr.https.ave" = { secretPath = "/run/agenix/radarr-key"; headerName = "X-Api-Key"; };
     };
     secretsProxy.allowedPostDomains = [
-      "home.https.ave"
       "*.https.ave"
     ];
 
@@ -201,7 +202,7 @@
 
       rebuild = {
         enable = true;                                                                # agent proposes rebuild, dylan approves via Discord
-        repo = "dmadisetti/.dots";
+        repo = "claughd/config";
         env = "/run/agenix/github-token-env";                                         # GITHUB_TOKEN=... (dedicated secret, owned by agent group)
         overrides = [
           { name = "cowboy";    path = "github:dmadisetti/cowboy"; }
@@ -229,7 +230,7 @@
 
       skills.homeAssistant = {
         enable = true;
-        endpoint = "home.ave";
+        endpoint = "home.https.ave";
         tokenPath = "/run/agenix/ha-token";
       };
 
