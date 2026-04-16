@@ -189,6 +189,7 @@
       };
     };
     secretsProxy.allowedPostDomains = [
+      "api.robotomail.com"
       "*.https.ave"
     ];
 

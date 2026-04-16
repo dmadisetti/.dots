@@ -138,7 +138,7 @@
         "lastModified": 1775624441,
         "narHash": "sha256-IAO0cg7MMI640BSUKembGKxtNLMZQE2MWxBnrKUwwaQ=",
         "type": "git",
-        "url": "file:///home/dylan/src/cowboy"
+        "url": "file:///home/agent/workspace/cowboy"
       },
       "original": {
         "owner": "dmadisetti",
