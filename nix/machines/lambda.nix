@@ -64,6 +64,7 @@
             '';
           };
           "home.${tld}" = { port = "8123"; };
+          "matrix.${tld}" = { port = "8008"; };
         };
       })
       (import ./common/home-assistant.nix {
@@ -87,6 +88,7 @@
           pkgs.home-assistant-custom-lovelace-modules.mushroom
         ];
       })
+      (import ./common/matrix.nix { inherit config pkgs lib sensitive; })
 
       # AI Agent system (from cowboy flake) — see nix/machines/quanta.nix in
       # harness.nix for a fully-configured reference.

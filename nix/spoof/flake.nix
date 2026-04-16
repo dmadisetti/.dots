@@ -60,6 +60,14 @@
           key = "{{git_signing_key}}";
         };
       };
+
+      matrix = {
+        # Matrix Synapse homeserver configuration
+        enable = /*Enable Matrix server?{{#if matrix}}*/ true;
+        #{{else}}*/ false;{{/if}}
+        tld = /*{{#unless matrix_tld}}*/ "ave";
+        #{{else}}*/ "{{matrix_tld}}";{{/unless}}
+      };
       certificates = {
         #{{{certificates}}}
       };
