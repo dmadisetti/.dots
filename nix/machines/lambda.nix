@@ -173,6 +173,7 @@
   services.cowboy = {
     broker = user;                               # broker = dylan; owns proxy + bridges (accepted risk: dylan has docker/trusted-users)
     secretsProxy.enable = true;                  # CORE isolation: agent in cowboy-ns netns, all TCP DNATed to 10.200.0.1:8443, secrets injected in-flight
+    camoufox.enable = true;                      # anti-detection browser in nspawn container, per-agent port offset from UID
     # sheepdog.enable = true;                    # disabled — revisit after burn-in
 
     # Media stack API keys — proxy injects X-Api-Key header
@@ -181,6 +182,11 @@
       "sonarr.https.ave" = { secretPath = "/run/agenix/sonarr-key"; headerName = "X-Api-Key"; };
       "radarr.ave" = { secretPath = "/run/agenix/radarr-key"; headerName = "X-Api-Key"; };
       "radarr.https.ave" = { secretPath = "/run/agenix/radarr-key"; headerName = "X-Api-Key"; };
+      "api.agentmail.to" = {
+        secretPath = "/run/agenix/agentmail-key";
+        headerName = "Authorization";
+        headerTemplate = "Bearer {secret}";
+      };
     };
     secretsProxy.allowedPostDomains = [
       "*.https.ave"
