@@ -1,7 +1,7 @@
 # Machine level configuaration for lambda
 # See 'dots-help' or 'nixos-help'.
 
-{ config, pkgs, self, inputs, user, sensitive, ... }:
+{ config, pkgs, self, inputs, user, lib, sensitive, ... }:
 
 {
   imports =
@@ -201,6 +201,10 @@
       consult = {
         enable = true;                           # subagent tool; no secrets, runs as broker
         backend = "claude-code";
+        context = ''
+          ~/.dots on the consult side mirrors ~/configuration on the agent side for this machine.
+          The cowboy source is at ~/src/cowboy.
+        '';
       };
 
       discord = {
