@@ -1,7 +1,11 @@
 # Machine level configuaration for lambda
 # See 'dots-help' or 'nixos-help'.
 
+<<<<<<< HEAD
 { config, pkgs, self, inputs, user, lib, sensitive, ... }:
+=======
+{ config, pkgs, lib, self, inputs, user, sensitive, ... }:
+>>>>>>> 218335ca40264dbc3afaa0bd5a29f626c037a5e8
 
 {
   imports =
@@ -89,6 +93,7 @@
         ];
       })
       (import ./common/matrix.nix { inherit config pkgs lib sensitive; })
+      (import ../modules/mun.nix/module.nix { inherit config pkgs lib sensitive; })
 
       # AI Agent system (from cowboy flake) — see nix/machines/quanta.nix in
       # harness.nix for a fully-configured reference.
@@ -259,7 +264,24 @@
         "plex.service"
         "home-assistant.service"
       ];
+
+    # KSP + Twitch streaming stack (mun.nix)
+    ksp = {
+      enable = true;
+      gameDir = "/home/dylan/.steam/steam/steamapps/common/Kerbal Space Program";
+      
+      stream = {
+        enable = true;
+        # Stream key stored in agenix - user must add manually
+        twitchKeyFile = config.age.secrets.twitch-stream-key.path or "/run/agenix/twitch-stream-key";
+        encoder = "nvenc";  # NVIDIA GPU encoding
+        bitrate = "4500k";
+        fps = 30;
+      };
+
+      marimo.enable = true;
     };
+  };
 
     # No workspace — agent works from its own dotfiles clone, not /home/dylan/.dots.
     # Rebuild bridge pulls from GitHub directly.
