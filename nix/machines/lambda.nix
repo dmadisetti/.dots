@@ -256,27 +256,10 @@
         "prowlarr.service"
         "transmission.service"
         "plex.service"
+
         "home-assistant.service"
       ];
-
-    # KSP + Twitch streaming stack (mun.nix)
-    ksp = {
-      enable = true;
-      gameDir = "/home/dylan/.steam/steam/steamapps/common/Kerbal Space Program";
-      
-      stream = {
-        enable = true;
-        # Stream key stored in agenix - user must add manually
-        twitchKeyFile = config.age.secrets.twitch-stream-key.path or "/run/agenix/twitch-stream-key";
-        encoder = "nvenc";  # NVIDIA GPU encoding
-        bitrate = "4500k";
-        fps = 30;
-      };
-
-      marimo.enable = true;
-    };
   };
-
     # No workspace — agent works from its own dotfiles clone, not /home/dylan/.dots.
     # Rebuild bridge pulls from GitHub directly.
   };
