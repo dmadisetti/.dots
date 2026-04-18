@@ -141,6 +141,28 @@
   # lambda specific programs
   programs.singularity.enable = true;
 
+  # Steam gaming
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
+  # KSP + Twitch streaming stack via mun.nix
+  services.cowboy.ksp = {
+    enable = true;
+    gameDir = "/home/dylan/.steam/steam/steamapps/common/Kerbal Space Program";
+    stream = {
+      enable = true;
+      twitchKeyFile = "/run/agenix/twitch-stream-key";
+      encoder = "nvenc";
+      bitrate = "4500k";
+      fps = 30;
+    };
+    marimo.enable = true;
+  };
+
   /* zfs */
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/";
@@ -258,6 +280,8 @@
         "plex.service"
 
         "home-assistant.service"
+        "steam.service"
+        "obs.service"
       ];
   };
     # No workspace — agent works from its own dotfiles clone, not /home/dylan/.dots.
