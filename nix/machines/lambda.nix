@@ -1,11 +1,7 @@
 # Machine level configuaration for lambda
 # See 'dots-help' or 'nixos-help'.
 
-<<<<<<< HEAD
-{ config, pkgs, self, inputs, user, lib, sensitive, ... }:
-=======
 { config, pkgs, lib, self, inputs, user, sensitive, ... }:
->>>>>>> 218335ca40264dbc3afaa0bd5a29f626c037a5e8
 
 {
   imports =
@@ -198,6 +194,8 @@
     secretsProxy.allowedPostDomains = [
       "api.robotomail.com"
       "*.https.ave"
+      "id.twitch.tv"
+      "api.twitch.tv"
     ];
 
     pubsub = {
@@ -206,10 +204,6 @@
       consult = {
         enable = true;                           # subagent tool; no secrets, runs as broker
         backend = "claude-code";
-        context = ''
-          ~/.dots on the consult side mirrors ~/configuration on the agent side for this machine.
-          The cowboy source is at ~/src/cowboy.
-        '';
       };
 
       discord = {
@@ -287,3 +281,4 @@
     # Rebuild bridge pulls from GitHub directly.
   };
 }
+# Rebuild bump: 2026-04-18T02:07:46-04:00
