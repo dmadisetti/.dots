@@ -10,7 +10,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    hash = "sha256-lbRRKggMktRaG2Drue/5KQxSY6Gf8avbNR4S/7UfthU=";
+    hash = "sha256-5VId3zmLPoBVPv2lhn5m7hnGDKqcOeyp5/FHXLQXlmI=";
   };
 
   propagatedBuildInputs = with python3Packages; [
