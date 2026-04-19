@@ -48,17 +48,17 @@ in
         RemainAfterExit = true;
         ExecStart = pkgs.writeShellScript "${n}-ksp-setup" ''
           set -e
-          mkdir -p /tmp/ksp
+          mkdir -p "/tmp/Kerbal Space Program"
           # Create bind mount from gameDir to /tmp/ksp if not already mounted
-          if ! mountpoint -q /tmp/ksp; then
-            mount --bind "${cfg.gameDir}" /tmp/ksp
+          if ! mountpoint -q "/tmp/Kerbal Space Program"; then
+            mount --bind "${cfg.gameDir}" "/tmp/Kerbal Space Program"
           fi
         '';
         ExecStop = pkgs.writeShellScript "${n}-ksp-cleanup" ''
-          if mountpoint -q /tmp/ksp; then
-            umount /tmp/ksp || true
+          if mountpoint -q "/tmp/Kerbal Space Program"; then
+            umount "/tmp/Kerbal Space Program" || true
           fi
-          rm -rf /tmp/ksp
+          rm -rf "/tmp/Kerbal Space Program"
         '';
       };
     };
@@ -75,8 +75,8 @@ in
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "/tmp/ksp/${cfg.binary}";
-        WorkingDirectory = "/tmp/ksp";
+        ExecStart = "/tmp/Kerbal Space Program/${cfg.binary}";
+        WorkingDirectory = "/tmp/Kerbal Space Program";
         Restart = "on-failure";
         RestartSec = 10;
         TimeoutStartSec = 120;
