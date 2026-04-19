@@ -28,6 +28,5 @@
 
     # Performance monitoring for overlays
     lm_sensors
-    psensor
   ];
 }
