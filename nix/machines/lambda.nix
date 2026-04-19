@@ -149,19 +149,19 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # KSP + Twitch streaming stack via mun.nix
-  services.cowboy.ksp = {
-    enable = true;
-    gameDir = "/home/dylan/.steam/steam/steamapps/common/Kerbal Space Program";
-    stream = {
-      enable = true;
-      twitchKeyFile = "/run/agenix/twitch-stream-key";
-      encoder = "nvenc";
-      bitrate = "4500k";
-      fps = 30;
-    };
-    marimo.enable = true;
-  };
+  # KSP + Twitch streaming stack via mun.nix (disabled: broken mission_control.py path)
+  # services.cowboy.ksp = {
+  #   enable = true;
+  #   gameDir = "/home/dylan/.steam/steam/steamapps/common/Kerbal Space Program";
+  #   stream = {
+  #     enable = true;
+  #     twitchKeyFile = "/run/agenix/twitch-stream-key";
+  #     encoder = "nvenc";
+  #     bitrate = "4500k";
+  #     fps = 30;
+  #   };
+  #   marimo.enable = true;
+  # };
 
   /* zfs */
   boot.supportedFilesystems = [ "zfs" ];
