@@ -6,14 +6,7 @@
     inputs.cowboy.homeModules.agent
   ];
 
-  services.cowboy = {
-    enable = true;
-    agent = {
-      enable = true;
-      defaultSkills = true;
-    };
-  };
-
+  # home-manager options only - services.cowboy is set in nixos config
   home.homeDirectory = "/home/agent";
 
   home.packages = with pkgs; [
