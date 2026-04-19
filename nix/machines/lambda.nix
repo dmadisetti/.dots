@@ -285,6 +285,8 @@
         "cowboy-ksp-marimo.service"
         "cowboy-ksp-stream.service"
         "cowboy-ksp.service"
+        "cowboy-ksp-setup.service"
+        "cowboy-ksp-xvfb.service"
       ];
   };
     # No workspace — agent works from its own dotfiles clone, not /home/dylan/.dots.

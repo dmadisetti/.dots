@@ -37,11 +37,36 @@ in
       };
     };
 
+    # Setup: bind mount KSP to /tmp for faster I/O
+    systemd.services."${n}-ksp-setup" = {
+      description = "Setup KSP in /tmp";
+      after = [ "${n}-ksp-ckan.service" ];
+      wants = [ "${n}-ksp-ckan.service" ];
+      before = [ "${n}-ksp.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = pkgs.writeShellScript "${n}-ksp-setup" ''
+          set -e
+          mkdir -p /tmp/ksp
+          # Create bind mount from gameDir to /tmp/ksp if not already mounted
+          if ! mountpoint -q /tmp/ksp; then
+            mount --bind "${cfg.gameDir}" /tmp/ksp
+          fi
+        '';
+        ExecStop = pkgs.writeShellScript "${n}-ksp-cleanup" ''
+          if mountpoint -q /tmp/ksp; then
+            umount /tmp/ksp || true
+          fi
+          rm -rf /tmp/ksp
+        '';
+      };
+    };
     # KSP game process
     systemd.services."${n}-ksp" = {
       description = "Kerbal Space Program (headless, kRPC enabled)";
-      after = [ "${n}-ksp-xvfb.service" "${n}-ksp-ckan.service" ];
-      requires = [ "${n}-ksp-xvfb.service" ];
+      after = [ "${n}-ksp-xvfb.service" "${n}-ksp-ckan.service" "${n}-ksp-setup.service" ];
+      requires = [ "${n}-ksp-xvfb.service" "${n}-ksp-setup.service" ];
       wants = [ "${n}-ksp-ckan.service" ];
       partOf = [ "${n}.target" ];
       wantedBy = [ "${n}.target" ];
@@ -50,8 +75,8 @@ in
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.gameDir}/${cfg.binary}";
-        WorkingDirectory = cfg.gameDir;
+        ExecStart = "/tmp/ksp/${cfg.binary}";
+        WorkingDirectory = "/tmp/ksp";
         Restart = "on-failure";
         RestartSec = 10;
         TimeoutStartSec = 120;
