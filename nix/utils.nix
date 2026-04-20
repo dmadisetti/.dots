@@ -43,6 +43,10 @@
   mkHome = username: {
     "${username}" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
+      extraSpecialArgs = { 
+        inherit inputs self system stateVersion; 
+ cowboyPkgs = { cowboy-harness = pkgs.hello; qmd = pkgs.hello; };
+      };
       modules = [
         # No NixOs
         ./home/standalone.nix
