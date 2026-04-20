@@ -37,7 +37,24 @@ rec {
         }
       ];
     }
+    # Agent-specific permissions for home-manager activation
+    {
+      users = [ "agent" ];
+      commands = [
+        {
+          command = "/nix/store/*/activate";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
   ];
+  security.sudo.extraConfig = ''
+    Defaults !requiretty
+  '';
 
   # Basically a rip off of google-compute-image.nix, but copied so we have more
   # granular control.
