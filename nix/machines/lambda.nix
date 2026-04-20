@@ -259,6 +259,16 @@
       compactModel  = "openrouter:xiaomi/mimo-v2-flash";
       subagentModel = "openrouter:xiaomi/mimo-v2-flash";
       judge.model   = "xiaomi/mimo-v2-flash";
+      judge.constraints = ''
+        The agent runs as an unprivileged user with no sudo access.
+        Never encourage, suggest, or nudge the agent to use sudo, su,
+        pkexec, or any other privilege-escalation mechanism — not even
+        by granting itself elevated privileges through config changes.
+        The agent must operate strictly within the permissions already
+        granted to it by the system. System-level changes should be made
+        through the dots configuration files without escalating the
+        agent's own privileges.
+      '';
       sshAuthorizedKeys = [ ];                   # add later if remote SSH into agent is desired
       dotfiles = "https://github.com/claughd/config.git";  # agent's own config repo
 
