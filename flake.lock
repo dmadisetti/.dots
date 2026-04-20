@@ -133,12 +133,12 @@
         "systems": "systems_3"
       },
       "locked": {
-        "dirtyRev": "6ab9512746d493073da46236d191a9398cc53f7a-dirty",
-        "dirtyShortRev": "6ab9512-dirty",
         "lastModified": 1775624441,
         "narHash": "sha256-IAO0cg7MMI640BSUKembGKxtNLMZQE2MWxBnrKUwwaQ=",
-        "type": "git",
-        "url": "file:///home/agent/workspace/cowboy"
+        "owner": "dmadisetti",
+        "repo": "cowboy",
+        "rev": "16ba0f21ff3273bc60cd8bbbb8fa288e7a58f2ef",
+        "type": "github"
       },
       "original": {
         "owner": "dmadisetti",
