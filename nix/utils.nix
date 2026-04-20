@@ -48,10 +48,7 @@
         ./home/standalone.nix
 
         # Specify the path to your home configuration here
-        (import (maybeUserConfig username)
-          {
-            inherit inputs system pkgs self stateVersion;
-          })
+        (maybeUserConfig username)
 
         # Set home directory
         {
